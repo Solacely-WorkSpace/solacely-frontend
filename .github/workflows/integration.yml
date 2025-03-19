@@ -1,0 +1,25 @@
+name: Next.js CI/CD
+
+on:
+  push:
+    branches:
+      - core # Trigger when document is pushed to the core
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Nodejs
+        uses: actions/node-setup@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependacies
+        run: npm install
+
+      - name: Build Nextjs app
+        run: npm run build
