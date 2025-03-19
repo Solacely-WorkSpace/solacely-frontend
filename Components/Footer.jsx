@@ -51,7 +51,7 @@ const Footer = () => {
 
       <div className=" text-white font-sans flex gap-2 justify-evenly mt-1.5 lg:mt-0 items-center">
         <article className=" mt-2.5 flex flex-col gap-3.5 text-xs ">
-          <h3 className=" font-semibold text-sm"> solacely </h3>
+          <h3 className=" font-semibold text-sm"> Solacely </h3>
           <Link href="#"> About Us </Link>
           <Link href="#"> Our Partner </Link>
           <Link href="#"> Contact Us </Link>
