@@ -17,14 +17,16 @@ const Footer = () => {
             Solacely
           </p>
           <p className=" text-slate-300 text-xs  font-light w-full lg:w-1/2 ">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate
-            alias quia architecto nemo numquam, itaque nesciunt unde sapiente
-            eveniet omnis quam vero! Cumque dignissimos nesciunt incidunt
-            beatae! Ex, itaque totam.
+            Our vision is to have everyone have an affordable place to call
+            home. We are passionate about creating an accessible and transparent
+            ecosystem that allows home seekers a way to explore real estate
+            options, manage their rent payments, and build equity in their
+            homes.
           </p>
         </article>
         <article>
-          <p className=" text-white mt-4 font-semibold ">Download our app</p>
+          <p className=" text-white mt-4 font-semibold "> Coming Soon</p>
+
           <div className=" flex gap-4">
             <button className=" download">
               <Image
@@ -51,7 +53,7 @@ const Footer = () => {
 
       <div className=" text-white font-sans flex gap-2 justify-evenly mt-1.5 lg:mt-0 items-center">
         <article className=" mt-2.5 flex flex-col gap-3.5 text-xs ">
-          <h3 className=" font-semibold text-sm">Company</h3>
+          <h3 className=" font-semibold text-sm"> Solacely </h3>
           <Link href="#"> About Us </Link>
           <Link href="#"> Our Partner </Link>
           <Link href="#"> Contact Us </Link>
