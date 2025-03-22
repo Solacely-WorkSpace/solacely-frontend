@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { Link } from "next/link";
 
 const Cta = () => {
   return (
@@ -65,7 +66,7 @@ const Cta = () => {
           <br />
           Easy and Free
         </p>
-        <button className=" z-50">Get Started</button>
+        <button>Get Started</button>
       </div>
     </section>
   );

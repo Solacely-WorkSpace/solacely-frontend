@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Dropdown from "./Dropdown";
 import {
   Sheet,
@@ -34,7 +35,9 @@ const MobileNav = () => {
         </ul>
 
         <SheetFooter>
-          <button>Get Started</button>
+          <Link href="/sign-up">
+            <button>Get Started</button>
+          </Link>
         </SheetFooter>
       </SheetContent>
     </Sheet>

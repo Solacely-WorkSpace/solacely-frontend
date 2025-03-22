@@ -1,8 +1,11 @@
+import Auth from '@/Components/Auth'
 import React from 'react'
 
 const SingIn = () => {
   return (
-    <div>SingIn</div>
+    <section className=' flex justify-center items-center py-10'>
+      <Auth type='sign-in' />
+    </section>
   )
 }
 

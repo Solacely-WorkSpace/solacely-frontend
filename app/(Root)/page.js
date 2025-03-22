@@ -9,7 +9,7 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <section className=' md:px-40'>
+    <section>
       <AiPopuop/>
 
       <Hero />

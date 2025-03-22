@@ -7,11 +7,11 @@ const Offer = () => {
   const isMobile = useIsMobile();
   return (
     <section className=" bg-slate-100 p-2 lg:p-10 my-6 lg:grid lg:grid-cols-3 gap-1.5">
-      <figure className=" w-1/2 shrink-0 mt-auto hidden lg:block lg:col-span-2 ">
+      <figure className=" w-1/2 mt-auto hidden lg:block lg:col-span-2 ">
         <Image
           src="/icons/home 1.svg"
-          width={200}
-          height={200}
+          width={400}
+          height={400}
           alt="3d design"
         />
       </figure>

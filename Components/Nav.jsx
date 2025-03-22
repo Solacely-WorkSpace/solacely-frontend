@@ -31,7 +31,9 @@ const Nav = () => {
           </ul>
         </section>
       )}
-      <button className=" h-11 hidden md:block ml-auto">Get Started</button>
+      <Link href="/sign-up" className=" hidden md:block">
+        <button className=" h-11 hidden md:block ml-auto">Get Started</button>
+      </Link>
     </nav>
   );
 };

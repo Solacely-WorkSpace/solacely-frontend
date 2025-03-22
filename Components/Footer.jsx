@@ -24,7 +24,7 @@ const Footer = () => {
           </p>
         </article>
         <article>
-          <p className=" text-white mt-4 font-semibold ">Dowload our app</p>
+          <p className=" text-white mt-4 font-semibold ">Download our app</p>
           <div className=" flex gap-4">
             <button className=" download">
               <Image
