@@ -177,7 +177,7 @@
 }
 
 .form-container {
-  @apply  flex min-w-1/2 max-w-[512px];
+  @apply  flex ;
 }
 
 .left-side {

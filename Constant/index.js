@@ -72,8 +72,40 @@ const whatWeOffer = [
 ]
 
 
+const slideInLeft = {
+    hidden: {opacity: 0, x: -200},
+    visible: {opacity: 1, x: 0, transition: { duration: 1}}
+}
+
+const  fadeIn = {
+    hidden: {opacity: 0, scale: 0.6},
+    visible: {opacity: 1, scale: 1, transition: {duration: 1}}
+}
+
+
+const slideInRight = {
+    hidden: { opacity: 0, x: 200},
+    visible: {opacity: 1, x: 0, transition: {duration: 1}}
+}
+
+const enterFrame = {
+    hidden: {opacity: 0, y: '-100vw'},
+    visible: {opacity: 1, y: 0, transition: {type: 'spring', stiffness: 125, staggerChildren: 0.3}}
+}
+
+const btn = {
+    hover: {scale: 1.1},
+    tap: {scale: 0.9}
+}
+
+
 export {
     Testimonial,
-    whatWeOffer
+    whatWeOffer,
+    fadeIn,
+    enterFrame,
+    slideInLeft,
+    slideInRight,
+    btn
 
 }
