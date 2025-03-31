@@ -72,6 +72,42 @@ const whatWeOffer = [
 ]
 
 
+
+const tour = [
+    {
+
+        label: "Apartment",
+        header: " Explore Apartments from anywhere you are through our Lens",
+        desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
+        src: "/images/living1.jpg",
+    },
+
+    {
+      
+        label: "Co-Living Space",
+        header: " Explore Apartments from anywhere you are through our Lens",
+        desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
+        src: "/images/living1.jpg",
+    },
+
+    {
+      
+        label: "Pair With Me",
+        header: " Explore Apartments from anywhere you are through our Lens",
+        desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
+        src: "/images/living1.jpg",
+    },
+
+    {
+        
+        label: " Real Estate",
+        header: " Explore Apartments from anywhere you are through our Lens",
+        desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
+        src: "/images/living1.jpg",
+    },
+]
+
+
 const slideInLeft = {
     hidden: {opacity: 0, x: -200},
     visible: {opacity: 1, x: 0, transition: { duration: 1}}
@@ -106,6 +142,7 @@ export {
     enterFrame,
     slideInLeft,
     slideInRight,
-    btn
+    btn,
+    tour
 
 }

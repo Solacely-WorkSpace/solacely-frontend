@@ -9,7 +9,7 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <section>
+    <section className=' overflow-hidden'>
       <AiPopuop/>
 
       <Hero />

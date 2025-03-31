@@ -1,129 +1,113 @@
 import Image from "next/image";
 import Link from "next/link";
-import AnimatedComponents from "../Animations/AnimatedComponents";
-import { btn, fadeIn } from "@/Constant";
-import AnimateBtn from "@/Animations/AnimateBtn";
 
 const Hero = () => {
   return (
-    <AnimatedComponents animationVariants={fadeIn}>
-      <section className=" container mx-auto py-12 flex flex-wrap-reverse justify-between items-center">
-        <article className=" px-4 md:w-1/2 md:ml-5">
-          <h2 className=" text-3xl font-bold ">
-            Find Your Perfect Home With AI-Powered Recommendations.
-          </h2>
-          <p className=" text-sm md:text-lg py-4">
-            Live faster, fresher, and freer. Solacely helps you find your home
-            with a simple walkthrough within minutes.
-          </p>
+    <section className=" px-4  max-w-[90%] mx-auto">
+      <div className="flex flex-wrap-reverse justify-center items-center gap-10 mt-10 ">
+        <article className=" w-full md:w-1/2">
+          <div className="  px-2 font-rob">
+            <h2 className=" text-4xl font-bold md:leading-16">
+              Find Your Perfect Home With AI-Powered Recommendations.
+            </h2>
+            <p className=" text-sm md:text-lg leading-6 mt-6 max-w-96 ">
+              Live faster, fresher, and freer. Solacely helps you find your home
+              with a simple walkthrough within minutes.
+            </p>
 
-          <div className=" flex flex-wrap items-center gap-8 py-4">
-            <AnimateBtn animate={btn} style=" w-fit">
-              <Link href="/sign-up">Get Started</Link>
-            </AnimateBtn>
+            <div className=" flex justify-between md:flex-col gap-8 py-4 mt-6 items-center md:items-start">
+              <Link
+                href="/sign-up"
+                className=" px-8 py-4 shadow-xl shadow-gray-400 text-white bg-primary rounded-sm"
+              >
+                Get Started
+              </Link>
 
-            <article>
-              <h5 className=" font-mont text-sm mb-1.5">Our Partners</h5>
-              <figure className=" flex gap-2">
-                <Image
-                  src="/icons/meta.svg"
-                  width={20}
-                  height={20}
-                  alt="meta"
-                />
-
-                <Image
-                  src="/icons/crypto.svg"
-                  width={20}
-                  height={20}
-                  alt="crypto"
-                />
-
-                <Image
-                  src="/icons/codepen.svg"
-                  width={20}
-                  height={20}
-                  alt="codepen"
-                />
-
-                <Image
-                  src="/icons/mt.svg"
-                  width={20}
-                  height={20}
-                  alt="microsoft"
-                />
-              </figure>
-            </article>
+              <article>
+                <h5 className=" font-semibold font-rob text-sub text-sm tracking-tight md:w-1/2xt-sm mb-1.5">
+                  OUR ESTEEM PARTNER
+                </h5>
+                <figure className=" flex items-center">
+                  <Image
+                    src="/icons/meta.svg"
+                    width={30}
+                    height={30}
+                    alt="meta"
+                  />
+                  <span className=" text-md text-black font-bold ml-2">
+                    Meta
+                  </span>
+                </figure>
+              </article>
+            </div>
           </div>
         </article>
-        <figure className=" mx-auto md:mr-16 py-2.5">
-          <div className=" flex justify-between items-center">
-            <figure className=" -ml-10">
-              <p className=" font-cav font-bold text-md text-txt">
+        <div className=" ">
+          <div className=" flex justify-between ">
+            <figure className=" -ml-16">
+              <p className=" font-cav font-bold text-2xl text-txt">
                 Smart
                 <br />
                 Renting
               </p>
               <Image
                 src="/icons/top-left.svg"
-                width={40}
-                height={40}
+                width={80}
+                height={80}
                 alt="arrow"
               />
             </figure>
-            <figure className=" -mr-10">
-              <p className=" font-cav font-bold text-md text-txt">
-                {" "}
+            <figure className=" -mr-14">
+              <p className=" font-cav font-bold text-2xl text-txt">
                 Value
                 <br />
                 For You
               </p>
               <Image
                 src="/icons/top-right.svg"
-                width={40}
-                height={40}
+                width={80}
+                height={80}
                 alt="arrow"
               />
             </figure>
           </div>
-          <figure className=" shadow-md rounded-2xl">
+          <figure>
             <Image
               src="/images/hero.png"
-              width={350}
-              height={350}
+              width={300}
+              height={300}
               alt="hero-image"
-              className=" max-w-fit"
+              className=" object-contain"
             />
           </figure>
-          <div className=" flex justify-between items-center">
-            <figure className=" -ml-10">
+          <div className="flex ">
+            <figure className=" -ml-16">
               <Image
                 src="/icons/bottom-left.svg"
-                width={40}
-                height={40}
+                width={80}
+                height={80}
                 alt="arrow"
               />
-              <p className=" text-txt text-md font-cav font-bold">
-                {" "}
-                Secure Savings{" "}
+              <p className=" text-txt text-2xl font-cav font-bold">
+                Secure <br />
+                Savings
               </p>
             </figure>
-            <figure className=" -mr-14">
+            <figure className=" ml-auto -mr-25 ">
               <Image
                 src="/icons/bottom-right.svg"
-                width={40}
-                height={40}
+                width={80}
+                height={80}
                 alt="arrow"
               />
-              <p className=" font-cav font-bold text-md text-txt">
-                {" "}
-                Seamless <br /> Management{" "}
+              <p className=" font-cav font-bold text-2xl text-txt">
+                Seamless <br /> Management
               </p>
             </figure>
           </div>
-        </figure>
-      </section>
-    </AnimatedComponents>
+        </div>
+      </div>
+    </section>
   );
 };
 

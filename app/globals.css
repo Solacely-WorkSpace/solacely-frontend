@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap');
 @import "tailwindcss";
 
 
@@ -48,6 +48,10 @@
   --color-primary: #521282;
   --color-txt: #195444;
   --font-mont: Montserrat, 'sans-serif'; 
+  --color-sub: #9EA0AB;
+  --color-tertially: #3DC5A1;
+  --font-rob: "Roboto", sans-serif;
+  --color-light: #F8F7FE;
 
   
 }
@@ -87,7 +91,8 @@
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0)
+  --sidebar-ring: oklch(0.556 0 0);
+  
 }
 
 
@@ -129,7 +134,10 @@
   --color-primary: #521282;
   --color-txt: #195444;
   --font-mont: Montserrat, 'sans-serif';
-  
+  --color-sub: #9EA0AB;
+  --color-tertially: #3DC5A1;
+  --font-rob: "Roboto", sans-serif;
+  --color-light: #F8F7FE;  
 }
 
 @layer base {
@@ -142,12 +150,12 @@
   }
 
   button {
-    @apply bg-primary font-semibold font-sans text-sm text-white rounded-md p-3;
+    @apply bg-primary font-semibold font-sans text-sm text-white rounded-sm px-8 py-3 shadow-md shadow-primary h-fit;
   }
 }
 
   
-
+/* Buttons Design */
 
 
 .download {
@@ -155,26 +163,22 @@
 }
 
 .ftIcon {
-  @apply bg-white rounded-full p-1;
+  @apply bg-white rounded-full p-2.5;
 }
 
 .adIcon {
-  @apply bg-green-500 h-11 flex gap-1.5 my-2.5 ;
+  @apply bg-tertially flex gap-1.5 my-2.5 rounded-2xl px-8 py-4 shadow-none;
 }
+
+/* Button Designs End */
 
 .adParagraph {
-  @apply flex flex-col gap-0.5;
+  @apply flex flex-col gap-2.5 text-lg font-rob font-semibold mt-2;
 }
 
 
 
-.testimonial {
-  @apply rounded-md bg-slate-100 p-2.5;
-}
 
-.slick-slide  {
- padding: 10px;
-}
 
 .form-container {
   @apply  flex ;

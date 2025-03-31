@@ -1,47 +1,39 @@
 "use client";
 import Dropdown from "./Dropdown";
 import Image from "next/image";
-import useIsMobile from "@/Constant/useIsMobile";
 import MobileNav from "./MobileNav";
 import Link from "next/link";
 
-import { btn, enterFrame } from "@/Constant";
-import AnimateNav from "@/Animations/AnimateNav";
-import AnimateBtn from "@/Animations/AnimateBtn";
-
 const Nav = () => {
-  const isMobile = useIsMobile();
   return (
-    <AnimateNav animation={enterFrame}>
-      <nav className=" flex justify-between px-4 md:px-20 py-2">
-        <article className=" flex gap-1 justify-center items-center">
-          <Image src="./icons/logo.svg" width={25} height={25} alt="logo" />
-          <span className=" font-bold font-sans text-lg text-[#420F69]">
-            Solacely
-          </span>
-        </article>
+    <nav className=" fixed w-full shadow-md z-50 bg-white top-0 flex justify-between px-4 py-2">
+      <article className=" flex gap-1.5 items-center">
+        <Image src="./icons/logo.svg" width={30} height={30} alt="logo" />
+        <span className=" font-extrabold font-sans text-xl text-[#420F69]">
+          Solacely
+        </span>
+      </article>
+      <section className=" hidden md:block">
+        <ul className=" flex items-center gap-2">
+          <Dropdown />
+          <li className=" font-medium text-sm ">
+            <Link href="#" className="font-bold">
+              Become a Partner
+            </Link>
+          </li>
+        </ul>
+      </section>
+      <div>
+        <MobileNav />
 
-        {isMobile ? (
-          <MobileNav />
-        ) : (
-          <section className=" ml-auto mr-20">
-            <ul className=" flex justify-center items-center gap-1.5">
-              <Dropdown />
-              <li className=" font-medium text-sm ">
-                <button className=" bg-transparent text-purple-950 cursor-pointer hover:opacity-85">
-                  Become a Partner
-                </button>
-              </li>
-            </ul>
-          </section>
-        )}
-        <AnimateBtn animate={btn} style=" h-11 hidden md:block ml-auto">
-          <Link href="/sign-up" className=" hidden md:block">
-            Get Started
-          </Link>
-        </AnimateBtn>
-      </nav>
-    </AnimateNav>
+        <Link
+          href="/sign-up"
+          className=" bg-primary py-3 px-6 rounded-sm shadow-md shadow-primary hidden md:block text-white font-bold"
+        >
+          Get Started
+        </Link>
+      </div>
+    </nav>
   );
 };
 

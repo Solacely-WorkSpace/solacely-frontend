@@ -1,77 +1,110 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
-import AnimatedComponents from "@/Animations/AnimatedComponents";
-import { slideInLeft } from "@/Constant";
+import { tour } from "@/Constant";
 
 const Tour = () => {
+  const [isActive, setIsActive] = useState(1);
+
   return (
-    <AnimatedComponents animationVariants={slideInLeft}>
-      <section>
-        <article className=" text-center mb-20">
-          <h5 className=" text-sm font-light">Our Unique Homes</h5>
-          <h1 className=" font-bold text-2xl">
-            Tour Homes and Surroundings Differently
-          </h1>
-        </article>
+    <section className=" px-4 mt-16 w-full">
+      <article className=" text-center mb-10 leading-20">
+        <h5 className=" text-lg text-sub font-rob ">Our Unique Spaces</h5>
+        <h1 className=" w-full font-extrabold font-mont text-4xl tracking-wide">
+          Tour Homes and Surroundings Differently
+        </h1>
+      </article>
 
-        <section className=" bg-slate-200 p-10 rounded-2xl">
-          <article className=" flex flex-wrap gap-8 items-center justify-centern lg:justify-baseline">
-            <span className=" bg-purple-950 p-3 rounded-md text-white text-sm font-semibold">
-              Apartment
-            </span>
-            <span className=" p-3 text-sm text-slate-400 ">Pair With Me</span>
-            <span className=" p-3 text-sm text-slate-400 relative">
-              <Image
-                src="/icons/soon.svg"
-                width={35}
-                height={35}
-                alt="coming soon"
-                className=" absolute top-0 right-1.5"
-              />
-              Co-living Space
-            </span>
-            <span className="  p-3 text-xs lg:text-sm text-slate-400 relative">
-              <Image
-                src="/icons/soon.svg"
-                width={35}
-                height={35}
-                alt="coming soon"
-                className=" absolute top-0 right-1.5"
-              />
-              Real Estate
-            </span>
+      <section className=" bg-light rounded-2xl px-8 py-4">
+        <div className=" flex gap-4 flex-nowrap p-4 overflow-hidden">
+          {tour.map((btn, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => setIsActive(index)}
+                className={
+                  isActive === index
+                    ? " bg-primary scale-105 transition-all duration-300 min-w-[170px]"
+                    : " bg-light shadow-none text-slate-500 transition-all duration-300 min-w-[170px] hover:border border-primary cursor-pointer"
+                }
+              >
+                {index > 1 ? (
+                  <Image
+                    src="/icons/soon.svg"
+                    height={30}
+                    width={30}
+                    alt="coming soon"
+                    className={isActive ? " hidden" : " block ml-auto -mt-3"}
+                  />
+                ) : (
+                  ""
+                )}
+                {btn.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className=" flex justify-between items-center flex-wrap-reverse mt-8 gap-4">
+          <article className=" md:w-1/3">
+            <h1 className=" text-4xl font-bold mb-6">
+              {tour[isActive].header}{" "}
+            </h1>
+            <p className=" mb-6 font-rob text-sm w-1/2">
+              {tour[isActive].desc}
+            </p>
+
+            {isActive === 0 ? (
+              <div className=" flex justify-between p-3 rounded-sm ring-1 ring-slate-300 mb-6">
+                <input
+                  placeholder={`Enter a city or style`}
+                  className=" outline-none w-full"
+                />
+                <Image
+                  src="/icons/search.svg"
+                  width={20}
+                  height={20}
+                  alt="search"
+                />
+              </div>
+            ) : isActive === 1 ? (
+              <div className=" flex justify-between p-3 rounded-sm ring-1 ring-slate-300 mb-6">
+                <input
+                  placeholder={`Enter a city or co-working space`}
+                  className=" outline-none w-full"
+                />
+                <Image
+                  src="/icons/search.svg"
+                  width={20}
+                  height={20}
+                  alt="search"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+
+            {isActive === 0 ? (
+              <button> Find an Apartment </button>
+            ) : isActive === 1 ? (
+              <button> Find a Co-Living Space </button>
+            ) : (
+              <button> Get Started </button>
+            )}
           </article>
 
-          <article className=" grid gird-cols-1 lg:grid-cols-2 place-items-center gap-4">
-            <div>
-              <h3 className=" font-bold text-2xl lg:text-5xl mb-3.5">
-                Explore Apartments from anywhere you are through our Lens.
-              </h3>
-              <span className=" font-medium text-sm">
-                Find and interact with an apartment, and its surroundings using
-                Solacely on the go.
-              </span>
-              <input
-                id="search"
-                type="search"
-                placeholder=" Enter City Or Style"
-                className=" w-full ring ring-gray-200 p-3 rounded-sm mt-4 outline outline-slate-300"
-              />
-              <button className=" mt-4">Find an Apartment</button>
-            </div>
-            <figure className=" ">
-              <Image
-                src="/images/living1.jpg"
-                width={400}
-                height={400}
-                alt="house"
-                className=" w-full rounded-2xl"
-              />
-            </figure>
-          </article>
-        </section>
+          <figure className=" basis-4xl ">
+            <Image
+              src={tour[isActive].src}
+              width={300}
+              height={300}
+              alt={tour[isActive].label}
+              className=" object-cover w-full rounded-2xl"
+            />
+          </figure>
+        </div>
       </section>
-    </AnimatedComponents>
+    </section>
   );
 };
 
