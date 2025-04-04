@@ -136,12 +136,12 @@
 }
 
 @layer base {
-  * {
-    @apply box-border;
+  *, *::before, *::after {
+    @apply box-border m-0 p-0;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
   }
 
   button {
@@ -191,4 +191,9 @@
 
 .input {
   @apply py-2 px-4 shadow-md outline-0 outline-gray-400 rounded-md hover:scale-105 transition-all duration-300 ease-in-out;
+}
+
+/* Landing Page Styles */
+.landingpage-container{
+  @apply w-full md:max-w-[900px] md:w-svw lg:max-w-[1000px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto
 }
