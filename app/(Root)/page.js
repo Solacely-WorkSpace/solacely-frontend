@@ -9,8 +9,8 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <section className=' overflow-hidden'>
-      <AiPopuop/>
+    <main className='pt-32'>
+      {/* <AiPopuop /> */}
 
       <Hero />
 
@@ -25,7 +25,7 @@ const Home = () => {
       <Cta />
 
 
-    </section>
+    </main>
   )
 }
 
