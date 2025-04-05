@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap');
 @import "tailwindcss";
 
+
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
@@ -46,19 +47,20 @@
   --font-cav: Caveat, 'cursive';
   --color-primary: #521282;
   --color-txt: #195444;
-  --font-mont: Montserrat, 'sans-serif';
+  --font-mont: Montserrat, 'sans-serif'; 
   --color-sub: #9EA0AB;
   --color-tertially: #3DC5A1;
   --font-rob: "Roboto", sans-serif;
   --color-light: #F8F7FE;
+
+  
 }
 
-.dark {
+.dark  {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -90,7 +92,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  
 }
+
+
 
 :root {
   --radius: 0.625rem;
@@ -132,16 +137,16 @@
   --color-sub: #9EA0AB;
   --color-tertially: #3DC5A1;
   --font-rob: "Roboto", sans-serif;
-  --color-light: #F8F7FE;
+  --color-light: #F8F7FE;  
 }
 
 @layer base {
-  *, *::before, *::after {
-    @apply box-border m-0 p-0;
+  * {
+    @apply box-border;
   }
-
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground;
+
   }
 
   button {
@@ -149,7 +154,9 @@
   }
 }
 
+  
 /* Buttons Design */
+
 
 .download {
   @apply bg-gray-800 shadow-xs shadow-amber-50 mt-3 py-2.5 px-5 flex gap-1 justify-center items-center;
@@ -169,12 +176,16 @@
   @apply flex flex-col gap-2.5 text-lg font-rob font-semibold mt-2;
 }
 
+
+
+
+
 .form-container {
-  @apply flex;
+  @apply  flex ;
 }
 
 .left-side {
-  @apply bg-[url('/images/room.jpg')] bg-no-repeat bg-cover bg-center w-1/2 hidden md:block;
+@apply bg-[url('/images/room.jpg')] bg-no-repeat bg-cover bg-center w-1/2 hidden md:block;
 }
 
 .form {
@@ -185,15 +196,12 @@
   @apply flex flex-col justify-center overflow-hidden
 }
 
+
 .input-wrapper {
   @apply w-full flex flex-col gap-4 justify-center;
 }
 
 .input {
-  @apply py-2 px-4 shadow-md outline-0 outline-gray-400 rounded-md hover:scale-105 transition-all duration-300 ease-in-out;
+  @apply  py-2 px-4 shadow-md outline-0 outline-gray-400 rounded-md hover:scale-105 transition-all duration-300 ease-in-out;
 }
 
-/* Landing Page Styles */
-.landingpage-container{
-  @apply w-full md:max-w-[900px] md:w-svw lg:max-w-[1000px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto
-}
