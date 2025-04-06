@@ -9,23 +9,15 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <section className=' overflow-hidden'>
-      <AiPopuop/>
-
+    <main className=''>
+      <AiPopuop />
       <Hero />
-
       <Tour />
-
       <Waiting />
-
       <Offer />
-
       <Ad />
-
       <Cta />
-
-
-    </section>
+    </main>
   )
 }
 
