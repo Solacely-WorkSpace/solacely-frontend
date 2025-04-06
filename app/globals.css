@@ -202,5 +202,5 @@
 
 /* Landing Page */
 .landingpage-container {
-  @apply w-full md:max-w-[900px] md:w-svw lg:max-w-[1000px] xl:max-w-[1120px] 2xl:max-w-[1500px] mx-auto
+  @apply w-full md:max-w-[900px] md:w-svw lg:max-w-[1000px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto
 }
