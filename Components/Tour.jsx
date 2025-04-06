@@ -4,7 +4,7 @@ import Image from "next/image";
 import { tour } from "@/Constant";
 
 const Tour = () => {
-  const [isActive, setIsActive] = useState(1);
+  const [isActive, setIsActive] = useState(0);
 
   return (
     <section className="landingpage-container px-4 mt-16 w-full">
@@ -16,7 +16,7 @@ const Tour = () => {
         </h1>
       </article>
 
-      <section className=" bg-light rounded-2xl px-4 md:px-8 py-4">
+      <section className=" bg-light rounded-2xl px-4 md:px-8 py-4 pb-8">
         <div className=" flex gap-4 flex-nowrap p-4 overflow-hidden">
           {tour.map((btn, index) => {
             return (

@@ -4,7 +4,7 @@ import Image from "next/image";
 const Ad = () => {
   return (
     <section className="w-screen px-4 md:px-8">
-      <div className=" landingpage-container bg-[rgba(81,18,130,0.8)] flex gap-16 items-end justify-between py-20 px-24 text-white font-sans rounded-4xl my-10  relative">
+      <div className=" landingpage-container bg-[rgba(81,18,130,0.8)] flex gap-8 md:gap-16 flex-col md:flex-row items-center md:items-end justify-between px-8 py-20 md:px-24 text-white font-sans rounded-4xl my-10 relative">
         <Image
           src="/icons/360.svg"
           width={120}
@@ -13,8 +13,8 @@ const Ad = () => {
           className=" absolute -bottom-8 -right-8 md:-top-8"
         />
 
-        <article className="flex-1 flex flex-col gap-2 ">
-          <h3 className=" text-4xl font-rob font-bold w-full">
+        <article className="flex-1 flex flex-col gap-2 text-center md:text-start">
+          <h3 className="text-3xl md:text-4xl font-rob font-bold w-full">
             Solacely is coming soon all devices
           </h3>
           <p className="text-md  ">
@@ -23,7 +23,7 @@ const Ad = () => {
           </p>
         </article>
 
-        <article className="flex-1 flex gap-8 items-center">
+        <article className="flex-1 flex gap-0 md:gap-8 flex-col md:flex-row items-center">
           <button className=" adIcon">
             <Image src="/icons/app.svg" width={30} height={30} alt="apple" />
             <p className="adParagraph">

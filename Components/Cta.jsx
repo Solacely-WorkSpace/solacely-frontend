@@ -7,7 +7,7 @@ import { slideInLeft } from "@/Constant";
 const Cta = () => {
   return (
     <section className=" px-3 py-20 md:p-20 my-16 lg:p-36 relative">
-      <figure className=" max-w-[15%] ring-1 ring-slate-300 absolute left-6 top-1/3 aspect-square rounded-full p-1">
+      <figure className=" max-w-[15%] ring-1 ring-slate-300 absolute left-6 top-1/2 aspect-square rounded-full p-1">
         <Image
           src="/icons/black.svg"
           width={70}
