@@ -4,18 +4,19 @@ import Image from "next/image";
 import { tour } from "@/Constant";
 
 const Tour = () => {
-  const [isActive, setIsActive] = useState(1);
+  const [isActive, setIsActive] = useState(0);
 
   return (
-    <section className=" px-4 mt-16 w-full">
+    <section className="landingpage-container px-4 mt-16 w-full">
       <article className=" text-center mb-10 leading-20">
         <h5 className=" text-lg text-sub font-rob ">Our Unique Spaces</h5>
+
         <h1 className=" w-full font-extrabold font-mont text-4xl tracking-wide">
           Tour Homes and Surroundings Differently
         </h1>
       </article>
 
-      <section className=" bg-light rounded-2xl px-8 py-4">
+      <section className=" bg-light rounded-2xl px-4 md:px-8 py-4 pb-8">
         <div className=" flex gap-4 flex-nowrap p-4 overflow-hidden">
           {tour.map((btn, index) => {
             return (
@@ -45,8 +46,8 @@ const Tour = () => {
           })}
         </div>
 
-        <div className=" flex justify-between items-center flex-wrap-reverse mt-8 gap-4">
-          <article className=" md:w-1/3">
+        <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-4">
+          <article className="flex-[2]">
             <h1 className=" text-4xl font-bold mb-6">
               {tour[isActive].header}{" "}
             </h1>
@@ -93,7 +94,7 @@ const Tour = () => {
             )}
           </article>
 
-          <figure className=" basis-4xl ">
+          <figure className="flex-[3] w-full ">
             <Image
               src={tour[isActive].src}
               width={300}
