@@ -1,11 +1,6 @@
 import Link from "next/link";
 import Dropdown from "./Dropdown";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetTitle,
-} from "@/Components/ui/sheet.jsx";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "./ui/sheet";
 import Image from "next/image";
 
 const MobileNav = () => {
