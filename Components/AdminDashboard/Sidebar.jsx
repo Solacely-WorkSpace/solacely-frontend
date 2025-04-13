@@ -5,7 +5,7 @@ import {
   SidebarHeader,
   SidebarFooter,
   useSidebar,
-} from "@/Components/ui/sidebar";
+} from "../ui/sidebar";
 
 import Image from "next/image";
 

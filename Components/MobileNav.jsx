@@ -2,13 +2,10 @@ import Link from "next/link";
 import Dropdown from "./Dropdown";
 import {
   Sheet,
-  SheetTrigger,
   SheetContent,
-  SheetFooter,
-  SheetClose,
+  SheetTrigger,
   SheetTitle,
-} from "./ui/sheet";
-
+} from "@/Components/ui/sheet.jsx";
 import Image from "next/image";
 
 const MobileNav = () => {

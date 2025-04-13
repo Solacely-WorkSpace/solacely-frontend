@@ -1,8 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import { Link } from "next/link";
-import AnimatedComponents from "@/Animations/AnimatedComponents";
-import { slideInLeft } from "@/Constant";
 
 const Cta = () => {
   return (
