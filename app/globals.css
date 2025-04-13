@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap');
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -43,15 +42,14 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-cav: Caveat, 'cursive';
+  --font-cav: var(--font-cav);
   --color-primary: #521282;
   --color-txt: #195444;
-  --font-mont: Montserrat, 'sans-serif';
+  --font-mont: var(--font-mont);
   --color-sub: #9EA0AB;
   --color-tertially: #3DC5A1;
-  --font-rob: "Roboto", sans-serif;
+  --font-rob: var(--font-rob);
   --color-light: #F8F7FE;
-
 
 }
 
@@ -128,13 +126,13 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --font-cav: Caveat, 'cursive';
+  --font-cav: var(--font-cav);
   --color-primary: #521282;
   --color-txt: #195444;
-  --font-mont: Montserrat, 'sans-serif';
+  --font-mont: var(--font-mont);
   --color-sub: #9EA0AB;
   --color-tertially: #3DC5A1;
-  --font-rob: "Roboto", sans-serif;
+  --font-rob: var(--font-rob);
   --color-light: #F8F7FE;
 }
 
@@ -203,4 +201,23 @@
 /* Landing Page */
 .landingpage-container {
   @apply w-full md:max-w-[900px] lg:max-w-[1120px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+
+  }
+  body {
+    @apply bg-background text-foreground;
+
+  }
+
+}
+
+
+/* Admin Dashboard */
+
+.analytic {
+  @apply ring-1 ring-slate-300 rounded-lg shadow-md flex flex-col gap-4 items-start py-4 px-8 h-fit w-full md:w-[250px]
 }

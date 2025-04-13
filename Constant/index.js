@@ -1,3 +1,12 @@
+// Project Constant Dummy Dataset
+
+//  assets
+import { MdAreaChart, MdGroups, MdAccountBalanceWallet, MdManageAccounts } from "react-icons/md";
+import { GoHomeFill } from "react-icons/go";
+import { FaCommentDots, FaHandshakeSimple } from "react-icons/fa6";
+
+
+// Testimonial Dataset
 const Testimonial = [{
     username: '- @thepatwalls',
     testimony: 'I owe these guys my life. Already used their landing page templates for my latest two projects.',
@@ -43,6 +52,8 @@ const Testimonial = [{
 
 ]
 
+// What We Offer Dataset
+
 const whatWeOffer = [
     {
         offer: 'Our AI-driven system understands your needs and delivers property recommendations tailored to your preferences, budget, and lifestyle.',
@@ -71,7 +82,7 @@ const whatWeOffer = [
 
 ]
 
-
+// Tour Dataset
 
 const tour = [
     {
@@ -107,6 +118,7 @@ const tour = [
     },
 ]
 
+// Animation Constants
 
 const slideInLeft = {
     hidden: { opacity: 0, x: -200 },
@@ -133,8 +145,55 @@ const btn = {
     hover: { scale: 1.1 },
     tap: { scale: 0.9 }
 }
+ 
 
+// DashBoard Menu Dataset
 
+const AdminDashboardConstant = [
+    {
+        src: <MdAreaChart />,
+        label: " DashBoard",
+        url: "/"
+    },
+
+    {
+        src: <GoHomeFill />,
+        label: "Spaces",
+        url: '/spaces'
+    },
+
+    {
+        src: <MdGroups />,
+        label: " Customers",
+        url: "/customers"
+    },
+
+    {
+        src: <FaHandshakeSimple />,
+        label: "Partner",
+        url: "/partner"
+    },
+
+    {
+        src: <FaCommentDots />,
+        label:" Comments ",
+        url: "/comments"
+    },
+
+    {
+        src: <MdAccountBalanceWallet />,
+        label: " Account ",
+        url: "/account"
+    },
+
+    {
+        src: <MdManageAccounts />,
+        label:" User Mgt ",
+        url: "/management"
+    }
+]
+
+// Exporting the constants
 export {
     Testimonial,
     whatWeOffer,
@@ -143,6 +202,7 @@ export {
     slideInLeft,
     slideInRight,
     btn,
-    tour
+    tour,
+    AdminDashboardConstant
 
 }
