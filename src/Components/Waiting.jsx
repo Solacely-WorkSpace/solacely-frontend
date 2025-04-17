@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 // Components
-import { Testimonial } from "@/Constant";
+import { Testimonial } from "@/ConstantS";
 // Components End
 
 // Packages

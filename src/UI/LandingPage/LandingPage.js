@@ -7,18 +7,16 @@ import Waiting from '@/Components/Waiting'
 import Cta from '@/Components/Cta'
 import React from 'react'
 
-const Home = () => {
-  return (
-    <main className=''>
-      <AiPopuop />
-      <Hero />
-      <Tour />
-      <Waiting />
-      <Offer />
-      <Ad />
-      <Cta />
-    </main>
-  )
+export default function LandingPage() {
+    return (
+        <main className=''>
+            <AiPopuop />
+            <Hero />
+            <Tour />
+            <Waiting />
+            <Offer />
+            <Ad />
+            <Cta />
+        </main>
+    )
 }
-
-export default Home

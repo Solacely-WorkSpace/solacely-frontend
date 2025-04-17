@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { tour } from "@/Constant";
+import { tour } from "@/ConstantS";
 
 const Tour = () => {
   const [isActive, setIsActive] = useState(0);

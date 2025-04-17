@@ -1,7 +1,7 @@
-import { whatWeOffer } from "@/Constant";
+import { whatWeOffer } from "@/ConstantS";
 import Image from "next/image";
-import AnimatedComponents from "@/Animations/AnimatedComponents";
-import { slideInLeft } from "@/Constant";
+import AnimatedComponents from "@/UI/Components/Animations/AnimatedComponents";
+import { slideInLeft } from "@/ConstantS";
 
 const Offer = () => {
   return (

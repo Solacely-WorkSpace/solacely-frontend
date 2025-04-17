@@ -1,5 +1,5 @@
 import { Caveat, Roboto, Montserrat } from "next/font/google"
-import "./globals.css";
+import "@/Styles/globals.css";
 
 export const metadata = {
   title: "Solacely",
