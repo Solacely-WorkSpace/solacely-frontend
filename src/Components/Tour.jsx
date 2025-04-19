@@ -9,11 +9,11 @@ const Tour = () => {
   return (
     <section className="landingpage-container px-4 mt-16 w-full">
       <article className=" text-center mb-10 leading-20">
-        <h5 className=" text-lg text-sub font-rob ">Our Unique Spaces</h5>
+        <p className=" text-lg text-sub font-rob ">Our Unique Spaces</p>
 
-        <h1 className=" w-full font-extrabold font-mont text-4xl tracking-wide">
+        <h2 className=" w-full font-extrabold font-mont text-4xl tracking-wide">
           Tour Homes and Surroundings Differently
-        </h1>
+        </h2>
       </article>
 
       <section className=" bg-light rounded-2xl px-4 md:px-8 py-4 pb-8">

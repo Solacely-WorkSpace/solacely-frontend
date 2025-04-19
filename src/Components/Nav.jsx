@@ -3,19 +3,36 @@ import Dropdown from "./Dropdown";
 import Image from "next/image";
 import MobileNav from "./MobileNav";
 import Link from "next/link";
+import { LogoName } from '@/assets/images'
+import { LogoIcon } from '@/assets/icons'
+
 
 const Nav = () => {
   return (
     <nav className=" fixed w-full z-50 bg-white top-0 px-4 py-2">
       <div className="landingpage-container flex justify-between items-center">
-        <article className=" flex gap-1.5 items-center">
-          <Image src="./icons/logo.svg" width={30} height={30} alt="logo" />
-          <span className=" font-extrabold font-sans text-xl text-[#420F69]">
-            Solacely
-          </span>
-        </article>
+        <div className=" flex gap-1.5 items-end">
+          <div className="w-8">
+            <Image
+              src={LogoIcon}
+              alt="LogoName"
+              width={200}
+              height={200}
+            />
+          </div>
 
-        <section className=" hidden md:block">
+          <div className="">
+            <Image
+              src={LogoName}
+              alt="LogoName"
+              width={200}
+              height={200}
+              placeholder="blur"
+            />
+          </div>
+        </div>
+
+        <div className=" hidden md:block">
           <ul className=" flex items-center gap-2">
             <Dropdown />
             <li className=" font-medium text-sm ">
@@ -24,14 +41,14 @@ const Nav = () => {
               </Link>
             </li>
           </ul>
-        </section>
+        </div>
 
         <div>
           <MobileNav />
 
           <Link
             href="/sign-up"
-            className=" bg-primary py-3 px-6 rounded-sm shadow-md shadow-primary hidden md:block text-white font-bold"
+            className="btn-primary px-6"
           >
             Get Started
           </Link>

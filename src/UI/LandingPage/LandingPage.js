@@ -1,5 +1,4 @@
 import Ad from '@/Components/Ad'
-import AiPopuop from '@/Components/AiPopuop'
 import Hero from '@/Components/Hero'
 import Offer from '@/Components/Offer'
 import Tour from '@/Components/Tour'
@@ -9,9 +8,7 @@ import React from 'react'
 
 export default function LandingPage() {
     return (
-        <main className=''>
-            <AiPopuop />
-            <Hero />
+        <main className='w-screen flex flex-col gap-32'>
             <Tour />
             <Waiting />
             <Offer />

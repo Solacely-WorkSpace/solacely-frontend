@@ -1,17 +1,11 @@
-import { Caveat, Roboto, Montserrat } from "next/font/google"
+import { Roboto } from "next/font/google"
 import "@/Styles/globals.css";
+import Hero from "@/Components/Hero";
 
 export const metadata = {
   title: "Solacely",
   description: "Home Away From Home",
-
 };
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  variable: "--font-cav",
-  display: "swap",
-});
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -19,15 +13,12 @@ const roboto = Roboto({
   display: "swap",
 });
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-mont",
-});
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${caveat.variable} ${roboto.variable} ${montserrat.variable} `}>
+      <body className={`${roboto.className} `}>
+        <Hero />
+
         {children}
       </body>
     </html>
