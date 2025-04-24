@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 
 import { LinkedinSVG } from "@/assets/SVGAssets";
-import { Testimonial } from "@/Constants";
+import { Testimonial } from "@/Constant";
 
 const Waiting = () => {
   return (

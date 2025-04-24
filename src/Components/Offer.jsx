@@ -1,7 +1,7 @@
-import { whatWeOffer } from "@/Constants";
+import { whatWeOffer } from "@/Constant";
 import Image from "next/image";
 import AnimatedComponents from "@/UI/Components/Animations/AnimatedComponents";
-import { slideInLeft } from "@/Constants";
+import { slideInLeft } from "@/Constant";
 import { offerSectionImage } from "@/assets/images";
 import clsx from "clsx";
 
