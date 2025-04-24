@@ -7,12 +7,12 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className=" bg-[#521282] px-4 pt-20 relative">
-      <div className="bg-[url('/images/LandingPage/footer/footerbg.png')] bg-cover bg-left-top absolute inset-0 w-full h-full "></div>
+    <footer className=" bg-[#521282] px-4 pt-16 md:pt-20 relative">
+      <div className="bg-[url('/images/LandingPage/footer/footerbg.png')] bg-contain bg-left-top absolute inset-0 w-full h-full "></div>
 
-      <div className="landingpage-container flex flex-col items-center md:items-start lg:flex-row gap-20 justify-between mb-8 z-30">
-        <div className="flex-[2]  flex flex-col text-center items-center md:items-start md:text-left z-30">
-          <div className="  flex flex-col gap-2 z-30">
+      <div className="landingpage-container flex flex-col text-center md:text-left items-center md:items-start lg:flex-row gap-20 justify-between mb-8 z-30">
+        <div className="flex-[2]  flex flex-col    items-center md:items-start md:text-left z-30">
+          <div className=" flex flex-col gap-2 items-center md:items-start z-30">
 
             <Image
               src={logoWhite}
@@ -22,7 +22,7 @@ const Footer = () => {
               className="w-36 "
             />
 
-            <p className="text-white/70 mt-2">
+            <p className="text-white/70 mt-2 ">
               Our vision is to have everyone have an affordable place to call
               home. We are passionate about creating an accessible and
               transparent ecosystem that allows home seekers a way to explore
@@ -31,7 +31,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <article>
+          <div>
             <p className=" text-white my-3 font-semibold pt-8"> Coming Soon</p>
 
             <div className=" flex gap-4">
@@ -55,89 +55,91 @@ const Footer = () => {
                 />
               </button>
             </div>
-          </article>
+          </div>
         </div>
 
-        <div className="flex-1 text-white  flex flex-col gap-4 text-xs text-center md:text-start z-30">
-          <h3 className=" font-semibold text-sm text-white z-30"> Company </h3>
+        <div className="flex gap-8 justify-between flex-[3]">
+          <div className="flex-1 text-white  flex flex-col gap-2 md:gap-4 text-start  z-30">
+            <h3 className=" font-semibold text-sm text-white z-30"> Company </h3>
 
-          <Link href="#" className=" opacity-70">
-            About Us
-          </Link>
-
-          <Link href="#" className=" opacity-70">
-            Our Partner
-          </Link>
-
-          <Link href="#" className=" opacity-70">
-            Contact Us
-          </Link>
-
-          <Link href="#" className=" opacity-70">
-            FAQS
-          </Link>
-
-          <Link href="#" className=" opacity-70">
-            Terms and Privacy
-          </Link>
-        </div>
-
-        <div className="flex-1 block text-white font-sans text-center md:text-start z-30">
-          <h3 className=" font-semibold text-sm text-white mt-2.5 mb-4">Follow Us</h3>
-
-          <div className=" mt-4 flex gap-3">
-            <Link
-              href="#"
-              className="w-8 "
-            >
-              <Image
-                src={facebookLogo}
-                alt="facebook icon"
-                width={200}
-                height={200}
-                placeholder="blur"
-              />
+            <Link href="#" className=" opacity-70">
+              About Us
             </Link>
 
-            <Link
-              href="#"
-              className="w-8"
-            >
-              <Image
-                src={instagramLogo}
-                alt="facebook icon"
-                width={200}
-                height={200}
-                placeholder="blur"
-              />
+            <Link href="#" className=" opacity-70">
+              Our Partner
             </Link>
 
-            <Link
-              href="#"
-              className="w-8"
-            >
-              <Image
-                src={twitterLogo}
-                alt="facebook icon"
-                width={200}
-                height={200}
-                placeholder="blur"
-              />
+            <Link href="#" className=" opacity-70">
+              Contact Us
             </Link>
 
-            <Link
-              href="#"
-              className="w-8"
-            >
-              <Image
-                src={linkedinLogo}
-                alt="facebook icon"
-                width={200}
-                height={200}
-                placeholder="blur"
-              />
+            <Link href="#" className=" opacity-70">
+              FAQS
             </Link>
 
+            <Link href="#" className=" opacity-70">
+              Terms and Privacy
+            </Link>
+          </div>
+
+          <div className="flex-1 block text-white font-sans text-start z-30">
+            <h3 className=" font-semibold text-sm text-white mb-4">Follow Us</h3>
+
+            <div className=" mt-4 flex gap-3">
+              <Link
+                href="#"
+                className="w-8 "
+              >
+                <Image
+                  src={facebookLogo}
+                  alt="facebook icon"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                />
+              </Link>
+
+              <Link
+                href="#"
+                className="w-8"
+              >
+                <Image
+                  src={instagramLogo}
+                  alt="facebook icon"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                />
+              </Link>
+
+              <Link
+                href="#"
+                className="w-8"
+              >
+                <Image
+                  src={twitterLogo}
+                  alt="facebook icon"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                />
+              </Link>
+
+              <Link
+                href="#"
+                className="w-8"
+              >
+                <Image
+                  src={linkedinLogo}
+                  alt="facebook icon"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                />
+              </Link>
+
+            </div>
           </div>
         </div>
       </div>
