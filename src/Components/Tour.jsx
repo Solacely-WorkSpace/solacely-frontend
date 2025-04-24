@@ -10,7 +10,7 @@ const Tour = () => {
   return (
     <section className="landingpage-container px-4 mt-16 w-full">
       <div className=" text-center mb-10 leading-12">
-        <small className="text-lg text-sub font-rob text-[#9EA0AB] ">Our Unique Spaces</small>
+        <small className="text-sm text-[#9EA0AB] ">Our Unique Spaces</small>
 
         <h2>
           Tour Homes and Surroundings Differently
@@ -18,22 +18,22 @@ const Tour = () => {
       </div>
 
       <section className=" bg-[#F8F7FE] rounded-2xl p-4 md:p-16 overflow-y-visible ">
-        <div className="w-full h-fit overflow-y-visible overflow-x-auto">
-          <div className="w-fit flex gap-2 md:gap-4 flex-nowrap p-4 overflow-y-visible">
+        <div className="w-full h-fit overflow-x-auto pt-4 pb-0">
+          <div className="w-fit flex gap-2 md:gap-4 flex-nowrap p-4">
             {tour.map((btn, index) => {
               return (
                 <button
                   key={index}
                   onClick={() => setIsActive(index)}
-                  className={clsx("py-3 px-6 rounded-xl font-semibold text-sm  cursor-pointer relative ",
+                  className={clsx("py-3 px-6 rounded-xl font-semibold text-sm  cursor-pointer relative text-black/40 ",
                     {
-                      "bg-primary text-white": isActive === index
+                      "btn-primary text-white": isActive === index
                     }
                   )}
                 >
                   {index > 1 ? (
                     <p
-                      className={clsx("absolute -top-6 -right-6 bg-complementary text-white text-[10px] p-2 rounded-md z-40",
+                      className={clsx("absolute -top-3 -right-6 bg-complementary text-white text-[10px] p-1 rounded-md z-40",
                         {
                           "block": isActive !== index,
                           "hidden": isActive === index
@@ -54,10 +54,11 @@ const Tour = () => {
 
         <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-12">
           <article className="flex-[2]">
-            <h3 className="mb-6">
+            <h3 className="mb-3">
               {tour[isActive].header}{" "}
             </h3>
-            <p className=" mb-6 font-rob text-sm w-1/2">
+
+            <p className=" mb-6">
               {tour[isActive].desc}
             </p>
 
@@ -106,7 +107,7 @@ const Tour = () => {
               width={300}
               height={300}
               alt={tour[isActive].label}
-              placeholder="blur"
+              // placeholder="blur"
               className=" aspect-[5/3] rounded-2xl"
             />
           </figure>

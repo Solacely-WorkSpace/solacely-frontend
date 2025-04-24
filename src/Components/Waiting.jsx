@@ -19,16 +19,16 @@ const Waiting = () => {
           <Image src="/icons/purple.svg" width={60} height={60} alt="heart" />
         </figure>
 
-        <article className="font-rob md:w-1/2 mb-14">
-          <h3 className="">
+        <div className="font-rob md:w-1/2 mb-14">
+          <h3 className="mb-3">
             10,000<span className=" font-extrabold">+ </span> People are Waiting
           </h3>
 
-          <p className=" text-sm leading-6">
+          <p className="">
             Helping you in learning about new places and areas by allowing you to
             experience them as if you were there.
           </p>
-        </article>
+        </div>
 
         {/* <div className="w-full"> */}
         <Swiper
@@ -73,7 +73,7 @@ const Waiting = () => {
                   <LinkedinSVG />
                 </div>
 
-                <p className="font-rob font-semibold text-sm text-gray-500 mb-6">
+                <p className=" text-sm text-gray-500 mb-6">
                   {item.testimony}
                 </p>
 

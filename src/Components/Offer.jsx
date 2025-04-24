@@ -3,6 +3,7 @@ import Image from "next/image";
 import AnimatedComponents from "@/UI/Components/Animations/AnimatedComponents";
 import { slideInLeft } from "@/Constants";
 import { offerSectionImage } from "@/assets/images";
+import clsx from "clsx";
 
 const Offer = () => {
   return (
@@ -27,12 +28,20 @@ const Offer = () => {
           />
         </figure>
 
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+        <div className="flex-1 grid max-md:gap-8 grid-cols-1 md:grid-cols-2 group">
           {whatWeOffer.map((item, index) => {
+            const isLast = index === whatWeOffer.length - 1
             return (
               <article
                 key={index}
-                className="h-fit hover:bg-white hover:scale-105 rounded-xl p-3 md:p-6 flex flex-col items-center md:items-start text-center md:text-start"
+                className={clsx(
+                  "h-fit p-8 flex flex-col transition-all duration-200",
+                  "hover:bg-white hover:scale-105 hover:rounded-xl max-md:rounded-xl max-md:bg-white ",
+                  {
+                    "md:border-r group-hover:border-0 border-black/30 md:border-b border-dashed": index === 0,
+                    "md:bg-white md:group-hover:bg-transparent md:hover:bg-white": isLast
+                  }
+                )}
               >
                 <Image
                   src={item.icon}
@@ -43,7 +52,7 @@ const Offer = () => {
                 />
 
                 <div className="">
-                  <h4 className=" font-semibold my-3.5">{item.header}</h4>
+                  <h4 className="text-lg font-semibold my-3.5">{item.header}</h4>
 
                   <p className="">
                     {item.offer}

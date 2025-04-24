@@ -92,7 +92,7 @@ const tour = [
         label: "Co-Living Space",
         header: " Explore Apartments from anywhere you are through our Lens",
         desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
-        src: "/images/living1.jpg",
+        src: tourImageOne,
     },
 
     {
@@ -100,7 +100,7 @@ const tour = [
         label: "Pair With Me",
         header: " Explore Apartments from anywhere you are through our Lens",
         desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
-        src: "/images/living1.jpg",
+        src: tourImageOne,
     },
 
     {
@@ -108,7 +108,7 @@ const tour = [
         label: " Real Estate",
         header: " Explore Apartments from anywhere you are through our Lens",
         desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
-        src: "/images/living1.jpg",
+        src: tourImageOne,
     },
 ]
 

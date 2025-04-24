@@ -1,3 +1,5 @@
+import { appstore, facebookLogo, instagramLogo, linkedinLogo, playstore, twitterLogo } from "@/assets/icons";
+import { logoWhite } from "@/assets/images";
 import { LinkedinSVG } from "@/assets/SVGAssets";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,20 +7,22 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className=" bg-purple-950 px-4 pt-20 ">
-      <div className="landingpage-container flex flex-col items-center md:items-start lg:flex-row gap-20 justify-between mb-8">
-        <div className="flex-[2]  flex flex-col text-center items-center md:items-start md:text-left ">
-          <div className="  flex flex-col gap-2">
+    <footer className=" bg-[#521282] px-4 pt-20 relative">
+      <div className="bg-[url('/images/LandingPage/footer/footerbg.png')] bg-cover bg-left-top absolute inset-0 w-full h-full "></div>
+
+      <div className="landingpage-container flex flex-col items-center md:items-start lg:flex-row gap-20 justify-between mb-8 z-30">
+        <div className="flex-[2]  flex flex-col text-center items-center md:items-start md:text-left z-30">
+          <div className="  flex flex-col gap-2 z-30">
 
             <Image
-              src="/images/LandingPage/footer/logo white.png"
+              src={logoWhite}
               width={1000}
               height={1000}
               alt="logo"
-              className="w-36"
+              className="w-36 "
             />
 
-            <p className="text-white/50">
+            <p className="text-white/70 mt-2">
               Our vision is to have everyone have an affordable place to call
               home. We are passionate about creating an accessible and
               transparent ecosystem that allows home seekers a way to explore
@@ -33,7 +37,7 @@ const Footer = () => {
             <div className=" flex gap-4">
               <button className="h-fit py-3 px-6 rounded-md bg-[#212121] border border-white/70">
                 <Image
-                  src="/images/LandingPage/footer/Group 8.png"
+                  src={appstore}
                   width={1000}
                   height={1000}
                   alt="store"
@@ -43,7 +47,7 @@ const Footer = () => {
 
               <button className="h-fit py-3 px-6 rounded-md bg-[#212121] border border-white/70">
                 <Image
-                  src="/images/LandingPage/footer/Group 9.png"
+                  src={playstore}
                   width={1000}
                   height={1000}
                   alt="store"
@@ -54,45 +58,88 @@ const Footer = () => {
           </article>
         </div>
 
-        <article className="flex-1 text-white font-sans mt-2.5 flex flex-col gap-3.5 text-xs text-center md:text-start ">
-          <h3 className=" font-semibold text-sm text-white"> Company </h3>
+        <div className="flex-1 text-white  flex flex-col gap-4 text-xs text-center md:text-start z-30">
+          <h3 className=" font-semibold text-sm text-white z-30"> Company </h3>
+
           <Link href="#" className=" opacity-70">
             About Us
           </Link>
+
           <Link href="#" className=" opacity-70">
             Our Partner
           </Link>
+
           <Link href="#" className=" opacity-70">
             Contact Us
           </Link>
+
           <Link href="#" className=" opacity-70">
             FAQS
           </Link>
+
           <Link href="#" className=" opacity-70">
             Terms and Privacy
           </Link>
-        </article>
+        </div>
 
-        <article className="flex-1 block text-white font-sans text-center md:text-start">
-          <h3 className=" font-semibold text-sm text-white mt-2.5 mb-8">Follow Us</h3>
+        <div className="flex-1 block text-white font-sans text-center md:text-start z-30">
+          <h3 className=" font-semibold text-sm text-white mt-2.5 mb-4">Follow Us</h3>
+
           <div className=" mt-4 flex gap-3">
-            <Link href="#">
-              <LinkedinSVG />
+            <Link
+              href="#"
+              className="w-8 "
+            >
+              <Image
+                src={facebookLogo}
+                alt="facebook icon"
+                width={200}
+                height={200}
+                placeholder="blur"
+              />
             </Link>
 
-            <Link href="#">
-              <LinkedinSVG />
+            <Link
+              href="#"
+              className="w-8"
+            >
+              <Image
+                src={instagramLogo}
+                alt="facebook icon"
+                width={200}
+                height={200}
+                placeholder="blur"
+              />
             </Link>
 
-            <Link href="#">
-              <LinkedinSVG />
+            <Link
+              href="#"
+              className="w-8"
+            >
+              <Image
+                src={twitterLogo}
+                alt="facebook icon"
+                width={200}
+                height={200}
+                placeholder="blur"
+              />
             </Link>
 
-            <Link href="#">
-              <LinkedinSVG />
+            <Link
+              href="#"
+              className="w-8"
+            >
+              <Image
+                src={linkedinLogo}
+                alt="facebook icon"
+                width={200}
+                height={200}
+                placeholder="blur"
+              />
             </Link>
+
           </div>
-        </article>
+        </div>
       </div>
 
       <div className="landingpage-container text-center py-4 opacity-50  text-sm">

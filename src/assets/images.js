@@ -17,6 +17,8 @@ import ctaImageFour from "@/../public/images/LandingPage/cta/cta4.png"
 import ctaImageFive from "@/../public/images/LandingPage/cta/cta5.png"
 import ctaImageSix from "@/../public/images/LandingPage/cta/cta6.png"
 
+import logoWhite from "@/../public/images/LandingPage/footer/logo white.png"
+
 export {
     LogoName,
     HeroIllustration,
@@ -32,5 +34,6 @@ export {
     ctaImageThree,
     ctaImageFour,
     ctaImageFive,
-    ctaImageSix
+    ctaImageSix,
+    logoWhite,
 }
