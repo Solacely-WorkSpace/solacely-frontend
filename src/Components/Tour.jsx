@@ -1,97 +1,103 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { tour } from "@/ConstantS";
+import { tour } from "@/Constants";
+import clsx from "clsx";
 
 const Tour = () => {
   const [isActive, setIsActive] = useState(0);
 
   return (
     <section className="landingpage-container px-4 mt-16 w-full">
-      <article className=" text-center mb-10 leading-20">
-        <p className=" text-lg text-sub font-rob ">Our Unique Spaces</p>
+      <div className=" text-center mb-10 leading-12">
+        <small className="text-lg text-sub font-rob text-[#9EA0AB] ">Our Unique Spaces</small>
 
-        <h2 className=" w-full font-extrabold font-mont text-4xl tracking-wide">
+        <h2>
           Tour Homes and Surroundings Differently
         </h2>
-      </article>
+      </div>
 
-      <section className=" bg-light rounded-2xl px-4 md:px-8 py-4 pb-8">
-        <div className=" flex gap-4 flex-nowrap p-4 overflow-hidden">
-          {tour.map((btn, index) => {
-            return (
-              <button
-                key={index}
-                onClick={() => setIsActive(index)}
-                className={
-                  isActive === index
-                    ? " bg-primary scale-105 transition-all duration-300 min-w-[170px]"
-                    : " bg-light shadow-none text-slate-500 transition-all duration-300 min-w-[170px] hover:border border-primary cursor-pointer"
-                }
-              >
-                {index > 1 ? (
-                  <Image
-                    src="/icons/soon.svg"
-                    height={30}
-                    width={30}
-                    alt="coming soon"
-                    className={isActive ? " hidden" : " block ml-auto -mt-3"}
-                  />
-                ) : (
-                  ""
-                )}
-                {btn.label}
-              </button>
-            );
-          })}
+      <section className=" bg-[#F8F7FE] rounded-2xl p-4 md:p-16 overflow-y-visible ">
+        <div className="w-full h-fit overflow-y-visible overflow-x-auto">
+          <div className="w-fit flex gap-2 md:gap-4 flex-nowrap p-4 overflow-y-visible">
+            {tour.map((btn, index) => {
+              return (
+                <button
+                  key={index}
+                  onClick={() => setIsActive(index)}
+                  className={clsx("py-3 px-6 rounded-xl font-semibold text-sm  cursor-pointer relative ",
+                    {
+                      "bg-primary text-white": isActive === index
+                    }
+                  )}
+                >
+                  {index > 1 ? (
+                    <p
+                      className={clsx("absolute -top-6 -right-6 bg-complementary text-white text-[10px] p-2 rounded-md z-40",
+                        {
+                          "block": isActive !== index,
+                          "hidden": isActive === index
+                        }
+                      )}
+                    >
+                      Coming Soon
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {btn.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-4">
+        <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-12">
           <article className="flex-[2]">
-            <h1 className=" text-4xl font-bold mb-6">
+            <h3 className="mb-6">
               {tour[isActive].header}{" "}
-            </h1>
+            </h3>
             <p className=" mb-6 font-rob text-sm w-1/2">
               {tour[isActive].desc}
             </p>
 
-            {isActive === 0 ? (
-              <div className=" flex justify-between p-3 rounded-sm ring-1 ring-slate-300 mb-6">
+            {
+              isActive < 2 &&
+              < div className=" flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
                 <input
-                  placeholder={`Enter a city or style`}
+                  placeholder={
+                    isActive === 0
+                      ? `Enter a city or style`
+                      : `Enter a city or co-working space`
+                  }
                   className=" outline-none w-full"
                 />
-                <Image
-                  src="/icons/search.svg"
-                  width={20}
-                  height={20}
-                  alt="search"
-                />
-              </div>
-            ) : isActive === 1 ? (
-              <div className=" flex justify-between p-3 rounded-sm ring-1 ring-slate-300 mb-6">
-                <input
-                  placeholder={`Enter a city or co-working space`}
-                  className=" outline-none w-full"
-                />
-                <Image
-                  src="/icons/search.svg"
-                  width={20}
-                  height={20}
-                  alt="search"
-                />
-              </div>
-            ) : (
-              ""
-            )}
 
-            {isActive === 0 ? (
-              <button> Find an Apartment </button>
-            ) : isActive === 1 ? (
-              <button> Find a Co-Living Space </button>
-            ) : (
-              <button> Get Started </button>
-            )}
+                <Image
+                  src="/icons/search.svg"
+                  width={20}
+                  height={20}
+                  alt="search"
+                  className="w-8 h-8"
+                />
+              </div>
+            }
+
+
+            {
+              isActive === 0 &&
+              <button className="btn-primary"> Find an Apartment </button>
+            }
+
+            {
+              isActive === 1 &&
+              <button className="btn-primary"> Find a Co-Living Space </button>
+            }
+
+            {
+              isActive > 1 &&
+              <button className="btn-primary"> Get Started </button>
+            }
           </article>
 
           <figure className="flex-[3] w-full ">
@@ -100,12 +106,13 @@ const Tour = () => {
               width={300}
               height={300}
               alt={tour[isActive].label}
-              className=" object-cover w-full rounded-2xl"
+              placeholder="blur"
+              className=" aspect-[5/3] rounded-2xl"
             />
           </figure>
         </div>
-      </section>
-    </section>
+      </section >
+    </section >
   );
 };
 

@@ -1,19 +1,15 @@
 import Link from "next/link";
 import Dropdown from "./Dropdown";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "./ui/sheet";
-import Image from "next/image";
+import { HamburgerSVG } from "@/assets/SVGAssets";
+
 
 const MobileNav = () => {
   return (
     <Sheet>
       <SheetTitle />
       <SheetTrigger className=" bg-transparent cursor-pointer md:hidden shadow-none px-0">
-        <Image
-          src="/icons/hamburger.svg"
-          width={30}
-          height={30}
-          alt="hanburger"
-        />
+        <HamburgerSVG />
       </SheetTrigger>
       <SheetContent>
         <ul className=" pt-20 flex flex-col gap-6">

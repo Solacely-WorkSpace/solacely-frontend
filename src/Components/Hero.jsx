@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import AiPopuop from "./AiPopuop";
-import { Meta } from '@/assets/images'
+import { HeroIllustration, MetaImage } from '@/assets/images'
 
 const Hero = () => {
   return (
@@ -29,12 +29,12 @@ const Hero = () => {
               </Link>
 
               <article>
-                <h5 className="text-gray-400 font-semibold font-rob text-sub text-xs mb-1.5 whitespace-nowrap">
+                <h5 className="font-semibold font-rob text-[#9EA0AB] text-sub text-xs mb-1.5 whitespace-nowrap">
                   OUR ESTEEM PARTNERS
                 </h5>
                 <figure className=" flex items-center">
                   <Image
-                    src={Meta}
+                    src={MetaImage}
                     width={400}
                     height={400}
                     alt="meta"
@@ -49,10 +49,11 @@ const Hero = () => {
 
         <div className="w-full flex-1">
           <Image
-            src='/images/hero illustration.png'
+            src={HeroIllustration}
             alt="hero illustration"
             width={2000}
             height={2000}
+            placeholder="blur"
             className="w-full"
           />
 

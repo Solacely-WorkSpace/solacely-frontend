@@ -1,51 +1,48 @@
-// Project Constant Dummy Dataset
-
-
-
+import { testimonialImageFour, testimonialImageOne, testimonialImageThree, testimonialImageTwo, tourImageOne } from "@/assets/images"
 
 // Testimonial Dataset
 const Testimonial = [{
     username: '- @thepatwalls',
     testimony: 'I owe these guys my life. Already used their landing page templates for my latest two projects.',
     social: '/icons/linkedin.svg',
-    pic: '/images/pat.jpg'
+    pic: testimonialImageOne
 
 },
 {
     username: ' - @thepatwalls',
     testimony: "Time is the most precious thing you have when bootstrapping. You can't take time to ponder on…",
     social: '/icons/linkedin.svg',
-    pic: '/images/pat.jpg'
+    pic: testimonialImageTwo
 
 },
 {
     username: ' - @thepatwalls',
     testimony: 'I owe these guys my life. Already used their landing page templates for my latest two projects.',
     social: '/icons/linkedin.svg',
-    pic: '/images/pat.jpg'
+    pic: testimonialImageThree
 
 },
 {
     username: '- @thepatwalls',
     testimony: ' Best Home Rental Company so awesome.',
     social: '/icons/linkedin.svg',
-    pic: '/images/pat.jpg'
+    pic: testimonialImageFour
 
 },
-{
-    username: ' - @thepatwalls',
-    testimony: ' I owe these guys my life. Already used their landing page templates for my latest two projects.',
-    social: '/icons/linkedin.svg',
-    pic: '/images/pat.jpg'
+    // {
+    //     username: ' - @thepatwalls',
+    //     testimony: ' I owe these guys my life. Already used their landing page templates for my latest two projects.',
+    //     social: '/icons/linkedin.svg',
+    //     pic: '/images/pat.jpg'
 
-},
-{
-    username: ' - @thepatwalls',
-    testimony: ' There Homes Are Top Notch Cant See Me Changing Location Anytime Soon, Best Home PLug.',
-    social: '/icons/linkedin.svg',
-    pic: '/images/pat.jpg'
+    // },
+    // {
+    //     username: ' - @thepatwalls',
+    //     testimony: ' There Homes Are Top Notch Cant See Me Changing Location Anytime Soon, Best Home PLug.',
+    //     social: '/icons/linkedin.svg',
+    //     pic: '/images/pat.jpg'
 
-},
+    // },
 
 ]
 
@@ -87,7 +84,7 @@ const tour = [
         label: "Apartment",
         header: " Explore Apartments from anywhere you are through our Lens",
         desc: " Find and interact with an apartment, and its surroundings using Solacely on the go.",
-        src: "/images/living1.jpg",
+        src: tourImageOne,
     },
 
     {
@@ -142,7 +139,7 @@ const btn = {
     hover: { scale: 1.1 },
     tap: { scale: 0.9 }
 }
- 
+
 
 // Exporting the constants
 export {

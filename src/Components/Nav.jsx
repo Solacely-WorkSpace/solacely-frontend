@@ -35,7 +35,8 @@ const Nav = () => {
         <div className=" hidden md:block">
           <ul className=" flex items-center gap-2">
             <Dropdown />
-            <li className=" font-medium text-sm ">
+
+            <li className=" font-medium text-base ">
               <Link href="#" className="font-bold">
                 Become a Partner
               </Link>
@@ -48,7 +49,7 @@ const Nav = () => {
 
           <Link
             href="/sign-up"
-            className="btn-primary px-6"
+            className="btn-primary px-6 hidden md:block"
           >
             Get Started
           </Link>

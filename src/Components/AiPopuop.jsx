@@ -1,6 +1,6 @@
 import React from "react";
 import AnimateNav from "@/UI/Components/Animations/AnimateNav";
-import { slideInLeft } from "@/ConstantS";
+import { slideInLeft } from "@/Constants";
 
 const AiPopuop = () => {
   return (
