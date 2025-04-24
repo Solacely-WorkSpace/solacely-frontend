@@ -10,6 +10,7 @@ import {
   ctaImageFive,
   ctaImageSix
 } from '@/assets/images'
+import { useOnWindowResize } from "@/CustomHooks/usOnWindowResize";
 
 const Cta = () => {
   let [containerWidth, setContainerWidth] = useState(0)
@@ -18,23 +19,38 @@ const Cta = () => {
     if (!window) return
     console.log('in')
 
-    if (containerRef.current) {
-      const { width } = containerRef.current.getBoundingClientRect()
-      console.log({ width })
+    const width = window.innerWidth
+
+    if (width < 768) {
+      console.log('its less than')
+      setContainerWidth(width + 200)
+    } else {
       setContainerWidth(width)
     }
   }, [])
 
-  const containerRef = useRef(null)
+  useOnWindowResize(() => {
+    const width = window.innerWidth
+
+    if (width < 768) {
+      console.log('its less than')
+      setContainerWidth(width + 200)
+    } else {
+      setContainerWidth(width)
+    }
+  })
+
+  // const containerRef = useRef(null)
 
   return (
     <section
-      className="relative  overflow-hidden "
+      className="relative  overflow-hidden  "
       style={{ height: containerWidth / 2 }}
     >
       <div
-        ref={containerRef}
-        className="relative w-full aspect-square border border-[#EAD6F9] rounded-full overflow-visible grid place-content-center "
+        // ref={containerRef}
+        className="relative min-w-full aspect-square border border-[#EAD6F9] rounded-full overflow-visible grid place-content-center left-[50%] -translate-x-[50%] "
+        style={{ width: containerWidth }}
       >
         <Image
           src={ctaImageTwo}
@@ -42,8 +58,12 @@ const Cta = () => {
           height={1000}
           alt="black"
           placeholder="blur"
-          className="absolute aspect-square rounded-full w-32 border-2 border-white shadow-lg "
-          style={{ top: `${containerWidth / 100 * 20}px`, left: `${containerWidth / 100 * 2}px` }}
+          className="absolute aspect-square rounded-full max-w-32 border-2 border-white shadow-lg "
+          style={{
+            top: `${containerWidth / 100 * 20}px`,
+            left: `${containerWidth / 100 * 2}px`,
+            width: `${containerWidth / 100 * 10}px`
+          }}
         />
 
         <Image
@@ -52,8 +72,12 @@ const Cta = () => {
           height={1000}
           alt="black"
           placeholder="blur"
-          className="absolute aspect-square rounded-full w-20 border-2 border-white shadow-lg "
-          style={{ top: `${containerWidth / 100 * 2}px`, left: `${containerWidth / 100 * 25}px` }}
+          className="absolute aspect-square rounded-full max-w-20 border-2 border-white shadow-lg "
+          style={{
+            top: `${containerWidth / 100 * 2}px`,
+            left: `${containerWidth / 100 * 25}px`,
+            width: `${containerWidth / 100 * 8}px`
+          }}
         />
 
         <Image
@@ -62,8 +86,12 @@ const Cta = () => {
           height={1000}
           alt="black"
           placeholder="blur"
-          className="absolute aspect-square rounded-full w-20 border-2 border-white shadow-lg "
-          style={{ top: `${containerWidth / 100 * 2}px`, right: `${containerWidth / 100 * 25}px` }}
+          className="absolute aspect-square rounded-full max-w-20 border-2 border-white shadow-lg "
+          style={{
+            top: `${containerWidth / 100 * 2}px`,
+            right: `${containerWidth / 100 * 25}px`,
+            width: `${containerWidth / 100 * 8}px`
+          }}
         />
 
         <Image
@@ -72,13 +100,17 @@ const Cta = () => {
           height={1000}
           alt="black"
           placeholder="blur"
-          className="absolute aspect-square rounded-full w-28 border-2 border-white shadow-lg "
-          style={{ top: `${containerWidth / 100 * 17}px`, right: `${containerWidth / 100 * 5}px` }}
+          className="absolute aspect-square rounded-full max-w-28 border-2 border-white shadow-lg "
+          style={{
+            top: `${containerWidth / 100 * 17}px`,
+            right: `${containerWidth / 100 * 5}px`,
+            width: `${containerWidth / 100 * 10}px`
+          }}
         />
 
         <div
           className="relative w-full aspect-square border border-[#EAD6F9] rounded-full overflow-visible grid place-content-center "
-          style={{ width: `${containerWidth - 320}px` }}
+          style={{ width: `${containerWidth * 0.75}px` }}
         >
           <Image
             src={ctaImageFive}
@@ -86,11 +118,15 @@ const Cta = () => {
             height={1000}
             alt="black"
             placeholder="blur"
-            className="absolute aspect-square rounded-full w-22 border-2 border-white shadow-lg "
-            style={{ top: `${containerWidth / 100 * 20}px`, left: `${containerWidth / 100 * 0}px` }}
+            className="absolute aspect-square rounded-full max-w-22 border-2 border-white shadow-lg "
+            style={{
+              top: `${containerWidth / 100 * 20}px`,
+              left: `${containerWidth / 100 * 0}px`,
+              width: `${containerWidth / 100 * 8}px`
+            }}
           />
-          <div className="text-center z-30 absolute top-10 left-[50%] -translate-x-[50%]  whitespace-nowrap">
-            <p className=" text-2xl md:text-5xl mb-10">
+          <div className="text-center z-30 absolute top-3 md:top-10 left-[50%] -translate-x-[50%]  whitespace-nowrap">
+            <p className="text-xl sm:text-3xl md:text-5xl mb-8">
               <b className=" text-green-400"> Solacely </b>is for Everyone.
               <br />
               Easy and Free
@@ -101,7 +137,7 @@ const Cta = () => {
 
           <div
             className="relative w-full aspect-square border border-[#EAD6F9] rounded-full overflow-visible grid place-content-center "
-            style={{ width: `${containerWidth - 320 * 2}px` }}
+            style={{ width: `${containerWidth * 0.5}px` }}
           >
 
             <Image
@@ -110,13 +146,17 @@ const Cta = () => {
               height={1000}
               alt="black"
               placeholder="blur"
-              className="absolute aspect-square rounded-full w-20 border-2 border-white shadow-lg "
-              style={{ top: `${containerWidth / 100 * 15}px`, right: `${containerWidth / 100 * -2}px` }}
+              className="absolute aspect-square rounded-full max-w-20 border-2 border-white shadow-lg "
+              style={{
+                top: `${containerWidth / 100 * 15}px`,
+                right: `${containerWidth / 100 * -2}px`,
+                width: `${containerWidth / 100 * 8}px`
+              }}
             />
 
             <div
               className="relative w-full aspect-square border border-[#EAD6F9] rounded-full overflow-visible grid place-content-center "
-              style={{ width: `${containerWidth - 320 * 3}px` }}
+              style={{ width: `${containerWidth * 0.25}px` }}
             >
             </div>
           </div>
