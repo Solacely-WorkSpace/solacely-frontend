@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { tour } from "@/Constants";
+import { tour } from "@/Constant";
 import clsx from "clsx";
 
 const Tour = () => {
@@ -107,7 +107,7 @@ const Tour = () => {
               width={300}
               height={300}
               alt={tour[isActive].label}
-              // placeholder="blur"
+              placeholder="blur"
               className=" aspect-[5/3] rounded-2xl"
             />
           </figure>
