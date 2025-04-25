@@ -13,7 +13,7 @@ const Tour = () => {
         <small className="text-sm text-[#9EA0AB] ">Our Unique Spaces</small>
 
         <h2>
-          Tour Homes and Surroundings Differently
+          From Screen to Keys: Your Home Journey Starts Here
         </h2>
       </div>
 
