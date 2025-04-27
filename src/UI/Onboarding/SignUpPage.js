@@ -1,4 +1,4 @@
-import Auth from '@/Components/Auth'
+import Auth from '@/UI/Onboarding/components/Auth'
 
 export default function SignUpPage() {
     return (

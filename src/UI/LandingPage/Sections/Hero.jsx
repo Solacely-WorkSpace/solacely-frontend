@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import AiPopuop from "./AiPopuop";
+import AiPopuop from "../Components/AiPopuop";
 import { HeroIllustration, MetaImage } from '@/assets/images'
 
 const Hero = () => {

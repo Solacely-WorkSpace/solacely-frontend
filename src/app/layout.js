@@ -1,6 +1,6 @@
 import { Roboto } from "next/font/google"
 import "@/Styles/globals.css";
-import Hero from "@/Components/Hero";
+import Hero from "@/UI/LandingPage/Sections/Hero";
 
 export const metadata = {
   title: "Solacely",

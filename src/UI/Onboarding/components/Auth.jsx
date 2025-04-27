@@ -1,9 +1,10 @@
 "use client";
+
 import Image from "next/image";
 import React, { useState } from "react";
-import CustomInput from "./CustomInput";
+import CustomInput from "../../Components/CustomInput";
 import { formShema, Stringify } from "@/lib/utils";
-import { Button } from "./ui/button";
+import { Button } from "../../Components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
