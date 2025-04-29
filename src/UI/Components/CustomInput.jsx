@@ -1,5 +1,3 @@
-import React from "react";
-
 const CustomInput = ({ placeholder, name, id, type, handleChange, label }) => {
   return (
     <div className=" flex flex-col gap-1.5">
