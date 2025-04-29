@@ -24,11 +24,10 @@ const Ad = () => {
 
         <article className="flex-1 flex flex-col gap-2 text-center md:text-start">
           <h3 className="text-3xl md:text-4xl font-rob font-bold w-full text-white">
-            Solacely is coming soon all devices
+            Solacely is coming soon to all devices
           </h3>
           <p className="text-md text-[#ccc] ">
-            A Private Limited is the most . The limited liability is, in fact, the
-            only company allowed by Companies.
+            Solacely - Revolutionizing real estate, powered by AI, and built on blockchain.
           </p>
         </article>
 

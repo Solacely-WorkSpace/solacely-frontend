@@ -12,12 +12,14 @@ const Hero = () => {
         <div className="flex-1 w-full mt-16">
           <div className="  px-2 font-rob">
             <h1 className="text-3xl md:text-5xl font-bold md:leading-14">
-              Find Your Perfect Home With AI-Powered Recommendations.
+              Homes aren't found, they're revealed. 
+              AI-Powered Recommendations.
             </h1>
 
             <p className=" text-sm md:text-lg leading-6 mt-6 max-w-96 ">
-              Live faster, fresher, and freer. Solacely helps you find your home
-              with a simple walkthrough within minutes.
+              Find verified rentals, pay in smaller, flexible installments, 
+              and enjoy secure, transparent transactions.
+              Solacely makes renting smarter and safer.
             </p>
 
             <div className=" flex justify-between md:flex-col gap-8 py-4 mt-6 items-center md:items-start">
