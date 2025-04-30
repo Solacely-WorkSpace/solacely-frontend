@@ -17,8 +17,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${roboto.className} `}>
-        {/* <Hero />  */}
-
         {children}
       </body>
     </html>
