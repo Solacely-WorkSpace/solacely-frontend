@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Dropdown from "../../../Components/Dropdown";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "../../../Components/ui/sheet";
+import Dropdown from "@/UI/Components/Dropdown";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "../../Components/ui/sheet";
 import { HamburgerSVG } from "@/assets/SVGAssets";
 
 

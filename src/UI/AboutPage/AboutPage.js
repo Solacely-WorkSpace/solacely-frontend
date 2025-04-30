@@ -1,4 +1,4 @@
-import AboutNavbar from '@/UI/AboutPage/Sections/AboutNavbar'
+import AboutNavbar from '@/UI/AboutPage/Components/AboutNavbar'
 import AboutUsInfo from '@/UI/AboutPage/Sections/AboutUsInfo'
 import Newsletter from '@/UI/AboutPage/Sections/Newsletter'
 
