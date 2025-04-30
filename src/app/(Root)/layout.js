@@ -7,7 +7,7 @@ export default function RootLayout({ children }) {
     <>
       <Nav />
 
-      <Hero />
+      {/* <Hero /> */}
 
       {children}
 

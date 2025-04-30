@@ -1,6 +1,6 @@
 import { Roboto } from "next/font/google"
 import "@/Styles/globals.css";
-import Hero from "@/UI/LandingPage/Sections/Hero";
+// import Hero from "@/UI/LandingPage/Sections/Hero";
 
 export const metadata = {
   title: "Solacely",
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${roboto.className} `}>
-        <Hero /> 
+        {/* <Hero />  */}
 
         {children}
       </body>

@@ -8,6 +8,7 @@ import Cta from '@/UI/LandingPage/Sections/Cta'
 export default function LandingPage() {
     return (
         <main className='w-screen flex flex-col gap-24 mt-20'>
+            <Hero />
             <Tour />
             <Waiting />
             <Offer />
