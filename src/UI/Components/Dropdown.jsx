@@ -3,7 +3,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuItem,
-} from "./ui/navigation-menu";
+} from "../Components/ui/navigation-menu";
 
 const Dropdown = () => {
   return (

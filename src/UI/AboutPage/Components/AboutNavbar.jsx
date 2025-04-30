@@ -1,12 +1,12 @@
 "use client";
-import Dropdown from "../../../Components/Dropdown";
+import Dropdown from "@/UI/Components/Dropdown";
 import Image from "next/image";
-import MobileNav from "../../../UI/AboutPage/Sections/MobileNav";
+import MobileNav from "./MobileNav";
 import Link from "next/link";
 import { LogoName } from '@/assets/images'
 import { LogoIcon } from '@/assets/icons'
 
-const Nav = () => {
+const AboutNavbar = () => {
   return (
     <nav className=" fixed w-full z-50 bg-white top-0 px-4 py-2">
       <div className="landingpage-container flex justify-between items-center">
@@ -65,4 +65,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default AboutNavbar
