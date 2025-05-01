@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SignInForm from "./components/SignInForm";
+import AuthIllustration from "./components/AuthIllustration";
 
 export default function SignUpPage() {
     return (
@@ -7,11 +8,7 @@ export default function SignUpPage() {
             <div className='h-svh h-screen w-[400px] p-12 '>
             </div>
 
-            <div className='fixed bg-[url("/images/Auth/room.jpg")] bg-cover bg-left-bottom h-screen w-[400px] z-10 overflow-hidden'>
-                <div className='bg-[#00000061] h-full w-full p-12'>
-                    <h3 className="text-white">Solacely</h3>
-                </div>
-            </div>
+            <AuthIllustration />
 
             <section className='flex-1 p-12'>
                 <div className="flex items-center justify-end w-full gap-1 ">

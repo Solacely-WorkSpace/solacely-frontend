@@ -1,18 +1,17 @@
 import Link from 'next/link'
 import SignInForm from './components/SignInForm'
 import FromSwitcher from './components/FromSwitcher'
+import Image from 'next/image'
+import { authImg } from '@/assets/images'
+import AuthIllustration from './components/AuthIllustration'
 
 export default function SignInPage() {
     return (
         <main className='flex w-screen min-h-screen '>
-            <div className='h-svh h-screen w-[400px] p-12 '>
+            <div className='h-svh h-screen w-[400px] p-12 hidden md:block'>
             </div>
 
-            <div className='fixed bg-[url("/images/Auth/room.jpg")] bg-cover bg-left-bottom h-screen w-[400px] z-10 overflow-hidden'>
-                <div className='bg-[#00000061] h-full w-full p-12'>
-                    <h3 className="text-white">Solacely</h3>
-                </div>
-            </div>
+            <AuthIllustration />
 
             <section className='flex-1 p-12'>
                 <div className="flex items-center justify-end w-full gap-1 ">
