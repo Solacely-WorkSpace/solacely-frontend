@@ -37,9 +37,9 @@
     @apply text-base text-[#515151];
   }
 
-  a {
+  /* a {
     color: var(--color-complementary);
-  }
+  } */
 
   img {
     @apply w-full object-cover object-center;
