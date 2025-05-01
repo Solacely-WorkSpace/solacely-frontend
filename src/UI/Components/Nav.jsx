@@ -10,7 +10,10 @@ const Nav = () => {
   return (
     <nav className=" fixed w-full z-50 bg-white top-0 px-4 py-2">
       <div className="landingpage-container flex justify-between items-center">
-        <div className=" flex gap-0 md:gap-1.5 items-end">
+        <Link
+          href={'/'}
+          className=" flex gap-0 md:gap-1.5 items-end"
+        >
           <div className="w-8">
             <Image
               src={LogoIcon}
@@ -30,7 +33,7 @@ const Nav = () => {
               className="h-4 md:h-6"
             />
           </div>
-        </div>
+        </Link>
 
         <div className=" hidden md:block">
           <ul className=" flex items-center gap-2">
@@ -54,8 +57,8 @@ const Nav = () => {
             Get Started
           </Link>
         </div>
-      </div>
-    </nav>
+      </div >
+    </nav >
   );
 };
 
