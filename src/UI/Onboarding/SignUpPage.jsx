@@ -16,7 +16,7 @@ export default function SignUpPage() {
 
                     <Link
                         href='/sign-in'
-                        className="text-sm"
+                        className="text-sm text-complementary"
                     >
                         Sign in
                     </Link>

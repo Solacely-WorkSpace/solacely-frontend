@@ -14,12 +14,12 @@ export default function SignInPage() {
             <AuthIllustration />
 
             <section className='flex-1 p-12'>
-                <div className="flex items-center justify-end w-full gap-1 ">
+                <div className="flex items-center justify-end w-full gap-2 ">
                     <p className="text-sm">Don't have an account?</p>
 
                     <Link
                         href='/sign-up'
-                        className="text-sm"
+                        className="text-sm text-complementary"
                     >
                         Sign up for free
                     </Link>
