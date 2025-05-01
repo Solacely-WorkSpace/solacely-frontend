@@ -16,10 +16,10 @@ export default function Newsletter() {
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="text-2xl font-bold  sm:text-3xl text-gray-900">
           Subscribe to our Newsletter<br />
-          to get <span className="text-teal-500 font-semibold">Updated</span>
+          to get <span className="text-complementary font-semibold">Updated</span>
         </h2><br />
         
-        <p className="text-gray-500 text-sm mb-6 max-w-md mx-auto text-left">
+        <p className="text-gray-500 text-sm mb-6 max-w-md mx-auto">
           Get our latest update on your inbox. With lots of unique 
           blocks, you can easily build a page without coding. Build your 
           next consultancy website within few minutes.
@@ -37,7 +37,7 @@ export default function Newsletter() {
           </div>
           <button 
             onClick={handleSubmit} 
-            className="px-6 py-5 bg-teal-500 text-white font-medium uppercase text-sm rounded-[10px] sm:rounded-l-none hover:bg-teal-600 transition-colors tracking-[0.3em]"
+            className="px-6 py-5 bg-complementary text-white font-medium uppercase text-sm rounded-[10px] sm:rounded-l-none hover:bg-teal-600 transition-colors tracking-[0.3em]"
           >
             SUBSCRIBE
           </button>

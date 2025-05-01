@@ -19,6 +19,9 @@ import ctaImageSix from "@/../public/images/LandingPage/cta/cta6.png"
 
 import logoWhite from "@/../public/images/LandingPage/footer/logo white.png"
 
+// About Page
+import AboutHeroBg from "@/../public/images/AboutPage/abouthero/BG.png"
+
 export {
     LogoName,
     HeroIllustration,
@@ -36,4 +39,5 @@ export {
     ctaImageFive,
     ctaImageSix,
     logoWhite,
+    AboutHeroBg,
 }
