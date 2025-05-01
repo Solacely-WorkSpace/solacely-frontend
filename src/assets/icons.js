@@ -8,6 +8,9 @@ import instagramLogo from '@/../public/icons/LandingPage/footer/instagram.png'
 import twitterLogo from '@/../public/icons/LandingPage/footer/twitter.png'
 import linkedinLogo from '@/../public/icons/LandingPage/footer/linkedin.png'
 
+import goal from '@/../public/icons/AboutPage/goal.png'
+import film from '@/../public/icons/AboutPage/360.png'
+
 export {
     appstore,
     playstore,
@@ -16,4 +19,6 @@ export {
     instagramLogo,
     twitterLogo,
     linkedinLogo,
+    goal,
+    film,
 }
