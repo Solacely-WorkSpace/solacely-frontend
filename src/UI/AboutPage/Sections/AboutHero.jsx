@@ -9,7 +9,7 @@ export default function AboutHero() {
     <section className="w-full p-6 bg-white px-4"> 
           <div className="max-w-[1400px] mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h1 className="text-5xl text-black font-bold mb-6">About Us</h1>
+              <h1 className="text-4xl text-black font-bold mb-6">About Us</h1>
               <p className="text-lg text-gray-600">
                 We are an industry leader that places a premium on honesty, ethics, and
                 efficiency. Since the outset, we have distinguished ourselves by
