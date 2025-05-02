@@ -76,6 +76,34 @@ const whatWeOffer = [
 
 ]
 
+const aboutOffers = [
+    {
+        offer: 'No hidden fees, no transfer commissions. We offer safe transactions for you.',
+        icon: '/icons/star.svg',
+        header: 'Zero  Stress'
+
+    },
+    {
+        offer: 'Your Funds are safeguarded by the French Fonds de Garantie des Dépôts et de Résolution.',
+        icon: '/icons/leaf.svg',
+        header: 'Reliable'
+
+    },
+    {
+        offer: 'Open a business account for the online deposit of your share capital',
+        icon: '/icons/Icon.svg',
+        header: 'VR Experience'
+
+    },
+    {
+        offer: 'Commitment-free and scalable, according to your business needs.',
+        icon: '/icons/cirle.svg',
+        header: 'Comfort'
+
+    },
+
+]
+
 // Tour Dataset
 
 const tour = [
@@ -145,6 +173,7 @@ const btn = {
 export {
     Testimonial,
     whatWeOffer,
+    aboutOffers,
     fadeIn,
     enterFrame,
     slideInLeft,
