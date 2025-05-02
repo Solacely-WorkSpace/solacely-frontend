@@ -4,7 +4,7 @@ import { useState } from "react"
 import SignInForm from "./SignInForm"
 import clsx from "clsx"
 
-export default function FromSwitcher() {
+export default function FormSwitcher() {
     const [currentForm, setCurrentForm] = useState('email')
 
     return (

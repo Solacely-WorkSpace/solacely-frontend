@@ -42,7 +42,7 @@ export default function SignInForm() {
 
             <Link
                 href="#"
-                className="block w-full mt-2 text-sm text-end"
+                className="block w-full mt-2 text-sm text-end text-complementary"
             >
                 Forgot Password?
             </Link>
