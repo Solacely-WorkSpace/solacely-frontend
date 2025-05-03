@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { teamMembers } from "@/Constant";
 import Link from "next/link";
-import { facebookLogo, instagramLogo, linkedinLogo, twitterLogo } from "@/assets/icons";
+import { facebookIcon, instagramIcon, linkedinIcon, twitterIcon } from "@/assets/icons";
 
 
 const SocialLink = ({ href, children }) => (
@@ -52,44 +52,44 @@ const Team = () => {
                         <SocialLink href={member.social?.instagram}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
-                              src={instagramLogo} 
+                              src={instagramIcon} 
                               width={14} 
                               height={14} 
                               alt="Instagram"
-                              className="w-10 h-10"
+                              className="w-5 h5"
                             />
                           </div>
                         </SocialLink>
                         <SocialLink href={member.social?.linkedin}>
                           <div className="w-10 h-10 flex items-center justify-center">
                             <Image 
-                              src={linkedinLogo}
+                              src={linkedinIcon}
                               width={14}  
                               height={14} 
                               alt="LinkedIn"
-                              className="w-10 h-10"
+                              className="w-6 h-6"
                             />
                           </div>
                         </SocialLink>
                         <SocialLink href={member.social?.facebook}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
-                              src={facebookLogo} 
+                              src={facebookIcon} 
                               width={14}
                               height={14}
                               alt="Facebook"
-                              className="w-10 h-10"
+                              className="w-5 h-7"
                             />
                           </div>
                         </SocialLink>
                         <SocialLink href={member.social?.twitter}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
-                              src={twitterLogo} 
+                              src={twitterIcon} 
                               width={14} 
                               height={14} 
                               alt="Twitter"
-                              className="w-10 h-10"
+                              className="w-5 h-5"
                             />
                           </div>
                         </SocialLink>
@@ -107,44 +107,44 @@ const Team = () => {
                         <SocialLink href={member.social?.instagram}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
-                              src={instagramLogo} 
+                              src={instagramIcon} 
                               width={14} 
                               height={14} 
                               alt="Instagram"
-                              className="w-10 h-10"
+                              className="w-5 h-5"
                             />
                           </div>
                         </SocialLink>
                         <SocialLink href={member.social?.linkedin}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
-                              src={linkedinLogo}
+                              src={linkedinIcon}
                               width={14}  
                               height={14} 
                               alt="LinkedIn"
-                              className="w-10 h-10"
+                              className="w-4 h-4"
                             />
                           </div>
                         </SocialLink>
                         <SocialLink href={member.social?.facebook}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
-                              src={facebookLogo} 
+                              src={facebookIcon} 
                               width={14}
                               height={14}
                               alt="Facebook"
-                              className="w-10 h-10"
+                              className="w-6 h-6"
                             />
                           </div>
                         </SocialLink>
                         <SocialLink href={member.social?.twitter}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
-                              src={twitterLogo} 
+                              src={twitterIcon} 
                               width={14} 
                               height={14} 
                               alt="Twitter"
-                              className="w-10 h-10"
+                              className="w-5 h-5"
                             />
                           </div>
                         </SocialLink>
