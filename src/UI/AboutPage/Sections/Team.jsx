@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { teamMembers } from "@/Constant";
 import Link from "next/link";
-import { instagramIcon, facebookIcon, twitterIcon, linkedinIcon } from "@/assets/icons";
+import { facebookIcon, instagramIcon, linkedinIcon, twitterIcon } from "@/assets/icons";
+
 
 const SocialLink = ({ href, children }) => (
   <Link 
@@ -25,11 +26,11 @@ const Team = () => {
           </h2>
         </div>
         
-        <div className="flex md:grid overflow-x-auto snap-x snap-mandatory md:grid-cols-3 lg:grid-cols-4 gap-4 pb-8 md:pb-0 scrollbar-hide">
+        <div className="flex md:grid overflow-x-auto snap-x snap-mandatory md:grid-cols-2 lg:grid-cols-4 gap-2 pb-8 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
           {teamMembers.map((member, index) => (
             <div 
               key={index} 
-              className="group relative flex-shrink-0 w-full md:w-auto snap-center overflow-hidden rounded-2xl h-full"
+              className="group relative overflow-hidden rounded-[20px] flex-shrink-0 w-[85vw] md:w-auto snap-center first:ml-0"
             >
               <div className="aspect-[5/5] relative"> 
                 <Image
@@ -41,7 +42,7 @@ const Team = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                   quality={100}
                 />
-                {/* Desktop hover overlay card */}
+                                {/* Desktop hover overlay card */}
                 <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
                     <div className="text-center">
@@ -55,18 +56,18 @@ const Team = () => {
                               width={14} 
                               height={14} 
                               alt="Instagram"
-                              className="w-3.5 h-3.5"
+                              className="w-5 h5"
                             />
                           </div>
                         </SocialLink>
                         <SocialLink href={member.social?.linkedin}>
-                          <div className="w-5 h-5 flex items-center justify-center">
+                          <div className="w-10 h-10 flex items-center justify-center">
                             <Image 
                               src={linkedinIcon}
                               width={14}  
                               height={14} 
                               alt="LinkedIn"
-                              className="w-3.5 h-3.5"
+                              className="w-6 h-6"
                             />
                           </div>
                         </SocialLink>
@@ -77,7 +78,7 @@ const Team = () => {
                               width={14}
                               height={14}
                               alt="Facebook"
-                              className="w-3.5 h-4"
+                              className="w-5 h-7"
                             />
                           </div>
                         </SocialLink>
@@ -88,7 +89,7 @@ const Team = () => {
                               width={14} 
                               height={14} 
                               alt="Twitter"
-                              className="w-3.5 h-3.5"
+                              className="w-5 h-5"
                             />
                           </div>
                         </SocialLink>
@@ -101,8 +102,8 @@ const Team = () => {
                 <div className="md:hidden absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
                   <div className="text-center">
                     <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                    <p className="text-sm text-gray-500 mt-0.5">{member.location}</p>
-                    <div className="flex items-center justify-center gap-4 mt-1">
+                    <p className="text-sm text-gray-500 mt-0.5 mb-1">{member.location}</p>
+                    <div className="flex items-center justify-center gap-4 mt-2 mb-1">
                         <SocialLink href={member.social?.instagram}>
                           <div className="w-5 h-5 flex items-center justify-center">
                             <Image 
@@ -110,7 +111,7 @@ const Team = () => {
                               width={14} 
                               height={14} 
                               alt="Instagram"
-                              className="w-3.5 h-3.5"
+                              className="w-5 h-5"
                             />
                           </div>
                         </SocialLink>
@@ -121,7 +122,7 @@ const Team = () => {
                               width={14}  
                               height={14} 
                               alt="LinkedIn"
-                              className="w-3.5 h-3.5"
+                              className="w-4 h-4"
                             />
                           </div>
                         </SocialLink>
@@ -132,7 +133,7 @@ const Team = () => {
                               width={14}
                               height={14}
                               alt="Facebook"
-                              className="w-3.5 h-4"
+                              className="w-6 h-6"
                             />
                           </div>
                         </SocialLink>
@@ -143,7 +144,7 @@ const Team = () => {
                               width={14} 
                               height={14} 
                               alt="Twitter"
-                              className="w-3.5 h-3.5"
+                              className="w-5 h-5"
                             />
                           </div>
                         </SocialLink>
@@ -152,7 +153,7 @@ const Team = () => {
                 </div>
 
                 {/* Desktop permanent info */}
-                <div className="hidden md:block absolute bottom-1 left-4 right-0 p-4 text-center from-black/70 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+                <div className="hidden md:block absolute bottom-1 left-4 right-0 p-4 text-center from-black/70 to-transparent opaity-100 group-hover:opacity-0 transition-opacity duration-300">
                   <p className="text-sm text-left text-gray-200">{member.role}</p>
                   <h3 className="text-lg text-left font-semibold text-white">{member.name}</h3>
                 </div>
@@ -163,7 +164,7 @@ const Team = () => {
 
         {/* Pagination dots */}
         <div className="flex justify-center gap-2 mt-6 md:hidden">
-          {[0, 1, 2].map((i) => (
+          {teamMembers.map((_, i) => (
             <div
               key={i}
               className={`h-2 w-2 rounded-full transition-colors ${
