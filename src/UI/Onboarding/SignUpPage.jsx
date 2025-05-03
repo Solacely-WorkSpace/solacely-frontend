@@ -29,9 +29,9 @@ export default function SignUpPage() {
                     <p className="mt-10 text-xs text-center opacity-60">use your OpenId to Sign up</p>
 
                     <div className="mt-4 flex gap-4 items-center">
-                        <button className="px-16 rounded-full w-fit btn-primary">Google</button>
+                        <button className="px-16 rounded-full w-fit btn-primary shadow-none">Google</button>
 
-                        <button className="px-16 rounded-full w-fit btn-primary bg-black">Facebook</button>
+                        <button className="px-16 rounded-full w-fit btn-primary shadow-none bg-black">Facebook</button>
                     </div>
 
                     <div className="w-[400px] h-[1px] bg-gray-400 opacity-20 mt-8 "></div>

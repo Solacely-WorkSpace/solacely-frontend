@@ -118,7 +118,7 @@ export default function SignupForm({ serviceType }) {
                 />
             </div>
 
-            <div className="w-full mb-6">
+            <div className="w-full mb-4">
                 <label
                     htmlFor="confirm-password"
                     className="text-sm mb-1.5 block"
@@ -135,14 +135,23 @@ export default function SignupForm({ serviceType }) {
                 />
             </div>
 
-            <Link
-                href="#"
-                className="block w-full mt-2 text-sm text-end text-complementary"
-            >
-                Forgot Password?
-            </Link>
+            <div className="flex gap-2 items-start">
+                <input
+                    type="checkbox"
+                    name="agreement-cheackbox"
+                    id="agreement-cheackbox"
+                    className="block mt-1"
+                />
+
+                <label
+                    htmlFor="agreement-cheackbox"
+                    className="text-sm text-[#9EA0AB]"
+                >
+                    By signing up I agree that I’m 18 years of age or older, to the User <Link href="#" className="text-black">Agreements,</Link> <Link href="#" className="text-black">Privacy Policy,</Link> <Link href="#" className="text-black">Cookie Policy,</Link> <Link href="#" className="text-black">E-Sign Consent</Link>.
+                </label>
+            </div>
 
             <button className="w-full mt-6 btn-primary">Register</button>
-        </form>
+        </form >
     )
 }

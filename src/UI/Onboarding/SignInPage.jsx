@@ -27,7 +27,7 @@ export default function SignInPage() {
 
                     <p className="mt-10 text-xs text-center opacity-60">use your OpenId to Sign in</p>
 
-                    <button className="px-16 mt-4 rounded-full w-fit btn-primary">Google</button>
+                    <button className="px-16 mt-4 rounded-full w-fit btn-primary shadow-none">Google</button>
 
                     <div className="w-full md:w-[400px] h-[1px] bg-gray-400 opacity-20 mt-8 "></div>
 
