@@ -1,27 +1,86 @@
-import Link from "next/link";
+"use client"
 
-export default function SignInForm() {
+import Link from "next/link";
+import { useState } from "react";
+import { RealTimeValidateInput } from "./RealTimeValidatedInput";
+
+export default function SignInForm({ serviceType }) {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [emailStatus, setEmailStatus] = useState('')
+    const [phoneNumberStatus, setPhoneNumberStatus] = useState('')
+    const [passwordStatus, setPasswordStatus] = useState('')
+
     return (
         <form
             action=""
-            className="w-full h-full md:w-fit "
+            className="h-full w-full md:w-[360px] "
         >
-            <div>
-                <label
-                    htmlFor="Email"
-                    className="text-sm"
-                >
-                    Email
-                </label>
 
-                <input
-                    type="email"
-                    name="Email"
-                    id="Email"
-                    placeholder="Email address"
-                    className="block p-3 pl-4 mt-1 border border-gray-400 rounded-md w-full md:w-[360px] opacity-50"
-                />
-            </div>
+            {
+                serviceType === 'email' &&
+                <div className="w-full">
+                    <label
+                        htmlFor="Email"
+                        className="text-sm"
+                    >
+                        Email
+                    </label>
+
+                    <RealTimeValidateInput
+                        {...{
+                            type: 'email',
+                            name: 'email',
+                            placeholder: "Email address",
+                            value: email,
+                            setValue: setEmail,
+                            required: true,
+                            status: emailStatus,
+                            setStatus: setEmailStatus,
+                            validator: emailValidator,
+                        }}
+                    />
+                </div>
+            }
+
+            {
+                serviceType === 'mobile' &&
+                <div className="w-full">
+                    <label
+                        htmlFor="Email"
+                        className="text-sm"
+                    >
+                        Mobile
+                    </label>
+
+                    <div className="w-full flex items-center gap-2">
+                        <select
+                            name=""
+                            id=""
+                            className="relative border border-gray-400 rounded-lg w-fit h-fit flex gap-4 items-center justify-between focus:outline-complementary p-3"
+                        >
+                            <option value="+234">+234</option>
+                            <option value="+234">+265</option>
+                            <option value="+234">+1</option>
+                        </select>
+
+                        <RealTimeValidateInput
+                            {...{
+                                type: 'number',
+                                name: 'phone number',
+                                placeholder: "",
+                                value: phoneNumber,
+                                setValue: setPhoneNumber,
+                                required: true,
+                                status: phoneNumberStatus,
+                                setStatus: setPhoneNumberStatus,
+                                validator: phoneNumberValidator,
+                            }}
+                        />
+                    </div>
+                </div>
+            }
 
             <div className="mt-6">
                 <label
@@ -31,14 +90,21 @@ export default function SignInForm() {
                     Password
                 </label>
 
-                <input
-                    type="password"
-                    name="Password"
-                    id="Password"
-                    placeholder="Password address"
-                    className="block p-3 pl-4 mt-1 border border-gray-400 rounded-md w-full md:w-[360px] opacity-50"
+                <RealTimeValidateInput
+                    {...{
+                        type: 'password',
+                        value: password,
+                        name: 'password',
+                        placeholder: "Password",
+                        required: true,
+                        setValue: setPassword,
+                        validator: passwordValidator,
+                        status: passwordStatus,
+                        setStatus: setPasswordStatus
+                    }}
                 />
             </div>
+
 
             <Link
                 href="#"
@@ -50,4 +116,30 @@ export default function SignInForm() {
             <button className="w-full mt-6 btn-primary">Login</button>
         </form>
     )
+}
+
+function emailValidator(value) {
+    console.log(value)
+    return value.length === 0
+        ? undefined
+        : value.length < 3
+            ? 'taken'
+            : 'not taken'
+}
+
+function phoneNumberValidator(value) {
+    console.log(value)
+    return value.length === 0
+        ? undefined
+        : value.length < 3
+            ? 'taken'
+            : 'not taken'
+}
+
+function passwordValidator(value) {
+    return value.length === 0
+        ? undefined
+        : value.length < 3
+            ? 'taken'
+            : 'not taken'
 }

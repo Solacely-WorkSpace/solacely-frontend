@@ -35,15 +35,7 @@ export default function FormSwitcher() {
                 </button>
             </div>
 
-            {
-                currentForm === 'email' &&
-                <SignInForm />
-            }
-
-            {
-                currentForm === 'mobile' &&
-                <p>mobile form</p>
-            }
+            <SignInForm {...{ serviceType: currentForm }} />
         </div >
     )
 }

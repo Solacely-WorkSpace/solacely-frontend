@@ -5,12 +5,12 @@ import AuthIllustration from "./components/AuthIllustration";
 export default function SignUpPage() {
     return (
         <main className='flex w-screen min-h-screen '>
-            <div className='h-svh h-screen w-[400px] p-12 '>
+            <div className='h-svh h-screen w-[400px] p-12 hidden md:block'>
             </div>
 
             <AuthIllustration />
 
-            <section className='flex-1 p-12'>
+            <section className='flex-1 w-full p-6 md:p-12'>
                 <div className="flex items-center justify-end w-full gap-1 ">
                     <p className="text-sm">Already have an account?</p>
 
