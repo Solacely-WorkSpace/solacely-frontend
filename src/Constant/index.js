@@ -1,5 +1,7 @@
 import { testimonialImageFour, testimonialImageOne, testimonialImageThree, testimonialImageTwo, tourImageOne } from "@/assets/images"
 
+import { memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight } from '@/assets/images'
+
 // Testimonial Dataset
 const Testimonial = [{
     username: '- @thepatwalls',
@@ -140,6 +142,105 @@ const tour = [
     },
 ]
 
+const teamMembers = [
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberOne,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberTwo,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberThree,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberFour,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberFive,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberSix,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberSeven,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+    {
+      name: "Emaily Moady",
+      location: "Lagos, NG",
+      role: "Vice President",
+      image: memberEight,
+      social: {
+        instagram: "https://instagram.com/username",
+        linkedin: "https://linkedin.com/in/username",
+        facebook: "https://facebook.com/username",
+        twitter: "https://twitter.com/username"
+      }
+    },
+]
+
 // Animation Constants
 
 const slideInLeft = {
@@ -169,11 +270,14 @@ const btn = {
 }
 
 
+
+
 // Exporting the constants
 export {
     Testimonial,
     whatWeOffer,
     aboutOffers,
+    teamMembers,
     fadeIn,
     enterFrame,
     slideInLeft,

@@ -1,21 +1,19 @@
 import { aboutOffers } from "@/Constant";
 import Image from "next/image";
-import AnimatedComponents from "@/UI/Components/Animations/AnimatedComponents";
-import { slideInLeft } from "@/Constant";
 import { offerSectionImage } from "@/assets/images";
 import clsx from "clsx";
 
 const AboutOffer = () => {
   return (
     <section className=" bg-[url('/images/LandingPage/offer/Bg.png')] bg-left-top bg-fixed bg-cover w-screen p-2 md:px-8">
-      <div className="landingpage-container flex gap-8 flex-col md:flex-row items-center justify-between py-10">
+      <div className="aboutpage-container flex gap-8 flex-col md:flex-row items-center justify-between py-10">
         <figure className="flex-1 flex flex-col justify-end md:pt-40">
           <h2 className=" text-center md:text-left">
             The Excellent Luxury we
             <br />
             Offer to all Potential{" "}
             <br />
-            <b className="text-green-400">Home Owners </b>
+            <b className="text-complementary">Home Owners </b>
           </h2>
 
           <Image
