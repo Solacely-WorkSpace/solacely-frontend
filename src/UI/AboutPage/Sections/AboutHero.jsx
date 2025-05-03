@@ -6,8 +6,8 @@ import { goal, film } from '@/assets/icons'
 
 export default function AboutHero() {
   return (
-    <section className="w-full p-6 bg-white px-4"> 
-          <div className="max-w-[1400px] mx-auto px-4">
+    <section className="aboutpage-container px-4 mt-16 w-full"> 
+          <div className="aboutpage-container mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h1 className="text-4xl text-black font-bold mb-6">About Us</h1>
               <p className="text-lg text-gray-600">
