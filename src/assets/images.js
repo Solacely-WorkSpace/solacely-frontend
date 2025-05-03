@@ -51,6 +51,19 @@ import AboutHeroBg from "@/../public/images/AboutPage/abouthero/BG.png"
 // About Page Assets ends here  ##
 // ###############################
 
+// Team members
+import memberOne from "@/../public/images/AboutPage/team/member1.png"
+import memberTwo from "@/../public/images/AboutPage/team/member2.png"
+import memberThree from "@/../public/images/AboutPage/team/member3.png"
+import memberFour from "@/../public/images/AboutPage/team/member4.png"
+import memberFive from "@/../public/images/AboutPage/team/member5.png"
+import memberSix from "@/../public/images/AboutPage/team/member6.png"
+import memberSeven from "@/../public/images/AboutPage/team/member7.png"
+import memberEight from "@/../public/images/AboutPage/team/member8.png"
+
+
+
+
 export {
     LogoName,
     HeroIllustration,
@@ -70,4 +83,13 @@ export {
     logoWhite,
     authImg,
     AboutHeroBg,
+    memberOne,
+    memberTwo,
+    memberThree,
+    memberFour,
+    memberFive,
+    memberSix,
+    memberSeven,
+    memberEight,
+
 }

@@ -11,6 +11,12 @@ import linkedinLogo from '@/../public/icons/LandingPage/footer/linkedin.png'
 import goal from '@/../public/icons/AboutPage/goal.png'
 import film from '@/../public/icons/AboutPage/360.png'
 
+// Social Icons
+import instagramIcon from "@/../public/icons/SocialIcons/instagram.png"
+import facebookIcon from "@/../public/icons/SocialIcons/facebook.png"
+import twitterIcon from "@/../public/icons/SocialIcons/twitter.png"
+import linkedinIcon from "@/../public/icons/SocialIcons/linkedin.png"
+
 export {
     appstore,
     playstore,
@@ -21,4 +27,8 @@ export {
     linkedinLogo,
     goal,
     film,
+    instagramIcon,
+    facebookIcon,
+    twitterIcon,
+    linkedinIcon,
 }
