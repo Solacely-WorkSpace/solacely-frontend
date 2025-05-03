@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import SignInForm from "./SignInForm"
+import SigninForm from "./SigninForm"
 import clsx from "clsx"
 
 export default function FormSwitcher() {
@@ -35,7 +35,7 @@ export default function FormSwitcher() {
                 </button>
             </div>
 
-            <SignInForm {...{ serviceType: currentForm }} />
+            <SigninForm {...{ serviceType: currentForm }} />
         </div >
     )
 }

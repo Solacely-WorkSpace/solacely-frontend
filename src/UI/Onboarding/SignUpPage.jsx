@@ -1,6 +1,7 @@
 import Link from "next/link";
-import SignInForm from "./components/SignInForm";
+import SignInForm from "./components/SigninForm";
 import AuthIllustration from "./components/AuthIllustration";
+import SignupForm from "./components/SignupForm";
 
 export default function SignUpPage() {
     return (
@@ -34,7 +35,7 @@ export default function SignUpPage() {
                     <p className="mt-6 text-xs text-center opacity-60">Or continue with email</p>
 
                     <div className="w-full mt-6 md:w-fit">
-                        <p>signup form</p>
+                        <SignupForm />
                     </div>
                 </section>
             </section>

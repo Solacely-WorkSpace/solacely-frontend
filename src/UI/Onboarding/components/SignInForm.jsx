@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { RealTimeValidateInput } from "./RealTimeValidatedInput";
+import clsx from "clsx";
 
-export default function SignInForm({ serviceType }) {
+export default function SigninForm({ serviceType }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -23,7 +24,7 @@ export default function SignInForm({ serviceType }) {
                 <div className="w-full">
                     <label
                         htmlFor="Email"
-                        className="text-sm"
+                        className="text-sm mb-1.5 block"
                     >
                         Email
                     </label>
@@ -49,16 +50,21 @@ export default function SignInForm({ serviceType }) {
                 <div className="w-full">
                     <label
                         htmlFor="Email"
-                        className="text-sm"
+                        className="text-sm mb-1.5 block"
                     >
                         Mobile
                     </label>
 
                     <div className="w-full flex items-center gap-2">
                         <select
-                            name=""
-                            id=""
-                            className="relative border border-gray-400 rounded-lg w-fit h-fit flex gap-4 items-center justify-between focus:outline-complementary p-3"
+                            name="country-code"
+                            id="country-code"
+                            className={clsx(
+                                "relative border border-gray-400 rounded-lg w-fit h-fit flex gap-4 items-center justify-between focus:outline-complementary p-3 px-2",
+                                {
+                                    "border-0 outline-2 outline-complementary": phoneNumberStatus === 'not taken'
+                                }
+                            )}
                         >
                             <option value="+234">+234</option>
                             <option value="+234">+265</option>
@@ -85,7 +91,7 @@ export default function SignInForm({ serviceType }) {
             <div className="mt-6">
                 <label
                     htmlFor="Password"
-                    className="text-sm"
+                    className="text-sm mb-1.5 block"
                 >
                     Password
                 </label>

@@ -28,7 +28,7 @@ export function RealTimeValidateInput({
     }
 
     return (
-        <>
+        <div className="w-full h-fit">
             {
                 error &&
                 <p className="text-red-500 w-full text-start ">{error}</p>
@@ -50,7 +50,12 @@ export function RealTimeValidateInput({
                     }}
                     placeholder={placeholder}
                     required={required}
-                    className={clsx("placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 focus:outline-complementary rounded-lg ")}
+                    className={clsx(
+                        "placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg ",
+                        {
+                            "outline-2 outline-complementary": status === 'not taken'
+                        }
+                    )}
                 />
 
                 {
@@ -62,7 +67,7 @@ export function RealTimeValidateInput({
                         }
                     )}></div>
                 }
-            </div >
-        </>
+            </div>
+        </div>
     )
 }
