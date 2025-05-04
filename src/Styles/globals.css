@@ -8,7 +8,8 @@
   --color-txt: #171717;
 }
 
-@layer base{
+@layer base {
+
   *,
   *::before,
   *::after {
@@ -20,35 +21,43 @@
     @apply bg-white w-screen overflow-x-hidden;
   }
 
-  h1{
-    @apply text-txt text-3xl md:text-4xl lg:text-5xl font-bold;
+  h1 {
+    @apply text-txt text-3xl md:text-3xl lg:text-4xl font-bold;
   }
-  
-  h2{
-    @apply text-txt text-2xl md:text-3xl lg:text-4xl font-extrabold;
+
+  h2 {
+    @apply text-txt text-2xl md:text-2xl lg:text-3xl font-extrabold;
   }
-  
-  h3{
+
+  h3 {
     @apply text-txt text-xl md:text-2xl lg:text-3xl font-extrabold;
   }
 
-  p{
+  p {
     @apply text-base text-[#515151];
   }
 
-  img{
+  /* a {
+    color: var(--color-complementary);
+  } */
+
+  img {
     @apply w-full object-cover object-center;
   }
 
-  button{
+  button {
     @apply whitespace-nowrap cursor-pointer
   }
-  
+
   .landingpage-container {
     @apply w-full md:max-w-[900px] lg:max-w-[1120px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto;
   }
-  
-  .btn-primary{
+
+  .aboutpage-container {
+    @apply w-full md:max-w-[900px] lg:max-w-[1120px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto;
+  }
+
+  .btn-primary {
     @apply py-4 px-8 rounded-md bg-primary shadow-lg shadow-[#521282]/30 font-semibold text-sm text-white cursor-pointer
   }
 }

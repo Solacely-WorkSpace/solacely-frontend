@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import CustomInput from "./CustomInput";
 import { formShema, Stringify } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import CustomInput from "@/UI/Components/CustomInput";
 
 const Auth = ({ type }) => {
   const [userData, setUserData] = useState({});

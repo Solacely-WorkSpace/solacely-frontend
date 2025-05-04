@@ -3,15 +3,16 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuItem,
-} from "./ui/navigation-menu";
+} from "../Components/ui/navigation-menu";
 
 const Dropdown = () => {
   return (
     <NavigationMenu>
       <NavigationMenuItem>
-        <NavigationMenuTrigger className="  text-center font-sans font-semibold bg-transparent shadow-none  focus:bg-transparent hover:bg-transparent border-none text-black p-7 text-base">
-          <p className=" font-bold "> Spaces </p>
+        <NavigationMenuTrigger className="mr-6 ">
+          <p className=" font-bold text-black "> Spaces </p>
         </NavigationMenuTrigger>
+
         <NavigationMenuContent>
           <p>Hello World!!</p>
         </NavigationMenuContent>

@@ -11,18 +11,31 @@ export function cn(...inputs) {
 
 export const formShema = object({
   firstName: string().min(4, 'Has to be a minimum of 3 characters').required(),
-  lastName:  string().min(4, 'Has to be a minimum of 3 characters').required(),
+  lastName: string().min(4, 'Has to be a minimum of 3 characters').required(),
   email: string().min(8, 'must be greater than 8 characters').required(),
   password: number().min(8, 'must be greater than 8 numbers').required(),
   phoneNumber: number().min(10, 'must be greater than up to 10 numbers').required(),
   confirmPassword: number().min(8).required()
 })
 
-
 export const Stringify = (data) => JSON.parse(JSON.stringify(data));
 
 export const CurrencyFormatter = (data) => {
-  const formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
-  
-   return formatter.format(data);
+  const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+  return formatter.format(data);
 }
+
+export const debounce = (() => {
+  let timer = undefined
+
+  return (callback) => {
+    if (timer !== undefined) {
+      clearTimeout(timer)
+    }
+
+    timer = setTimeout(() => {
+      callback()
+    }, 400);
+  }
+})()

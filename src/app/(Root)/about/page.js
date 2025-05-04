@@ -1,4 +1,4 @@
-import AboutPage from '@/UI/AboutPage'
+import AboutPage from '@/UI/AboutPage/AboutPage'
 import React from 'react'
 
 const Page = () => {
