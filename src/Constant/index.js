@@ -135,7 +135,7 @@ const tour = {
   "Pair With Me": {
     label: "Pair With Me",
     header: "Find the Perfect Roommate for Your Next Home",
-    desc: `Looking for someone to share rent, responsibilities, and maybe a few laughs? Solacely helps you connect with verified, compatible co-tenants based on your preferences, habits, and goals.`,
+    desc: `Looking for someone to share rent, responsibilities, and maybe a few laughs? Solacely helps you connect with verified, compatible co-tenants based on your preferences, habits, and goals. `,
     src: tourImagethree,
   },
 
