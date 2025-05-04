@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import SignInForm from "./SignInForm"
+import SigninForm from "./SigninForm"
 import clsx from "clsx"
 
-export default function FromSwitcher() {
+export default function FormSwitcher() {
     const [currentForm, setCurrentForm] = useState('email')
 
     return (
@@ -35,15 +35,7 @@ export default function FromSwitcher() {
                 </button>
             </div>
 
-            {
-                currentForm === 'email' &&
-                <SignInForm />
-            }
-
-            {
-                currentForm === 'mobile' &&
-                <p>mobile form</p>
-            }
+            <SigninForm {...{ serviceType: currentForm }} />
         </div >
     )
 }
