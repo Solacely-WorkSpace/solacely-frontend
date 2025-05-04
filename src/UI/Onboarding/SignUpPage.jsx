@@ -1,48 +1,36 @@
+"use client"
+
+import { useState } from "react";
+import SiugnupSection from "./sections/SiugnupSection";
 import Link from "next/link";
-import SignInForm from "./components/SigninForm";
-import AuthIllustration from "./components/AuthIllustration";
-import SignupForm from "./components/SignupForm";
+import ConfirmVerificationMethodSection from "./sections/ConfirmVerificationMethodSection";
+import OTPSection from "./sections/OTPSection";
+import FinalSection from "./sections/FinalSection";
 
 export default function SignUpPage() {
+    const [currentStage, setCurrentStage] = useState('form')
+
     return (
-        <main className='flex w-screen min-h-screen '>
-            <div className='h-svh h-screen w-[400px] p-12 hidden md:block'>
-            </div>
+        <>
+            {
+                currentStage === 'form' &&
+                <SiugnupSection setCurrentStage={setCurrentStage} />
+            }
 
-            <AuthIllustration />
+            {
+                currentStage === 'confirm' &&
+                <ConfirmVerificationMethodSection setCurrentStage={setCurrentStage} />
+            }
 
-            <section className='flex-1 w-full p-6 md:p-12'>
-                <div className="flex items-center justify-end w-full gap-1 ">
-                    <p className="text-sm">Already have an account?</p>
+            {
+                currentStage === 'otp' &&
+                <OTPSection setCurrentStage={setCurrentStage} />
+            }
 
-                    <Link
-                        href='/sign-in'
-                        className="text-sm text-complementary"
-                    >
-                        Sign in
-                    </Link>
-                </div>
-
-                <section className="flex flex-col items-center mt-16">
-                    <h1 className="text-3xl">Login to Solacely</h1>
-
-                    <p className="mt-10 text-xs text-center opacity-60">use your OpenId to Sign up</p>
-
-                    <div className="mt-4 flex gap-4 items-center">
-                        <button className="px-16 rounded-full w-fit btn-primary shadow-none">Google</button>
-
-                        <button className="px-16 rounded-full w-fit btn-primary shadow-none bg-black">Facebook</button>
-                    </div>
-
-                    <div className="w-[400px] h-[1px] bg-gray-400 opacity-20 mt-8 "></div>
-
-                    <p className="mt-6 text-xs text-center opacity-60">Or continue with email</p>
-
-                    <div className="w-full mt-6 md:w-fit">
-                        <SignupForm />
-                    </div>
-                </section>
-            </section>
-        </main>
+            {
+                currentStage === 'final' &&
+                <FinalSection setCurrentStage={setCurrentStage} />
+            }
+        </>
     )
 }

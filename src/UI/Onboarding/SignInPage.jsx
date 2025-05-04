@@ -4,12 +4,7 @@ import AuthIllustration from './components/AuthIllustration'
 
 export default function SignInPage() {
     return (
-        <main className='flex flex-col md:flex-row w-screen min-h-screen '>
-            <div className='h-svh h-screen w-[400px] p-12 hidden md:block'>
-            </div>
-
-            <AuthIllustration />
-
+        <>
             <section className='flex-1 w-full p-6 md:p-12'>
                 <div className="flex items-center justify-center md:justify-end w-full gap-2 ">
                     <p className="text-sm">Don't have an account?</p>
@@ -36,6 +31,6 @@ export default function SignInPage() {
                     <FormSwitcher />
                 </section>
             </section>
-        </main>
+        </>
     )
 }

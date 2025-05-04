@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { RealTimeValidateInput } from "./RealTimeValidatedInput";
 
-export default function SignupForm({ serviceType }) {
+export default function SignupForm({ setCurrentStage }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -15,7 +15,7 @@ export default function SignupForm({ serviceType }) {
     return (
         <form
             action=""
-            className="h-full w-full md:w-[360px] "
+            className="h-full w-full "
         >
             <div className="w-full mb-6">
                 <label
@@ -151,7 +151,10 @@ export default function SignupForm({ serviceType }) {
                 </label>
             </div>
 
-            <button className="w-full mt-6 btn-primary">Register</button>
+            <button
+                onClick={() => setCurrentStage('confirm')}
+                className="w-full mt-6 btn-primary"
+            >Register</button>
         </form >
     )
 }
