@@ -21,7 +21,10 @@ export default function FinalSection({ setCurrentStage }) {
 
                     <Link
                         href="/"
-                        className="text-[#9EA0AB] mt-8 block">Click here to continue.</Link>
+                        className="text-[#9EA0AB] mt-8 block"
+                    >
+                        Click here to continue.
+                    </Link>
                 </div>
             </div>
         </section>
