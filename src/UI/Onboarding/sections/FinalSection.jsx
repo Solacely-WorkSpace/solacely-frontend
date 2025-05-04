@@ -20,8 +20,8 @@ export default function FinalSection({ setCurrentStage }) {
                     <h1>Your Email has been verified.</h1>
 
                     <Link
-                        href="/"
-                        className="text-[#9EA0AB] mt-8 block"
+                        href="/recommendation"
+                        className="text-primary mt-8 block"
                     >
                         Click here to continue.
                     </Link>
