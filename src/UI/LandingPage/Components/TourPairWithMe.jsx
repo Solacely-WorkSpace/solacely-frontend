@@ -1,0 +1,50 @@
+import Image from "next/image";
+import { tour } from "@/Constant";
+
+export default function TourPairWithMe() {
+  const isActive = 0
+
+  return (
+    <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-12">
+      <article className="flex-[2]">
+        <h3 className="mb-3">
+          {tour["Pair With Me"].header}
+        </h3>
+
+        <p className=" mb-6">
+          {tour["Pair With Me"].desc}
+        </p>
+
+        {
+          isActive < 2 &&
+          < div className=" flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
+            <input
+              placeholder="Enter a city or styleEnter a city or co-working spaceline-none w-full"
+            />
+
+            <Image
+              src="/icons/search.svg"
+              width={20}
+              height={20}
+              alt="search"
+              className="w-8 h-8"
+            />
+          </div>
+        }
+
+        <button className="btn-primary"> Find an Apartment </button>
+      </article>
+
+      <figure className="flex-[3] w-full ">
+        <Image
+          src={tour["Pair With Me"].src}
+          width={300}
+          height={300}
+          alt={tour["Pair With Me"].label}
+          placeholder="blur"
+          className=" aspect-[5/3] rounded-2xl"
+        />
+      </figure>
+    </div>
+  )
+}

@@ -9,7 +9,10 @@ import MetaImage from '@/../public/images/LandingPage/hero/meta.png'
 import offerSectionImage from '@/../public/images/LandingPage/offer/home 1.png'
 
 // Hero Section assets
-import tourImageOne from "@/../public/images/LandingPage/tour/living1.jpg"
+import tourImageOne from "@/../public/images/LandingPage/tour/apartment.png"
+import tourImageTwo from "@/../public/images/LandingPage/tour/co-living.png"
+import tourImagethree from "@/../public/images/LandingPage/tour/pair.png"
+import tourImageFour from "@/../public/images/LandingPage/tour/real-estate.png"
 
 // Testimonial Section assets
 import testimonialImageOne from "@/../public/images/LandingPage/testimonial/Oval1.png"
@@ -70,6 +73,9 @@ export {
     MetaImage,
     offerSectionImage,
     tourImageOne,
+    tourImageTwo,
+    tourImagethree,
+    tourImageFour,
     testimonialImageOne,
     testimonialImageTwo,
     testimonialImageThree,
