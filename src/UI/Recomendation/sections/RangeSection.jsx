@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function FinalSection({ setCurrentStage }) {
+export default function RangeSection({ setCurrentStage }) {
     const [value, setValue] = useState('')
 
     return (
