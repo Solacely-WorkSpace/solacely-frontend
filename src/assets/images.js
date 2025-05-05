@@ -63,6 +63,7 @@ import memberFive from "@/../public/images/AboutPage/team/member5.png"
 import memberSix from "@/../public/images/AboutPage/team/member6.png"
 import memberSeven from "@/../public/images/AboutPage/team/member7.png"
 import memberEight from "@/../public/images/AboutPage/team/member8.png"
+import Profile from "@/../public/images/UserDashboard/user.png"
 
 
 
@@ -97,5 +98,5 @@ export {
     memberSix,
     memberSeven,
     memberEight,
-
+    Profile,
 }
