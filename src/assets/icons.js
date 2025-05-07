@@ -30,8 +30,14 @@ import Maintenance from "@/../public/icons/UserDashboard/star.png"
 import MaintenanceSelected from "@/../public/icons/UserDashboard/star-s.png"
 import Setting from "@/../public/icons/UserDashboard/setting.png"
 import SettingSelected from "@/../public/icons/UserDashboard/setting-s.png"
+import Logout from "@/../public/icons/UserDashboard/logout.png"
 
 import NotificationIcon from "@/../public/icons/UserDashboard/notification.png"
+import VerifiedIcon from "@/../public/icons/Verified icon.svg"
+import homeIcon from "@/../public/icons/UserDashboard/home.png"
+import locationIcon from "@/../public/icons/UserDashboard/location.png"
+import contractIcon from "@/../public/icons/UserDashboard/contract.png"
+import walletIcon from "@/../public/icons/UserDashboard/wallet-s.png"
 
 export {
     appstore,
@@ -59,5 +65,11 @@ export {
     MaintenanceSelected,
     Logo,
     NotificationIcon,
-
+    Logout,
+    VerifiedIcon,
+    homeIcon,
+    locationIcon,
+    rentIcon,
+    contractIcon,
+    walletIcon    
 }
