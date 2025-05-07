@@ -4,30 +4,41 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, X, Menu, ChevronRight } from "lucide-react"
 import { LogoName } from '@/assets/images' 
 import { 
   Dashboard, DashboardSelected,
   Heart, HeartSelected,
   Wallet, WalletSelected,
   Maintenance, MaintenanceSelected,
-  Setting, SettingSelected, LogoIcon
+  Setting, SettingSelected, LogoIcon,
+  Logout
 } from '@/assets/icons' 
 
 export default function Sidebar() {
-  const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobileHeaderVisible, setIsMobileHeaderVisible] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    setIsMobileHeaderVisible(!isMobileHeaderVisible);
+  };
+
+  const handleLinkClick = () => {
+    setIsSidebarOpen(false);
+    setIsMobileHeaderVisible(true);
+  };
+
   const pathname = usePathname()
 
-  // Close mobile sidebar when route changes
-  useEffect(() => {
-    setIsMobileOpen(false)
-  }, [pathname])
+  
 
   // Close mobile sidebar when screen size changes to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setIsMobileOpen(false)
+        setIsSidebarOpen(false)
+        setIsMobileHeaderVisible(true)
       }
     }
 
@@ -73,10 +84,10 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile Overlay */}
-      {isMobileOpen && (
-        <div
-          className="md:hidden fixed inset-0k bg-opacity-50 z-40"
-          onClick={() => setIsMobileOpen(false)}
+      {isSidebarOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={toggleSidebar}
         ></div>
       )}
 
@@ -89,14 +100,14 @@ export default function Sidebar() {
               alt="logo" 
               width={40}
               height={40}
-              className="w-10 h-10"
+              className="w-8 h-8"
             />
             <Image 
               src={LogoName} 
               alt="logo"
               width={120}
               height={30}
-              className="h-8 w-auto"
+              className="h-7 w-auto"
             />
           </div>
         </div>
@@ -107,8 +118,9 @@ export default function Sidebar() {
               <li key={item.name}>
                 <Link
                   href={item.href}
+                  onClick={handleLinkClick}
                   className={`flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors ${
-                    isActive(item.href) ? "bg-purple-800 text-white" : "text-gray-500 hover:bg-gray-100"
+                    isActive(item.href) ? "bg-primary text-white" : "text-gray-500 hover:bg-gray-100"
                   }`}
                 >
                   <Image
@@ -125,6 +137,96 @@ export default function Sidebar() {
           </ul>
         </nav>
       </div>
+
+      {/* Mobile Sidebar */}
+      <div className={`md:hidden fixed top-0 left-0 h-full w-full bg-white z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="flex justify-between items-center p-6 ">
+          <div className="flex items-center gap-3">
+              <Image 
+                src={LogoIcon} 
+                alt="logo" 
+                width={40}
+                height={40}
+                className="w-8 h-8"
+              />
+              <Image 
+                src={LogoName} 
+                alt="logo"
+                width={120}
+                height={30}
+                className="h-6 w-auto"
+              />
+          </div>
+          <button onClick={toggleSidebar} className="p-1">
+            <X size={24} />
+          </button>
+        </div>
+        <nav className="p-4">
+          <ul className="space-y-2">
+            {navItems.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  onClick={handleLinkClick}
+                  className={`flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors ${
+                    isActive(item.href) ? "bg-primary text-white" : "text-gray-500 hover:bg-gray-100"
+                  }`}
+                >
+                  <Image
+                    src={isActive(item.href) ? item.selectedIcon : item.icon}
+                    alt={item.name}
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
+                  <span>{item.name}</span>
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/sign-in"
+                onClick={handleLinkClick}
+                className={`flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors ${
+                  isActive() ? "bg-primary text-white" : "text-gray-500 hover:bg-gray-100"
+                }`}
+              >
+                <Image
+                  src={Logout}
+                  alt="Logout"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
+                <span>Logout</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Mobile Header */}
+      <header className={`md:hidden fixed top-0 left-0 right-0 bg-white z-[30] px-6 py-3 flex justify-between items-center transition-opacity duration-300 ${isMobileHeaderVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div className="flex items-center gap-3">
+              <Image 
+                src={LogoIcon} 
+                alt="logo" 
+                width={30}
+                height={30}
+                className="w-6 h-6"
+              />
+              <Image 
+                src={LogoName} 
+                alt="logo"
+                width={80}
+                height={30}
+                className="h-5 w-auto"
+              />
+          </div>
+        <button onClick={toggleSidebar} className="p-1">
+          <Menu size={24} />
+        </button>
+      </header>
     </>
   )
 }

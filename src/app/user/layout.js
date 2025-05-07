@@ -5,7 +5,7 @@ import Header from "@/UI/UserDashboard/Components/Header";
 export default function UserLayout({ children }) {
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-white">
       <Sidebar />
       <div className="flex-1">
         <Header />

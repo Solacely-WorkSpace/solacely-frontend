@@ -1,15 +1,32 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ChevronDown, Bell, User, LogOut } from "lucide-react"
+import { ChevronDown, Bell, User, LogOut, Menu } from "lucide-react"
 import Image from "next/image"
 import {NotificationIcon} from "@/assets/icons"
 import { Profile } from "@/assets/images"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export default function Header({ user }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const pathname = usePathname()
+  
+  // Get the current page title based on the pathname
+  const getPageTitle = () => {
+    if (pathname.includes('/user/dashboard')) return 'Dashboard'
+    if (pathname.includes('/user/wishlist')) return 'Wishlist'
+    if (pathname.includes('/user/wallet')) return 'Payment'
+    if (pathname.includes('/user/maintenance')) return 'Maintenance'
+    if (pathname.includes('/user/profile')) return 'Profile Settings'
+    return 'Dashboard' // Default
+  }
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -23,65 +40,73 @@ export default function Header({ user }) {
   }, [])
 
   return (
-    <header className="bg-white mt-5 py-3 px-6 flex items-center justify-between relative">
-      <div className="ml-12 md:ml-0"> {/* Added margin for mobile menu button */}
-        <h1 className="text-base font-medium">Hi Alesia K.</h1>
-        <p className="text-xs text-gray-500">Welcome back!</p>
-      </div>
+    <>
+      <div className="pt-16 md:pt-0">
+        <header className="hidden md:flex bg-white mt-5 py-3 px-6 items-center justify-between relative">
+          <div className="ml-12 md:ml-0">
+            {getPageTitle() === 'Dashboard' ? (
+              <>
+                <h1 className="pt-2 px-6 text-xl font-medium">Hi Alesia K.</h1>
+                <p className="px-6 text-xs text-gray-500">Welcome back!</p>
+              </>
+            ) : (
+              <h1 className="pt-2 px-6 text-xl font-semibold">{getPageTitle()}</h1>
+            )}
+          </div>
 
-      <div className="flex items-center gap-6">
-        <button className="text-gray-500 hover:text-gray-700 transition-colors">
-          <Image src={NotificationIcon} alt="Notification" width={20} height={20} />
-        </button>
+          <div className="flex items-center gap-6">
+            <button className="text-gray-500 hover:text-gray-700 transition-colors">
+              <Image src={NotificationIcon} alt="Notification" width={20} height={20} />
+            </button>
 
-        <div className="relative" ref={dropdownRef}>
-          <button 
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-3 py-1 px-2 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full bg-gray-100 overflow-hidden">
-              <Image
-                src= {Profile}
-                alt="User avatar"
-                width={35}
-                height={35}
-                className="w-full h-full object-cover"
-              />
+            <div className="relative" ref={dropdownRef}>
+              <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-3 py-1 px-2 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <div className="w-8 h-8 rounded-full bg-gray-100 overflow-hidden">
+                  <Image
+                    src={Profile}
+                    alt="User avatar"
+                    width={35}
+                    height={35}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span className="text-md font-medium hidden md:inline">Alesia K.</span>
+                <ChevronDown 
+                  size={17} 
+                  className={`text-gray-600 hidden md:inline transition-transform duration-200 ${
+                    isDropdownOpen ? 'rotate-180' : ''
+                  }`} 
+                />
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
+                  <Link 
+                    href="/user/profile" 
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    My Profile
+                  </Link>
+                  <Link 
+                    href="" 
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    Help
+                  </Link>
+                  <Link 
+                    href="/sign-in" 
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    Log Out
+                  </Link>
+                </div>
+              )}
             </div>
-            <span className="text-md font-medium hidden md:inline">Alesia K.</span>
-            <ChevronDown 
-              size={17} 
-              className={`text-gray-600 hidden md:inline transition-transform duration-200 ${
-                isDropdownOpen ? 'rotate-180' : ''
-              }`} 
-            />
-          </button>
-
-          {/* Dropdown Menu */}
-          {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
-              <Link 
-                href="/user/profile" 
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-              >
-                My Profile
-              </Link>
-              <Link 
-                href="" 
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-              >
-                Help
-              </Link>
-              <Link 
-                href="/sign-in" 
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-              >
-                Log Out
-              </Link>
-            </div>
-          )}
-        </div>
+          </div>
+        </header>
       </div>
-    </header>
+    </>
   )
 }
