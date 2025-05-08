@@ -69,7 +69,6 @@ export {
     VerifiedIcon,
     homeIcon,
     locationIcon,
-    rentIcon,
     contractIcon,
     walletIcon    
 }
