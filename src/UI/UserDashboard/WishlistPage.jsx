@@ -3,10 +3,10 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
-import {WishlistClipboard, Property, WishlistHeart} from "@/assets/images"
+import {Property, WishlistHeart, Clipboard} from "@/assets/images"
 
 function WishlistPage() {
-  const [hasWishlistItems, setHasWishlistItems] = useState(false) // Set to true to see the wishlist items
+  const [hasWishlistItems, setHasWishlistItems] = useState(true) // Set to true to see the wishlist items
   const [currentPage, setCurrentPage] = useState(1)
   
   // Sample apartments data for the wishlist (when hasWishlistItems is true)
@@ -76,13 +76,13 @@ function WishlistPage() {
       {!hasWishlistItems && (
         <div className="flex mt-16 flex-col items-center justify-center p-5 rounded-md w-full mx-auto">
           <div className="relative w-40 h-40 mb-5">
-            <Image src={WishlistClipboard} alt="Clipboard" />
+            <Image src={Clipboard} alt="Clipboard" />
           </div>
           <p className="text-center text-gray-500 text-sm mb-5">
             You do not have any Apartment on your wish-list. Explore available<br className="hidden md:block" />
             apartments to find a suitable apartment you'll love
           </p>
-          <Link href="/listings">
+          <Link href="">
             <button className="bg-primary text-white py-2 px-6 rounded-md text-base font-medium hover:bg-purple-800 focus:outline-none focus:ring-2">
               Explore Apartments
             </button>
@@ -103,7 +103,7 @@ function WishlistPage() {
                     alt={apt.title}
                     className="w-full h-48 object-cover rounded-lg"
                   />
-                  <button className="absolute top-3 right-3 p-1.5 rounded-full">
+                  <button className="absolute top-3 right-3 p-1">
                     <Image src={WishlistHeart} alt="Remove from Wishlist" />
                   </button>
                 </div>

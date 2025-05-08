@@ -77,7 +77,11 @@ const PaymentRecord = ({ onBack }) => {
       {viewingPayment && selectedPayment && (
         <PaymentSummary onBack={handleBackFromSummary} paymentDetails={selectedPayment} />
       )}
-      
+      <div 
+        className="absolute inset-0 bg-opacity-50 transition-opacity"
+        onClick={onBack}
+      ></div>
+
       {/* Main Content */}
       <div className={viewingPayment ? 'opacity-50 pointer-events-none' : ''}>
         {/* Header with Back Button */}
@@ -242,7 +246,7 @@ const PaymentRecord = ({ onBack }) => {
                   </table>
                   
                   {/* Pagination */}
-                  <div className="px-6 py-3 flex items-center justify-between border-t border-gray-200">
+                  <div className="px-6 py-3 flex items-center justify-between">
                     <div className="text-sm text-gray-500">
                       Showing 1 to 2 of 6 results
                     </div>

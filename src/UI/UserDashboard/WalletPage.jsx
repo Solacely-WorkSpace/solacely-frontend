@@ -67,7 +67,7 @@ function WalletPage() {
   return (
     <main className="md:p-6">
       <div className="md:hidden mb-8">
-        <h1 className="text-xl font-semibold">Payment</h1>
+        <h1 className="text-xl font-semibold">Wallet</h1>
       </div>
       
       {/* Payment Records Section */}

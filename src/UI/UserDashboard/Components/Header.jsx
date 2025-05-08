@@ -18,7 +18,7 @@ export default function Header({ user }) {
   const getPageTitle = () => {
     if (pathname.includes('/user/dashboard')) return 'Dashboard'
     if (pathname.includes('/user/wishlist')) return 'Wishlist'
-    if (pathname.includes('/user/wallet')) return 'Payment'
+    if (pathname.includes('/user/wallet')) return 'Wallet'
     if (pathname.includes('/user/maintenance')) return 'Maintenance'
     if (pathname.includes('/user/profile')) return 'Profile Settings'
     return 'Dashboard' // Default
