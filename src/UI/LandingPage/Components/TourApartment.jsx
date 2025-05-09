@@ -2,8 +2,6 @@ import Image from "next/image";
 import { tour } from "@/Constant";
 
 export default function TourApartment() {
-  const isActive = 0
-
   return (
     <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-12">
       <article className="flex-[2]">
@@ -15,23 +13,20 @@ export default function TourApartment() {
           {tour.apartment.desc}
         </p>
 
-        {
-          isActive < 2 &&
-          < div className=" flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
-            <input
-              placeholder="Enter a city or style"
-              className=" outline-none w-full"
-            />
+        < div className=" flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
+          <input
+            placeholder="Enter a city or style"
+            className=" outline-none w-full"
+          />
 
-            <Image
-              src="/icons/search.svg"
-              width={20}
-              height={20}
-              alt="search"
-              className="w-8 h-8"
-            />
-          </div>
-        }
+          <Image
+            src="/icons/search.svg"
+            width={20}
+            height={20}
+            alt="search"
+            className="w-8 h-8"
+          />
+        </div>
 
         <button className="btn-primary"> Find an Apartment </button>
       </article>
