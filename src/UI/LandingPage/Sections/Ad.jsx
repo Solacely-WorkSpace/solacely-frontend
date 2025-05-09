@@ -34,7 +34,7 @@ const Ad = () => {
         <div className="flex-1 flex gap-4 md:gap-8 flex-col md:flex-row md:items-center">
           <button className="px-6 py-3 rounded-2xl bg-complementary flex items-center gap-2">
             <Image
-              src="/icons/app.svg"
+              src="/images/LandingPage/ad/appstore.png"
               width={30}
               height={30}
               alt="apple"
@@ -50,7 +50,7 @@ const Ad = () => {
 
           <button className="px-6 py-3 rounded-2xl bg-complementary flex items-center gap-2">
             <Image
-              src="/images/playstore.png"
+              src="/images/LandingPage/ad/playstore.png"
               width={30}
               height={30}
               alt="apple"
