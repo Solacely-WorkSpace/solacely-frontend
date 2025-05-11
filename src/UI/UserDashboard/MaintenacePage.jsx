@@ -62,7 +62,7 @@ function MaintenancePage() {
   ];
 
   return (
-    <main className="md:p-6">
+    <main className="md:p-6 w-screen md:w-auto">
       {/* Page Title */}
       <div className="md:block mb-8">
         <h1 className="text-xl font-medium md:hidden block">Maintenance</h1>
@@ -201,9 +201,9 @@ function MaintenancePage() {
         )}
 
         {/* Maintenance Requests Table */}
-        <div className="relative shadow rounded-lg">
+        <div className="relative w-full">
           <div className="overflow-x-auto w-full">
-            <div className="inline-block min-w-full">
+            <div className="inline-block min-w-full py-2 align-middle sm:px-0 px-4">
               <table className="w-full divide-y divide-gray-200 whitespace-nowrap">
                 <thead className="bg-purple-50">
                   <tr>

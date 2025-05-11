@@ -6,7 +6,7 @@ import { ChevronRight } from "lucide-react"
 import {Property, WishlistHeart, Clipboard} from "@/assets/images"
 
 function WishlistPage() {
-  const [hasWishlistItems, setHasWishlistItems] = useState(true) // Set to true to see the wishlist items
+  const [hasWishlistItems, setHasWishlistItems] = useState(false) // Set to true to see the wishlist items
   const [currentPage, setCurrentPage] = useState(1)
   
   // Sample apartments data for the wishlist (when hasWishlistItems is true)
