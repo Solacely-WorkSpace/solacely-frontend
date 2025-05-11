@@ -44,7 +44,7 @@ const PaymentSummary = ({ onBack, paymentDetails }) => {
       ></div>
       
       {/* Sidebar */}
-      <div className="absolute inset-y-0 right-0 w-1/2 max-w-2xl bg-white shadow-xl overflow-y-auto transform transition-transform duration-300 ease-in-out">
+      <div className="absolute inset-y-0 right-0 w-full md:w-[450px] max-w-2xl bg-white shadow-xl overflow-y-auto transform transition-transform duration-300 ease-in-out">
         {/* Header with Back Button */}
         <div className="sticky top-0 bg-white z-10 p-4 border-b border-gray-200 flex items-center gap-2">
           <button 
