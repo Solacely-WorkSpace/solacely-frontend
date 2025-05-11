@@ -72,12 +72,16 @@ const PaymentRecord = ({ onBack }) => {
 
   // This component shows the payment history/records
   return (
-    <div className="md:p-6 relative">
+    <div className="md:p-6 relative w-screen md:w-auto">
       {/* Payment Summary Sidebar */}
       {viewingPayment && selectedPayment && (
         <PaymentSummary onBack={handleBackFromSummary} paymentDetails={selectedPayment} />
       )}
-      
+      <div 
+        className="absolute inset-0 bg-opacity-50 transition-opacity"
+        onClick={onBack}
+      ></div>
+
       {/* Main Content */}
       <div className={viewingPayment ? 'opacity-50 pointer-events-none' : ''}>
         {/* Header with Back Button */}
@@ -114,8 +118,8 @@ const PaymentRecord = ({ onBack }) => {
           </div>
         ) : (
           /* Payment History Table */
-          <div className="relative -mx-4 sm:mx-0">
-            <div className="overflow-x-auto">
+          <div className="relative -mx-4 sm:mx-0 w-full">
+            <div className="overflow-x-auto w-full">
               <div className="inline-block min-w-full py-2 align-middle sm:px-0 px-4">
                 <div className="overflow-hidden">
                   <table className="min-w-full divide-y divide-gray-200">
@@ -242,7 +246,7 @@ const PaymentRecord = ({ onBack }) => {
                   </table>
                   
                   {/* Pagination */}
-                  <div className="px-6 py-3 flex items-center justify-between border-t border-gray-200">
+                  <div className="px-6 py-3 flex items-center justify-between">
                     <div className="text-sm text-gray-500">
                       Showing 1 to 2 of 6 results
                     </div>

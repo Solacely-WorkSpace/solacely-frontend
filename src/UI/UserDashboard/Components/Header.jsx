@@ -18,7 +18,7 @@ export default function Header({ user }) {
   const getPageTitle = () => {
     if (pathname.includes('/user/dashboard')) return 'Dashboard'
     if (pathname.includes('/user/wishlist')) return 'Wishlist'
-    if (pathname.includes('/user/wallet')) return 'Payment'
+    if (pathname.includes('/user/wallet')) return 'Wallet'
     if (pathname.includes('/user/maintenance')) return 'Maintenance'
     if (pathname.includes('/user/profile')) return 'Profile Settings'
     return 'Dashboard' // Default
@@ -82,7 +82,7 @@ export default function Header({ user }) {
                 />
               </button>
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
+                <div className="absolute right-0 mt-2 w-48 z-50 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
                   <Link 
                     href="/user/profile" 
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"

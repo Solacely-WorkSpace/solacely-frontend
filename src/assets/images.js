@@ -70,9 +70,10 @@ import Property from "@/../public/images/UserDashboard/property.png"
 import HouseIllustration from "@/../public/images/UserDashboard/houseillustration.png"
 import WishlistHeart from "@/../public/images/UserDashboard/wishlistheart.png"
 import WalletIcon from "@/../public/images/UserDashboard/wallet.png"
-import WishlistClipboard from "@/../public/images/UserDashboard/clipboard.png"
+import Clipboard from "@/../public/images/UserDashboard/clipboard.png"
 import PaymentCard from "@/../public/images/UserDashboard/paymentcard.png"
 import Property2 from "@/../public/images/UserDashboard/property2.png"
+import Avatar from "@/../public/images/UserDashboard/Avatar.png"
 
 
 
@@ -116,7 +117,8 @@ export {
     HouseIllustration,
     WishlistHeart,
     WalletIcon,
-    WishlistClipboard,
+    Clipboard,
     PaymentCard,
-    Property2
+    Property2,
+    Avatar
 }   
