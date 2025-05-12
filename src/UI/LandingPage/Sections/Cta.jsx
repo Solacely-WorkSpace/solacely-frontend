@@ -58,7 +58,7 @@ const Cta = () => {
           height={1000}
           alt="black"
           placeholder="blur"
-          className="absolute aspect-square rounded-full max-w-32 border-2 border-white shadow-lg "
+          className="absolute aspect-square rounded-full max-w-32 border-2 border-white shadow-lg hidden md:block"
           style={{
             top: `${containerWidth / 100 * 20}px`,
             left: `${containerWidth / 100 * 2}px`,
@@ -100,7 +100,7 @@ const Cta = () => {
           height={1000}
           alt="black"
           placeholder="blur"
-          className="absolute aspect-square rounded-full max-w-28 border-2 border-white shadow-lg "
+          className="absolute aspect-square rounded-full max-w-28 border-2 border-white shadow-lg hidden md:block "
           style={{
             top: `${containerWidth / 100 * 17}px`,
             right: `${containerWidth / 100 * 5}px`,
@@ -113,18 +113,47 @@ const Cta = () => {
           style={{ width: `${containerWidth * 0.75}px` }}
         >
           <Image
+            src={ctaImageTwo}
+            width={1000}
+            height={1000}
+            alt="black"
+            placeholder="blur"
+            className="absolute aspect-square rounded-full max-w-32 border-2 border-white shadow-lg block md:hidden"
+            style={{
+              top: `${containerWidth / 100 * 6}px`,
+              left: `${containerWidth / 100 * 6}px`,
+              width: `${containerWidth / 100 * 10}px`
+            }}
+          />
+
+          <Image
             src={ctaImageFive}
             width={1000}
             height={1000}
             alt="black"
             placeholder="blur"
-            className="absolute aspect-square rounded-full max-w-22 border-2 border-white shadow-lg "
+            className="absolute aspect-square rounded-full max-w-22 border-2 border-white shadow-lg hidden md:block "
             style={{
               top: `${containerWidth / 100 * 20}px`,
               left: `${containerWidth / 100 * 0}px`,
               width: `${containerWidth / 100 * 8}px`
             }}
           />
+
+          <Image
+            src={ctaImageFour}
+            width={1000}
+            height={1000}
+            alt="black"
+            placeholder="blur"
+            className="absolute aspect-square rounded-full max-w-28 border-2 border-white shadow-lg block md:hidden "
+            style={{
+              top: `${containerWidth / 100 * 10}px`,
+              right: `${containerWidth / 100 * 5}px`,
+              width: `${containerWidth / 100 * 10}px`
+            }}
+          />
+
           <div className="text-center z-30 absolute top-3 md:top-10 left-[50%] -translate-x-[50%]  whitespace-nowrap">
             <p className="text-xl sm:text-3xl md:text-5xl mb-8">
               <b className=" text-green-400"> Solacely </b>is for Everyone.
@@ -139,6 +168,19 @@ const Cta = () => {
             className="relative w-full aspect-square border border-[#EAD6F9] rounded-full overflow-visible grid place-content-center "
             style={{ width: `${containerWidth * 0.5}px` }}
           >
+            <Image
+              src={ctaImageFive}
+              width={1000}
+              height={1000}
+              alt="black"
+              placeholder="blur"
+              className="absolute aspect-square rounded-full max-w-22 border-2 border-white shadow-lg block md:hidden "
+              style={{
+                top: `${containerWidth / 100 * 12}px`,
+                left: `${containerWidth / 100 * 0}px`,
+                width: `${containerWidth / 100 * 8}px`
+              }}
+            />
 
             <Image
               src={ctaImageSix}

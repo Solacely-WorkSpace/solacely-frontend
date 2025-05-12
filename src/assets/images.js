@@ -64,6 +64,21 @@ import memberSix from "@/../public/images/AboutPage/team/member6.png"
 import memberSeven from "@/../public/images/AboutPage/team/member7.png"
 import memberEight from "@/../public/images/AboutPage/team/member8.png"
 
+// User Dashboard Assets
+import Profile from "@/../public/images/UserDashboard/user.png"
+import Property from "@/../public/images/UserDashboard/property.png"
+import HouseIllustration from "@/../public/images/UserDashboard/houseillustration.png"
+import WishlistHeart from "@/../public/images/UserDashboard/wishlistheart.png"
+import WalletIcon from "@/../public/images/UserDashboard/wallet.png"
+import Clipboard from "@/../public/images/UserDashboard/clipboard.png"
+import PaymentCard from "@/../public/images/UserDashboard/paymentcard.png"
+import Property2 from "@/../public/images/UserDashboard/property2.png"
+import Avatar from "@/../public/images/UserDashboard/Avatar.png"
+
+
+
+
+
 
 
 
@@ -97,5 +112,13 @@ export {
     memberSix,
     memberSeven,
     memberEight,
-
-}
+    Profile,
+    Property,
+    HouseIllustration,
+    WishlistHeart,
+    WalletIcon,
+    Clipboard,
+    PaymentCard,
+    Property2,
+    Avatar
+}   
