@@ -76,8 +76,9 @@ import Property2 from "@/../public/images/UserDashboard/property2.png"
 import Avatar from "@/../public/images/UserDashboard/Avatar.png"
 
 
-
-
+// Apartment Assets
+import ApartmentBg from "@/../public/images/Apartments/apartment.png"
+import Bedroom from "@/../public/images/Apartments/Bedroom.png"
 
 
 
@@ -120,5 +121,7 @@ export {
     Clipboard,
     PaymentCard,
     Property2,
-    Avatar
+    Avatar,
+    ApartmentBg,
+    Bedroom
 }   
