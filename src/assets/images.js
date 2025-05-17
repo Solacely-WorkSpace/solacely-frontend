@@ -79,6 +79,13 @@ import Avatar from "@/../public/images/UserDashboard/Avatar.png"
 // Apartment Assets
 import ApartmentBg from "@/../public/images/Apartments/apartment.png"
 import Bedroom from "@/../public/images/Apartments/Bedroom.png"
+import WoodHouse from "@/../public/images/Apartments/woodhouse.png"
+import Kitchen from "@/../public/images/Apartments/kitchen.png"
+import Bathroom from "@/../public/images/Apartments/toilet.png"
+import PropertyOne from "@/../public/images/Apartments/apartmentOne.png"
+import PropertyTwo from "@/../public/images/Apartments/apartmentTwo.png"
+import PropertyThree from "@/../public/images/Apartments/apartmentThree.png"
+import PropertyFour from "@/../public/images/Apartments/apartmentFour.png"
 
 
 
@@ -123,5 +130,12 @@ export {
     Property2,
     Avatar,
     ApartmentBg,
-    Bedroom
+    Bedroom,
+    WoodHouse,
+    Kitchen,
+    Bathroom,
+    PropertyOne,
+    PropertyTwo,
+    PropertyThree,
+    PropertyFour
 }   
