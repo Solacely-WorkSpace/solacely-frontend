@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { memberTwo} from '@/assets/images'
+import { memberOne, memberTwo} from '@/assets/images'
 import { FiChevronRight } from 'react-icons/fi';
 import { WoodHouse, Kitchen, Bathroom, PropertyOne, PropertyTwo, PropertyThree, PropertyFour } from '@/assets/images'
 
@@ -82,14 +82,14 @@ function ApartmentView() {
   ];
 
   return (
-    <main className="container px-4 mt-16 w-full mt-8 md:p-6 md:px-12">
+    <main className="container mt-16 w-full mt-4 md:p-6 px-5">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-6">
         <Link href="/" className="text-gray-600 hover:text-complementary">
           Home
         </Link>
         <FiChevronRight className="w-3 h-3 text-gray-900" />
-        <Link href="/apartments" className="text-gray-900 hover:text-complementary">
+        <Link href="/apartment" className="text-gray-900 hover:text-complementary">
           Apartments
         </Link>
         <FiChevronRight className="w-3 h-3 text-gray-900" />
@@ -98,8 +98,8 @@ function ApartmentView() {
 
       <div className="space-y-6">
         {/* Image Gallery */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-8">
-          <div className="md:col-span-8 relative h-[500px] rounded-lg overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 pt-3 mb-8">
+          <div className="md:col-span-6 relative md:h-[80vh] h-[60vh] rounded-xl overflow-hidden">
             <Image
               src={WoodHouse}
               alt="Main apartment view"
@@ -108,8 +108,8 @@ function ApartmentView() {
               priority
             />
           </div>
-          <div className="md:col-span-4 flex flex-col gap-4">
-            <div className="relative h-[242px] rounded-lg overflow-hidden">
+          <div className="md:col-span-6 flex flex-col gap-4">
+            <div className="relative h-[39vh] rounded-xl overflow-hidden hidden md:block">
               <Image
                 src={Kitchen}
                 alt="Kitchen view"
@@ -117,7 +117,7 @@ function ApartmentView() {
                 className="object-cover"
               />
             </div>
-            <div className="relative h-[242px] rounded-lg overflow-hidden">
+            <div className="relative h-[39vh] rounded-lg overflow-hidden hidden md:block">
               <Image
                 src={Bathroom}
                 alt="Bathroom view"
@@ -125,6 +125,21 @@ function ApartmentView() {
                 className="object-cover"
               />
             </div>
+          </div>
+        </div>
+          <div className="md:col-start-7 md:col-span-6 flex flex-row gap-4 justify-end">
+            <button className="flex items-center gap-1 md:px-6 px-2 py-2.5 w-fit rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+              <span>View Images</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            <button className="flex items-center  gap-2 md:px-6 px-1 py-2.5 w-fit rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+              <span>View Video Tour</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -152,10 +167,12 @@ function ApartmentView() {
                 <Image src="/icons/UserDashboard/ruler.svg" width={20} height={20} alt="ruler" />
                 <span>8,725sqft</span>
               </div>
-
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-2 hidden md:block">
                 <p className="text-lg font-bold text-complementary">₦4,000,000/month</p>
               </div>
+            </div>
+            <div className="flex items-center justify-between mb-2 mt-2 md:hidden">
+              <p className="text-lg font-bold text-complementary">₦4,000,000/month</p>
             </div>
 
             {/* Action Button */}
@@ -191,45 +208,64 @@ function ApartmentView() {
               The annual fees below start at zero(0) except the house rent
             </p>
             <div className="bg-white rounded-lg p-6 shadow-sm">
-                <div className="flex justify-between items-center py-2">
-                  <p className="font-medium text-gray-500">Light fee</p>
-                  <div className="flex items-center gap-2 border border-gray-300 rounded-md px-2">
-                    <p className="text-sm text-gray-600">0 Year</p>
-                    <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
+                {/* Desktop View */}
+                <div className="hidden md:block">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
+                    <p className="md:col-span-5 font-medium text-gray-500">Light fee</p>
+                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                      <p className="text-sm text-gray-600 py-1">0 Year</p>
+                      <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
+                    </div>
+                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
                   </div>
-                  <p className="font-medium">₦0.00</p>
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
+                    <p className="md:col-span-5 font-medium text-gray-500">Security Fee</p>
+                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                      <p className="text-sm text-gray-600 py-1">0 Year</p>
+                      <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
+                    </div>
+                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
+                    <p className="md:col-span-5 font-medium text-gray-500">Estate Due</p>
+                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                      <p className="text-sm text-gray-600 py-1">0 Year</p>
+                      <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
+                    </div>
+                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
+                    <p className="md:col-span-5 font-medium text-gray-500">Bin Contribution</p>
+                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                      <p className="text-sm text-gray-600 py-1">0 Year</p>
+                      <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
+                    </div>
+                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2 pb-6">
+                    <p className="md:col-span-5 font-medium text-gray-500">House Rent</p>
+                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                      <p className="text-sm text-gray-600 py-1">0 Year</p>
+                      <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
+                    </div>
+                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center py-2">
-                  <p className="font-medium text-gray-500">Security Fee</p>
-                  <div className="flex items-center gap-2 border border-gray-300 rounded-md px-2">
-                    <p className="text-sm text-gray-600">0 Year</p>
-                    <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
-                  </div>
-                  <p className="font-medium">₦0.00</p>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <p className="font-medium text-gray-500">Estate Due</p>
-                  <div className="flex items-center gap-2 border border-gray-300 rounded-md px-2">
-                    <p className="text-sm text-gray-600">0 Year</p>
-                    <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
-                  </div>
-                  <p className="font-medium">₦0.00</p>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <p className="font-medium text-gray-500">Bin Contribution</p>
-                  <div className="flex items-center gap-2 border border-gray-300 rounded-md px-2">
-                    <p className="text-sm text-gray-600">0 Year</p>
-                    <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
-                  </div>
-                  <p className="font-medium">₦0.00</p>
-                </div>
-                <div className="flex justify-between items-center py-2 pb-6">
-                  <p className="font-medium text-gray-500">House Rent</p>
-                  <div className="flex items-center gap-2 border border-gray-300 rounded-md px-2">
-                    <p className="text-sm text-gray-600">0 Year</p>
-                    <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
-                  </div>
-                  <p className="font-medium">₦0.00</p>
+
+                {/* Mobile View */}
+                <div className="md:hidden space-y-4">
+                  {paymentBreakdown.map((item, index) => (
+                    <div key={index} className="mb-4 last:mb-6">
+                      <p className="font-medium text-gray-500 mb-2">{item.label}</p>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex items-center gap-2 justify-center border border-gray-300 rounded-md">
+                          <p className="text-sm text-gray-600 py-1">{item.period}</p>
+                          <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
+                        </div>
+                        <p className="text-right font-medium">₦{item.amount.toFixed(2)}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               <div className="pt-4 border-t border-b pb-6 flex justify-between items-center border-gray-300">
                 <p className="font-bold text-xl">Total Amount:</p>
@@ -244,7 +280,7 @@ function ApartmentView() {
           <div className="md:col-span-8">
             <h2 className="text-xl font-semibold mb-6">Home Details for Northwest Studio Apartment</h2>
             
-            <div className="grid grid-cols-3 gap-y-4 mb-8 gap-5">
+            <div className="grid md:grid-cols-3 gap-y-4 mb-8 gap-5">
               <div className="flex items-center gap-2">
                 <Image src="/icons/check.svg" className="w-4 h-4" width={16} height={16} alt="check" />
                 <span className="text-gray-600">Condo</span>
@@ -284,7 +320,7 @@ function ApartmentView() {
             </div>
 
             <h3 className="text-lg font-semibold mb-4">Home Defects</h3>
-            <div className="space-y-4 mb-8 flex gap-20">
+            <div className="space-y-4 mb-8 flex md:gap-20 flex-col md:flex-row">
               <div>
                 <div className="flex items-center justify-between gap-20">
                   <div className="flex items-center gap-2">
@@ -314,7 +350,7 @@ function ApartmentView() {
 
             <h3 className="text-lg font-semibold mb-4">Housing Agent</h3>
             <div className="flex items-center gap-4">
-              <Image src={memberTwo} className="w-12 h-12 rounded-full" width={48} height={48} alt="agent" />
+              <Image src={memberOne} className="w-12 h-12 rounded-full" width={48} height={48} alt="agent" />
               <div>
                 <p className="font-medium">Mr Sandars Kemi</p>
                 <p className="text-sm text-gray-600">Andromeda Homes Agent</p>
@@ -324,7 +360,7 @@ function ApartmentView() {
 
           <div className="md:col-span-4 md:sticky md:top-6">
             <h2 className="text-xl font-semibold mb-6">Map Location</h2>
-            <div className="relative h-full rounded-lg overflow-hidden bg-gray-100">
+            <div className="relative h-[400px] md:h-full rounded-lg overflow-hidden bg-gray-100">
               <Image src="/icons/Apartments/Map.svg" fill className="object-cover" alt="map location" />
               <button className="absolute bottom-4 right-4 bg-gray-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <Image src="/icons/Apartments/Apt.svg" width={16} height={16} alt="location" />
@@ -335,16 +371,16 @@ function ApartmentView() {
         </div>
 
         {/*Comments and reviews */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mt-30">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-14 mt-30">
           <div className="md:col-span-8">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold">All Comments (2.1k)</h2>
+              <h2 className="text-xl font-semibold">All Comments (6)</h2>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Sort by:</span>
+                <span className="text-sm text-gray-600 hidden md:block">Sort by:</span>
                 <select 
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="border border-gray-400 px-2 py-1 rounded-lg text-sm"
+                  className="border border-gray-300 px-2 py-1 rounded-lg text-sm"
                 >
                   <option value="newest">Newest</option>
                   <option value="oldest">Oldest</option>
@@ -416,7 +452,7 @@ function ApartmentView() {
                   value={reviewForm.image}
                   onChange={handleInputChange}
                   placeholder="Upload image"
-                  className="w-full px-4 py-2 border-dashed border-2 border-gray-400 rounded-lg"
+                  className="w-full px-4 py-2 border-dashed border-2 border-gray-300 rounded-lg"
                 />
               </div>
 
@@ -446,9 +482,10 @@ function ApartmentView() {
         {/* Related Properties */}
         <div className="pt-16 pb-10">
           <h2 className="text-2xl font-semibold mb-8">Related Properties</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {apartments.map((apt) => (
-              <div key={apt.id} className="bg-white rounded-lg overflow-hidden">
+          <div className="-mx-5 px-5 md:mx-0 md:px-0">
+            <div className="flex md:grid md:grid-cols-4 gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+              {apartments.map((apt) => (
+              <div key={apt.id} className="bg-white rounded-lg overflow-hidden flex-none w-[85%] md:w-auto snap-center">
                 <div className="relative">
                   <div className="absolute top-4 left-4 bg-white text-primary text-xs font-medium px-2 py-1 rounded">
                     NEW
