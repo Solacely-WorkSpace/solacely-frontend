@@ -90,7 +90,7 @@ const ApartmentsPage = () => {
   ]
 
   return (
-    <div className="w-full lg:max-w-[1120px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto md:p-4">
+    <div className="w-full lg:max-w-[1120px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto">
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-emerald-50 to-gray-100 rounded-3xl p-6 mb-12 overflow-hidden pt-20">
         <div className="flex flex-col md:flex-row justify-between items-center">
@@ -189,7 +189,7 @@ const ApartmentsPage = () => {
               <div className="flex items-center justify-between mb-2">
                 <p className="text-sm font-medium text-green-800">{apt.price}</p>
               </div>
-              <div className="flex items-center justify-between mt-5">
+              <div className="flex items-center justify-between mt-5" href="/apartmentview">
                 <button className="bg-complementary text-white px-15 py-2 rounded-md text-sm font-medium hover:bg-green-600 transition-colors">
                   Explore
                 </button>
