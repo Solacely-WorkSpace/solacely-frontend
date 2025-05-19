@@ -1,11 +1,12 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiSearch, FiHeart, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IoFilterSharp } from 'react-icons/io5';
 import { ApartmentBg, WishlistHeart, Property, Bedroom, PurpleFilter } from '@/assets/images'
 import Image from 'next/image'
 import MoreFilters from './Sections/MoreFilters';
 import SearchResults from './Components/SearchResults';
+import PopUpModal from './Components/PopUpModal';
 
 
 const ApartmentsPage = () => {
@@ -13,6 +14,12 @@ const ApartmentsPage = () => {
   const [isMoreFiltersOpen, setIsMoreFiltersOpen] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchLocation, setSearchLocation] = useState('');
+  const [showWelcomeModal, setShowWelcomeModal] = useState(true);
+  
+  // Close the welcome modal
+  const handleCloseWelcomeModal = () => {
+    setShowWelcomeModal(false);
+  };
 
   // Sample apartment data
   const rentedApartment = {
@@ -115,11 +122,13 @@ const ApartmentsPage = () => {
 
   // Otherwise, render the main apartments page
   return (
-    <div className="container w-full mt-4 md:p-6 px-5">
+    <div className="landingpage-container px-4 md:px-0 mt-20">
+      {/* Welcome Modal */}
+      {showWelcomeModal && <PopUpModal onClose={handleCloseWelcomeModal} />}
       {/* Hero Section */}
       <div className="relative mb-12 overflow-hidden -mx-[calc((100vw-100%)/2)] bg-gradient-to-r from-[#E3F3F3] via-[#EAF5F5] to-[#F0F8F8] pt-16 pb-12 rounded-b-[40px] md:rounded-b-[70px]">
         <div className="flex flex-col md:flex-row justify-between items-center max-w-[1500px] mx-auto">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 px-5">
             <h1 className="text-4xl md:text-5xl font-bold text-center md:text-left text-emerald-900 mb-6">Apartment</h1>
             
             {/* Search Bar */}
@@ -128,7 +137,7 @@ const ApartmentsPage = () => {
                 <input
                   type="text"
                   placeholder="Enter address, zip, city"
-                  className="w-full px-4 md:px-5 py-3 md:py-5 text-lg md:text-base text-gray-600 bg-transparent md:bg-white focus:outline-none md:rounded-lg md:border md:border-gray-200 md:focus:border-emerald-500"
+                  className="w-full px-4 md:px-5 py-3 md:py-3 text-lg md:text-base text-gray-600 bg-transparent md:bg-white focus:outline-none md:rounded-lg md:border md:border-gray-200 md:focus:border-emerald-500"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -139,7 +148,7 @@ const ApartmentsPage = () => {
                       setShowSearchResults(true);
                     }
                   }}
-                  className="w-full md:w-auto md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 mt-3 md:mt-0 bg-[#40D1B3] text-white py-4 md:py-2 px-6 md:px-5 rounded-xl md:rounded-full text-lg md:text-base font-medium hover:bg-[#35B095] transition-colors"
+                  className="w-full md:w-auto md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 mt-3 md:mt-0 bg-[#40D1B3] text-white py-2 md:py-2 px-6 md:px-5 rounded-3xl md:rounded-3xl text-lg md:text-base font-medium hover:bg-[#35B095] transition-colors"
                 >
                   Search
                 </button>
@@ -159,6 +168,9 @@ const ApartmentsPage = () => {
               </button>
               <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
                 Bed <FiChevronRight className="w-4 h-4" />
+              </button>
+              <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
+                Type <FiChevronRight className="w-4 h-4" />
               </button>
               <button 
                 onClick={() => setIsMoreFiltersOpen(true)}
@@ -228,7 +240,7 @@ const ApartmentsPage = () => {
                 <p className="text-sm font-medium text-green-800">{apt.price}</p>
               </div>
               <div className="flex items-center justify-between mt-5" >
-                <button onClick={() => handleExplore(apt.id)}  className="bg-complementary text-white px-15 py-2 rounded-md text-sm font-medium hover:bg-green-600 transition-colors">
+                <button onClick={() => handleExplore(apt.id)} className="bg-complementary text-white px-20 text-center py-2 w-2/3 rounded-md text-sm font-medium hover:bg-green-600 transition-colors">
                   <span>Explore</span>
                 </button>
               </div>
