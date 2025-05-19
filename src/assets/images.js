@@ -87,6 +87,7 @@ import PropertyTwo from "@/../public/images/Apartments/apartmentTwo.png"
 import PropertyThree from "@/../public/images/Apartments/apartmentThree.png"
 import PropertyFour from "@/../public/images/Apartments/apartmentFour.png"
 import PurpleFilter from "@/../public/images/Apartments/Filter.png"
+import Location from "@/../public/images/Apartments/location.png"
 
 
 
@@ -138,5 +139,6 @@ export {
     PropertyTwo,
     PropertyThree,
     PropertyFour,
-    PurpleFilter
+    PurpleFilter,
+    Location
 }   

@@ -5,11 +5,14 @@ import { IoFilterSharp } from 'react-icons/io5';
 import { ApartmentBg, WishlistHeart, Property, Bedroom, PurpleFilter } from '@/assets/images'
 import Image from 'next/image'
 import MoreFilters from './Sections/MoreFilters';
+import SearchResults from './Components/SearchResults';
 
 
 const ApartmentsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMoreFiltersOpen, setIsMoreFiltersOpen] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchLocation, setSearchLocation] = useState('');
 
   // Sample apartment data
   const rentedApartment = {
@@ -91,6 +94,26 @@ const ApartmentsPage = () => {
     }
   ]
 
+  const handleExplore = (id) => {
+    console.log(`Explore property ${id}`);
+  };
+
+
+
+  // If search results should be shown, render the SearchResults component
+  if (showSearchResults) {
+    return (
+      <div className="w-full h-screen overflow-hidden pt-16"> {/* Added pt-16 for navbar spacing */}
+        <SearchResults 
+          searchTerm={searchTerm} 
+          location={searchLocation} 
+          onClose={() => setShowSearchResults(false)}
+        />
+      </div>
+    );
+  }
+
+  // Otherwise, render the main apartments page
   return (
     <div className="container w-full mt-4 md:p-6 px-5">
       {/* Hero Section */}
@@ -109,7 +132,15 @@ const ApartmentsPage = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button className="w-full md:w-auto md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 mt-3 md:mt-0 bg-[#40D1B3] text-white py-4 md:py-2 px-6 md:px-5 rounded-xl md:rounded-full text-lg md:text-base font-medium hover:bg-[#35B095] transition-colors">
+                <button 
+                  onClick={() => {
+                    if (searchTerm.trim()) {
+                      setSearchLocation(searchTerm);
+                      setShowSearchResults(true);
+                    }
+                  }}
+                  className="w-full md:w-auto md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 mt-3 md:mt-0 bg-[#40D1B3] text-white py-4 md:py-2 px-6 md:px-5 rounded-xl md:rounded-full text-lg md:text-base font-medium hover:bg-[#35B095] transition-colors"
+                >
                   Search
                 </button>
               </div>
@@ -117,10 +148,8 @@ const ApartmentsPage = () => {
 
             {/* Filter Buttons */}
             <div className="flex gap-3 md:gap-4 mt-6 overflow-x-auto md:overflow-visible pb-2 px-4 md:px-0 md:flex-wrap">
-              <button 
-                onClick={() => setIsMoreFiltersOpen(true)}
-                className="h-12 bg-transparent w-fit flex items-center justify-center px-6 py-2 border border-primary rounded-lg md:hidden">
-                <Image src={PurpleFilter} alt="Filter" className="w-8 h-8" width={24} height={24}/>
+              <button onClick={() => setIsMoreFiltersOpen(true)} className="md:hidden flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg border border-gray-700 hover:shadow-md flex items-center gap-2 text-gray-900">
+              <Image src={PurpleFilter} alt="Filter" className="w-8 h-8" width={24} height={24}/>
               </button>
               <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
                 Location <FiChevronRight className="w-4 h-4" />
@@ -198,9 +227,9 @@ const ApartmentsPage = () => {
               <div className="flex items-center justify-between mb-2">
                 <p className="text-sm font-medium text-green-800">{apt.price}</p>
               </div>
-              <div className="flex items-center justify-between mt-5" href="/apartmentview">
-                <button className="bg-complementary text-white px-15 py-2 rounded-md text-sm font-medium hover:bg-green-600 transition-colors">
-                  Explore
+              <div className="flex items-center justify-between mt-5" >
+                <button onClick={() => handleExplore(apt.id)}  className="bg-complementary text-white px-15 py-2 rounded-md text-sm font-medium hover:bg-green-600 transition-colors">
+                  <span>Explore</span>
                 </button>
               </div>
             </div>
