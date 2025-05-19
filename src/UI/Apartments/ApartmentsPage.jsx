@@ -4,10 +4,12 @@ import { FiSearch, FiHeart, FiChevronLeft, FiChevronRight } from 'react-icons/fi
 import { IoFilterSharp } from 'react-icons/io5';
 import { ApartmentBg, WishlistHeart, Property, Bedroom, PurpleFilter } from '@/assets/images'
 import Image from 'next/image'
+import MoreFilters from './Sections/MoreFilters';
 
 
 const ApartmentsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isMoreFiltersOpen, setIsMoreFiltersOpen] = useState(false);
 
   // Sample apartment data
   const rentedApartment = {
@@ -115,14 +117,13 @@ const ApartmentsPage = () => {
 
             {/* Filter Buttons */}
             <div className="flex gap-3 md:gap-4 mt-6 overflow-x-auto md:overflow-visible pb-2 px-4 md:px-0 md:flex-wrap">
-              <button className="md:hidden h-12 bg-transparent w-fit flex items-center justify-center px-6 py-2 border border-primary rounded-lg">
+              <button 
+                onClick={() => setIsMoreFiltersOpen(true)}
+                className="h-12 bg-transparent w-fit flex items-center justify-center px-6 py-2 border border-primary rounded-lg md:hidden">
                 <Image src={PurpleFilter} alt="Filter" className="w-8 h-8" width={24} height={24}/>
               </button>
               <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
                 Location <FiChevronRight className="w-4 h-4" />
-              </button>
-              <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
-                Type <FiChevronRight className="w-4 h-4" />
               </button>
               <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
                 Price <FiChevronRight className="w-4 h-4" />
@@ -130,7 +131,9 @@ const ApartmentsPage = () => {
               <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
                 Bed <FiChevronRight className="w-4 h-4" />
               </button>
-              <button className="px-4 py-2 rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2">
+              <button 
+                onClick={() => setIsMoreFiltersOpen(true)}
+                className="px-4 py-2 rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2">
                 <Image src="/icons/Filter.svg" alt="Filter" className="w-4 h-4" width={24} height={24}/>
                 <span>More Filters</span>
               </button>
@@ -285,11 +288,13 @@ const ApartmentsPage = () => {
               </div>
             </div>
           </div>
-          
-          
         </div>
-      </div>
     </div>
+    <MoreFilters 
+      isOpen={isMoreFiltersOpen}
+      onClose={() => setIsMoreFiltersOpen(false)}
+    />
+  </div>
   );
 };
 
