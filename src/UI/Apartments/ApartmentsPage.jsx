@@ -126,7 +126,7 @@ const ApartmentsPage = () => {
       {/* Welcome Modal */}
       {showWelcomeModal && <PopUpModal onClose={handleCloseWelcomeModal} />}
       {/* Hero Section */}
-      <div className="relative mb-12 overflow-hidden -mx-[calc((100vw-100%)/2)] bg-gradient-to-r from-[#E3F3F3] via-[#EAF5F5] to-[#F0F8F8] pt-16 pb-12 rounded-b-[40px] md:rounded-b-[70px]">
+      <div className="relative mb-12 overflow-hidden bg-gradient-to-r from-[#E3F3F3] via-[#EAF5F5] to-[#F0F8F8] pt-14 pb-12 rounded-b-[40px] md:rounded-b-[50px]">
         <div className="flex flex-col md:flex-row justify-between items-center max-w-[1500px] mx-auto">
           <div className="w-full md:w-1/2 px-5">
             <h1 className="text-4xl md:text-5xl font-bold text-center md:text-left text-emerald-900 mb-6">Apartment</h1>
