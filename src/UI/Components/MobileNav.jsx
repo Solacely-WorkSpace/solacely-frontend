@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "./ui/sheet";
 import { HamburgerSVG } from "@/assets/SVGAssets";
 import { ChevronDown } from "lucide-react";
 
@@ -28,12 +27,12 @@ const MobileNav = () => {
         <div className="fixed inset-0 z-50 flex justify-end">
           {/* Backdrop */}
           <div 
-            className="absolute inset-0 bg-black/30" 
+            className="absolute inset-0" 
             onClick={toggleMenu}
           />
           
           {/* Menu panel */}
-          <div className="relative w-3/4 max-w-xs bg-white h-fit shadow-lg overflow-y-auto rounded-b-2xl">
+          <div className="relative w-1/2 max-w-xs bg-white h-fit overflow-y-auto rounded-l-xl shadow-sm">
             {/* Close button */}
             <button 
               onClick={toggleMenu}
@@ -51,15 +50,15 @@ const MobileNav = () => {
               <ul className="flex flex-col space-y-4">
                 <li className="py-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-base font-medium">Spaces</span>
+                    <span className="text-sm font-medium">Spaces</span>
                     <ChevronDown size={18} />
                   </div>
                 </li>
                 <li className="py-2">
-                  <Link href="#" className="block text-base font-medium">Become a Partner</Link>
+                  <Link href="#" className="block text-sm font-medium">Become a Partner</Link>
                 </li>
                 <li className="py-2">
-                  <Link href="/sign-up" className="block text-base font-medium">Get Started</Link>
+                  <Link href="/sign-up" className="block text-sm font-medium">Get Started</Link>
                 </li>
               </ul>
             </div>

@@ -104,7 +104,7 @@ function ApartmentView() {
               src={WoodHouse}
               alt="Main apartment view"
               fill
-              className="object-cover"
+              className="object-fit"
               priority
             />
           </div>
@@ -114,7 +114,7 @@ function ApartmentView() {
                 src={Kitchen}
                 alt="Kitchen view"
                 fill
-                className="object-cover"
+                className="object-fit"
               />
             </div>
             <div className="relative h-[39vh] rounded-lg overflow-hidden hidden md:block">
@@ -122,7 +122,7 @@ function ApartmentView() {
                 src={Bathroom}
                 alt="Bathroom view"
                 fill
-                className="object-cover"
+                className="object-fit"
               />
             </div>
           </div>
@@ -212,43 +212,43 @@ function ApartmentView() {
                 <div className="hidden md:block">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
                     <p className="md:col-span-5 font-medium text-gray-500">Light fee</p>
-                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                    <div className="md:col-span-3 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
                       <p className="text-sm text-gray-600 py-1">0 Year</p>
                       <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
                     </div>
-                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                    <p className="md:col-span-4 text-right font-medium">₦0.00</p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
                     <p className="md:col-span-5 font-medium text-gray-500">Security Fee</p>
-                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                    <div className="md:col-span-3 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
                       <p className="text-sm text-gray-600 py-1">0 Year</p>
                       <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
                     </div>
-                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                    <p className="md:col-span-4 text-right font-medium">₦0.00</p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
                     <p className="md:col-span-5 font-medium text-gray-500">Estate Due</p>
-                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                    <div className="md:col-span-3 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
                       <p className="text-sm text-gray-600 py-1">0 Year</p>
                       <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
                     </div>
-                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                    <p className="md:col-span-4 text-right font-medium">₦0.00</p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2">
                     <p className="md:col-span-5 font-medium text-gray-500">Bin Contribution</p>
-                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                    <div className="md:col-span-3 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
                       <p className="text-sm text-gray-600 py-1">0 Year</p>
                       <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
                     </div>
-                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                    <p className="md:col-span-4 text-right font-medium">₦0.00</p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 justify-between items-center py-2 pb-6">
                     <p className="md:col-span-5 font-medium text-gray-500">House Rent</p>
-                    <div className="md:col-span-2 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
+                    <div className="md:col-span-3 flex items-center gap-2 justify-center border w-full border-gray-300 rounded-md">
                       <p className="text-sm text-gray-600 py-1">0 Year</p>
                       <Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={20} height={20} alt="chevron-arow" />
                     </div>
-                    <p className="md:col-span-5 text-right font-medium">₦0.00</p>
+                    <p className="md:col-span-4 text-right font-medium">₦0.00</p>
                   </div>
                 </div>
 
