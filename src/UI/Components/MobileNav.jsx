@@ -48,17 +48,17 @@ const MobileNav = () => {
             {/* Menu items */}
             <div className="pt-16 px-6 pb-8">
               <ul className="flex flex-col space-y-4">
-                <li className="py-2">
-                  <div className="flex items-center justify-between">
+                <li className="py-1">
+                  <div className="flex items-center justify-between cursor-pointer rounded-md p-2 hover:bg-primary hover:text-white transition-colors">
                     <span className="text-sm font-medium">Spaces</span>
                     <ChevronDown size={18} />
                   </div>
                 </li>
-                <li className="py-2">
-                  <Link href="#" className="block text-sm font-medium">Become a Partner</Link>
+                <li className="py-1">
+                  <Link href="#" className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors">Become a Partner</Link>
                 </li>
-                <li className="py-2">
-                  <Link href="/sign-up" className="block text-sm font-medium">Get Started</Link>
+                <li className="py-1">
+                  <Link href="/sign-up" className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors">Get Started</Link>
                 </li>
               </ul>
             </div>

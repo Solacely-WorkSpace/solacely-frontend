@@ -110,7 +110,7 @@ const ApartmentsPage = () => {
   // If search results should be shown, render the SearchResults component
   if (showSearchResults) {
     return (
-      <div className="w-full h-screen overflow-hidden pt-16"> {/* Added pt-16 for navbar spacing */}
+      <div className="w-full h-screen overflow-hidden pt-16"> 
         <SearchResults 
           searchTerm={searchTerm} 
           location={searchLocation} 
@@ -123,7 +123,7 @@ const ApartmentsPage = () => {
   // Otherwise, render the main apartments page
   return (
     <div className="landingpage-container px-4 md:px-0 mt-20">
-      {/* Welcome Modal */}
+      {/* Welcome PopUp Modal */}
       {showWelcomeModal && <PopUpModal onClose={handleCloseWelcomeModal} />}
       {/* Hero Section */}
       <div className="relative mb-12 overflow-hidden bg-gradient-to-r from-[#E3F3F3] via-[#EAF5F5] to-[#F0F8F8] pt-14 pb-12 rounded-b-[40px] md:rounded-b-[50px]">
