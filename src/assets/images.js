@@ -89,7 +89,7 @@ import PropertyFour from "@/../public/images/Apartments/apartmentFour.png"
 import PurpleFilter from "@/../public/images/Apartments/Filter.png"
 import Location from "@/../public/images/Apartments/location.png"
 import PopUp from "@/../public/images/Apartments/PopUp.png"
-
+import LivingRoom from "@/../public/images/Apartments/Livingroom.png"
 
 export {
     LogoName,
@@ -141,5 +141,6 @@ export {
     PropertyFour,
     PurpleFilter,
     Location,
-    PopUp
+    PopUp,
+    LivingRoom
 }   

@@ -1,11 +1,24 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HamburgerSVG } from "@/assets/SVGAssets";
 import { ChevronDown } from "lucide-react";
 
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isRendered, setIsRendered] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsRendered(true);
+    } else {
+      // Delay removing from DOM until animation completes
+      const timer = setTimeout(() => {
+        setIsRendered(false);
+      }, 1500); // Match this to the animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -23,16 +36,16 @@ const MobileNav = () => {
       </button>
 
       {/* Overlay menu */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end">
+      {isRendered && (
+        <div className={`fixed inset-0 z-50 flex justify-end transition-opacity duration-1500 ease-in-out ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
           {/* Backdrop */}
           <div 
-            className="absolute inset-0" 
+            className={`absolute inset-0 transition-opacity duration-1500 ${isOpen ? 'opacity-100' : 'opacity-0'}`} 
             onClick={toggleMenu}
           />
           
           {/* Menu panel */}
-          <div className="relative w-1/2 max-w-xs bg-white h-fit overflow-y-auto rounded-l-xl shadow-sm">
+          <div className={`relative w-1/2 max-w-xs bg-white h-fit overflow-y-auto rounded-l-xl shadow-sm transform transition-transform duration-1500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             {/* Close button */}
             <button 
               onClick={toggleMenu}

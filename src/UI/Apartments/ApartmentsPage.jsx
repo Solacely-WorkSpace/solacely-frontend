@@ -158,7 +158,7 @@ const ApartmentsPage = () => {
             {/* Filter Buttons */}
             <div className="flex gap-3 md:gap-4 mt-6 overflow-x-auto md:overflow-visible pb-2 px-4 md:px-0 md:flex-wrap">
               <button onClick={() => setIsMoreFiltersOpen(true)} className="md:hidden flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg border border-gray-700 hover:shadow-md flex items-center gap-2 text-gray-900">
-              <Image src={PurpleFilter} alt="Filter" className="w-8 h-8" width={24} height={24}/>
+                <Image src={PurpleFilter} alt="Filter" className="w-5 h-5" width={24} height={24}/>
               </button>
               <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
                 Location <FiChevronRight className="w-4 h-4" />
@@ -193,7 +193,7 @@ const ApartmentsPage = () => {
       <div className="grid grid-cols-1 md:px- md:grid-cols-2 lg:grid-cols-2 gap-5">
         {apartments.map((apt) => (
           <div key={apt.id} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
-            <div className="relative mr-3">
+            <div className="relative">
               <Image
                 src={Property}
                 alt={apt.title}
@@ -211,7 +211,7 @@ const ApartmentsPage = () => {
               </button>
             </div>
                         
-            <div className="py-2">
+            <div className="py-2 md:px-2">
               <h3 className="text-sm font-bold text-gray-800 mb-2">{apt.title}</h3>
               
               <div className="flex items-center gap-4 mb-2 text-xs text-gray-600">
@@ -237,10 +237,10 @@ const ApartmentsPage = () => {
               </div>
                           
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-medium text-green-800">{apt.price}</p>
+                <p className="text-base font-semibold text-green-800">{apt.price}</p>
               </div>
-              <div className="flex items-center justify-between mt-5" >
-                <button onClick={() => handleExplore(apt.id)} className="bg-complementary text-white px-20 text-center py-2 w-2/3 rounded-md text-sm font-medium hover:bg-green-600 transition-colors">
+              <div className="flex items-center justify-between mt-5 w-full" >
+                <button onClick={() => handleExplore(apt.id)} className="bg-complementary text-white text-center py-2 rounded-md text-base w-full font-medium hover:bg-green-600 transition-colors">
                   <span>Explore</span>
                 </button>
               </div>
