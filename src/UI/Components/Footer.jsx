@@ -22,7 +22,7 @@ const Footer = () => {
               className="w-36 "
             />
 
-            <p className="text-white/70 mt-2 ">
+            <p className="text-white/70 mt-2 text-sm">
               Our vision is to have everyone have an affordable place to call
               home. We are passionate about creating an accessible and
               transparent ecosystem that allows home seekers a way to explore
@@ -62,23 +62,23 @@ const Footer = () => {
           <div className="flex-1 text-white  flex flex-col gap-2 md:gap-4 text-start  z-30">
             <h3 className=" font-semibold text-sm text-white z-30"> Company </h3>
 
-            <Link href="#" className=" opacity-70">
+            <Link href="#" className=" opacity-70 text-sm">
               About Us
             </Link>
 
-            <Link href="#" className=" opacity-70">
+            <Link href="#" className=" opacity-70 text-sm">
               Our Partner
             </Link>
 
-            <Link href="#" className=" opacity-70">
+            <Link href="#" className=" opacity-70 text-sm">
               Contact Us
             </Link>
 
-            <Link href="#" className=" opacity-70">
+            <Link href="#" className=" opacity-70 text-sm">
               FAQS
             </Link>
 
-            <Link href="#" className=" opacity-70">
+            <Link href="#" className=" opacity-70 text-sm">
               Terms and Privacy
             </Link>
           </div>
