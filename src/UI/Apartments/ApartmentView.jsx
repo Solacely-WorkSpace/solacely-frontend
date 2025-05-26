@@ -150,21 +150,21 @@ function ApartmentView() {
           <div className="w-8 h-2 bg-black rounded-full"></div>
           <div className="w-3 h-2 bg-gray-300 rounded-full"></div>
         </div>
-        <div className="flex flex-row gap-4 justify-end mt-4">
+        <div className="grid grid-cols-2 md:flex md:flex-row md:justify-end gap-4 mt-4">
           <button 
             onClick={() => setShowGallery(true)}
-            className="flex items-center gap-1 md:px-2 px-2 py-3 w-fit rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+            className="flex items-center justify-center md:justify-start gap-1 px-1 py-1.5 w-full md:w-fit rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
           >
             <span>View Images</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
-          <div className="relative">
+          <div className="relative w-full md:w-fit">
             <div className="absolute -top-4 left-0 right-0 text-center">
-              <span className="bg-complementary text-primary text-[10px] font-medium px-1 py-1 rounded">Coming Soon</span>
+              <span className="bg-complementary text-primary text-[10px] font-medium px-0.5 py-0.5 rounded">Coming Soon</span>
             </div>
-            <button className="flex items-center gap-2 md:px-2 px-2 py-3 w-fit rounded-lg border border-primary text-primary">
+            <button className="flex items-center justify-center md:justify-start gap-2 px-1 py-1.5 w-full md:w-fit rounded-lg border border-primary text-primary">
               <span>View Video Tour</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -207,7 +207,7 @@ function ApartmentView() {
 
             {/* Action Button */}
             <div className="flex items-center gap-4 mt-6">
-              <button className="bg-complementary text-white py-3 px-10 rounded-lg hover:bg-complementary/80 transition-colors">
+              <button className="bg-complementary text-white py-3 px-10 rounded-lg hover:bg-emerald-800 transition-colors">
                 I'm interested
               </button>
             </div>
@@ -557,7 +557,7 @@ function ApartmentView() {
                     <p className="text-sm font-medium text-green-800">{apt.price}</p>
                   </div>
                   <div className="flex items-center justify-between">
-                    <button className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-green-600 transition-colors">
+                    <button className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-emerald-800 transition-colors">
                       Explore
                     </button>
                   </div>
@@ -578,34 +578,34 @@ function ApartmentView() {
             onClick={(e) => e.stopPropagation()} // Prevent clicks inside the content from closing the modal
           >
             {/* Close button */}
-            <button 
+            {/* <button 
               onClick={() => setShowGallery(false)} 
               className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors"
             >
               <FiX className="w-6 h-6 text-gray-800" />
-            </button>
+            </button> */}
             
             {/* Main image */}
-            <div className="relative h-[80vh] bg-black rounded-lg overflow-hidden">
+            <div className="relative h-[60vh] md:h-[80vh] rounded-lg overflow-hidden">
               <Image
                 src={galleryImages[currentImageIndex].src}
                 alt={galleryImages[currentImageIndex].alt}
                 fill
-                className="object-cover"
+                className="object-contain md:object-fit"
               />
               
               {/* Navigation buttons */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-4 justify-center items-center">
+              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex gap-4 justify-center items-center">
                 <button 
                   onClick={() => setCurrentImageIndex(prev => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
-                  className="z-10 bg-[#00000199] hover:bg-[#000001] text-white p-3 rounded-lg transition-colors"
+                  className="z-10 bg-[#00000199] hover:bg-[#000000] text-white p-3 rounded-lg transition-colors"
                 >
                   <FiChevronLeft className="w-6 h-6" />
                 </button>
                 
                 <button 
                   onClick={() => setCurrentImageIndex(prev => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
-                  className="z-10 bg-[#00000199] hover:bg-[#000001] text-white p-3 rounded-lg transition-colors"
+                  className="z-10 bg-[#00000199] hover:bg-[#000000] text-white p-3 rounded-lg transition-colors"
                 >
                   <FiChevronRight className="w-6 h-6" />
                 </button>

@@ -16,6 +16,18 @@ const ApartmentsPage = () => {
   const [searchLocation, setSearchLocation] = useState('');
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
   
+  // State for dropdown filters
+  const [locationDropdown, setLocationDropdown] = useState(false);
+  const [priceDropdown, setPriceDropdown] = useState(false);
+  const [typeDropdown, setTypeDropdown] = useState(false);
+  const [bedDropdown, setBedDropdown] = useState(false);
+  
+  // Filter options
+  const locationOptions = ['Lagos', 'Abuja'];
+  const priceOptions = ['₦0 - 500k', '₦510k - 1mil'];
+  const typeOptions = ['Studio', 'Duplex'];
+  const bedOptions = ['1', '2'];
+  
   // Close the welcome modal
   const handleCloseWelcomeModal = () => {
     setShowWelcomeModal(false);
@@ -160,22 +172,135 @@ const ApartmentsPage = () => {
               <button onClick={() => setIsMoreFiltersOpen(true)} className="md:hidden flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg border border-gray-700 hover:shadow-md flex items-center gap-2 text-gray-900">
                 <Image src={PurpleFilter} alt="Filter" className="w-5 h-5" width={24} height={24}/>
               </button>
-              <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
-                Location <FiChevronRight className="w-4 h-4" />
-              </button>
-              <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
-                Price <FiChevronRight className="w-4 h-4" />
-              </button>
-              <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
-                Bed <FiChevronRight className="w-4 h-4" />
-              </button>
-              <button className="flex-none px-6 md:px-2 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900">
-                Type <FiChevronRight className="w-4 h-4" />
-              </button>
+              
+              {/* Location Filter */}
+              <div className="relative">
+                <button 
+                  onClick={() => {
+                    setLocationDropdown(!locationDropdown);
+                    setPriceDropdown(false);
+                    setTypeDropdown(false);
+                    setBedDropdown(false);
+                  }}
+                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                >
+                  Location <FiChevronRight className={`w-3 h-3 transition-transform ${locationDropdown ? 'rotate-90' : ''}`} />
+                </button>
+                {locationDropdown && (
+                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
+                    {locationOptions.map((option, index) => (
+                      <div 
+                        key={index} 
+                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          console.log(`Selected location: ${option}`);
+                          setLocationDropdown(false);
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* Price Filter */}
+              <div className="relative">
+                <button 
+                  onClick={() => {
+                    setPriceDropdown(!priceDropdown);
+                    setLocationDropdown(false);
+                    setTypeDropdown(false);
+                    setBedDropdown(false);
+                  }}
+                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                >
+                  Price <FiChevronRight className={`w-3 h-3 transition-transform ${priceDropdown ? 'rotate-90' : ''}`} />
+                </button>
+                {priceDropdown && (
+                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
+                    {priceOptions.map((option, index) => (
+                      <div 
+                        key={index} 
+                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          console.log(`Selected price: ${option}`);
+                          setPriceDropdown(false);
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* Type Filter */}
+              <div className="relative">
+                <button 
+                  onClick={() => {
+                    setTypeDropdown(!typeDropdown);
+                    setLocationDropdown(false);
+                    setPriceDropdown(false);
+                    setBedDropdown(false);
+                  }}
+                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                >
+                  Type <FiChevronRight className={`w-3 h-3 transition-transform ${typeDropdown ? 'rotate-90' : ''}`} />
+                </button>
+                {typeDropdown && (
+                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
+                    {typeOptions.map((option, index) => (
+                      <div 
+                        key={index} 
+                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          console.log(`Selected type: ${option}`);
+                          setTypeDropdown(false);
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* Bed Filter */}
+              <div className="relative">
+                <button 
+                  onClick={() => {
+                    setBedDropdown(!bedDropdown);
+                    setLocationDropdown(false);
+                    setPriceDropdown(false);
+                    setTypeDropdown(false);
+                  }}
+                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                >
+                  Bed <FiChevronRight className={`w-3 h-3 transition-transform ${bedDropdown ? 'rotate-90' : ''}`} />
+                </button>
+                {bedDropdown && (
+                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
+                    {bedOptions.map((option, index) => (
+                      <div 
+                        key={index} 
+                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          console.log(`Selected beds: ${option}`);
+                          setBedDropdown(false);
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
               <button 
                 onClick={() => setIsMoreFiltersOpen(true)}
-                className="px-4 py-2 rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2">
-                <Image src="/icons/Filter.svg" alt="Filter" className="w-4 h-4" width={24} height={24}/>
+                className="text-sm px-2.5 py-2 rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2">
+                <Image src="/icons/Filter.svg" alt="Filter" className="w-3 h-3" width={24} height={24}/>
                 <span>More Filters</span>
               </button>
             </div> 
@@ -240,7 +365,7 @@ const ApartmentsPage = () => {
                 <p className="text-base font-semibold text-green-800">{apt.price}</p>
               </div>
               <div className="flex items-center justify-between mt-5 w-full" >
-                <button onClick={() => handleExplore(apt.id)} className="bg-complementary text-white text-center py-2 rounded-md text-base w-full font-medium hover:bg-green-600 transition-colors">
+                <button onClick={() => handleExplore(apt.id)} className="bg-complementary text-white text-center py-2 rounded-md text-base w-full font-medium hover:bg-emerald-800 transition-colors">
                   <span>Explore</span>
                 </button>
               </div>
