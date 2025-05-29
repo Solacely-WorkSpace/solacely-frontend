@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function WhereSection({ setCurrentStage, currentStage }) {
+export default function FinalSection({ setCurrentStage }) {
     const [value, setValue] = useState('')
 
     return (
@@ -33,9 +33,9 @@ export default function WhereSection({ setCurrentStage, currentStage }) {
 
             <div className="w-full flex flex-col items-center text-center">
                 <div className="w-full md:w-[380px] flex flex-col items-center">
-                    <h1 className="whitespace-nowrap">Where do you want to live?</h1>
+                    <h1 className="whitespace-nowrap">Some dumy section</h1>
 
-                    <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">Select your preferred city or neighborhood so we can find the best options for you.</small>
+                    <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam?</small>
 
                     <input
                         type="text"
@@ -64,6 +64,6 @@ export default function WhereSection({ setCurrentStage, currentStage }) {
                     </button>
                 </div>
             </div>
-        </section >
+        </section>
     )
 }

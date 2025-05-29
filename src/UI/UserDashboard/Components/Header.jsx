@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { ChevronDown, Bell, User, LogOut, Menu } from "lucide-react"
 import Image from "next/image"
-import {NotificationIcon} from "@/assets/icons"
+import { NotificationIcon } from "@/assets/icons"
 import { Profile } from "@/assets/images"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -13,7 +13,7 @@ export default function Header({ user }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
   const pathname = usePathname()
-  
+
   // Get the current page title based on the pathname
   const getPageTitle = () => {
     if (pathname.includes('/user/dashboard')) return 'Dashboard'
@@ -60,7 +60,7 @@ export default function Header({ user }) {
             </button>
 
             <div className="relative" ref={dropdownRef}>
-              <button 
+              <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="flex items-center gap-3 py-1 px-2 rounded-lg hover:bg-gray-50 transition-colors"
               >
@@ -74,29 +74,34 @@ export default function Header({ user }) {
                   />
                 </div>
                 <span className="text-md font-medium hidden md:inline">Alesia K.</span>
-                <ChevronDown 
-                  size={17} 
-                  className={`text-gray-600 hidden md:inline transition-transform duration-200 ${
-                    isDropdownOpen ? 'rotate-180' : ''
-                  }`} 
+                <ChevronDown
+                  size={17}
+                  className={`text-gray-600 hidden md:inline transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''
+                    }`}
                 />
               </button>
               {isDropdownOpen && (
+<<<<<<< HEAD
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
+                  <Link
+                    href="/user/profile"
+=======
                 <div className="absolute right-0 mt-2 w-48 z-50 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
                   <Link 
                     href="/user/profile" 
+>>>>>>> ac01ee5872505fb86555c6cd21ea6f705640e9c6
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     My Profile
                   </Link>
-                  <Link 
-                    href="" 
+                  <Link
+                    href=""
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     Help
                   </Link>
-                  <Link 
-                    href="/sign-in" 
+                  <Link
+                    href="/sign-in"
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     Log Out

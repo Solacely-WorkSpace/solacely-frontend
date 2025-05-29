@@ -1,23 +1,64 @@
-import {
-  NavigationMenu,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-  NavigationMenuItem,
-} from "../Components/ui/navigation-menu";
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 const Dropdown = () => {
-  return (
-    <NavigationMenu>
-      <NavigationMenuItem>
-        <NavigationMenuTrigger className="mr-6 ">
-          <p className=" font-bold text-black "> Spaces </p>
-        </NavigationMenuTrigger>
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
 
-        <NavigationMenuContent>
-          <p>Hello World!!</p>
-        </NavigationMenuContent>
-      </NavigationMenuItem>
-    </NavigationMenu>
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className="flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-gray-50 transition-colors"
+      >
+        <span className="text-md font-medium hidden md:inline">Space</span>
+
+        <ChevronDown
+          size={17}
+          className={`text-gray-600 hidden md:inline transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''
+            }`}
+        />
+      </button>
+
+      {isDropdownOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
+          <Link
+            href="#"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+          >
+            Space Type 1
+          </Link>
+
+          <Link
+            href="#"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+          >
+            Space Type 2
+          </Link>
+
+          <Link
+            href="#"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+          >
+            Space Type 3
+          </Link>
+        </div>
+      )}
+    </div>
   );
 };
 

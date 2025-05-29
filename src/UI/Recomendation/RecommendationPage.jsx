@@ -1,11 +1,8 @@
 "use client"
 
-import { useState } from "react";
-import SiugnupSection from "./sections/SiugnupSection";
-import Link from "next/link";
-import ConfirmVerificationMethodSection from "./sections/ConfirmVerificationMethodSection";
-import OTPSection from "./sections/OTPSection";
-import FinalSection from "./sections/WhereSection";
+import { useEffect, useState } from "react";
+import WhereSection from "./sections/WhereSection";
+import DummySection from "./sections/DummySection";
 
 export default function RecommendationPage() {
     const [currentStage, setCurrentStage] = useState('form')
@@ -13,8 +10,16 @@ export default function RecommendationPage() {
     return (
         <>
             {
-                currentStage === 'final' &&
-                <WhereSection setCurrentStage={setCurrentStage} />
+                currentStage === 'form' &&
+                <WhereSection
+                    setCurrentStage={setCurrentStage}
+                    currentStage={currentStage}
+                />
+            }
+
+            {
+                currentStage === 'next stage' &&
+                <DummySection setCurrentStage={setCurrentStage} />
             }
         </>
     )
