@@ -81,15 +81,9 @@ export default function Header({ user }) {
                 />
               </button>
               {isDropdownOpen && (
-<<<<<<< HEAD
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
+                <div className="absolute right-0 mt-2 w-48 z-50 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
                   <Link
                     href="/user/profile"
-=======
-                <div className="absolute right-0 mt-2 w-48 z-50 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
-                  <Link 
-                    href="/user/profile" 
->>>>>>> ac01ee5872505fb86555c6cd21ea6f705640e9c6
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     My Profile
