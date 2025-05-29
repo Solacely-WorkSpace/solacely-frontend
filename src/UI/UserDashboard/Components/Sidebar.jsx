@@ -4,14 +4,14 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { ChevronLeft, X, Menu, ChevronRight } from "lucide-react"
+import { X, Menu } from "lucide-react"
 import { LogoName } from '@/assets/images' 
 import { 
   Dashboard, DashboardSelected,
   Heart, HeartSelected,
   Wallet, WalletSelected,
   Maintenance, MaintenanceSelected,
-  Setting, SettingSelected, LogoIcon,
+  Setting, SettingSelected, Logo,
   Logout
 } from '@/assets/icons' 
 
@@ -96,7 +96,7 @@ export default function Sidebar() {
         <div className="p-6 mt-5 flex justify-start items-center">
           <div className="flex items-center gap-3">
             <Image 
-              src={LogoIcon} 
+              src={Logo} 
               alt="logo" 
               width={40}
               height={40}
@@ -143,7 +143,7 @@ export default function Sidebar() {
         <div className="flex justify-between items-center p-6 ">
           <div className="flex items-center gap-3">
               <Image 
-                src={LogoIcon} 
+                src={Logo} 
                 alt="logo" 
                 width={40}
                 height={40}
@@ -209,7 +209,7 @@ export default function Sidebar() {
       <header className={`md:hidden fixed top-0 left-0 right-0 bg-white z-[30] px-6 py-3 flex justify-between items-center transition-opacity duration-300 ${isMobileHeaderVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="flex items-center gap-3">
               <Image 
-                src={LogoIcon} 
+                src={Logo} 
                 alt="logo" 
                 width={30}
                 height={30}

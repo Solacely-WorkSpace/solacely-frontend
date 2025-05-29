@@ -57,6 +57,10 @@
     @apply w-full md:max-w-[900px] lg:max-w-[1120px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto;
   }
 
+  .container {
+    @apply w-full md:max-w-[900px] lg:max-w-[1120px] xl:max-w-[1200px] 2xl:max-w-[1500px] mx-auto;
+  }
+
   .btn-primary {
     @apply py-4 px-8 rounded-md bg-primary shadow-lg shadow-[#521282]/30 font-semibold text-sm text-white cursor-pointer
   }

@@ -177,12 +177,12 @@ function DashboardPage() {
                       <Image src="/icons/UserDashboard/Wallet.svg" width={24} height={24} alt="Contract" />
                     </div>
                     <div>
-                      <h2 className="text-xl text-gray-600 font-bold">Next payment due September 23rd, 2025</h2>
+                      <h2 className="text-base text-gray-600 font-bold">Next payment due September 23rd, 2025</h2>
                     </div>
                   </div>
                   
                   <div className="md:flex md:justify-end">
-                    <Link href="/user/wallet" className="bg-primary text-white py-3 px-8 rounded-md text-base font-medium hover:bg-primary/80 focus:outline-none focus:ring-2">
+                    <Link href="/user/wallet" className="bg-primary text-white py-2 px-6 rounded-md text-base font-medium hover:bg-primary/80 focus:outline-none focus:ring-2">
                       Make Payment
                     </Link>
                   </div>
@@ -210,7 +210,7 @@ function DashboardPage() {
                       alt={apt.title}
                       className="w-full h-48 object-cover rounded-lg"
                     />
-                    <button className="absolute top-3 right-3  p-1.5 rounded-full">
+                    <button className="absolute top-3 right-3  p-1">
                       <Image src={WishlistHeart} alt="Wishlist" />
                     </button>
                   </div>

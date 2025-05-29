@@ -70,16 +70,26 @@ import Property from "@/../public/images/UserDashboard/property.png"
 import HouseIllustration from "@/../public/images/UserDashboard/houseillustration.png"
 import WishlistHeart from "@/../public/images/UserDashboard/wishlistheart.png"
 import WalletIcon from "@/../public/images/UserDashboard/wallet.png"
-import WishlistClipboard from "@/../public/images/UserDashboard/clipboard.png"
+import Clipboard from "@/../public/images/UserDashboard/clipboard.png"
 import PaymentCard from "@/../public/images/UserDashboard/paymentcard.png"
 import Property2 from "@/../public/images/UserDashboard/property2.png"
+import Avatar from "@/../public/images/UserDashboard/Avatar.png"
 
 
-
-
-
-
-
+// Apartment Assets
+import ApartmentBg from "@/../public/images/Apartments/apartment.png"
+import Bedroom from "@/../public/images/Apartments/Bedroom.png"
+import WoodHouse from "@/../public/images/Apartments/woodhouse.png"
+import Kitchen from "@/../public/images/Apartments/kitchen.png"
+import Bathroom from "@/../public/images/Apartments/bathroom.png"
+import PropertyOne from "@/../public/images/Apartments/apartmentOne.png"
+import PropertyTwo from "@/../public/images/Apartments/apartmentTwo.png"
+import PropertyThree from "@/../public/images/Apartments/apartmentThree.png"
+import PropertyFour from "@/../public/images/Apartments/apartmentFour.png"
+import PurpleFilter from "@/../public/images/Apartments/Filter.png"
+import Location from "@/../public/images/Apartments/location.png"
+import PopUp from "@/../public/images/Apartments/PopUp.png"
+import LivingRoom from "@/../public/images/Apartments/Livingroom.png"
 
 export {
     LogoName,
@@ -116,7 +126,21 @@ export {
     HouseIllustration,
     WishlistHeart,
     WalletIcon,
-    WishlistClipboard,
+    Clipboard,
     PaymentCard,
-    Property2
+    Property2,
+    Avatar,
+    ApartmentBg,
+    Bedroom,
+    WoodHouse,
+    Kitchen,
+    Bathroom,
+    PropertyOne,
+    PropertyTwo,
+    PropertyThree,
+    PropertyFour,
+    PurpleFilter,
+    Location,
+    PopUp,
+    LivingRoom
 }   
