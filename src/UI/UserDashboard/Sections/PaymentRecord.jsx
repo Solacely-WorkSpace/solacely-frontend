@@ -11,7 +11,7 @@ const PaymentRecord = ({ onBack }) => {
   const [hasPaymentRecords, setHasPaymentRecords] = useState(true)
   const [viewingPayment, setViewingPayment] = useState(false)
   const [selectedPayment, setSelectedPayment] = useState(null)
-  
+
   // Sample payment history data
   const paymentRecords = [
     {
@@ -59,11 +59,11 @@ const PaymentRecord = ({ onBack }) => {
         designation: "Student"
       }
     }
-    
+
     setSelectedPayment(formattedPayment)
     setViewingPayment(true)
   }
-  
+
   // Function to handle going back from payment summary
   const handleBackFromSummary = () => {
     setViewingPayment(false)
@@ -77,7 +77,7 @@ const PaymentRecord = ({ onBack }) => {
       {viewingPayment && selectedPayment && (
         <PaymentSummary onBack={handleBackFromSummary} paymentDetails={selectedPayment} />
       )}
-      <div 
+      <div
         className="absolute inset-0 bg-opacity-50 transition-opacity"
         onClick={onBack}
       ></div>
@@ -86,8 +86,8 @@ const PaymentRecord = ({ onBack }) => {
       <div className={viewingPayment ? 'opacity-50 pointer-events-none' : ''}>
         {/* Header with Back Button */}
         <div className="flex items-center gap-2 mb-8">
-          <button 
-            onClick={onBack} 
+          <button
+            onClick={onBack}
             className="bg-gray-100 p-2 rounded-md"
           >
             <ChevronLeft size={20} className="text-gray-600" />
@@ -103,11 +103,11 @@ const PaymentRecord = ({ onBack }) => {
           /* Empty State */
           <div className="flex flex-col items-center justify-center py-16">
             <div className="mb-6 w-40 h-40 flex items-center justify-center">
-              <Image 
-                src={PaymentCard} 
-                alt="No payment history" 
+              <Image
+                src={PaymentCard}
+                alt="No payment history"
                 width={100}
-                height={100}    
+                height={100}
                 className="object-contain"
               />
             </div>
@@ -224,17 +224,16 @@ const PaymentRecord = ({ onBack }) => {
                             <div className="text-sm text-gray-500">{record.period}</div>
                           </td>
                           <td className="px-4 py-4 whitespace-nowrap">
-                            <span className={`px-4 py-2 inline-flex text-xs leading-5 rounded-lg ${
-                              record.status === 'Paid' 
-                                ? 'bg-green-50 text-green-700' 
-                                : 'bg-red-50 text-red-800'
-                            }`}>
+                            <span className={`px-4 py-2 inline-flex text-xs leading-5 rounded-lg ${record.status === 'Paid'
+                              ? 'bg-green-50 text-green-700'
+                              : 'bg-red-50 text-red-800'
+                              }`}>
                               {record.status}
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-base font-medium">
-                            <button 
-                              onClick={() => handleViewPayment(record)} 
+                            <button
+                              onClick={() => handleViewPayment(record)}
                               className="text-primary hover:text-primary border border-primary rounded-md px-4 py-2"
                             >
                               View
@@ -244,7 +243,7 @@ const PaymentRecord = ({ onBack }) => {
                       ))}
                     </tbody>
                   </table>
-                  
+
                   {/* Pagination */}
                   <div className="px-6 py-3 flex items-center justify-between">
                     <div className="text-sm text-gray-500">
