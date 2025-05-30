@@ -42,7 +42,6 @@ import logoWhite from "@/../public/images/LandingPage/footer/logo white.png"
 import authImg from '@/../public/images/Auth/room.jpg'
 
 
-
 // #####################
 // About Page Assets  ##
 // #####################

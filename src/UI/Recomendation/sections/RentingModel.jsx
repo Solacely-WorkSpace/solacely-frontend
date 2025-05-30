@@ -14,12 +14,14 @@ export default function RentingModel({ setCurrentStage, currentStage }) {
 
     return (
         <section className='flex-1 w-full p-6 md:p-12'>
-            <div className="flex items-center justify-end w-full gap-1 ">
-                <div className="flex items-center justify-between w-full">
-                    <Link href="#" onClick={() => setCurrentStage('home type')} className="flex items-center gap-1 text-sm text-gray-600">
-                        <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
+            <div className="w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
+                    <Link href="#" onClick={() => setCurrentStage('home type')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
+                        <div className="flex items-center gap-1">
+                            <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
+                        </div>
                     </Link>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center justify-center md:justify-end gap-1">
                         <p className="text-sm">Already have an account?</p>
 
                         <Link
@@ -41,7 +43,7 @@ export default function RentingModel({ setCurrentStage, currentStage }) {
 
             <div className="w-full flex flex-col items-center text-center">
                 <div className="w-full md:w-[380px] flex flex-col items-center">
-                    <h1 className="whitespace-nowrap">How would you like to rent?</h1>
+                    <h1 className="whitespace-nowrap">How would you like to<br className="md:hidden"/> rent?</h1>
 
                     <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">Choose a renting model that works best for you</small>
 

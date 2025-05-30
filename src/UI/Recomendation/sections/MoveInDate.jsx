@@ -38,6 +38,18 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
         const firstDay = getFirstDayOfMonth(currentMonth);
         const days = [];
 
+        // Find first and last weekend dates
+        let firstWeekendDate = null;
+        let lastWeekendDate = null;
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+            const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+            if (isWeekend) {
+                if (firstWeekendDate === null) firstWeekendDate = day;
+                lastWeekendDate = day;
+            }
+        }
+
         // Add empty cells for days before the first day of the month
         for (let i = 0; i < firstDay; i++) {
             days.push(<div key={`empty-${i}`} className="w-10 h-10" />);
@@ -50,8 +62,12 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
                              date.getDate() === selectedDate.getDate() && 
                              date.getMonth() === selectedDate.getMonth() && 
                              date.getFullYear() === selectedDate.getFullYear();
-            const isWeekend = date.getDay() === 0 || date.getDay() === 6; // 0 is Sunday, 6 is Saturday
-
+            const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+            const isSunday = date.getDay() === 0;
+            const isSaturday = date.getDay() === 6;
+            const isFirstWeekendDate = day === firstWeekendDate;
+            const isLastWeekendDate = day === lastWeekendDate;
+            
             days.push(
                 <button
                     key={day}
@@ -60,7 +76,11 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
                         "w-10 h-10 transition-all flex items-center justify-center",
                         {
                             "bg-primary text-white rounded-lg": isSelected,
-                            "text-black": !isSelected && isWeekend,
+                            "bg-primary text-white": !isSelected && isWeekend,
+                            "rounded-tl-lg": !isSelected && isSunday && isFirstWeekendDate,
+                            "rounded-bl-lg": !isSelected && isSunday && isLastWeekendDate,
+                            "rounded-tr-lg": !isSelected && isSaturday && isFirstWeekendDate,
+                            "rounded-br-lg": !isSelected && isSaturday && isLastWeekendDate,
                             "hover:bg-primary/5 hover:text-primary rounded-lg": !isSelected && !isWeekend
                         }
                     )}
@@ -75,14 +95,15 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
 
     return (
         <section className='flex-1 w-full p-6 md:p-12'>
-            <div className="flex items-center justify-end w-full gap-1 ">
-                <div className="flex items-center justify-between w-full">
-                    <Link href="#" onClick={() => setCurrentStage('features')} className="flex items-center gap-1 text-sm text-gray-600">
-                        <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
-                    </Link>   
-                    <div className="flex items-center gap-1">
+            <div className="w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
+                    <Link href="#" onClick={() => setCurrentStage('features')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
+                        <div className="flex items-center gap-1">
+                            <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
+                        </div>
+                    </Link>  
+                    <div className="flex items-center justify-center md:justify-end gap-1">
                         <p className="text-sm">Already have an account?</p>
-
                         <Link
                             href='/sign-in'
                             className="text-sm text-complementary"
@@ -107,7 +128,7 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
                             Pick a convenient date to move in
                         </small>
 
-                        <div className="mt-12 w-full">
+                        <div className="mt-12 w-">
                             <div className="flex items-center justify-between mb-6">
                                 <h2 className="text-xl font-medium">{months[currentMonth.getMonth()]}</h2>
                                 <div className="flex gap-4">
@@ -120,25 +141,14 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
                                 </div>
                             </div>
 
-                            <div className="relative">
-                                {/* Purple background columns for Sunday and Saturday */}
-                                <div className="absolute inset-0 grid grid-cols-7 pointer-events-none">
-                                    <div className="bg-primary"></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div className="bg-primary"></div>
-                                </div>
-
-                                <div className="grid grid-cols-7 mb-2 relative">
+                            <div>
+                                <div className="grid grid-cols-7 mb-2">
                                     {days.map((day, index) => (
                                         <div 
                                             key={index} 
                                             className={clsx(
                                                 "w-10 h-10 flex items-center justify-center text-sm",
-                                                (index === 0 || index === 6) && "text-white font-bold"
+                                                (index === 0 || index === 6) && "text-black font-"
                                             )}
                                         >
                                             {day}
@@ -148,6 +158,7 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
 
                                 <div className="grid grid-cols-7 relative">
                                     {renderCalendar()}
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +177,6 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
                         Skip
                     </Link>
                 </div>
-            </div>
         </section>
     );
 }
