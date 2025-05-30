@@ -15,7 +15,7 @@ export default function TourCoLivingSpace() {
 
         < div className=" flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
           <input
-            placeholder="Enter a city or styleEnter a city or co-working spaceline-none w-full"
+            placeholder="Enter a city or style or co-working spaceline-none w-full"
           />
 
           <Image
