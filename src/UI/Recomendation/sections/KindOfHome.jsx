@@ -13,16 +13,17 @@ export default function KindOfHome({ setCurrentStage, currentStage }) {
     };
 
     return (
-        <section className='flex-1 w-full flex flex-col p-6 md:p-12'>
+        <section className='flex-1 w-full p-6 md:p-12'>
 
-            <div className="flex items-center justify-end w-full gap-1 ">
-                <div className="flex items-center justify-between w-full">
-                    <Link href="#" onClick={() => setCurrentStage('next stage')} className="flex items-center gap-1 text-sm text-gray-600">
-                        <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
-                    </Link>
-                    <div className="flex items-center gap-1">
+            <div className="w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
+                    <Link href="#" onClick={() => setCurrentStage('where')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
+                        <div className="flex items-center gap-1">
+                            <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
+                        </div>
+                    </Link>  
+                    <div className="flex items-center justify-center md:justify-end gap-1">
                         <p className="text-sm">Already have an account?</p>
-
                         <Link
                             href='/sign-in'
                             className="text-sm text-complementary"
@@ -42,7 +43,7 @@ export default function KindOfHome({ setCurrentStage, currentStage }) {
 
             <div className="w-full flex flex-col items-center text-center">
                 <div className="w-full md:w-[380px] flex flex-col items-center">
-                    <h1 className="whitespace-nowrap">What kind of home are you looking for?</h1>
+                    <h1 className="whitespace-nowrap">What kind of property<br className="md:hidden"/> are you looking for?</h1>
 
                         <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px]">
                             Tell us your preferred apartment type so we can match you with the right properties
