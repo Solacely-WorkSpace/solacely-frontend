@@ -1,4 +1,5 @@
 import {
+  testimonialImageFive,
   testimonialImageFour,
   testimonialImageOne,
   testimonialImageThree,
@@ -13,40 +14,39 @@ import { memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, m
 
 // Testimonial Dataset
 const Testimonial = [{
-  username: '- @thepatwalls',
-  testimony: 'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+  username: '- @Anthony_Agah',
+  testimony: 'Finding an apartment that suits your needs, budget, and appeals to your taste is a full-blown job. Most times the pictures or video shared by agents are not as cool as it seems in reality. This is why I’m as it seems in reality. This is why I’m particularly proud of what the @Solacelybeta team is building.',
   social: '/icons/linkedin.svg',
   pic: testimonialImageOne
 
 },
 {
-  username: ' - @thepatwalls',
-  testimony: "Time is the most precious thing you have when bootstrapping. You can't take time to ponder on…",
+  username: ' - @JamiuOkanlawon',
+  testimony: "It’s always to see how technology is impacting the most important aspect is that I can earn while I rent without stress, just some surveys and tasks, and it comes to my wallet on solacely. Great job, team @solacelybeta",
   social: '/icons/linkedin.svg',
   pic: testimonialImageTwo
 
 },
 {
-  username: ' - @thepatwalls',
-  testimony: 'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+  username: ' - @Real_Ija',
+  testimony: 'House hunting in Naija is difficult and expensive. Normally, expensive things should not be difficult. @SolacelyAR is working on ensuring you find solace in house hunting. The goal is for you to pay and get the keys. No bottlenecks!',
   social: '/icons/linkedin.svg',
   pic: testimonialImageThree
 
 },
 {
-  username: '- @thepatwalls',
-  testimony: ' Best Home Rental Company so awesome.',
+  username: '- @_olaomoriwo',
+  testimony: 'I spent quality time studying what #SolacelyAR is doing for the proptech industry, I have so much confidence this solution will scale. Really anticipating the innovation and processes that’ll make this innovation and processes that’ll make this fly.',
   social: '/icons/linkedin.svg',
   pic: testimonialImageFour
 
 },
-  // {
-  //     username: ' - @thepatwalls',
-  //     testimony: ' I owe these guys my life. Already used their landing page templates for my latest two projects.',
-  //     social: '/icons/linkedin.svg',
-  //     pic: '/images/pat.jpg'
-
-  // },
+{
+  username: ' - @khadijjahhh',
+  testimony: 'I am really excited to see @SolacelyAR come to life.',
+  social: '/icons/linkedin.svg',
+  pic: testimonialImageFive
+},
   // {
   //     username: ' - @thepatwalls',
   //     testimony: ' There Homes Are Top Notch Cant See Me Changing Location Anytime Soon, Best Home PLug.',
