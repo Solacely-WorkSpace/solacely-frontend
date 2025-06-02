@@ -207,9 +207,11 @@ function ApartmentView() {
 
             {/* Action Button */}
             <div className="flex items-center gap-4 mt-6">
-              <button className="bg-complementary text-white py-3 px-10 rounded-lg hover:bg-emerald-800 transition-colors">
-                I'm interested
-              </button>
+              <a href='/personalinformation'>
+                <button className="bg-complementary text-white py-3 px-10 rounded-lg hover:bg-emerald-800 transition-colors">
+                  I'm interested
+                </button>
+              </a>
             </div>
             {/* Share and Like */}
             <div className="flex items-center gap-4 mt-6">

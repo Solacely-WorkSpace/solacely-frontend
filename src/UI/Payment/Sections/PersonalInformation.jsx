@@ -110,7 +110,6 @@ export default function PersonalInformationPage() {
                         <option value="student" className="text-gray-400">Student</option>
                         <option value="employed" className="text-gray-400">Employed</option>
                         <option value="self-employed" className="text-gray-400">Self-employed</option>
-                        <option value="other" className="text-gray-400">Other</option>
                     </select>
                 </div>
                 </form>
