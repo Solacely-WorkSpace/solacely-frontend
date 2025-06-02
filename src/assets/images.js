@@ -19,6 +19,7 @@ import testimonialImageOne from "@/../public/images/LandingPage/testimonial/Oval
 import testimonialImageTwo from "@/../public/images/LandingPage/testimonial/Oval2.png"
 import testimonialImageThree from "@/../public/images/LandingPage/testimonial/Oval3.png"
 import testimonialImageFour from "@/../public/images/LandingPage/testimonial/Oval4.png"
+import testimonialImageFive from "@/../public/images/LandingPage/cta/cta2.png"
 
 // CTA Section assets
 import ctaImageOne from "@/../public/images/LandingPage/cta/cta1.png"
@@ -106,6 +107,7 @@ export {
     testimonialImageTwo,
     testimonialImageThree,
     testimonialImageFour,
+    testimonialImageFive,
     ctaImageOne,
     ctaImageTwo,
     ctaImageThree,
