@@ -7,6 +7,7 @@ import Image from 'next/image'
 import MoreFilters from './Sections/MoreFilters';
 import SearchResults from './Components/SearchResults';
 import PopUpModal from './Components/PopUpModal';
+import Link from 'next/link';
 
 
 const ApartmentsPage = () => {
@@ -364,11 +365,13 @@ const ApartmentsPage = () => {
               <div className="flex items-center justify-between mb-2">
                 <p className="text-base font-semibold text-green-800">{apt.price}</p>
               </div>
-              <div className="flex items-center justify-between mt-5 w-full" >
-                <button onClick={() => handleExplore(apt.id)} className="bg-complementary text-white text-center py-2 rounded-md text-base w-full font-medium hover:bg-emerald-800 transition-colors">
-                  <span>Explore</span>
-                </button>
-              </div>
+              <Link href="/apartmentview">
+                <div className="flex items-center justify-between mt-5 w-full" >
+                    <button className="bg-complementary text-white text-center py-2 rounded-md text-base w-full font-medium hover:bg-emerald-800 transition-colors">
+                      <span>Explore</span>
+                    </button>
+                </div>
+              </Link>
             </div>
           </div>
         ))}
