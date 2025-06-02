@@ -90,6 +90,9 @@ import Location from "@/../public/images/Apartments/location.png"
 import PopUp from "@/../public/images/Apartments/PopUp.png"
 import LivingRoom from "@/../public/images/Apartments/Livingroom.png"
 
+import MailConfirmation from "@/../public/images/confirmation.png"
+import Congratulations from "@/../public/images/congratulations.png"
+
 export {
     LogoName,
     HeroIllustration,
@@ -141,5 +144,7 @@ export {
     PurpleFilter,
     Location,
     PopUp,
-    LivingRoom
+    LivingRoom,
+    MailConfirmation,
+    Congratulations
 }   

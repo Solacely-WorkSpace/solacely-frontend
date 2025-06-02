@@ -23,7 +23,7 @@ export default function Rooms({ setCurrentStage, currentStage }) {
         <section className='flex-1 w-full p-6 md:p-12'>
             <div className="w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-                    <Link href="#" onClick={() => setCurrentStage('kind of home')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
+                    <Link href="#" onClick={() => setCurrentStage('home type')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
                         <div className="flex items-center gap-1">
                             <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
                         </div>
@@ -49,9 +49,9 @@ export default function Rooms({ setCurrentStage, currentStage }) {
 
             <div className="w-full flex flex-col items-center text-center">
                 <div className="w-full md:w-[380px] flex flex-col items-center">
-                    <h1 className="whitespace-nowrap">Number of Bedrooms and<br className="md:hidden"/> Bathrooms</h1>
+                    <h1 className="whitespace-nowrap">What's your bathroom<br className="md:hidden"/> and bedroom choice?</h1>
 
-                    <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">How would you prefer your number of bathrooms and bedrooms</small>
+                    <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">Choose the number of bathrooms and bedrooms you want.</small>
 
                         <div className="w-full flex flex-col gap-4 mt-12">
                             {options.map((option) => (

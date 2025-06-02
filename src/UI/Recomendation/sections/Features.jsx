@@ -38,9 +38,9 @@ export default function Features({ setCurrentStage, currentStage }) {
 
             <div className="w-full flex flex-col items-center text-center">
                 <div className="w-full md:w-[380px] flex flex-col items-center">
-                    <h1 className="whitespace-nowrap">Attractive Features and<br className="md:hidden"/> Amenities</h1>
+                    <h1 className="whitespace-nowrap">Amenities for your daily<br className="md:hidden"/> convenience</h1>
 
-                    <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">Enjoy attractive features at your comfort</small>
+                    <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">Pick from the list of various amenities to make life convenient</small>
 
                     <div className="w-full flex flex-col gap-4 mt-12">
                         <button

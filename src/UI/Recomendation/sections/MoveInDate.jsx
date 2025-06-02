@@ -125,7 +125,7 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
                     <div className="w-full md:w-[380px] flex flex-col items-center">
                         <h1 className="whitespace-nowrap">Move-in Date</h1>
                         <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px]">
-                            Pick a convenient date to move in
+                            Choose a date best convenient for you to move in
                         </small>
 
                         <div className="mt-12 w-">
