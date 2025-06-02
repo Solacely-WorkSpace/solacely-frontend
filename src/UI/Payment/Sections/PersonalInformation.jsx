@@ -21,26 +21,28 @@ export default function PersonalInformationPage() {
                 </p>
             <div className="flex flex-col md:flex-row gap-8">
             {/* Sidebar */}
-            <div className="hidden md:block bg-white rounded-xl shadow-sm p-8 w-full h-fit md:w-80 mb-6 md:mb-0">
+            <div className="hidden md:block bg-white rounded-xl shadow-sm py-8 pr-8 w-full h-fit md:w-80 mb-6 md:mb-0">
                 <ul className="py-4 space-y-6">
-                {[
-                    "Personal Information",
-                    "Tenancy Agreement",
-                    "Estate Agreement",
-                    "Mail Confirmation",
-                    "Payment Review",
-                ].map((step, idx) => (
-                    <li key={step} className="flex items-center justify-between">
-                    <span className={
-                        idx === 0
-                        ? "font-semibold text-black border-l-4 border-complementary pl-3"
-                        : "text-gray-400 pl-3"
-                    }>
-                        {step}
-                    </span>
+                    <li className="flex items-center justify-between">
+                    <span className="font-semibold text-black border-l-4 border-complementary pl-6 py-2">Personal Information</span>
                     <FaCheckCircle className="text-complementary/20 text-lg" />
                     </li>
-                ))}
+                    <li className="flex items-center justify-between">
+                        <span className="text-gray-400 pl-6">Tenancy Agreement</span>
+                        <FaCheckCircle className="text-complementary/20 text-lg" />
+                    </li>
+                    <li className="flex items-center justify-between">
+                        <span className="text-gray-400 pl-6">Estate Agreement</span>
+                        <FaCheckCircle className="text-complementary/20 text-lg" />
+                    </li>
+                    <li className="flex items-center justify-between">
+                        <span className="text-gray-400 pl-6">Mail Confirmation</span>
+                        <FaCheckCircle className="text-complementary/20 text-lg" />
+                    </li>
+                    <li className="flex items-center justify-between">
+                        <span className="text-gray-400 pl-6">Payment Review</span>
+                        <FaCheckCircle className="text-complementary/20 text-lg" />
+                    </li>
                 </ul>
             </div>
 
@@ -112,7 +114,9 @@ export default function PersonalInformationPage() {
                     </select>
                 </div>
                 </form>
-                <button type="submit" className="md:w-1/2 w-full my-10 py-3 rounded-lg bg-primary text-white font-semibold text-lg shadow-md hover:bg-primary/90 transition">Continue</button>
+                <a href="/tenancyagreement">
+                    <button type="submit" className="md:w-1/2 w-full my-10 py-3 rounded-lg bg-primary text-white font-semibold text-lg shadow-md hover:bg-primary/90 transition">Continue</button>
+                </a>
             </div>
             </div>
         </div>
