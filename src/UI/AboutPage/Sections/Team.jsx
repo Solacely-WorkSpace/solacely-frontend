@@ -27,7 +27,7 @@ const Team = () => {
           </h2>
         </div>
         
-        <div className="flex md:grid overflow-x-auto snap-x snap-mandatory md:grid-cols-2 lg:grid-cols-5 gap-2 pb-8 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+        <div className="flex md:grid overflow-x-auto snap-x snap-mandatory md:grid-cols-2 lg:grid-cols-4 gap-2 pb-8 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
           {teamMembers.map((member, index) => (
             <div 
               key={index} 
@@ -45,11 +45,11 @@ const Team = () => {
                 />
                 {/* Desktop hover overlay card */}
                 <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
+                  <div className="absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-1">
                     <div className="text-center">
-                      <h3 className="text-sm font-semibold text-gray-900">{member.name}</h3>
-                      <p className="text-sm text-gray-500">{member.location}</p>
-                      <div className="flex items-center justify-center gap-3 mt-1">
+                      <h3 className="text-xs font-semibold text-gray-900">{member.name}</h3>
+                      <p className="text-xs text-gray-500">{member.location}</p>
+                      <div className="flex items-center justify-center gap-2">
                         <SocialLink href={member.social?.instagram}>
                           <InstagramSVG />
                         </SocialLink>
@@ -68,9 +68,9 @@ const Team = () => {
                 </div>
 
                 {/* Mobile permanent overlay card */}
-                <div className="md:hidden absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
+                <div className="md:hidden absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-1">
                   <div className="text-center">
-                    <h3 className="text-base font-semibold text-gray-900">{member.name}</h3>
+                    <h3 className="text-sm font-semibold text-gray-900">{member.name}</h3>
                     <p className="text-sm text-gray-500 mt-0.5">{member.location}</p>
                     <div className="flex items-center justify-center gap-4">
                         <SocialLink href={member.social?.linkedin}>

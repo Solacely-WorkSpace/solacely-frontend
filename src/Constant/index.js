@@ -89,27 +89,27 @@ const whatWeOffer = [
 
 const aboutOffers = [
   {
-    offer: 'There are no hidden charges, you pay once with zero stress.',
+    offer: 'We believe everyone deserves to know exactly what they’re getting. From verified listings to escrow-secured transactions, we eliminate guesswork and build confidence between tenants, landlords, and agents.',
     icon: '/icons/star.svg',
-    header: 'Zero  Stress'
+    header: 'Trust & Transparency'
 
   },
   {
-    offer: 'To create a new way to find, compare, and connect with the right provider for you.',
+    offer: 'We don’t just help you rent, we help you grow. Tenants can build credit, earn rewards, and gain access to financial tools that support long-term stability. Partners benefit from improved rent collection, lower vacancy rates, and predictable income streams.',
     icon: '/icons/leaf.svg',
-    header: 'Reliable'
+    header: 'Financial Empowerment'
 
   },
   {
-    offer: 'Our product offers the best VR provider that helps us integrate the best outcome for your needs.',
+    offer: 'From low-income earners to gig workers, we’re creating a housing ecosystem where no one is left out. Our AI-powered recommendation engine ensures personalized property matches, no matter your income or background.',
     icon: '/icons/Icon.svg',
-    header: 'VR Experience'
+    header: 'Access for All'
 
   },
   {
-    offer: 'We transform the way our customers shop for real estate and make housing searches easy, quick, accessible, and fun.',
+    offer: 'We’re not here to tweak the old system, we’re here to build a better one. Solacely fosters a culture of constant learning, feedback, and co-creation. We listen, iterate, and evolve with our users, not just for them.',
     icon: '/icons/cirle.svg',
-    header: 'Comfort'
+    header: 'Community & Innovation'
 
   },
 
@@ -166,7 +166,7 @@ const teamMembers = [
   {
     name: "Oware M. Paul",
     location: "Lagos, NG",
-    role: "QA/Test Engineer",
+    role: "Co-founder & COO",
     image: memberTwo,
     social: {
       instagram: "https://instagram.com/username",
