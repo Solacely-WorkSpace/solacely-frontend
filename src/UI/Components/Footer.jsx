@@ -23,11 +23,8 @@ const Footer = () => {
             />
 
             <p className="text-white/70 mt-2 text-sm">
-              Our vision is to have everyone have an affordable place to call
-              home. We are passionate about creating an accessible and
-              transparent ecosystem that allows home seekers a way to explore
-              real estate options, manage their rent payments, and build equity
-              in their homes.
+              We are bold, ambitious and committed to our mission 
+              to make house hunting fun, efficient, and enjoyable.
             </p>
           </div>
 

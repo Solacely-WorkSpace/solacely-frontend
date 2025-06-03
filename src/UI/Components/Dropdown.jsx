@@ -40,21 +40,27 @@ const Dropdown = () => {
             href="#"
             className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
-            Space Type 1
+            Apartment
           </Link>
 
           <Link
             href="#"
             className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
-            Space Type 2
+            Co-living
           </Link>
 
           <Link
             href="#"
             className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
-            Space Type 3
+            Pair with Me
+          </Link>
+          <Link
+            href="#"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+          >
+            Real Estate
           </Link>
         </div>
       )}

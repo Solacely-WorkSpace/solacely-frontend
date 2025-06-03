@@ -29,9 +29,9 @@ export default function AboutHero() {
               />
               <div className="absolute bottom-0 left-0 bg-primary text-white p-6 md:max-w-xl h-1/4 md:h-auto md:rounded-tr-3xl">
                 <p className="md:text-lg text-white">
-                  &quot;We strive to collaborate closely with our customers in order to
-                  solve their challenges.&quot; &quot;Honesty, integrity, and efficiency are
-                  important to us.&quot;
+                  &quot;Solacely aims to empower renters and buyers with a digital home-shopping experience. It is a platform that 
+                  will improve the renting and buying experience by providing greater accessibility, affordability, 
+                  efficiency, convenience, and transparency.&quot;
                 </p>
               </div>
             </div>
@@ -53,9 +53,8 @@ export default function AboutHero() {
                 <div className="flex-1 text-center md:text-left">
                   <h2 className="text-xl font-bold mb-4 text-left">Mission</h2>
                   <p className="text-gray-600 text-left">
-                    We are an industry-leading company that values honesty, integrity,
-                    and efficiency. Building quality products and caring for the users
-                    are what made us stand out since the beginning.
+                    We are bold, ambitious and committed to our mission 
+                    to make house hunting fun, efficient, and enjoyable.
                   </p>
                 </div>
               </div>
@@ -76,9 +75,7 @@ export default function AboutHero() {
                 <div className="text-center md:text-left">
                   <h2 className="text-xl font-bold mb-4 text-left">Vision</h2>
                   <p className="text-gray-600 text-left">
-                    We are an industry-leading company that values honesty, integrity,
-                    and efficiency. Building quality products and caring for the users
-                    are what made us stand out since the beginning.
+                    Our vision is to revolutionize the real estate industry and give control back to our customer, who should be able to explore a home on their own schedule in the most convenient way possible.
                   </p>
                 </div>
               </div>

@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { HamburgerSVG } from "@/assets/SVGAssets";
 import { ChevronDown } from "lucide-react";
 
-
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -62,9 +62,42 @@ const MobileNav = () => {
             <div className="pt-16 px-6 pb-8">
               <ul className="flex flex-col space-y-4">
                 <li className="py-1">
-                  <div className="flex items-center justify-between cursor-pointer rounded-md p-2 hover:bg-primary hover:text-white transition-colors">
-                    <span className="text-sm font-medium">Spaces</span>
-                    <ChevronDown size={18} />
+                  <div className="flex flex-col">
+                    <button 
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="flex items-center justify-between rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
+                    >
+                      <span>Spaces</span>
+                      <ChevronDown size={18} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isDropdownOpen && (
+                      <div className="mt-2 w-full bg-white rounded-lg shadow-sm py-1 border border-gray-100">
+                        <Link
+                          href="#"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          Apartment
+                        </Link>
+                        <Link
+                          href="#"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          Co-living
+                        </Link>
+                        <Link
+                          href="#"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          Pair with Me
+                        </Link>
+                        <Link
+                          href="#"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          Real Estate
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </li>
                 <li className="py-1">

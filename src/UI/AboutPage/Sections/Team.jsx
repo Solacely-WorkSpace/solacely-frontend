@@ -2,6 +2,7 @@ import Image from "next/image";
 import { teamMembers } from "@/Constant";
 import Link from "next/link";
 import { facebookIcon, instagramIcon, linkedinIcon, twitterIcon } from "@/assets/icons";
+import { XSVG, LinkedinSVG, FacebookSVG,InstagramSVG } from "@/assets/SVGAssets";
 
 
 const SocialLink = ({ href, children }) => (
@@ -50,48 +51,16 @@ const Team = () => {
                       <p className="text-sm text-gray-500 mt-0.5">{member.location}</p>
                       <div className="flex items-center justify-center gap-4 mt-1">
                         <SocialLink href={member.social?.instagram}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={instagramIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Instagram"
-                              className="w-5 h5"
-                            />
-                          </div>
+                          <InstagramSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.linkedin}>
-                          <div className="w-10 h-10 flex items-center justify-center">
-                            <Image 
-                              src={linkedinIcon}
-                              width={14}  
-                              height={14} 
-                              alt="LinkedIn"
-                              className="w-6 h-6"
-                            />
-                          </div>
+                          <LinkedinSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.facebook}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={facebookIcon} 
-                              width={14}
-                              height={14}
-                              alt="Facebook"
-                              className="w-5 h-7"
-                            />
-                          </div>
+                          <FacebookSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.twitter}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={twitterIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Twitter"
-                              className="w-5 h-5"
-                            />
-                          </div>
+                          <XSVG />
                         </SocialLink>
                       </div>
                     </div>
@@ -104,49 +73,17 @@ const Team = () => {
                     <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
                     <p className="text-sm text-gray-500 mt-0.5 mb-1">{member.location}</p>
                     <div className="flex items-center justify-center gap-4 mt-2 mb-1">
-                        <SocialLink href={member.social?.instagram}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={instagramIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Instagram"
-                              className="w-5 h-5"
-                            />
-                          </div>
-                        </SocialLink>
                         <SocialLink href={member.social?.linkedin}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={linkedinIcon}
-                              width={14}  
-                              height={14} 
-                              alt="LinkedIn"
-                              className="w-4 h-4"
-                            />
-                          </div>
+                          <InstagramSVG />
+                        </SocialLink>
+                        <SocialLink href={member.social?.instagram}>
+                          <LinkedinSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.facebook}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={facebookIcon} 
-                              width={14}
-                              height={14}
-                              alt="Facebook"
-                              className="w-6 h-6"
-                            />
-                          </div>
+                          <FacebookSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.twitter}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={twitterIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Twitter"
-                              className="w-5 h-5"
-                            />
-                          </div>
+                          <XSVG />
                         </SocialLink>
                     </div>
                   </div>
