@@ -11,10 +11,10 @@ export default function AboutHero() {
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h1 className="text-4xl text-black font-bold mb-6">About Us</h1>
               <p className="text-lg text-gray-600">
-                We are an industry leader that places a premium on honesty, ethics, and
-                efficiency. Since the outset, we have distinguished ourselves by
-                developing high-quality products and providing excellent customer
-                service.
+                At Solacely, we’re transforming how people rent, list, and manage homes — starting 
+                with underserved communities. We believe finding a home should be easy, 
+                transparent, and tailored to you.
+
               </p>
             </div>
 
@@ -28,10 +28,9 @@ export default function AboutHero() {
                 priority
               />
               <div className="absolute bottom-0 left-0 bg-primary text-white p-6 md:max-w-xl h-1/4 md:h-auto md:rounded-tr-3xl">
-                <p className="md:text-lg text-white">
-                  &quot;Solacely aims to empower renters and buyers with a digital home-shopping experience. It is a platform that 
-                  will improve the renting and buying experience by providing greater accessibility, affordability, 
-                  efficiency, convenience, and transparency.&quot;
+                <p className="md:text-lg text-sm text-white">
+                  &quot;We’re building a smarter, AI-powered platform that empowers tenants, landlords, and agents with seamless 
+                  tools to access affordable housing, flexible payment options, and verified listings — all from the comfort of their device.&quot;
                 </p>
               </div>
             </div>
@@ -53,8 +52,8 @@ export default function AboutHero() {
                 <div className="flex-1 text-center md:text-left">
                   <h2 className="text-xl font-bold mb-4 text-left">Mission</h2>
                   <p className="text-gray-600 text-left">
-                    We are bold, ambitious and committed to our mission 
-                    to make house hunting fun, efficient, and enjoyable.
+                    To make renting and managing real estate simpler, smarter, and more accessible — using 
+                    technology to empower users with flexibility, financial tools, and verified housing options.
                   </p>
                 </div>
               </div>
@@ -75,7 +74,8 @@ export default function AboutHero() {
                 <div className="text-center md:text-left">
                   <h2 className="text-xl font-bold mb-4 text-left">Vision</h2>
                   <p className="text-gray-600 text-left">
-                    Our vision is to revolutionize the real estate industry and give control back to our customer, who should be able to explore a home on their own schedule in the most convenient way possible.
+                    To redefine the real estate experience — creating a world where anyone can find and rent a home 
+                    on their own terms, with zero stress, total transparency, and the tools they need to thrive.
                   </p>
                 </div>
               </div>

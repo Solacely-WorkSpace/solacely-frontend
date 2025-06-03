@@ -53,18 +53,18 @@ export const InstagramSVG = () => (
   
   <defs>
     <linearGradient id="insta-gradient-123" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#fdf497"/>
-      <stop offset="5%" stop-color="#fdf497"/>
-      <stop offset="45%" stop-color="#fd5949"/>
-      <stop offset="60%" stop-color="#d6249f"/>
-      <stop offset="90%" stop-color="#285AEB"/>
+      <stop offset="0%" stopColor="#fdf497"/>
+      <stop offset="5%" stopColor="#fdf497"/>
+      <stop offset="45%" stopColor="#fd5949"/>
+      <stop offset="60%" stopColor="#d6249f"/>
+      <stop offset="90%" stopColor="#285AEB"/>
     </linearGradient>
   </defs>
   
   <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#insta-gradient-123)"/>
   
-  <rect x="6" y="6" width="12" height="12" rx="3" fill="none" stroke="#ffffff" stroke-width="2"/>
-  <circle cx="12" cy="12" r="3" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <rect x="6" y="6" width="12" height="12" rx="3" fill="none" stroke="#ffffff" strokeWidth="2"/>
+  <circle cx="12" cy="12" r="3" fill="none" stroke="#ffffff" strokeWidth="2"/>
   <circle cx="18" cy="6" r="1" fill="#ffffff"/>
 </svg>
 )
