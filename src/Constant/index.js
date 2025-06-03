@@ -10,7 +10,7 @@ import {
   tourImageFour,
 } from "@/assets/images"
 
-import { memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight } from '@/assets/images'
+import { memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight, memberNine, memberTen } from '@/assets/images'
 
 // Testimonial Dataset
 const Testimonial = [{
@@ -152,21 +152,21 @@ Escrow-backed payments & fraud protection`,
 
 const teamMembers = [
   {
-    name: "Emaily Moady",
+    name: "Akinrodolu Oluwaseun ",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Founder & Senior PM",
     image: memberOne,
     social: {
       instagram: "https://instagram.com/username",
-      linkedin: "https://linkedin.com/in/username",
+      linkedin: "https://www.linkedin.com/in/akinrodoluseun/",
       facebook: "https://facebook.com/username",
-      twitter: "https://twitter.com/username"
+      twitter: "https://twitter.com/Akinrodoluseun"
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Oware M. Paul",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "QA/Test Engineer",
     image: memberTwo,
     social: {
       instagram: "https://instagram.com/username",
@@ -176,9 +176,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Mathew Emmanuel ",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Backend Engineer",
     image: memberThree,
     social: {
       instagram: "https://instagram.com/username",
@@ -188,9 +188,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Thomas Tochukwu Christian ",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Frontend Developer",
     image: memberFour,
     social: {
       instagram: "https://instagram.com/username",
@@ -200,9 +200,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Ojo Favour Osuare",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "UI/UX Designer",
     image: memberFive,
     social: {
       instagram: "https://instagram.com/username",
@@ -212,9 +212,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
-    location: "Lagos, NG",
-    role: "Vice President",
+    name: "N. Barrack Okoth",
+    location: "Nairobi, Kenya",
+    role: "Frontend Developer",
     image: memberSix,
     social: {
       instagram: "https://instagram.com/username",
@@ -223,10 +223,11 @@ const teamMembers = [
       twitter: "https://twitter.com/username"
     }
   },
+  
   {
-    name: "Emaily Moady",
+    name: "Ndubuisi Juliet Ijeoma",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Product Manager",
     image: memberSeven,
     social: {
       instagram: "https://instagram.com/username",
@@ -236,10 +237,35 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Lawrence Chibondo",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Software Engineer",
+    image: memberNine,
+    social: {
+      instagram: "https://instagram.com/username",
+      linkedin: "https://linkedin.com/in/username",
+      facebook: "https://facebook.com/username",
+      twitter: "https://twitter.com/username"
+    }
+  },
+  {
+    name: "Aubrey Nyasulu",
+    location: "Lagos, NG",
+    role: "Frontend Developer",
     image: memberEight,
+    social: {
+      instagram: "https://instagram.com/username",
+      linkedin: "https://linkedin.com/in/username",
+      facebook: "https://facebook.com/username",
+      twitter: "https://twitter.com/username"
+    }
+  },
+  
+  {
+    name: "Orji Miracle ",
+    location: "Lagos, NG",
+    role: "UI/UX Designer",
+    image: memberTen,
     social: {
       instagram: "https://instagram.com/username",
       linkedin: "https://linkedin.com/in/username",

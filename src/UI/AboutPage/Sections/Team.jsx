@@ -27,7 +27,7 @@ const Team = () => {
           </h2>
         </div>
         
-        <div className="flex md:grid overflow-x-auto snap-x snap-mandatory md:grid-cols-2 lg:grid-cols-4 gap-2 pb-8 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+        <div className="flex md:grid overflow-x-auto snap-x snap-mandatory md:grid-cols-2 lg:grid-cols-5 gap-2 pb-8 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
           {teamMembers.map((member, index) => (
             <div 
               key={index} 
@@ -43,13 +43,13 @@ const Team = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                   quality={100}
                 />
-                                {/* Desktop hover overlay card */}
+                {/* Desktop hover overlay card */}
                 <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
                     <div className="text-center">
-                      <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                      <p className="text-sm text-gray-500 mt-0.5">{member.location}</p>
-                      <div className="flex items-center justify-center gap-4 mt-1">
+                      <h3 className="text-sm font-semibold text-gray-900">{member.name}</h3>
+                      <p className="text-sm text-gray-500">{member.location}</p>
+                      <div className="flex items-center justify-center gap-3 mt-1">
                         <SocialLink href={member.social?.instagram}>
                           <InstagramSVG />
                         </SocialLink>
@@ -70,9 +70,9 @@ const Team = () => {
                 {/* Mobile permanent overlay card */}
                 <div className="md:hidden absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
                   <div className="text-center">
-                    <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                    <p className="text-sm text-gray-500 mt-0.5 mb-1">{member.location}</p>
-                    <div className="flex items-center justify-center gap-4 mt-2 mb-1">
+                    <h3 className="text-base font-semibold text-gray-900">{member.name}</h3>
+                    <p className="text-sm text-gray-500 mt-0.5">{member.location}</p>
+                    <div className="flex items-center justify-center gap-4">
                         <SocialLink href={member.social?.linkedin}>
                           <InstagramSVG />
                         </SocialLink>
@@ -90,9 +90,9 @@ const Team = () => {
                 </div>
 
                 {/* Desktop permanent info */}
-                <div className="hidden md:block absolute bottom-1 left-4 right-0 p-4 text-center from-black/70 to-transparent opaity-100 group-hover:opacity-0 transition-opacity duration-300">
+                <div className="hidden md:block absolute bottom-1 left-1 right-0 p-4 text-center from-black/70 to-transparent opaity-100 group-hover:opacity-0 transition-opacity duration-300">
                   <p className="text-sm text-left text-gray-200">{member.role}</p>
-                  <h3 className="text-lg text-left font-semibold text-white">{member.name}</h3>
+                  <h3 className="text-base text-left font-semibold text-white">{member.name}</h3>
                 </div>
               </div>
             </div>
