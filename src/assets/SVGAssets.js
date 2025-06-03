@@ -37,3 +37,34 @@ export const XSVG = () => (
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
     </svg>
 )
+
+
+export const FacebookSVG = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path fill="#1877F2" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+  <path fill="#FFFFFF" d="M15.893 14.89l.443-2.89h-2.773v-1.875c0-.791.387-1.562 1.63-1.562h1.26v-2.46s-1.144-.195-2.238-.195c-2.285 0-3.777 1.384-3.777 3.89V12h-2.54v2.89h2.54v6.988a10.058 10.058 0 003.124 0V14.89h2.33z"/>
+</svg>
+)
+
+
+export const InstagramSVG = () => (
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <rect x="2" y="2" width="20" height="20" rx="5" fill="#E1306C"/>
+  
+  <defs>
+    <linearGradient id="insta-gradient-123" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fdf497"/>
+      <stop offset="5%" stop-color="#fdf497"/>
+      <stop offset="45%" stop-color="#fd5949"/>
+      <stop offset="60%" stop-color="#d6249f"/>
+      <stop offset="90%" stop-color="#285AEB"/>
+    </linearGradient>
+  </defs>
+  
+  <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#insta-gradient-123)"/>
+  
+  <rect x="6" y="6" width="12" height="12" rx="3" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="12" cy="12" r="3" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="18" cy="6" r="1" fill="#ffffff"/>
+</svg>
+)

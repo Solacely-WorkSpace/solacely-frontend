@@ -89,25 +89,25 @@ const whatWeOffer = [
 
 const aboutOffers = [
   {
-    offer: 'No hidden fees, no transfer commissions. We offer safe transactions for you.',
+    offer: 'There are no hidden charges, you pay once with zero stress.',
     icon: '/icons/star.svg',
     header: 'Zero  Stress'
 
   },
   {
-    offer: 'Your Funds are safeguarded by the French Fonds de Garantie des Dépôts et de Résolution.',
+    offer: 'To create a new way to find, compare, and connect with the right provider for you.',
     icon: '/icons/leaf.svg',
     header: 'Reliable'
 
   },
   {
-    offer: 'Open a business account for the online deposit of your share capital',
+    offer: 'Our product offers the best VR provider that helps us integrate the best outcome for your needs.',
     icon: '/icons/Icon.svg',
     header: 'VR Experience'
 
   },
   {
-    offer: 'Commitment-free and scalable, according to your business needs.',
+    offer: 'We transform the way our customers shop for real estate and make housing searches easy, quick, accessible, and fun.',
     icon: '/icons/cirle.svg',
     header: 'Comfort'
 
