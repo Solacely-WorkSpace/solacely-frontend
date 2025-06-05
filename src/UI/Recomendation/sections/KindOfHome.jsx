@@ -16,13 +16,13 @@ export default function KindOfHome({ setCurrentStage, currentStage }) {
         <section className='flex-1 w-full p-6 md:p-12'>
 
             <div className="w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-                    <Link href="#" onClick={() => setCurrentStage('next stage')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
+                <div className="flex items-center justify-between w-full">
+                    <Link href="#" onClick={() => setCurrentStage('next stage')} className="flex items-center gap-1 text-sm text-gray-600">
                         <div className="flex items-center gap-1">
                             <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
                         </div>
                     </Link>  
-                    <div className="flex items-center justify-center md:justify-end gap-1">
+                    <div className="flex items-center gap-1">
                         <p className="text-sm">Already have an account?</p>
                         <Link
                             href='/sign-in'
@@ -55,34 +55,30 @@ export default function KindOfHome({ setCurrentStage, currentStage }) {
                                 className={clsx(
                                     "w-full py-4 px-6 rounded-lg border transition-all text-left",
                                     value === 'rent-now' 
-                                        ? "border-complementary t bg-[#6E3EFF]/10"
+                                        ? "border-complementary bg-[#6E3EFF]/10"
                                         : "border-gray-300 hover:border-complementary"
                                 )}
                             >
-                                Rent now, pay small small
+                                Apartment
                             </button>
-                            <button
-                                onClick={() => handleOptionClick('co-living')}
-                                className={clsx(
-                                    "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                    value === 'co-living'
-                                        ? "border-complementary  bg-[#6E3EFF]/10"
-                                        : "border-gray-300 hover:border-complementary"
-                                )}
-                            >
-                                Co-living (pair with me)
-                            </button>
-                            <button
-                                onClick={() => handleOptionClick('standard')}
-                                className={clsx(
-                                    "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                    value === 'standard'
-                                        ? "border-complementary  bg-[#6E3EFF]/10"
-                                        : "border-gray-300 hover:border-complementary"
-                                )}
-                            >
-                                Standard Rent
-                            </button>
+                            <div className="relative">
+                                <span className="absolute -top-3 right-4 bg-complementary text-gray-700 text-xs px-0.5 py-0.5 rounded-full">Coming Soon</span>
+                                <button
+                                    disabled
+                                    className="w-full py-4 px-6 rounded-lg border border-gray-200 transition-all text-left text-gray-400 bg-gray-50 cursor-not-allowed"
+                                >
+                                    House
+                                </button>
+                            </div>
+                            <div className="relative">
+                                <span className="absolute -top-3 right-4 bg-complementary text-gray-700 text-xs px-0.5 py-0.5 rounded-full">Coming Soon</span>
+                                <button
+                                    disabled
+                                    className="w-full py-4 px-6 rounded-lg border border-gray-200 transition-all text-left text-gray-400 bg-gray-50 cursor-not-allowed"
+                                >
+                                    Co-living
+                                </button>
+                            </div>
                         </div>
 
                     <button

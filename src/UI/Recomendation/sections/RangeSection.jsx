@@ -3,21 +3,30 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
+import { FiChevronLeft } from 'react-icons/fi';
 
 export default function RangeSection({ setCurrentStage }) {
     const [value, setValue] = useState('')
 
     return (
         <section className='flex-1 w-full p-6 md:p-12'>
-            <div className="flex items-center justify-end w-full gap-1 ">
-                <p className="text-sm">Already have an account?</p>
-
-                <Link
-                    href='/sign-in'
-                    className="text-sm text-complementary"
-                >
-                    Sign in
-                </Link>
+            <div className="w-full">
+                <div className="flex items-center justify-between w-full">
+                    <Link href="#" onClick={() => setCurrentStage('previous')} className="flex items-center gap-1 text-sm text-gray-600">
+                        <div className="flex items-center gap-1">
+                            <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
+                        </div>
+                    </Link>  
+                    <div className="flex items-center gap-1">
+                        <p className="text-sm">Already have an account?</p>
+                        <Link
+                            href='/sign-in'
+                            className="text-sm text-complementary"
+                        >
+                            Sign in
+                        </Link>
+                    </div>
+                </div>
             </div>
 
             <div className="w-[200px] h-1 mx-auto mt-28 mb-10 bg-gray-400 rounded-full overflow-hidden transition-all">

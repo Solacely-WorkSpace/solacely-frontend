@@ -11,15 +11,14 @@ export default function Budget({ setCurrentStage }) {
     return (
         <section className='flex-1 w-full p-6 md:p-12'>
             <div className="w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-                    <Link href="#" onClick={() => setCurrentStage('form')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
+                <div className="flex items-center justify-between w-full">
+                    <Link href="#" onClick={() => setCurrentStage('form')} className="flex items-center gap-1 text-sm text-gray-600">
                         <div className="flex items-center gap-1">
                             <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
                         </div>
-                    </Link>
-                    <div className="flex items-center justify-center md:justify-end gap-1">
+                    </Link>  
+                    <div className="flex items-center gap-1">
                         <p className="text-sm">Already have an account?</p>
-
                         <Link
                             href='/sign-in'
                             className="text-sm text-complementary"
