@@ -47,40 +47,36 @@ export default function RentingModel({ setCurrentStage, currentStage }) {
                     <small className="text-[#9EA0AB] mt-5 block md:max-w-[340px] ">Choose a renting model that works best for you</small>
 
                     <div className="w-full flex flex-col gap-4 mt-12">
-                                                <button
-                                                    onClick={() => handleOptionClick('rent-now')}
-                                                    className={clsx(
-                                                        "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                                        value === 'rent-now' 
-                                                            ? "border-complementary t bg-[#6E3EFF]/10"
-                                                            : "border-gray-300 hover:border-complementary"
-                                                    )}
-                                                >
-                                                    Rent now, pay small small
-                                                </button>
-                                                <button
-                                                    onClick={() => handleOptionClick('co-living')}
-                                                    className={clsx(
-                                                        "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                                        value === 'co-living'
-                                                            ? "border-complementary  bg-[#6E3EFF]/10"
-                                                            : "border-gray-300 hover:border-complementary"
-                                                    )}
-                                                >
-                                                    Co-living (pair with me)
-                                                </button>
-                                                <button
-                                                    onClick={() => handleOptionClick('standard')}
-                                                    className={clsx(
-                                                        "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                                        value === 'standard'
-                                                            ? "border-complementary  bg-[#6E3EFF]/10"
-                                                            : "border-gray-300 hover:border-complementary"
-                                                    )}
-                                                >
-                                                    Standard Rent
-                                                </button>
-                                            </div>
+                        <button
+                            onClick={() => handleOptionClick('standard')}
+                            className={clsx(
+                                "w-full py-4 px-6 rounded-lg border transition-all text-left",
+                                value === 'standard'
+                                    ? "border-complementary  bg-[#6E3EFF]/10"
+                                    : "border-gray-300 hover:border-complementary"
+                            )}
+                        >
+                            Standard Rent
+                        </button>
+                        <div className="relative">
+                            <span className="absolute -top-3 right-4 bg-complementary text-gray-700 text-xs px-0.5 py-0.5 rounded-full">Coming Soon</span>
+                                <button
+                                    disabled
+                                    className="w-full py-4 px-6 rounded-lg border border-gray-200 transition-all text-left text-gray-400 bg-gray-50 cursor-not-allowed"
+                                >
+                                    Rent now, pay small small
+                                </button>
+                        </div>
+                        <div className="relative">
+                                <span className="absolute -top-3 right-4 bg-complementary text-gray-700 text-xs px-0.5 py-0.5 rounded-full">Coming Soon</span>
+                                <button
+                                    disabled
+                                    className="w-full py-4 px-6 rounded-lg border border-gray-200 transition-all text-left text-gray-400 bg-gray-50 cursor-not-allowed"
+                                >
+                                    Co-living(pair with me)
+                                </button>
+                        </div>
+                    </div>
 
                     <button
                         onClick={() => setCurrentStage('rooms')}
