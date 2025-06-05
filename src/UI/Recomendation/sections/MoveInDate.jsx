@@ -164,14 +164,14 @@ export default function MoveInDate({ setCurrentStage, currentStage }) {
                         </div>
 
                     <Link
-                        href="/user/dashboard"
+                        href="/apartment"
                         className="w-fit px-12 mt-12 btn-primary"
                     >
                         Continue
                     </Link>
 
                     <Link
-                        href="/user/dashboard"
+                        href="/apartment"
                         className="w-full mt-4 py-3 underline"
                     >
                         Skip
