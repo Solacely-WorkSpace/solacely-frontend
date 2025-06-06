@@ -6,7 +6,17 @@ import { useState } from "react";
 import { FiChevronLeft } from 'react-icons/fi';
 
 export default function Features({ setCurrentStage, currentStage }) {
-    const [value, setValue] = useState('')
+    const [selectedFeatures, setSelectedFeatures] = useState([])
+
+    const handleFeatureClick = (feature) => {
+        setSelectedFeatures(prev => {
+            if (prev.includes(feature)) {
+                return prev.filter(item => item !== feature);
+            } else {
+                return [...prev, feature];
+            }
+        });
+    };
 
     return (
         <section className='flex-1 w-full p-6 md:p-12'>
@@ -44,11 +54,11 @@ export default function Features({ setCurrentStage, currentStage }) {
 
                     <div className="w-full flex flex-col gap-4 mt-12">
                         <button
-                            onClick={() => setValue('Spacious Parking Lot')}
+                            onClick={() => handleFeatureClick('Spacious Parking Lot')}
                             className={clsx(
                                 "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                value === 'Spacious Parking Lot'
-                                    ? "border-complementary  bg-[#6E3EFF]/10"
+                                selectedFeatures.includes('Spacious Parking Lot')
+                                    ? "border-complementary bg-[#6E3EFF]/10"
                                     : "border-gray-300 hover:border-complementary"
                             )}
                         >
@@ -56,11 +66,11 @@ export default function Features({ setCurrentStage, currentStage }) {
                         </button>
                         
                         <button
-                            onClick={() => setValue('Fully Equipped Gym')}
+                            onClick={() => handleFeatureClick('Fully Equipped Gym')}
                             className={clsx(
                                 "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                value === 'Fully Equipped Gym'
-                                    ? "border-complementary  bg-[#6E3EFF]/10"
+                                selectedFeatures.includes('Fully Equipped Gym')
+                                    ? "border-complementary bg-[#6E3EFF]/10"
                                     : "border-gray-300 hover:border-complementary"
                             )}
                         >
@@ -68,11 +78,11 @@ export default function Features({ setCurrentStage, currentStage }) {
                         </button>
 
                         <button
-                            onClick={() => setValue('Balcony')}
+                            onClick={() => handleFeatureClick('Balcony')}
                             className={clsx(
                                 "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                value === 'Balcony'
-                                    ? "border-complementary  bg-[#6E3EFF]/10"
+                                selectedFeatures.includes('Balcony')
+                                    ? "border-complementary bg-[#6E3EFF]/10"
                                     : "border-gray-300 hover:border-complementary"
                             )}
                         >
@@ -80,11 +90,11 @@ export default function Features({ setCurrentStage, currentStage }) {
                         </button>
 
                         <button
-                            onClick={() => setValue('Pet Friendly Environment')}
+                            onClick={() => handleFeatureClick('Pet Friendly Environment')}
                             className={clsx(
                                 "w-full py-4 px-6 rounded-lg border transition-all text-left",
-                                value === 'Pet Friendly Environment'
-                                    ? "border-complementary  bg-[#6E3EFF]/10"
+                                selectedFeatures.includes('Pet Friendly Environment')
+                                    ? "border-complementary bg-[#6E3EFF]/10"
                                     : "border-gray-300 hover:border-complementary"
                             )}
                         >
@@ -93,8 +103,15 @@ export default function Features({ setCurrentStage, currentStage }) {
                     </div>
 
                     <button
-                        onClick={() => setCurrentStage('move in date')}
-                        className="w-fit px-12 mt-12 btn-primary"
+                        onClick={() => {
+                            if (selectedFeatures.length > 0) {
+                                setCurrentStage('move in date')
+                            }
+                        }}
+                        className={clsx(
+                            "w-fit px-12 mt-12 btn-primary",
+                            selectedFeatures.length === 0 && "opacity-50 cursor-not-allowed"
+                        )}
                     >
                         Continue
                     </button>

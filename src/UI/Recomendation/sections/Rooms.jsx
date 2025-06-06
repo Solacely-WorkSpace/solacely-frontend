@@ -13,10 +13,10 @@ export default function Rooms({ setCurrentStage, currentStage }) {
     };
 
     const options = [
-        "Two Bedroom and One Bathroom",
-        "Two Bedrooms and Two Bathrooms",
-        "Three Bedrooms and Two Bathrooms",
-        "Four Bedrooms and Three Bathrooms"
+        "2 Bedroom and 1 Bathroom",
+        "2 Bedrooms and 2 Bathrooms",
+        "3 Bedrooms and 2 Bathrooms",
+        "4 Bedrooms and 3 Bathrooms"
     ];
 
     return (
