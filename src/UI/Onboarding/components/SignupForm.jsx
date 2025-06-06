@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { RealTimeValidateInput } from "./RealTimeValidatedInput";
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function SignupForm({ setCurrentStage }) {
     const [email, setEmail] = useState('')
@@ -11,6 +12,8 @@ export default function SignupForm({ setCurrentStage }) {
     const [emailStatus, setEmailStatus] = useState('')
     const [phoneNumberStatus, setPhoneNumberStatus] = useState('')
     const [passwordStatus, setPasswordStatus] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     return (
         <form
@@ -65,8 +68,6 @@ export default function SignupForm({ setCurrentStage }) {
                         className="relative border border-gray-400 rounded-lg w-fit h-fit flex gap-4 items-center justify-between focus:outline-complementary p-3 px-2"
                     >
                         <option value="+234">+234</option>
-                        <option value="+234">+265</option>
-                        <option value="+234">+1</option>
                     </select>
 
                     <input
@@ -109,13 +110,22 @@ export default function SignupForm({ setCurrentStage }) {
                     Password
                 </label>
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    required
-                    className="placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border border-gray-400 "
-                />
+                <div className="relative">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        placeholder="Password"
+                        required
+                        className="placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border border-gray-400"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    >
+                        {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                    </button>
+                </div>
             </div>
 
             <div className="w-full mb-4">
@@ -126,13 +136,22 @@ export default function SignupForm({ setCurrentStage }) {
                     Confirm Password
                 </label>
 
-                <input
-                    type="password"
-                    name="confirm-password"
-                    placeholder="Confirm Password"
-                    required
-                    className="placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border border-gray-400 "
-                />
+                <div className="relative">
+                    <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        name="confirm-password"
+                        placeholder="Confirm Password"
+                        required
+                        className="placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border border-gray-400"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    >
+                        {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                    </button>
+                </div>
             </div>
 
             <div className="flex gap-2 items-start">
