@@ -124,7 +124,7 @@ export default function SigninForm({ serviceType }) {
 
 
             <Link
-                href="#"
+                href="/forgot-password"
                 className="block w-full mt-2 text-sm text-end text-complementary"
             >
                 Forgot Password?
