@@ -21,7 +21,7 @@ function ApartmentView() {
   // Gallery images
   const galleryImages = [
     { src: WoodHouse, alt: "Main apartment view" },
-    { src: Kitchen, alt: "Kitchen view" },
+    // { src: Kitchen, alt: "Kitchen view" },
     { src: Bathroom, alt: "Bathroom view" },
     { src: LivingRoom, alt: "Living room view" }
   ];
@@ -155,8 +155,8 @@ function ApartmentView() {
             onClick={() => setShowGallery(true)}
             className="flex items-center justify-center md:justify-start gap-1 px-1 py-1.5 w-full md:w-fit rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
           >
-            <span>View Images</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <span className="font-medium text-sm">View Images</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -165,8 +165,8 @@ function ApartmentView() {
               <span className="bg-complementary text-primary text-[10px] font-medium px-0.5 py-0.5 rounded">Coming Soon</span>
             </div>
             <button className="flex items-center justify-center md:justify-start gap-2 px-1 py-1.5 w-full md:w-fit rounded-lg border border-primary text-primary">
-              <span>View Video Tour</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <span className="font-medium text-sm">View Video Tour</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -593,7 +593,7 @@ function ApartmentView() {
                 src={galleryImages[currentImageIndex].src}
                 alt={galleryImages[currentImageIndex].alt}
                 fill
-                className="object-contain md:object-fit"
+                className="object-contain md:object-cover"
               />
               
               {/* Navigation buttons */}
