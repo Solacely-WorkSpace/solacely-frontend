@@ -5,6 +5,7 @@ import { AboutHeroBg } from '@/assets/images'
 import { goal, film } from '@/assets/icons' 
 
 export default function AboutHero() {
+  //comment to test git
   return (
     <section className="aboutpage-container px-4 mt-16 w-full"> 
           <div className="aboutpage-container mx-auto">
