@@ -37,6 +37,8 @@ const StickyFilterBar = ({
 
   if (!show) return null;
 
+
+//   For now only appears on desktop view only
   return (
     <div className="fixed md:top-2 hidden md:block top-20 left-1/2 -translate-x-1/2 z-50 w-fit transition-transform duration-300" ref={containerRef}>
       <div className="bg-white shadow-md rounded-xl py-2 px-4 border border-gray-300 shadow-sm">
