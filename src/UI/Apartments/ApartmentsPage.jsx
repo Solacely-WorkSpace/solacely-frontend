@@ -116,6 +116,50 @@ const ApartmentsPage = () => {
       tag: "NEW"
     },
     {
+      id: 5,
+      title: "1 Bedroom Apartment",
+      beds: 4,
+      baths: 1,
+      area: "8.75sqft",
+      location: "1998 Wulfrta Minnesota, Festac",
+      price: "₦24,000,000/month",
+      image: Property,
+      tag: "NEW"
+    },
+    {
+      id: 5,
+      title: "1 Bedroom Apartment",
+      beds: 4,
+      baths: 1,
+      area: "8.75sqft",
+      location: "1998 Wulfrta Minnesota, Festac",
+      price: "₦24,000,000/month",
+      image: Property,
+      tag: "NEW"
+    },
+    {
+      id: 5,
+      title: "1 Bedroom Apartment",
+      beds: 4,
+      baths: 1,
+      area: "8.75sqft",
+      location: "1998 Wulfrta Minnesota, Festac",
+      price: "₦24,000,000/month",
+      image: Property,
+      tag: "NEW"
+    },
+    {
+      id: 5,
+      title: "1 Bedroom Apartment",
+      beds: 4,
+      baths: 1,
+      area: "8.75sqft",
+      location: "1998 Wulfrta Minnesota, Festac",
+      price: "₦24,000,000/month",
+      image: Property,
+      tag: "NEW"
+    },
+    {
       id: 6,
       title: "1 Bedroom Apartment",
       beds: 4,
@@ -189,7 +233,7 @@ const ApartmentsPage = () => {
               </button>
               
               {/* Location Filter */}
-              <div className="relative w-[120px] md:w-[100px] flex-none">
+              <div className="relative w-[120px] md:w-[90px] flex-none">
                 <select
                   value={selectedLocation}
                   onChange={(e) => {
@@ -249,7 +293,7 @@ const ApartmentsPage = () => {
               </div>
               
               {/* Bed Filter */}
-              <div className="relative w-[120px] md:w-[100px] flex-none">
+              <div className="relative w-[120px] md:w-[80px] flex-none">
                 <select
                   value={selectedBeds}
                   onChange={(e) => {
