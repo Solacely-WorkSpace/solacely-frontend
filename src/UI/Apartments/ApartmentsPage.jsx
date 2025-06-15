@@ -477,6 +477,7 @@ const ApartmentsPage = () => {
       isOpen={isMoreFiltersOpen}
       onClose={() => setIsMoreFiltersOpen(false)}
     />
+    {/* Sticky Filter bar */}
     <StickyFilterBar
       show={showStickyFilter}
       locationOptions={locationOptions}
