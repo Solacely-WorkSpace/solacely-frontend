@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { RealTimeValidateInput } from "./RealTimeValidatedInput";
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import clsx from "clsx";
 
 export default function SigninForm({ serviceType }) {
@@ -12,6 +13,7 @@ export default function SigninForm({ serviceType }) {
     const [emailStatus, setEmailStatus] = useState('')
     const [phoneNumberStatus, setPhoneNumberStatus] = useState('')
     const [passwordStatus, setPasswordStatus] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
     return (
         <form
@@ -96,24 +98,33 @@ export default function SigninForm({ serviceType }) {
                     Password
                 </label>
 
-                <RealTimeValidateInput
-                    {...{
-                        type: 'password',
-                        value: password,
-                        name: 'password',
-                        placeholder: "Password",
-                        required: true,
-                        setValue: setPassword,
-                        validator: passwordValidator,
-                        status: passwordStatus,
-                        setStatus: setPasswordStatus
-                    }}
-                />
+                <div className="relative">
+                    <RealTimeValidateInput
+                        {...{
+                            type: showPassword ? 'text' : 'password',
+                            value: password,
+                            name: 'password',
+                            placeholder: "Password",
+                            required: true,
+                            setValue: setPassword,
+                            // validator: passwordValidator,
+                            status: passwordStatus,
+                            setStatus: setPasswordStatus
+                        }}
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    >
+                        {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                    </button>
+                </div>
             </div>
 
 
             <Link
-                href="#"
+                href="/forgot-password"
                 className="block w-full mt-2 text-sm text-end text-complementary"
             >
                 Forgot Password?
@@ -142,10 +153,3 @@ function phoneNumberValidator(value) {
             : 'not taken'
 }
 
-function passwordValidator(value) {
-    return value.length === 0
-        ? undefined
-        : value.length < 3
-            ? 'taken'
-            : 'not taken'
-}

@@ -1,4 +1,5 @@
 import {
+  testimonialImageFive,
   testimonialImageFour,
   testimonialImageOne,
   testimonialImageThree,
@@ -9,44 +10,43 @@ import {
   tourImageFour,
 } from "@/assets/images"
 
-import { memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight } from '@/assets/images'
+import { memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight, memberNine, memberTen } from '@/assets/images'
 
 // Testimonial Dataset
 const Testimonial = [{
-  username: '- @thepatwalls',
-  testimony: 'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+  username: '- @Anthony_Agah',
+  testimony: 'Finding an apartment that suits your needs, budget, and appeals to your taste is a full-blown job. Most times the pictures or video shared by agents are not as cool as it seems in reality. This is why I’m as it seems in reality. This is why I’m particularly proud of what the @Solacelybeta team is building.',
   social: '/icons/linkedin.svg',
   pic: testimonialImageOne
 
 },
 {
-  username: ' - @thepatwalls',
-  testimony: "Time is the most precious thing you have when bootstrapping. You can't take time to ponder on…",
+  username: ' - @JamiuOkanlawon',
+  testimony: "It’s always to see how technology is impacting the most important aspect is that I can earn while I rent without stress, just some surveys and tasks, and it comes to my wallet on solacely. Great job, team @solacelybeta",
   social: '/icons/linkedin.svg',
   pic: testimonialImageTwo
 
 },
 {
-  username: ' - @thepatwalls',
-  testimony: 'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+  username: ' - @Real_Ija',
+  testimony: 'House hunting in Naija is difficult and expensive. Normally, expensive things should not be difficult. @SolacelyAR is working on ensuring you find solace in house hunting. The goal is for you to pay and get the keys. No bottlenecks!',
   social: '/icons/linkedin.svg',
   pic: testimonialImageThree
 
 },
 {
-  username: '- @thepatwalls',
-  testimony: ' Best Home Rental Company so awesome.',
+  username: '- @_olaomoriwo',
+  testimony: 'I spent quality time studying what #SolacelyAR is doing for the proptech industry, I have so much confidence this solution will scale. Really anticipating the innovation and processes that’ll make this innovation and processes that’ll make this fly.',
   social: '/icons/linkedin.svg',
   pic: testimonialImageFour
 
 },
-  // {
-  //     username: ' - @thepatwalls',
-  //     testimony: ' I owe these guys my life. Already used their landing page templates for my latest two projects.',
-  //     social: '/icons/linkedin.svg',
-  //     pic: '/images/pat.jpg'
-
-  // },
+{
+  username: ' - @khadijjahhh',
+  testimony: 'I am really excited to see @SolacelyAR come to life.',
+  social: '/icons/linkedin.svg',
+  pic: testimonialImageFive
+},
   // {
   //     username: ' - @thepatwalls',
   //     testimony: ' There Homes Are Top Notch Cant See Me Changing Location Anytime Soon, Best Home PLug.',
@@ -89,27 +89,27 @@ const whatWeOffer = [
 
 const aboutOffers = [
   {
-    offer: 'No hidden fees, no transfer commissions. We offer safe transactions for you.',
+    offer: 'We believe everyone deserves to know exactly what they’re getting. From verified listings to escrow-secured transactions, we eliminate guesswork and build confidence between tenants, landlords, and agents.',
     icon: '/icons/star.svg',
-    header: 'Zero  Stress'
+    header: 'Trust & Transparency'
 
   },
   {
-    offer: 'Your Funds are safeguarded by the French Fonds de Garantie des Dépôts et de Résolution.',
+    offer: 'We don’t just help you rent, we help you grow. Tenants can build credit, earn rewards, and gain access to financial tools that support long-term stability. Partners benefit from improved rent collection, lower vacancy rates, and predictable income streams.',
     icon: '/icons/leaf.svg',
-    header: 'Reliable'
+    header: 'Financial Empowerment'
 
   },
   {
-    offer: 'Open a business account for the online deposit of your share capital',
+    offer: 'From low-income earners to gig workers, we’re creating a housing ecosystem where no one is left out. Our AI-powered recommendation engine ensures personalized property matches, no matter your income or background.',
     icon: '/icons/Icon.svg',
-    header: 'VR Experience'
+    header: 'Access for All'
 
   },
   {
-    offer: 'Commitment-free and scalable, according to your business needs.',
+    offer: 'We’re not here to tweak the old system, we’re here to build a better one. Solacely fosters a culture of constant learning, feedback, and co-creation. We listen, iterate, and evolve with our users, not just for them.',
     icon: '/icons/cirle.svg',
-    header: 'Comfort'
+    header: 'Community & Innovation'
 
   },
 
@@ -152,21 +152,21 @@ Escrow-backed payments & fraud protection`,
 
 const teamMembers = [
   {
-    name: "Emaily Moady",
+    name: "Akinrodolu Oluwaseun ",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Founder & Senior PM",
     image: memberOne,
     social: {
       instagram: "https://instagram.com/username",
-      linkedin: "https://linkedin.com/in/username",
+      linkedin: "https://www.linkedin.com/in/akinrodoluseun/",
       facebook: "https://facebook.com/username",
-      twitter: "https://twitter.com/username"
+      twitter: "https://twitter.com/Akinrodoluseun"
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Oware M. Paul",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Co-founder & COO",
     image: memberTwo,
     social: {
       instagram: "https://instagram.com/username",
@@ -176,9 +176,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Mathew Emmanuel ",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Backend Engineer",
     image: memberThree,
     social: {
       instagram: "https://instagram.com/username",
@@ -188,9 +188,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Thomas Tochukwu Christian ",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Frontend Developer",
     image: memberFour,
     social: {
       instagram: "https://instagram.com/username",
@@ -200,9 +200,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Ojo Favour Osuare",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "UI/UX Designer",
     image: memberFive,
     social: {
       instagram: "https://instagram.com/username",
@@ -212,9 +212,9 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
-    location: "Lagos, NG",
-    role: "Vice President",
+    name: "N. Barrack Okoth",
+    location: "Nairobi, Kenya",
+    role: "Frontend Developer",
     image: memberSix,
     social: {
       instagram: "https://instagram.com/username",
@@ -223,10 +223,11 @@ const teamMembers = [
       twitter: "https://twitter.com/username"
     }
   },
+  
   {
-    name: "Emaily Moady",
+    name: "Ndubuisi Juliet Ijeoma",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Product Manager",
     image: memberSeven,
     social: {
       instagram: "https://instagram.com/username",
@@ -236,10 +237,35 @@ const teamMembers = [
     }
   },
   {
-    name: "Emaily Moady",
+    name: "Lawrence Chibondo",
     location: "Lagos, NG",
-    role: "Vice President",
+    role: "Software Engineer",
+    image: memberNine,
+    social: {
+      instagram: "https://instagram.com/username",
+      linkedin: "https://linkedin.com/in/username",
+      facebook: "https://facebook.com/username",
+      twitter: "https://twitter.com/username"
+    }
+  },
+  {
+    name: "Aubrey Nyasulu",
+    location: "Lagos, NG",
+    role: "Frontend Developer",
     image: memberEight,
+    social: {
+      instagram: "https://instagram.com/username",
+      linkedin: "https://linkedin.com/in/username",
+      facebook: "https://facebook.com/username",
+      twitter: "https://twitter.com/username"
+    }
+  },
+  
+  {
+    name: "Orji Miracle ",
+    location: "Lagos, NG",
+    role: "UI/UX Designer",
+    image: memberTen,
     social: {
       instagram: "https://instagram.com/username",
       linkedin: "https://linkedin.com/in/username",

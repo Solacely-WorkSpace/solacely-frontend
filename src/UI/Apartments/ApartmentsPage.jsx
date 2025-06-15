@@ -7,6 +7,7 @@ import Image from 'next/image'
 import MoreFilters from './Sections/MoreFilters';
 import SearchResults from './Components/SearchResults';
 import PopUpModal from './Components/PopUpModal';
+import StickyFilterBar from './Components/StickyFilterBar';
 import Link from 'next/link';
 
 
@@ -16,13 +17,14 @@ const ApartmentsPage = () => {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchLocation, setSearchLocation] = useState('');
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
-  
-  // State for dropdown filters
-  const [locationDropdown, setLocationDropdown] = useState(false);
-  const [priceDropdown, setPriceDropdown] = useState(false);
-  const [typeDropdown, setTypeDropdown] = useState(false);
-  const [bedDropdown, setBedDropdown] = useState(false);
-  
+  const [showStickyFilter, setShowStickyFilter] = useState(false);
+
+  // State for selected filter values
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState('');
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedBeds, setSelectedBeds] = useState('');
+
   // Filter options
   const locationOptions = ['Lagos', 'Abuja'];
   const priceOptions = ['₦0 - 500k', '₦510k - 1mil'];
@@ -33,6 +35,18 @@ const ApartmentsPage = () => {
   const handleCloseWelcomeModal = () => {
     setShowWelcomeModal(false);
   };
+
+  // Handle scroll for sticky filter
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const threshold = 300; // Adjust this value to control when the sticky filter appears
+      setShowStickyFilter(scrollPosition > threshold);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Sample apartment data
   const rentedApartment = {
@@ -175,132 +189,88 @@ const ApartmentsPage = () => {
               </button>
               
               {/* Location Filter */}
-              <div className="relative">
-                <button 
-                  onClick={() => {
-                    setLocationDropdown(!locationDropdown);
-                    setPriceDropdown(false);
-                    setTypeDropdown(false);
-                    setBedDropdown(false);
+              <div className="relative w-[120px] md:w-[100px] flex-none">
+                <select
+                  value={selectedLocation}
+                  onChange={(e) => {
+                    setSelectedLocation(e.target.value);
+                    console.log(`Selected location: ${e.target.value}`);
                   }}
-                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                  className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
-                  Location <FiChevronRight className={`w-3 h-3 transition-transform ${locationDropdown ? 'rotate-90' : ''}`} />
-                </button>
-                {locationDropdown && (
-                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
-                    {locationOptions.map((option, index) => (
-                      <div 
-                        key={index} 
-                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                          console.log(`Selected location: ${option}`);
-                          setLocationDropdown(false);
-                        }}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  <option value="">Location</option>
+                  {locationOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <FiChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none text-gray-500" />
               </div>
               
               {/* Price Filter */}
-              <div className="relative">
-                <button 
-                  onClick={() => {
-                    setPriceDropdown(!priceDropdown);
-                    setLocationDropdown(false);
-                    setTypeDropdown(false);
-                    setBedDropdown(false);
+              <div className="relative w-[120px] md:w-[100px] flex-none">
+                <select
+                  value={selectedPrice}
+                  onChange={(e) => {
+                    setSelectedPrice(e.target.value);
+                    console.log(`Selected price: ${e.target.value}`);
                   }}
-                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                  className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
-                  Price <FiChevronRight className={`w-3 h-3 transition-transform ${priceDropdown ? 'rotate-90' : ''}`} />
-                </button>
-                {priceDropdown && (
-                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
-                    {priceOptions.map((option, index) => (
-                      <div 
-                        key={index} 
-                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                          console.log(`Selected price: ${option}`);
-                          setPriceDropdown(false);
-                        }}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  <option value="">Price</option>
+                  {priceOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <FiChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none text-gray-500" />
               </div>
               
               {/* Type Filter */}
-              <div className="relative">
-                <button 
-                  onClick={() => {
-                    setTypeDropdown(!typeDropdown);
-                    setLocationDropdown(false);
-                    setPriceDropdown(false);
-                    setBedDropdown(false);
+              <div className="relative w-[120px] md:w-[100px] flex-none">
+                <select
+                  value={selectedType}
+                  onChange={(e) => {
+                    setSelectedType(e.target.value);
+                    console.log(`Selected type: ${e.target.value}`);
                   }}
-                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                  className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
-                  Type <FiChevronRight className={`w-3 h-3 transition-transform ${typeDropdown ? 'rotate-90' : ''}`} />
-                </button>
-                {typeDropdown && (
-                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
-                    {typeOptions.map((option, index) => (
-                      <div 
-                        key={index} 
-                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                          console.log(`Selected type: ${option}`);
-                          setTypeDropdown(false);
-                        }}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  <option value="">Type</option>
+                  {typeOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <FiChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none text-gray-500" />
               </div>
               
               {/* Bed Filter */}
-              <div className="relative">
-                <button 
-                  onClick={() => {
-                    setBedDropdown(!bedDropdown);
-                    setLocationDropdown(false);
-                    setPriceDropdown(false);
-                    setTypeDropdown(false);
+              <div className="relative w-[120px] md:w-[100px] flex-none">
+                <select
+                  value={selectedBeds}
+                  onChange={(e) => {
+                    setSelectedBeds(e.target.value);
+                    console.log(`Selected beds: ${e.target.value}`);
                   }}
-                  className="text-sm flex-none px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md flex items-center gap-2 text-gray-900"
+                  className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
-                  Bed <FiChevronRight className={`w-3 h-3 transition-transform ${bedDropdown ? 'rotate-90' : ''}`} />
-                </button>
-                {bedDropdown && (
-                  <div className="fixed z-[9999] mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
-                    {bedOptions.map((option, index) => (
-                      <div 
-                        key={index} 
-                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                          console.log(`Selected beds: ${option}`);
-                          setBedDropdown(false);
-                        }}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  <option value="">Bed</option>
+                  {bedOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <FiChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none text-gray-500" />
               </div>
               
               <button 
                 onClick={() => setIsMoreFiltersOpen(true)}
-                className="text-sm px-2.5 py-2 rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2">
+                className="text-sm px-1.5 py-2 rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2">
                 <Image src="/icons/Filter.svg" alt="Filter" className="w-3 h-3" width={24} height={24}/>
                 <span>More Filters</span>
               </button>
@@ -462,6 +432,22 @@ const ApartmentsPage = () => {
     <MoreFilters 
       isOpen={isMoreFiltersOpen}
       onClose={() => setIsMoreFiltersOpen(false)}
+    />
+    <StickyFilterBar
+      show={showStickyFilter}
+      locationOptions={locationOptions}
+      priceOptions={priceOptions}
+      typeOptions={typeOptions}
+      bedOptions={bedOptions}
+      setIsMoreFiltersOpen={setIsMoreFiltersOpen}
+      locationDropdown={selectedLocation}
+      priceDropdown={selectedPrice}
+      typeDropdown={selectedType}
+      bedDropdown={selectedBeds}
+      setLocationDropdown={setSelectedLocation}
+      setPriceDropdown={setSelectedPrice}
+      setTypeDropdown={setSelectedType}
+      setBedDropdown={setSelectedBeds}
     />
   </div>
   );

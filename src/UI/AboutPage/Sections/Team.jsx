@@ -2,6 +2,7 @@ import Image from "next/image";
 import { teamMembers } from "@/Constant";
 import Link from "next/link";
 import { facebookIcon, instagramIcon, linkedinIcon, twitterIcon } from "@/assets/icons";
+import { XSVG, LinkedinSVG, FacebookSVG,InstagramSVG } from "@/assets/SVGAssets";
 
 
 const SocialLink = ({ href, children }) => (
@@ -42,56 +43,24 @@ const Team = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                   quality={100}
                 />
-                                {/* Desktop hover overlay card */}
+                {/* Desktop hover overlay card */}
                 <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
+                  <div className="absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-1">
                     <div className="text-center">
-                      <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                      <p className="text-sm text-gray-500 mt-0.5">{member.location}</p>
-                      <div className="flex items-center justify-center gap-4 mt-1">
+                      <h3 className="text-xs font-semibold text-gray-900">{member.name}</h3>
+                      <p className="text-xs text-gray-500">{member.location}</p>
+                      <div className="flex items-center justify-center gap-2">
                         <SocialLink href={member.social?.instagram}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={instagramIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Instagram"
-                              className="w-5 h5"
-                            />
-                          </div>
+                          <InstagramSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.linkedin}>
-                          <div className="w-10 h-10 flex items-center justify-center">
-                            <Image 
-                              src={linkedinIcon}
-                              width={14}  
-                              height={14} 
-                              alt="LinkedIn"
-                              className="w-6 h-6"
-                            />
-                          </div>
+                          <LinkedinSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.facebook}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={facebookIcon} 
-                              width={14}
-                              height={14}
-                              alt="Facebook"
-                              className="w-5 h-7"
-                            />
-                          </div>
+                          <FacebookSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.twitter}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={twitterIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Twitter"
-                              className="w-5 h-5"
-                            />
-                          </div>
+                          <XSVG />
                         </SocialLink>
                       </div>
                     </div>
@@ -99,63 +68,31 @@ const Team = () => {
                 </div>
 
                 {/* Mobile permanent overlay card */}
-                <div className="md:hidden absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-2">
+                <div className="md:hidden absolute bottom-4 left-8 right-8 bg-white rounded-2xl p-1">
                   <div className="text-center">
-                    <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                    <p className="text-sm text-gray-500 mt-0.5 mb-1">{member.location}</p>
-                    <div className="flex items-center justify-center gap-4 mt-2 mb-1">
-                        <SocialLink href={member.social?.instagram}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={instagramIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Instagram"
-                              className="w-5 h-5"
-                            />
-                          </div>
-                        </SocialLink>
+                    <h3 className="text-sm font-semibold text-gray-900">{member.name}</h3>
+                    <p className="text-sm text-gray-500 mt-0.5">{member.location}</p>
+                    <div className="flex items-center justify-center gap-4">
                         <SocialLink href={member.social?.linkedin}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={linkedinIcon}
-                              width={14}  
-                              height={14} 
-                              alt="LinkedIn"
-                              className="w-4 h-4"
-                            />
-                          </div>
+                          <InstagramSVG />
+                        </SocialLink>
+                        <SocialLink href={member.social?.instagram}>
+                          <LinkedinSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.facebook}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={facebookIcon} 
-                              width={14}
-                              height={14}
-                              alt="Facebook"
-                              className="w-6 h-6"
-                            />
-                          </div>
+                          <FacebookSVG />
                         </SocialLink>
                         <SocialLink href={member.social?.twitter}>
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <Image 
-                              src={twitterIcon} 
-                              width={14} 
-                              height={14} 
-                              alt="Twitter"
-                              className="w-5 h-5"
-                            />
-                          </div>
+                          <XSVG />
                         </SocialLink>
                     </div>
                   </div>
                 </div>
 
                 {/* Desktop permanent info */}
-                <div className="hidden md:block absolute bottom-1 left-4 right-0 p-4 text-center from-black/70 to-transparent opaity-100 group-hover:opacity-0 transition-opacity duration-300">
+                <div className="hidden md:block absolute bottom-1 left-1 right-0 p-4 text-center from-black/70 to-transparent opaity-100 group-hover:opacity-0 transition-opacity duration-300">
                   <p className="text-sm text-left text-gray-200">{member.role}</p>
-                  <h3 className="text-lg text-left font-semibold text-white">{member.name}</h3>
+                  <h3 className="text-base text-left font-semibold text-white">{member.name}</h3>
                 </div>
               </div>
             </div>

@@ -64,4 +64,15 @@
   .btn-primary {
     @apply py-4 px-8 rounded-md bg-primary shadow-lg shadow-[#521282]/30 font-semibold text-sm text-white cursor-pointer
   }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 }

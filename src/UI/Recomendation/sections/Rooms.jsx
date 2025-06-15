@@ -13,22 +13,22 @@ export default function Rooms({ setCurrentStage, currentStage }) {
     };
 
     const options = [
-        "Two Bedroom and One Bathroom",
-        "Two Bedrooms and Two Bathrooms",
-        "Three Bedrooms and Two Bathrooms",
-        "Four Bedrooms and Three Bathrooms"
+        "2 Bedroom and 1 Bathroom",
+        "2 Bedrooms and 2 Bathrooms",
+        "3 Bedrooms and 2 Bathrooms",
+        "4 Bedrooms and 3 Bathrooms"
     ];
 
     return (
         <section className='flex-1 w-full p-6 md:p-12'>
             <div className="w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full">
-                    <Link href="#" onClick={() => setCurrentStage('home type')} className="flex items-center gap-1 text-sm text-gray-600 hidden md:block">
+                <div className="flex items-center justify-between w-full">
+                    <Link href="#" onClick={() => setCurrentStage('home type')} className="flex items-center gap-1 text-sm text-gray-600">
                         <div className="flex items-center gap-1">
                             <FiChevronLeft className="w-4 h-4 text-gray-600" /> Go back
                         </div>
                     </Link>  
-                    <div className="flex items-center justify-center md:justify-end gap-1">
+                    <div className="flex items-center gap-1">
                         <p className="text-sm">Already have an account?</p>
                         <Link
                             href='/sign-in'
