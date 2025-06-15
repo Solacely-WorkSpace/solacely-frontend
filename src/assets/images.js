@@ -96,6 +96,8 @@ import LivingRoom from "@/../public/images/Apartments/Livingroom.png"
 import MailConfirmation from "@/../public/images/confirmation.png"
 import Congratulations from "@/../public/images/congratulations.png"
 
+import Map from "@/../public/images/Map.png"
+
 export {
     LogoName,
     HeroIllustration,
@@ -152,5 +154,6 @@ export {
     PopUp,
     LivingRoom,
     MailConfirmation,
-    Congratulations
+    Congratulations,
+    Map
 }   
