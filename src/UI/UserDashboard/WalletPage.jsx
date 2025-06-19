@@ -68,30 +68,29 @@ function WalletPage() {
   }
 
   return (
-    <div className="min-h-screen w-full p-4 md:p-6">
+    <div className="min-h-screen w-full md:p-6">
       {/* Header with back button */}
-      <div className="flex justify-between items-center mb-6">
-        <Link href="/dashboard" className="flex items-center text-gray-600 hover:text-gray-800">
-          <IoArrowBack className="mr-2" />
-          <span>Go Back</span>
-        </Link>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+        <div>
+          <h1 className="md:hidden text-2xl md:text-3xl font-bold text-gray-800">Wallet</h1>
+        </div>
         
-        <div className="flex gap-3">
-          <button className="bg-complementary text-white py-2 px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark md:w-[200px]">
+        <div className="flex gap-2 md:gap-3 w-full md:w-auto">
+          <button className="bg-complementary text-white py-2.5 px-3 md:px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark text-sm md:text-base flex-1 md:flex-none md:w-[200px]">
             Save for Rent
           </button>
-          <button className="bg-purple-50 text-black font-semibold border border-gray-200 md:w-[200px] py-2 px-4 rounded-lg">
+          <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base flex-1 md:flex-none md:w-[200px]">
             Pay Rent
           </button>
         </div>
       </div>
 
       {/* Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {/* Wallet Balance Card */}
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
+        <div className="bg-white p-3 md:p-4 rounded-lg border border-gray-200">
           <h3 className="text-black text-sm mb-2">Wallet Balance</h3>
-          <h2 className="text-2xl font-bold mb-2">{walletBalance}</h2>
+          <h2 className="text-lg font-bold mb-2">{walletBalance}</h2>
           
           <div className="mt-4">
             <p className="text-sm text-gray-400 font-semibold">Rent Progress</p>
@@ -115,7 +114,7 @@ function WalletPage() {
           {/* Toggle buttons */}
           <div className="flex mb-4">
             <button 
-              className={`px-3 py-1 rounded-l-xl text-sm ${
+              className={`md:px-3 px-1 md:py-1 py-0.5 rounded-l-xl md:text-sm text-xs ${
                 savingsView === 'weekly' 
                   ? 'bg-purple-900 text-white' 
                   : 'bg-white text-gray-600 border'
@@ -125,10 +124,10 @@ function WalletPage() {
               Weekly
             </button>
             <button 
-              className={`px-3 py-1 rounded-r-xl text-sm ${
+              className={`md:px-3 px-1 md:py-1 py-0.5 rounded-r-xl md:text-sm text-xs ${
                 savingsView === 'monthly' 
                   ? 'bg-purple-900 text-white' 
-                  : 'bg-white text-gray-600 border'
+                  : 'bg-white text-primary border'
               }`}
               onClick={() => setSavingsView('monthly')}
             >
@@ -138,7 +137,7 @@ function WalletPage() {
           
           <p className="text-sm text-gray-400 mb-1 mt-4 font-semibold">Rent Goal</p>
           <div className=" mt-4 mb-3 flex">
-            <div className="flex w-[15%] justify-between text-sm mb-1">
+            <div className="flex w-[20%] justify-between text-xs md:text-sm mb-1">
               <span>{savingsPercentage}%</span>
             </div>
             <div className="w-[85%] bg-emerald-100 h-3 rounded-full">
@@ -150,21 +149,21 @@ function WalletPage() {
           </div>
           
           {/* Action buttons */}
-          <div className="flex gap-2 mt-4">
+          <div className="flex gap-2 mt-4 md:flex-row flex-col">
             <div className="flex items-center gap-2 cursor-pointer flex-1">
               <div 
                 onClick={() => setAutoSave(!autoSave)} 
-                className="relative w-10 h-5 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
+                className="relative w-8 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
                 style={{ backgroundColor: autoSave ? '#6b21a8' : '#e5e7eb' }}
               >
                 <div 
-                  className="absolute top-0.5 left-0.5 bg-white w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out"
-                  style={{ transform: autoSave ? 'translateX(20px)' : 'translateX(0)' }}
+                  className="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full shadow transition-transform duration-300 ease-in-out"
+                  style={{ transform: autoSave ? 'translateX(15px)' : 'translateX(0)' }}
                 ></div>
               </div>
-              <span className="text-sm">Auto-Save</span>
+              <span className="text-xs">Auto-Save</span>
             </div>
-            <button className="flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm flex-1 text-primary font-semibold">
+            <button className="flex justify-start  gap-2 rounded-md px-3 py-2 text-xs flex-1 text-primary font-semibold">
               <div className="bg-primary text-white rounded-md w-4 h-4 flex items-center justify-center">+</div>
               Add Funds
             </button>
@@ -175,15 +174,15 @@ function WalletPage() {
         <div className="bg-white p-4 rounded-lg border border-gray-200">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-black text-sm">TRC Earnings</h3>
-            <button className="bg-purple-900 text-white rounded-md text-xs px-4 py-2">
+            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-3 py-2">
               Transfer to Rent
             </button>
           </div>
           
-          <h2 className="text-2xl font-bold mb-4">{trcEarnings}</h2>
+          <h2 className="text-lg font-bold mb-4">{trcEarnings}</h2>
           <p className="text-sm text-gray-400 font-semibold mt-4">Total Earnings</p>
           
-          <div className="mt-4 grid grid-cols-3 gap-4">
+          <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="flex flex-col items-center justify-center">
               <div className="flex items-center justify-center gap-2 w-full">
                 <div className="w-3 h-3 rounded-full bg-green-100">
@@ -220,10 +219,10 @@ function WalletPage() {
             <h3 className="text-black text-sm">Rent Payment</h3>
           </div>
           
-          <h2 className="text-2xl font-bold mb-4 mt-4">{rentPayment}</h2>
+          <h2 className="text-xl font-bold mb-4 mt-4">{rentPayment}</h2>
           <p className="text-sm text-gray-400 font-medium italic mb-4">Due in 15 days</p>
           
-          <button className="bg-purple-900 text-white w-full py-2 rounded-md mt-auto flex items-center justify-center gap-2">
+          <button className="bg-purple-900 text-xs md:text-sm text-white w-full py-3 px-2 rounded-md mt-auto flex items-center justify-center gap-2">
             Pay to Escrow
             <FiChevronRight />
           </button>
@@ -232,9 +231,15 @@ function WalletPage() {
 
       {/* Transaction History Section */}
       <div className="bg-white p-4 rounded-lg shadow-sm mb-8">
-        <h3 className="text-xl font-medium mb-6">Transaction History</h3>
+        <div className="flex justify-between items-center mb-4 md:mb-6">
+          <h3 className="text-lg md:text-xl font-medium">Transaction History</h3>
+          <Link href="#" className="text-primary text-sm font-medium md:hidden">
+            View all
+          </Link>
+        </div>
         
-        <div className="flex justify-between mb-4">
+        {/* Search and filter controls - hidden on mobile, visible on md+ screens */}
+        <div className="hidden md:flex justify-between mb-4">
           <div className="flex items-center gap-4">
             <div className='relative'>
               <input
@@ -254,20 +259,17 @@ function WalletPage() {
                 <FiChevronRight className="text-gray-400" />
               </button>
             </div>
-            
           </div>
           
           <div className="flex gap-2">
-            
-            
             <button className="bg-complementary text-white rounded-md px-4 py-2 font-bold text-sm">
               Download Statement
             </button>
           </div>
         </div>
         
-        {/* Transaction Table */}
-        <div className="overflow-x-auto">
+        {/* Transaction Table - Desktop view */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="min-w-full border-collapse">
             <thead>
               <tr className="text-black text-base bg-purple-50">
@@ -281,7 +283,7 @@ function WalletPage() {
             <tbody className="divide-y divide-gray-200">
               {transactions.map(transaction => (
                 <tr key={transaction.id} className="bg-white border-b border-gray-200">
-                  <td className="px-4 py-4 text-sm text-gray-700">{transaction.title}</td>
+                  <td className="px-4 py-4 text-sm text-gray-00">{transaction.title}</td>
                   <td className="px-4 py-4 text-sm text-gray-700">{transaction.amount}</td>
                   <td className="px-4 py-4 text-sm text-gray-700">{transaction.date}</td>
                   <td className="px-4 py-4">
@@ -305,6 +307,33 @@ function WalletPage() {
               ))}
             </tbody>
           </table>
+        </div>
+        
+        {/* Mobile Transaction List */}
+        <div className="md:hidden">
+          {transactions.slice(0, 3).map(transaction => (
+            <div key={transaction.id} className="mb-3 border-b border-gray-100 pb-3">
+              <div className="flex justify-between items-center mb-1">
+                <div className="font-medium text-sm text-gray-600">{transaction.title}</div>
+                <div className="text-sm font-bold">{transaction.amount}</div>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="text-xs text-gray-500">{transaction.date}</div>
+                <div>
+                  <span 
+                    className={`text-xs px-2 py-1 rounded-full ${
+                      transaction.status === 'pending' ? 'bg-yellow-100 text-yellow-600' :
+                      transaction.status === 'success' ? 'bg-green-100 text-green-600' :
+                      'bg-red-100 text-red-600'
+                    }`}
+                  >
+                    {transaction.status === 'pending' ? 'Pending' :
+                     transaction.status === 'success' ? 'Success' : 'Failed'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
