@@ -49,31 +49,31 @@ export default function Sidebar() {
   const navItems = [
     { 
       name: "Dashboard", 
-      href: "/user/dashboard", 
+      href: "/dashboard", 
       icon: Dashboard,
       selectedIcon: DashboardSelected
     },
     { 
       name: "Wishlist", 
-      href: "/user/wishlist", 
+      href: "/wishlist", 
       icon: Heart,
       selectedIcon: HeartSelected
     },
     { 
       name: "Wallet", 
-      href: "/user/wallet", 
+      href: "/wallet", 
       icon: Wallet,
       selectedIcon: WalletSelected
     },
     { 
       name: "Maintenance", 
-      href: "/user/maintenance", 
+      href: "/maintenance", 
       icon: Maintenance,
       selectedIcon: MaintenanceSelected
     },
     { 
       name: "Profile Settings", 
-      href: "/user/profile", 
+      href: "/profile", 
       icon: Setting,
       selectedIcon: SettingSelected
     }
