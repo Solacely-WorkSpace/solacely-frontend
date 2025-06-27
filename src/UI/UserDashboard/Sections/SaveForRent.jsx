@@ -3,17 +3,21 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FiChevronLeft } from 'react-icons/fi';
 import { Link } from 'lucide-react';
+import SaveSuccessModal from './SaveSuccessModal';
 
 export default function SaveForRent() {
   const [amount, setAmount] = useState('');
   const [goalOption, setGoalOption] = useState('');
   const [autoSave, setAutoSave] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false); // Added for modal
   const progress = 30; // Example progress
   const router = useRouter();
 
   return (
     <div className="flex flex-col justify-center py-8 md:px-2">
+      {/* Success Modal */}
+      <SaveSuccessModal open={showSuccess} onClose={() => setShowSuccess(false)} amount={amount ? `N${Number(amount).toLocaleString()}` : 'N20,000'} />
     <div className='md:hidden block mb-6'>
         <button
             className="flex items-center text-gray-400 text-sm mb-6 hover:text-gray-600"
@@ -59,7 +63,7 @@ export default function SaveForRent() {
             <p className="text-xs text-gray-400 mt-3">{progress}% of your rent goal saved</p>
           </div>
 
-          <form className="space-y-7">
+          <form className="space-y-7" onSubmit={e => { e.preventDefault(); setShowSuccess(true); }}>
             <div>
               <label className="block text-xs font-semibold text-gray-900 mb-2">ENTER AMOUNT TO SAVE</label>
               <input
