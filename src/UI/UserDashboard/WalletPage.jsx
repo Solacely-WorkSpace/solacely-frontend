@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FiChevronRight } from 'react-icons/fi'
 import { IoArrowBack } from 'react-icons/io5'
+import { useRouter } from 'next/navigation'
+import SaveForRent from './Sections/SaveForRent'
 
 function WalletPage() {
   // Sample data to match the design
@@ -67,6 +69,15 @@ function WalletPage() {
     referrals: '₦3,500'
   }
 
+  const router = useRouter()
+
+  // State to control the visibility of the SaveForRent section
+  const [showSaveForRent, setShowSaveForRent] = useState(false)
+
+  if (showSaveForRent) {
+    return <SaveForRent onBack={() => setShowSaveForRent(false)} />;
+  }
+
   return (
     <div className="min-h-screen w-full md:p-6">
       {/* Header with back button */}
@@ -76,7 +87,10 @@ function WalletPage() {
         </div>
         
         <div className="flex gap-2 md:gap-3 w-full md:w-auto">
-          <button className="bg-complementary text-white py-2.5 px-3 md:px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark text-sm md:text-base flex-1 md:flex-none md:w-[200px]">
+          <button
+            className="bg-complementary text-white py-2.5 px-3 md:px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark text-sm md:text-base flex-1 md:flex-none md:w-[200px]"
+            onClick={() => setShowSaveForRent(true)}
+          >
             Save for Rent
           </button>
           <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base flex-1 md:flex-none md:w-[200px]">
