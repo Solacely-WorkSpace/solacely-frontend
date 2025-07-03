@@ -7,6 +7,7 @@ import { FiChevronRight } from 'react-icons/fi'
 import { IoArrowBack } from 'react-icons/io5'
 import { useRouter } from 'next/navigation'
 import SaveForRent from './Sections/SaveForRent'
+import TRCEarnings from './Sections/TRCEarnings'
 
 function WalletPage() {
   // Sample data to match the design
@@ -73,9 +74,13 @@ function WalletPage() {
 
   // State to control the visibility of the SaveForRent section
   const [showSaveForRent, setShowSaveForRent] = useState(false)
+  const [showTRCEarnings, setShowTRCEarnings] = useState(false)
 
   if (showSaveForRent) {
     return <SaveForRent onBack={() => setShowSaveForRent(false)} />;
+  }
+  if (showTRCEarnings) {
+    return <TRCEarnings onBack={() => setShowTRCEarnings(false)} />;
   }
 
   return (
@@ -188,7 +193,8 @@ function WalletPage() {
         <div className="bg-white p-4 rounded-lg border border-gray-200">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-black text-sm">TRC Earnings</h3>
-            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-3 py-2">
+            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-3 py-2"
+              onClick={() => setShowTRCEarnings(true)}>
               Transfer to Rent
             </button>
           </div>
@@ -225,6 +231,12 @@ function WalletPage() {
               <span className="text-xs font-medium text-center mt-2">{earningsData.referrals}</span>
             </div>
           </div>
+
+          {/* For mobile, add a visible button as well */}
+          <button className="md:hidden w-full bg-purple-900 text-white rounded-md text-xs px-3 py-2 mt-2"
+            onClick={() => setShowTRCEarnings(true)}>
+            Transfer to Rent
+          </button>
         </div>
 
         {/* Rent Payment Card */}
