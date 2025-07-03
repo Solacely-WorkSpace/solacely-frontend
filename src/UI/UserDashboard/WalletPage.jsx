@@ -8,6 +8,7 @@ import { IoArrowBack } from 'react-icons/io5'
 import { useRouter } from 'next/navigation'
 import SaveForRent from './Sections/SaveForRent'
 import TRCEarnings from './Sections/TRCEarnings'
+import RentPayment from './Sections/RentPayment'
 
 function WalletPage() {
   // Sample data to match the design
@@ -75,12 +76,16 @@ function WalletPage() {
   // State to control the visibility of the SaveForRent section
   const [showSaveForRent, setShowSaveForRent] = useState(false)
   const [showTRCEarnings, setShowTRCEarnings] = useState(false)
+  const [showRentPayment, setShowRentPayment] = useState(false)
 
   if (showSaveForRent) {
     return <SaveForRent onBack={() => setShowSaveForRent(false)} />;
   }
   if (showTRCEarnings) {
     return <TRCEarnings onBack={() => setShowTRCEarnings(false)} />;
+  }
+  if (showRentPayment) {
+    return <RentPayment onBack={() => setShowRentPayment(false)} />;
   }
 
   return (
@@ -98,7 +103,8 @@ function WalletPage() {
           >
             Save for Rent
           </button>
-          <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base flex-1 md:flex-none md:w-[200px]">
+          <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base flex-1 md:flex-none md:w-[200px]"
+            onClick={() => setShowRentPayment(true)}>
             Pay Rent
           </button>
         </div>
