@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic';
+
+const PaymentPinModal = dynamic(() => import('./PaymentPinModal'), { ssr: false });
 
 const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
   const [cardNumber, setCardNumber] = useState('')
@@ -7,21 +10,23 @@ const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
   const [expiryDate, setExpiryDate] = useState('')
   const [cvc, setCvc] = useState('')
   const [saveCard, setSaveCard] = useState(true)
-  
+  const [showPinModal, setShowPinModal] = useState(false);
+
   if (!isOpen) return null
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSave({
-      number: cardNumber,
-      holder: cardHolder,
-      expiry: expiryDate,
-      cvc: cvc,
-      saveCard: saveCard
-    })
-    onClose()
+    setShowPinModal(true);
+    // onSave({
+    //   number: cardNumber,
+    //   holder: cardHolder,
+    //   expiry: expiryDate,
+    //   cvc: cvc,
+    //   saveCard: saveCard
+    // })
+    // onClose()
   }
-  
+
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose()
@@ -30,7 +35,7 @@ const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
   
   return (
     <div 
-      className="fixed inset-0 bg-opacity-10 flex items-center justify-center z-50 transition-opacity duration-300"
+      className="fixed inset-0 bg-[#1F296333] flex items-center justify-center z-50 transition-opacity duration-300"
       onClick={handleBackdropClick}
     >
       <div className="bg-gray-50 rounded-lg shadow-xl p-6 w-full max-w-md mx-4 transform transition-all duration-300">
@@ -48,8 +53,8 @@ const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
         
         {/* Rest of your card form content remains the same */}
         <div className="flex items-center gap-4 mb-6">
-          <Image src="/icons/UserDashboard/mastercard.svg" className="w-10 h-6" width={20} height={20} alt="Mastercard" />
-          <Image src="/icons/UserDashboard/visa.svg" className="w-18 h-6" width={20} height={20} alt="Visa" />
+          <Image src="/icons/UserDashboard/mastercard.svg" className="w-8.5 h-5" width={20} height={20} alt="Mastercard" />
+          <Image src="/icons/UserDashboard/visa.svg" className="w-13 h-4" width={20} height={20} alt="Visa" />
         </div>
         
         <form onSubmit={handleSubmit}>
@@ -93,7 +98,7 @@ const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
                 placeholder="MM / YY"
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
-                className="w-full border border-gray-200 rounded-md py-3 px-4 focus:outline-none focus:ring-1 focus:ring-green-500"
+                className="w-full text-sm border border-gray-200 rounded-md py-3 px-4 focus:outline-none focus:ring-1 focus:ring-green-500"
               />
             </div>
             <div className="flex-1">
@@ -103,13 +108,13 @@ const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
                 placeholder=""
                 value={cvc}
                 onChange={(e) => setCvc(e.target.value)}
-                className="w-full border border-gray-200 rounded-md py-3 px-4 focus:outline-none focus:ring-1 focus:ring-green-500"
+                className="w-full text-sm border border-gray-200 rounded-md py-3 px-4 focus:outline-none focus:ring-1 focus:ring-green-500"
               />
             </div>
           </div>
           
           {/* Save Card Checkbox */}
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-6 text-sm cursor-pointer">
             <button 
               type="button"
               onClick={() => setSaveCard(!saveCard)}
@@ -121,7 +126,7 @@ const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
                 </svg>
               )}
             </button>
-            <label className="text-gray-600">Save Card</label>
+            <label className="text-gray-600 text-sm">Save Card</label>
           </div>
           
           {/* Action Buttons */}
@@ -129,16 +134,24 @@ const AddPaymentMethod = ({ isOpen, onClose, onSave }) => {
             <button 
               type="button"
               onClick={onClose} 
-              className="flex-1 py-3 px-4 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+              className="flex-1 text-sm py-3 px-4 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
             >
               Cancel
             </button>
             <button 
               type="submit" 
-              className="flex-1 py-3 px-4 rounded-md bg-complementary text-white hover:bg-opacity-90 transition-colors"
+              className="text-sm flex-1 py-3 px-4 rounded-md bg-complementary text-white hover:bg-opacity-90 transition-colors"
             >
-              Add card
+              Pay Now
             </button>
+      {showPinModal && (
+        <PaymentPinModal
+          isOpen={showPinModal}
+          onClose={() => setShowPinModal(false)}
+          onBiometrics={() => {}}
+          onForgot={() => {}}
+        />
+      )}
           </div>
         </form>
       </div>
