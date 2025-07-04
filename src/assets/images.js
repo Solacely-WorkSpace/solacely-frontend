@@ -76,6 +76,7 @@ import Clipboard from "@/../public/images/UserDashboard/clipboard.png"
 import PaymentCard from "@/../public/images/UserDashboard/paymentcard.png"
 import Property2 from "@/../public/images/UserDashboard/property2.png"
 import Avatar from "@/../public/images/UserDashboard/Avatar.png"
+import Handshake from "@/../public/images/UserDashboard/handshake.png"
 
 
 // Apartment Assets
@@ -95,6 +96,8 @@ import LivingRoom from "@/../public/images/Apartments/Livingroom.png"
 
 import MailConfirmation from "@/../public/images/confirmation.png"
 import Congratulations from "@/../public/images/congratulations.png"
+
+import Map from "@/../public/images/Map.png"
 
 export {
     LogoName,
@@ -152,5 +155,7 @@ export {
     PopUp,
     LivingRoom,
     MailConfirmation,
-    Congratulations
+    Congratulations,
+    Map,
+    Handshake
 }   

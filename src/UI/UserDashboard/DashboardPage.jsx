@@ -182,7 +182,7 @@ function DashboardPage() {
                   </div>
                   
                   <div className="md:flex md:justify-end">
-                    <Link href="/user/wallet" className="bg-primary text-white py-2 px-6 rounded-md text-base font-medium hover:bg-primary/80 focus:outline-none focus:ring-2">
+                    <Link href="/wallet" className="bg-primary text-white py-2 px-6 rounded-md text-base font-medium hover:bg-primary/80 focus:outline-none focus:ring-2">
                       Make Payment
                     </Link>
                   </div>

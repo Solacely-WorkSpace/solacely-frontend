@@ -40,7 +40,7 @@ const StickyFilterBar = ({
 
 //   For now only appears on desktop view only
   return (
-    <div className="fixed md:top-2 hidden md:block top-20 left-1/2 -translate-x-1/2 z-50 w-fit transition-transform duration-300" ref={containerRef}>
+    <div className="fixed md:top-20 hidden md:block top-20 right-0 left-0 mx-auto z-50 w-fit transition-transform duration-300" ref={containerRef}>
       <div className="bg-white shadow-md rounded-xl py-2 px-4 border border-gray-300 shadow-sm">
         <div className="flex gap-4 items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {/* Location Filter */}
@@ -125,7 +125,7 @@ const StickyFilterBar = ({
 
           <button 
             onClick={() => setIsMoreFiltersOpen(true)}
-            className="text-sm px-2.5 py-2 rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2 flex-none whitespace-nowrap"
+            className="text-sm px-2.5 py-2 w-fit rounded-lg bg-purple-800 text-white hidden md:inline-flex items-center space-x-2 flex-none whitespace-nowrap"
           >
             <Image src="/icons/Filter.svg" alt="Filter" className="w-3 h-3" width={24} height={24}/>
             <span>More Filters</span>

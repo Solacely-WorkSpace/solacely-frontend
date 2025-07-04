@@ -68,7 +68,7 @@ const Footer = () => {
               Our Partner
             </Link>
 
-            <Link href="#" className=" opacity-70 text-sm">
+            <Link href="/contact-us" className=" opacity-70 text-sm">
               Contact Us
             </Link>
 

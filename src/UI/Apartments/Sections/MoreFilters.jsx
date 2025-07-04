@@ -29,7 +29,7 @@ const MoreFilters = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-opacity-50 flex justify-end z-50" onClick={onClose}>
+    <div className="fixed inset-0 bg-opacity-50 flex justify-end z-50000" onClick={onClose}>
       <div className="bg-white w-screen max-w-md h-full overflow-x-auto p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">More Filters</h2>

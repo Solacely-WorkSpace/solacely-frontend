@@ -28,7 +28,7 @@ function SuccessPage() {
                     <p className="text-gray-500 text-sm">This email contains your receipt of payment for your new home and other home details. Click <span className="text-complementary font-semibold text-sm"><a href="#">here</a></span> to view</p>
                 </div>
               </div>
-              <a href="/user/dashboard">
+              <a href="/dashboard">
                 <button className="mb-10 bg-primary text-white px-16 py-3 rounded-lg hover:bg-primary/90 transition duration-300 text-base font-semibold">
                   Go to Dashboard
                 </button>
