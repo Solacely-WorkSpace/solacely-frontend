@@ -76,6 +76,7 @@ import Clipboard from "@/../public/images/UserDashboard/clipboard.png"
 import PaymentCard from "@/../public/images/UserDashboard/paymentcard.png"
 import Property2 from "@/../public/images/UserDashboard/property2.png"
 import Avatar from "@/../public/images/UserDashboard/Avatar.png"
+import Handshake from "@/../public/images/UserDashboard/handshake.png"
 
 
 // Apartment Assets
@@ -155,5 +156,6 @@ export {
     LivingRoom,
     MailConfirmation,
     Congratulations,
-    Map
+    Map,
+    Handshake
 }   

@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import { FiChevronLeft } from 'react-icons/fi';
 import Image from 'next/image';
 import { Property } from '@/assets/images';
+import dynamic from 'next/dynamic';
+const AddPaymentMethod = dynamic(() => import('./AddPaymentMethod'), { ssr: false });
+const PaymentPinModal = dynamic(() => import('./PaymentPinModal'), { ssr: false });
+
 
 export default function RentPayment({ onBack }) {
   const [method, setMethod] = useState('wallet');
+  const [showAddCard, setShowAddCard] = useState(false);
+  const [showPinModal, setShowPinModal] = useState(false);
   const paymentOptions = [
     { key: 'wallet', label: 'Wallet Balance', amount: '₦700,000' },
     { key: 'savings', label: 'Rent Savings', amount: '₦150,000' },
@@ -65,10 +71,31 @@ export default function RentPayment({ onBack }) {
             </label>
           ))}
         </div>
-        <button className="flex items-center text-complementary text-xs font-semibold mb-6" type="button">
+        <button className="flex items-center text-complementary text-xs font-semibold mb-6" type="button" onClick={() => setShowAddCard(true)}>
           <span className="text-lg mr-1 text-white bg-complementary rounded-md w-4 h-4 flex items-center justify-center">+</span> Add bank card?
         </button>
-        <button className="w-fit px-10 bg-complementary hover:bg-emerald-600 text-white font-semibold rounded-lg py-3 mt-2 transition text-base">Proceed</button>
+      {showAddCard && (
+        <AddPaymentMethod
+          isOpen={showAddCard}
+          onClose={() => setShowAddCard(false)}
+          onSave={() => setShowAddCard(false)}
+        />
+      )}
+        <button
+          className="w-fit px-10 bg-complementary hover:bg-emerald-600 text-white font-semibold rounded-lg py-3 mt-2 transition text-base"
+          type="button"
+          onClick={() => setShowPinModal(true)}
+        >
+          Proceed
+        </button>
+      {showPinModal && (
+        <PaymentPinModal
+          isOpen={showPinModal}
+          onClose={() => setShowPinModal(false)}
+          onBiometrics={() => {}}
+          onForgot={() => {}}
+        />
+      )}
       </div>
     </div>
   );
