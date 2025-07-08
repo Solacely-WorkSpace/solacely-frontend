@@ -2,7 +2,7 @@
 import Link from "next/link";
 import SignupForm from "../components/SignupForm";
 
-export default function SiugnupSection({ setCurrentStage }) {
+export default function SiugnupSection({ setCurrentStage, setUserData }) {
     return (
         <section className='flex-1 w-full p-6 md:p-12'>
             <div className="flex items-center justify-end w-full gap-1 ">
@@ -31,7 +31,10 @@ export default function SiugnupSection({ setCurrentStage }) {
                 <p className="mt-6 text-xs text-center opacity-60">Or continue with email</p>
 
                 <div className="w-full mt-6 md:w-[380px]">
-                    <SignupForm setCurrentStage={setCurrentStage} />
+                    <SignupForm 
+                        setCurrentStage={setCurrentStage} 
+                        setUserData={setUserData}
+                    />
                 </div>
             </div>
         </section>
