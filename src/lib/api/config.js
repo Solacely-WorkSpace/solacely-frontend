@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // API Configuration
 const API_CONFIG = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api',
+  BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://solacely-backend-4g.onrender.com/api/v1',
   TIMEOUT: 10000,
   HEADERS: {
     'Content-Type': 'application/json',
