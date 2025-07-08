@@ -20,8 +20,8 @@ export function RealTimeValidateInput({
         if (validator) {
             const status = await validator(e.target.value)
 
-            if (status === 'taken') setError('error message will show here')
-            else setError('')
+            // if (status === 'taken') setError('error message will show here')
+            // else setError('')
 
             setStatus(status)
         }
