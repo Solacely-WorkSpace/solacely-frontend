@@ -7,6 +7,23 @@ const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in
+    const checkLoginStatus = () => {
+      const authToken = localStorage.getItem('authToken');
+      setIsLoggedIn(!!authToken);
+    };
+
+    checkLoginStatus();
+    // Add event listener for storage changes
+    window.addEventListener('storage', checkLoginStatus);
+    
+    return () => {
+      window.removeEventListener('storage', checkLoginStatus);
+    };
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -104,7 +121,21 @@ const MobileNav = () => {
                   <Link href="#" className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors">Become a Partner</Link>
                 </li>
                 <li className="py-1">
-                  <Link href="/sign-up" className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors">Get Started</Link>
+                  {isLoggedIn ? (
+                    <Link 
+                      href="/user/dashboard" 
+                      className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                  ) : (
+                    <Link 
+                      href="/sign-up" 
+                      className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
+                    >
+                      Get Started
+                    </Link>
+                  )}
                 </li>
               </ul>
             </div>
