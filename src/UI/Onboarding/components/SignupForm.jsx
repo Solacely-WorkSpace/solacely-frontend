@@ -157,6 +157,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                 {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
             </div>
 
+            {/* Username */}
             <div className="w-full mb-6">
                 <label
                     htmlFor="username"
