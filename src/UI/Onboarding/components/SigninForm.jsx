@@ -60,8 +60,13 @@ export default function SigninForm({ serviceType }) {
             loginMutation.mutate(loginData, {
                 onSuccess: (result) => {
                     console.log('Login successful:', result);
-                    // Immediate redirect using replace for faster navigation
-                    router.replace('/dashboard');
+                    // Store auth data in localStorage
+                    localStorage.setItem('authToken', result.token);
+                    localStorage.setItem('refreshToken', result.refreshToken);
+                    localStorage.setItem('user', JSON.stringify(result.user));
+                    
+                    // Immediate redirect to home page using replace for faster navigation
+                    router.replace('/');
                 },
                 onError: (error) => {
                     console.error('Login error:', error);
@@ -196,7 +201,6 @@ export default function SigninForm({ serviceType }) {
                 {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
 
-
             <Link
                 href="/forgot-password"
                 className="block w-full mt-2 text-sm text-end text-complementary"
@@ -232,4 +236,3 @@ function phoneNumberValidator(value) {
             ? 'taken'
             : 'not taken'
 }
-

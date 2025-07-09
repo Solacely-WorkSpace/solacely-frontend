@@ -20,7 +20,7 @@ export default function FinalSection({ setCurrentStage }) {
                     <h1>Your Email has been verified.</h1>
 
                     <Link
-                        href="/dashboard"
+                        href="/recommendation"
                         className="text-primary mt-8 block"
                     >
                         Click here to continue to your dashboard.
