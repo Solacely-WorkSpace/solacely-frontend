@@ -97,7 +97,7 @@ export default function Header({ user }) {
                   <Link
                     href="/"
                     onClick={() => {
-                      localStorage.clear(); // Clear all localStorage data
+                      localStorage.clear(); // Clear all localStorage data tokens
                     }}
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
