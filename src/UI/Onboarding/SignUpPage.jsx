@@ -9,22 +9,38 @@ import FinalSection from "./sections/FinalSection";
 
 export default function SignUpPage() {
     const [currentStage, setCurrentStage] = useState('form')
+    const [userData, setUserData] = useState({
+        email: '',
+        phone: '',
+        username: ''
+    })
 
     return (
         <>
             {
                 currentStage === 'form' &&
-                <SiugnupSection setCurrentStage={setCurrentStage} />
+                <SiugnupSection 
+                    setCurrentStage={setCurrentStage} 
+                    setUserData={setUserData}
+                />
             }
 
             {
                 currentStage === 'confirm' &&
-                <ConfirmVerificationMethodSection setCurrentStage={setCurrentStage} />
+                <ConfirmVerificationMethodSection 
+                    setCurrentStage={setCurrentStage}
+                    userEmail={userData.email}
+                    userPhone={userData.phone}
+                />
             }
 
             {
                 currentStage === 'otp' &&
-                <OTPSection setCurrentStage={setCurrentStage} />
+                <OTPSection 
+                    setCurrentStage={setCurrentStage}
+                    userEmail={userData.email}
+                    userPhone={userData.phone}
+                />
             }
 
             {

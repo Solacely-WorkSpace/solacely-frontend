@@ -23,7 +23,7 @@ export default function FinalSection({ setCurrentStage }) {
                         href="/recommendation"
                         className="text-primary mt-8 block"
                     >
-                        Click here to continue.
+                        Click here to continue to your dashboard.
                     </Link>
                 </div>
             </div>

@@ -1,12 +1,15 @@
 "use client"
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLogin } from "@/hooks";
 import { RealTimeValidateInput } from "./RealTimeValidatedInput";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import clsx from "clsx";
 
 export default function SigninForm({ serviceType }) {
+    const router = useRouter();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -14,12 +17,85 @@ export default function SigninForm({ serviceType }) {
     const [phoneNumberStatus, setPhoneNumberStatus] = useState('')
     const [passwordStatus, setPasswordStatus] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [errors, setErrors] = useState({})
+
+    const loginMutation = useLogin();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        // Clear previous errors
+        setErrors({});
+
+        // Validate required fields
+        const newErrors = {};
+        
+        if (serviceType === 'email' && !email.trim()) {
+            newErrors.email = 'Email is required';
+        }
+        
+        if (serviceType === 'mobile' && !phoneNumber.trim()) {
+            newErrors.phoneNumber = 'Phone number is required';
+        }
+        
+        if (!password.trim()) {
+            newErrors.password = 'Password is required';
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
+        try {
+            // Prepare login data based on service type
+            const loginData = {
+                email: serviceType === 'email' ? email : phoneNumber, // Backend might accept phone as email
+                password: password
+            };
+
+            console.log('Attempting login with:', loginData);
+            
+            // Use mutate instead of mutateAsync for faster response
+            loginMutation.mutate(loginData, {
+                onSuccess: (result) => {
+                    console.log('Login successful:', result);
+                    // Store auth data in localStorage
+                    localStorage.setItem('authToken', result.token);
+                    localStorage.setItem('refreshToken', result.refreshToken);
+                    localStorage.setItem('user', JSON.stringify(result.user));
+                    
+                    // Immediate redirect to home page using replace for faster navigation
+                    router.replace('/');
+                },
+                onError: (error) => {
+                    console.error('Login error:', error);
+                    if (error.status === 401) {
+                        setErrors({ general: 'Invalid email or password' });
+                    } else if (error.status === 422 && error.errors) {
+                        setErrors(error.errors);
+                    } else {
+                        setErrors({ general: error.message || 'Login failed. Please try again.' });
+                    }
+                }
+            });
+            
+        } catch (error) {
+            console.error('Unexpected error:', error);
+            setErrors({ general: 'An unexpected error occurred. Please try again.' });
+        }
+    };
 
     return (
         <form
-            action=""
+            onSubmit={handleSubmit}
             className="h-full w-full md:w-[360px] "
         >
+            {errors.general && (
+                <div className="w-full mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {errors.general}
+                </div>
+            )}
 
             {
                 serviceType === 'email' &&
@@ -44,6 +120,7 @@ export default function SigninForm({ serviceType }) {
                             validator: emailValidator,
                         }}
                     />
+                    {/* {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>} */}
                 </div>
             }
 
@@ -51,7 +128,7 @@ export default function SigninForm({ serviceType }) {
                 serviceType === 'mobile' &&
                 <div className="w-full">
                     <label
-                        htmlFor="Email"
+                        htmlFor="phoneNumber"
                         className="text-sm mb-1.5 block"
                     >
                         Mobile
@@ -69,8 +146,8 @@ export default function SigninForm({ serviceType }) {
                             )}
                         >
                             <option value="+234">+234</option>
-                            <option value="+234">+265</option>
-                            <option value="+234">+1</option>
+                            <option value="+265">+265</option>
+                            <option value="+1">+1</option>
                         </select>
 
                         <RealTimeValidateInput
@@ -87,6 +164,7 @@ export default function SigninForm({ serviceType }) {
                             }}
                         />
                     </div>
+                    {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
                 </div>
             }
 
@@ -120,8 +198,8 @@ export default function SigninForm({ serviceType }) {
                         {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                     </button>
                 </div>
+                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
-
 
             <Link
                 href="/forgot-password"
@@ -130,13 +208,19 @@ export default function SigninForm({ serviceType }) {
                 Forgot Password?
             </Link>
 
-            <button className="w-full mt-6 btn-primary">Login</button>
+            <button 
+                type="submit"
+                disabled={loginMutation.isPending}
+                className={`w-full mt-6 btn-primary ${loginMutation.isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+                {loginMutation.isPending ? 'Logging in...' : 'Login'}
+            </button>
         </form>
     )
 }
 
 function emailValidator(value) {
-    console.log(value)
+    // console.log(value)
     return value.length === 0
         ? undefined
         : value.length < 3
@@ -152,4 +236,3 @@ function phoneNumberValidator(value) {
             ? 'taken'
             : 'not taken'
 }
-
