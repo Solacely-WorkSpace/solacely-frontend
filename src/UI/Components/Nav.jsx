@@ -3,10 +3,27 @@ import Dropdown from "./Dropdown";
 import Image from "next/image";
 import MobileNav from "./MobileNav";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { LogoName } from '@/assets/images'
 import { LogoIcon } from '@/assets/icons'
 
 const Nav = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check login status on mount and when localStorage changes
+  useEffect(() => {
+    // Initial check
+    setIsLoggedIn(typeof window !== "undefined" && !!localStorage.getItem("authToken"));
+
+    // Listen for login/logout events from other tabs/windows
+    const handleStorage = () => {
+      setIsLoggedIn(!!localStorage.getItem("authToken"));
+    };
+    window.addEventListener("storage", handleStorage);
+
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
   return (
     <nav className=" fixed w-full z-50 bg-white top-0 px-4 py-2">
       <div className="landingpage-container flex justify-between items-center">
@@ -50,12 +67,21 @@ const Nav = () => {
         <div>
           <MobileNav />
 
-          <Link
-            href="/sign-up"
-            className="btn-primary px-6 hidden md:block"
-          >
-            Get Started
-          </Link>
+          {isLoggedIn ? (
+            <Link
+              href="/dashboard"
+              className="btn-primary px-6 hidden md:block"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/sign-up"
+              className="btn-primary px-6 hidden md:block"
+            >
+              Get Started
+            </Link>
+          )}
         </div>
       </div >
     </nav >

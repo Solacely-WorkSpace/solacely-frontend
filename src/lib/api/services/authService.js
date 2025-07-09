@@ -41,17 +41,17 @@ class AuthService extends BaseApiService {
 
   // Resend verification code
   async resendVerificationCode(data) {
-    return this.post('/resend-verification/', data);
+    return this.post('/resend-otp/', data);
   }
 
   // Forgot password
   async forgotPassword(email) {
-    return this.post('/forgot-password/', { email });
+    return this.post('/password-reset/', { email });
   }
 
   // Reset password
   async resetPassword(resetData) {
-    return this.post('/reset-password/', resetData);
+    return this.post('/password-reset/confirm/', resetData);
   }
 
   // Change password
