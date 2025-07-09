@@ -123,7 +123,7 @@ const MobileNav = () => {
                 <li className="py-1">
                   {isLoggedIn ? (
                     <Link 
-                      href="/user/dashboard" 
+                      href="/dashboard" 
                       className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
                     >
                       Dashboard
