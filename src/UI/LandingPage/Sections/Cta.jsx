@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   ctaImageOne,
@@ -13,7 +14,24 @@ import {
 import { useOnWindowResize } from "@/CustomHooks/usOnWindowResize";
 
 const Cta = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   let [containerWidth, setContainerWidth] = useState(0)
+
+  useEffect(() => {
+    // Check if user is logged in
+    const checkLoginStatus = () => {
+      const authToken = localStorage.getItem('authToken');
+      setIsLoggedIn(!!authToken);
+    };
+
+    checkLoginStatus();
+    // Add event listener for storage changes
+    window.addEventListener('storage', checkLoginStatus);
+    
+    return () => {
+      window.removeEventListener('storage', checkLoginStatus);
+    };
+  }, []);
 
   useEffect(() => {
     if (!window) return
@@ -160,8 +178,19 @@ const Cta = () => {
               <br />
               Easy and Free
             </p>
-
-            <button className="btn-primary">Get Started</button>
+            {isLoggedIn ? (
+              <Link 
+                href="/dashboard" 
+              >
+                <button className="btn-primary">Dashboard</button>
+              </Link>
+            ) : (
+              <Link 
+                href="/sign-up" 
+              >
+                <button className="btn-primary">Get Started</button>
+              </Link>
+            )}
           </div>
 
           <div
