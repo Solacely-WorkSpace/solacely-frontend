@@ -1,9 +1,30 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import AiPopuop from "../Components/AiPopuop";
 import { HeroIllustration, MetaImage } from '@/assets/images'
 
 const Hero = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+      // Check if user is logged in
+      const checkLoginStatus = () => {
+        const authToken = localStorage.getItem('authToken');
+        setIsLoggedIn(!!authToken);
+      };
+  
+      checkLoginStatus();
+      // Add event listener for storage changes
+      window.addEventListener('storage', checkLoginStatus);
+      
+      return () => {
+        window.removeEventListener('storage', checkLoginStatus);
+      };
+    }, []);
+
+
   return (
     <section className="landingpage-container px-4 md:px-0 mt-20">
       <AiPopuop />
@@ -22,12 +43,21 @@ const Hero = () => {
             </p>
 
             <div className=" flex justify-between md:flex-col gap-8 py-4 mt-6 items-center md:items-start">
-              <Link
-                href="/sign-up"
-                className="btn-primary"
-              >
-                Get Started
-              </Link>
+              {isLoggedIn ? (
+                <Link 
+                  href="/dashboard" 
+                  className="btn-primary"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <Link
+                  href="/sign-up"
+                  className="btn-primary"
+                >
+                  Get Started
+                </Link>
+              )}
 
               <article>
                 <h5 className="font-semibold font-rob text-[#9EA0AB] text-sub text-xs mb-1.5 whitespace-nowrap">
