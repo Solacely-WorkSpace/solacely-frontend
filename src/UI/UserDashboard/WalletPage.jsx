@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import SaveForRent from './Sections/SaveForRent'
 import TRCEarnings from './Sections/TRCEarnings'
 import RentPayment from './Sections/RentPayment'
+import EscrowPopup from './Sections/EscrowPopup'
+import TransactionDetailsPopup from './Sections/TransactionDetailsPopup'
 
 function WalletPage() {
   // Sample data to match the design
@@ -77,6 +79,20 @@ function WalletPage() {
   const [showSaveForRent, setShowSaveForRent] = useState(false)
   const [showTRCEarnings, setShowTRCEarnings] = useState(false)
   const [showRentPayment, setShowRentPayment] = useState(false)
+  const [showEscrowPopup, setShowEscrowPopup] = useState(false)
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false)
+  const [showTransactionDetails, setShowTransactionDetails] = useState(false)
+  const [selectedTransaction, setSelectedTransaction] = useState(null)
+
+  const handleEscrowPayment = () => {
+    // Add your escrow payment logic here
+    console.log('Processing escrow payment...')
+  }
+
+  const handleViewTransactionDetails = (transaction) => {
+    setSelectedTransaction(transaction)
+    setShowTransactionDetails(true)
+  }
 
   if (showSaveForRent) {
     return <SaveForRent onBack={() => setShowSaveForRent(false)} />;
@@ -90,6 +106,20 @@ function WalletPage() {
 
   return (
     <div className="min-h-screen w-full md:p-6">
+      {/* Escrow Popup */}
+      <EscrowPopup 
+        isOpen={showEscrowPopup}
+        onClose={() => setShowEscrowPopup(false)}
+        onAllow={handleEscrowPayment}
+      />
+
+      {/* Transaction Details Popup */}
+      <TransactionDetailsPopup 
+        isOpen={showTransactionDetails}
+        onClose={() => setShowTransactionDetails(false)}
+        transaction={selectedTransaction}
+      />
+
       {/* Header with back button */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
         <div>
@@ -254,7 +284,10 @@ function WalletPage() {
           <h2 className="text-xl font-bold mb-4 mt-4">{rentPayment}</h2>
           <p className="text-sm text-gray-400 font-medium italic mb-4">Due in 15 days</p>
           
-          <button className="bg-purple-900 text-xs md:text-sm text-white w-full py-3 px-2 rounded-md mt-auto flex items-center justify-center gap-2">
+          <button 
+            onClick={() => setShowEscrowPopup(true)}
+            className="bg-purple-900 text-xs md:text-sm text-white w-full py-3 px-2 rounded-md mt-auto flex items-center justify-center gap-2"
+          >
             Pay to Escrow
             <FiChevronRight />
           </button>
@@ -285,11 +318,38 @@ function WalletPage() {
                 </svg>
               </div>
             </div>
-            <div>
-              <button className="border border-gray-300 rounded-md px-4 py-2 flex items-center gap-2 text-gray-600">
+            <div className="relative">
+              <button 
+                onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+                className="border border-gray-300 rounded-md px-4 py-2 flex items-center gap-2 text-gray-600"
+              >
                 Filter by
-                <FiChevronRight className="text-gray-400" />
+                <FiChevronRight className={`text-gray-400 transition-transform ${showFilterDropdown ? 'rotate-90' : ''}`} />
               </button>
+              
+              {/* Filter Dropdown */}
+              {showFilterDropdown && (
+                <div className="absolute top-full left-0 mt-1 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                  <button 
+                    onClick={() => {
+                      setShowFilterDropdown(false)
+                      // Add date filter logic here
+                    }}
+                    className="w-full text-left px-4 py-3 hover:bg-purple-100 text-sm text-gray-700 first:rounded-t-md"
+                  >
+                    Date
+                  </button>
+                  <button 
+                    onClick={() => {
+                      setShowFilterDropdown(false)
+                      // Add amount filter logic here
+                    }}
+                    className="w-full text-left px-4 py-3 hover:bg-purple-100 text-sm text-gray-700 last:rounded-b-md"
+                  >
+                    Amount
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           
@@ -331,7 +391,10 @@ function WalletPage() {
                     </span>
                   </td>
                   <td className="px-4 py-4">
-                    <button className="border border-primary hover:bg-primary hover:text-white text-primary px-4 py-2 rounded-md text-sm">
+                    <button 
+                      onClick={() => handleViewTransactionDetails(transaction)}
+                      className="border border-primary hover:bg-primary hover:text-white text-primary px-4 py-2 rounded-md text-sm"
+                    >
                       View Details
                     </button>
                   </td>
@@ -344,7 +407,11 @@ function WalletPage() {
         {/* Mobile Transaction List */}
         <div className="md:hidden">
           {transactions.slice(0, 3).map(transaction => (
-            <div key={transaction.id} className="mb-3 border-b border-gray-100 pb-3">
+            <div 
+              key={transaction.id} 
+              className="mb-3 border-b border-gray-100 pb-3 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors"
+              onClick={() => handleViewTransactionDetails(transaction)}
+            >
               <div className="flex justify-between items-center mb-1">
                 <div className="font-medium text-sm text-gray-600">{transaction.title}</div>
                 <div className="text-sm font-bold">{transaction.amount}</div>
