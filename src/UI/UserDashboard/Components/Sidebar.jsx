@@ -12,7 +12,7 @@ import {
   Wallet, WalletSelected,
   Maintenance, MaintenanceSelected,
   Setting, SettingSelected, Logo,
-  Logout
+  Logout, EarnTRCSelected
 } from '@/assets/icons' 
 
 export default function Sidebar() {
@@ -72,6 +72,12 @@ export default function Sidebar() {
       selectedIcon: MaintenanceSelected
     },
     { 
+      name: "Earn TRC", 
+      href: "/earntrc", 
+      icon: Setting,
+      selectedIcon: EarnTRCSelected
+    },
+    { 
       name: "Profile Settings", 
       href: "/profile", 
       icon: Setting,
@@ -93,24 +99,24 @@ export default function Sidebar() {
 
       {/* Desktop Sidebar */}
       <div className="hidden md:flex flex-col bg-white border-r border-gray-200 w-[250px]">
-        <div className="p-6 mt-5 flex justify-start items-center">
-          <div className="flex items-center gap-3">
-            <Image 
-              src={Logo} 
-              alt="logo" 
-              width={40}
-              height={40}
-              className="w-8 h-8"
-            />
-            <Image 
-              src={LogoName} 
-              alt="logo"
-              width={120}
-              height={30}
-              className="h-7 w-auto"
-            />
+          <div className="p-6 mt-5 flex justify-start items-center">
+            <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              <Image 
+                src={Logo} 
+                alt="logo" 
+                width={40}
+                height={40}
+                className="w-8 h-8"
+              />
+              <Image 
+                src={LogoName} 
+                alt="logo"
+                width={120}
+                height={30}
+                className="h-7 w-auto"
+              />
+            </Link>
           </div>
-        </div>
 
         <nav className="mt-8 flex-1 px-3">
           <ul className="space-y-2">
@@ -141,7 +147,7 @@ export default function Sidebar() {
       {/* Mobile Sidebar */}
       <div className={`md:hidden fixed top-0 left-0 h-full w-full bg-white z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex justify-between items-center p-6 ">
-          <div className="flex items-center gap-3">
+          <Link href="/" onClick={handleLinkClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <Image 
                 src={Logo} 
                 alt="logo" 
@@ -156,7 +162,7 @@ export default function Sidebar() {
                 height={30}
                 className="h-6 w-auto"
               />
-          </div>
+          </Link>
           <button onClick={toggleSidebar} className="p-1">
             <X size={24} />
           </button>
@@ -207,7 +213,7 @@ export default function Sidebar() {
 
       {/* Mobile Header */}
       <header className={`md:hidden fixed top-0 left-0 right-0 bg-white z-[30] px-6 py-3 flex justify-between items-center transition-opacity duration-300 ${isMobileHeaderVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-      <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <Image 
                 src={Logo} 
                 alt="logo" 
@@ -222,7 +228,7 @@ export default function Sidebar() {
                 height={30}
                 className="h-5 w-auto"
               />
-          </div>
+        </Link>
         <button onClick={toggleSidebar} className="p-1">
           <Menu size={24} />
         </button>

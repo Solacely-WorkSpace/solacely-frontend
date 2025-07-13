@@ -31,6 +31,7 @@ import MaintenanceSelected from "@/../public/icons/UserDashboard/star-s.png"
 import Setting from "@/../public/icons/UserDashboard/setting.png"
 import SettingSelected from "@/../public/icons/UserDashboard/setting-s.png"
 import Logout from "@/../public/icons/UserDashboard/logout.png"
+import EarnTRCSelected from "@/../public/icons/UserDashboard/Verified.png"
 
 import NotificationIcon from "@/../public/icons/UserDashboard/notification.png"
 import VerifiedIcon from "@/../public/icons/Verified icon.svg"
@@ -70,5 +71,6 @@ export {
     homeIcon,
     locationIcon,
     contractIcon,
-    walletIcon    
+    walletIcon,
+    EarnTRCSelected    
 }

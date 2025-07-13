@@ -1,7 +1,7 @@
-import MaintenacePage from "@/UI/UserDashboard/MaintenacePage"
+import MaintenancePage from "@/UI/UserDashboard/MaintenancePage"
 
 const Maintanace = () => {
-  return <MaintenacePage />
+  return <MaintenancePage />
 }
 
 export default Maintanace
