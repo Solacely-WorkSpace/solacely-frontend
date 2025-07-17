@@ -54,22 +54,10 @@ export default function Sidebar() {
       selectedIcon: DashboardSelected
     },
     { 
-      name: "Wishlist", 
-      href: "/wishlist", 
-      icon: Heart,
-      selectedIcon: HeartSelected
-    },
-    { 
       name: "Wallet", 
       href: "/wallet", 
       icon: Wallet,
       selectedIcon: WalletSelected
-    },
-    { 
-      name: "Maintenance", 
-      href: "/maintenance", 
-      icon: Maintenance,
-      selectedIcon: MaintenanceSelected
     },
     { 
       name: "Earn TRC", 
@@ -77,6 +65,20 @@ export default function Sidebar() {
       icon: Setting,
       selectedIcon: EarnTRCSelected
     },
+    { 
+      name: "Wishlist", 
+      href: "/wishlist", 
+      icon: Heart,
+      selectedIcon: HeartSelected
+    },
+    
+    { 
+      name: "Maintenance", 
+      href: "/maintenance", 
+      icon: Maintenance,
+      selectedIcon: MaintenanceSelected
+    },
+    
     { 
       name: "Profile Settings", 
       href: "/profile", 
