@@ -100,7 +100,7 @@ export default function Sidebar() {
       )}
 
       {/* Desktop Sidebar */}
-      <div className="hidden md:flex flex-col bg-white border-r border-gray-200 w-[250px]">
+      <div className="hidden md:flex flex-col bg-white border-r border-gray-200 w-[220px]">
           <div className="p-6 mt-5 flex justify-start items-center">
             <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <Image 
@@ -127,7 +127,7 @@ export default function Sidebar() {
                 <Link
                   href={item.href}
                   onClick={handleLinkClick}
-                  className={`flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors ${
+                  className={`flex items-center gap-4 px-4 py-3 rounded-md transition-colors ${
                     isActive(item.href) ? "bg-primary text-white" : "text-gray-500 hover:bg-gray-100"
                   }`}
                 >
@@ -136,9 +136,9 @@ export default function Sidebar() {
                     alt={item.name}
                     width={20}
                     height={20}
-                    className="w-5 h-5"
+                    className="w-5 h-4.5"
                   />
-                  <span>{item.name}</span>
+                  <span className="text-sm md:text-base">{item.name}</span>
                 </Link>
               </li>
             ))}
@@ -185,7 +185,7 @@ export default function Sidebar() {
                     alt={item.name}
                     width={20}
                     height={20}
-                    className="w-5 h-5"
+                    className="w-5.5 h-5"
                   />
                   <span>{item.name}</span>
                 </Link>

@@ -10,7 +10,7 @@ import {
   tourImageFour,
 } from "@/assets/images"
 
-import { memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight, memberNine, memberTen } from '@/assets/images'
+import { memberOne, memberTwo, memberThree, memberFive, memberSix, memberSeven, memberTen } from '@/assets/images'
 
 // Testimonial Dataset
 const Testimonial = [{
@@ -188,18 +188,6 @@ const teamMembers = [
     }
   },
   {
-    name: "Thomas Tochukwu Christian ",
-    location: "Lagos, NG",
-    role: "Frontend Developer",
-    image: memberFour,
-    social: {
-      instagram: "https://instagram.com/username",
-      linkedin: "https://linkedin.com/in/username",
-      facebook: "https://facebook.com/username",
-      twitter: "https://twitter.com/username"
-    }
-  },
-  {
     name: "Ojo Favour Osuare",
     location: "Lagos, NG",
     role: "UI/UX Designer",
@@ -236,31 +224,6 @@ const teamMembers = [
       twitter: "https://twitter.com/username"
     }
   },
-  {
-    name: "Lawrence Chibondo",
-    location: "Lagos, NG",
-    role: "Software Engineer",
-    image: memberNine,
-    social: {
-      instagram: "https://instagram.com/username",
-      linkedin: "https://linkedin.com/in/username",
-      facebook: "https://facebook.com/username",
-      twitter: "https://twitter.com/username"
-    }
-  },
-  {
-    name: "Aubrey Nyasulu",
-    location: "Lagos, NG",
-    role: "Frontend Developer",
-    image: memberEight,
-    social: {
-      instagram: "https://instagram.com/username",
-      linkedin: "https://linkedin.com/in/username",
-      facebook: "https://facebook.com/username",
-      twitter: "https://twitter.com/username"
-    }
-  },
-  
   {
     name: "Orji Miracle ",
     location: "Lagos, NG",

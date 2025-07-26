@@ -58,12 +58,9 @@ import AboutHeroBg from "@/../public/images/AboutPage/abouthero/BG.png"
 import memberOne from "@/../public/images/AboutPage/team/member1.png"
 import memberTwo from "@/../public/images/AboutPage/team/member2.png"
 import memberThree from "@/../public/images/AboutPage/team/member3.png"
-import memberFour from "@/../public/images/AboutPage/team/member4.png"
 import memberFive from "@/../public/images/AboutPage/team/member5.png"
 import memberSix from "@/../public/images/AboutPage/team/member6.png"
 import memberSeven from "@/../public/images/AboutPage/team/member7.png"
-import memberEight from "@/../public/images/AboutPage/team/member8.png"
-import memberNine from "@/../public/images/AboutPage/team/member9.png"
 import memberTen from "@/../public/images/AboutPage/team/member10.png"
 
 // User Dashboard Assets
@@ -125,12 +122,9 @@ export {
     memberOne,
     memberTwo,
     memberThree,
-    memberFour,
     memberFive,
     memberSix,
     memberSeven,
-    memberEight,
-    memberNine,
     memberTen,
     Profile,
     Property,
