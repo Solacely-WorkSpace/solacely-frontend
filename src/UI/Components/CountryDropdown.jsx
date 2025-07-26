@@ -17,31 +17,31 @@ const countries = [
 	{
 		name: "South Africa",
 		icon: "/icons/CountryFlags/south-africa.svg",
-		active: false,
+		active: true,
 		comingSoon: true,
 	},
 	{
 		name: "Ghana",
 		icon: "/icons/CountryFlags/ghana.svg",
-		active: false,
+		active: true,
 		comingSoon: true,
 	},
 	{
 		name: "Kenya",
 		icon: "/icons/CountryFlags/kenya.svg",
-		active: false,
+		active: true,
 		comingSoon: true,
 	},
     {
         name: "Uganda",
         icon: "/icons/CountryFlags/uganda.svg",
-        active: false,
+        active: true,
         comingSoon: true,
     },
     {
         name: "Rwanda",
         icon: "/icons/CountryFlags/rwanda.svg",
-        active: false,
+        active: true,
         comingSoon: true,
     },
 ];
@@ -85,19 +85,18 @@ function CountryDropdown() {
 	}, []);
 
 	return (
-		<div className="relative" ref={dropdownRef}>
+		<div className="relative hidden md:block" ref={dropdownRef}>
 			<button
 				className="flex items-center gap-2 px-4 py-3 rounded-lg  bg-white shadow-sm hover:bg-gray-50 min-w-[110px]"
 				onClick={() => setOpen((o) => !o)}
 			>
 				<Image
 					src={selected.icon}
-					alt={selected.name}
 					width={20}
 					height={20}
-                    className="w-4 h-4"
+                    className="w-3 h-3"
 				/>
-				<span className="font-medium text-base">{selected.name}</span>
+				<span className="font-medium text-sm">{selected.name}</span>
 				<svg
 					className="w-4 h-4 ml-1 text-gray-400"
 					fill="none"
@@ -130,12 +129,11 @@ function CountryDropdown() {
 							>
 								<Image
 									src={country.icon}
-									alt={country.name}
 									width={24}
 									height={24}
-                                    className="w-5 h-5"
+                                    className="w-3 h-3"
 								/>
-								<span className="font-medium text-base">
+								<span className="font-medium text-xs">
 									{country.name}
 								</span>
 								{country.name === "Global" && (

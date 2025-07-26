@@ -208,28 +208,28 @@ function WalletPage() {
             <div className="flex items-center gap-2 cursor-pointer flex-1">
               <div 
                 onClick={() => setAutoSave(!autoSave)} 
-                className="relative w-8 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
+                className="relative w-6 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
                 style={{ backgroundColor: autoSave ? '#6b21a8' : '#e5e7eb' }}
               >
                 <div 
                   className="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full shadow transition-transform duration-300 ease-in-out"
-                  style={{ transform: autoSave ? 'translateX(15px)' : 'translateX(0)' }}
+                  style={{ transform: autoSave ? 'translateX(8px)' : 'translateX(0)' }}
                 ></div>
               </div>
               <span className="text-xs">Auto-Save</span>
             </div>
-            <button className="flex justify-start  gap-2 rounded-md px-3 py-2 text-xs flex-1 text-primary font-semibold">
-              <div className="bg-primary text-white rounded-md w-4 h-4 flex items-center justify-center">+</div>
+            <button className="flex justify-start md:justify-center items-center  gap-2 rounded-md px-3 py-2 text-xs flex-1 text-primary font-semibold">
+              <div className="bg-primary text-white rounded-md w-3 h-3 flex text-sm items-center justify-center">+</div>
               Add Funds
             </button>
           </div>
         </div>
 
         {/* TRC Earnings Card */}
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
+        <div className="bg-white p-3 rounded-lg border border-gray-200">
           <div className="flex justify-between items-center mb-2">
-            <h3 className="text-black text-sm">TRC Earnings</h3>
-            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-3 py-2"
+            <h3 className="text-black text-xs md:text-sm">TRC Earnings</h3>
+            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-2 py-2"
               onClick={() => setShowTRCEarnings(true)}>
               Transfer to Rent
             </button>
