@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LogoName } from '@/assets/images'
 import { LogoIcon } from '@/assets/icons'
+import CountryDropdown from "./CountryDropdown";
 
 const Nav = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -64,23 +65,29 @@ const Nav = () => {
           </ul>
         </div>
 
-        <div>
+        <div className="flex items-center gap-2">
           <MobileNav />
 
           {isLoggedIn ? (
-            <Link
-              href="/dashboard"
-              className="btn-primary px-6 hidden md:block"
-            >
-              Dashboard
-            </Link>
+            <>
+              <CountryDropdown />
+              <Link
+                href="/dashboard"
+                className="btn-primary px-6 hidden md:block"
+              >
+                Dashboard
+              </Link>
+            </>
           ) : (
-            <Link
-              href="/sign-up"
-              className="btn-primary px-6 hidden md:block"
-            >
-              Get Started
-            </Link>
+            <>
+              <CountryDropdown />
+              <Link
+                href="/sign-up"
+                className="btn-primary px-6 hidden md:block"
+              >
+                Get Started
+              </Link>
+            </>
           )}
         </div>
       </div >

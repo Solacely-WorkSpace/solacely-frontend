@@ -1,16 +1,31 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import {Property, HouseIllustration, WishlistHeart, WalletIcon} from "@/assets/images"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import {VerifiedIcon, homeIcon, locationIcon, contractIcon} from "@/assets/icons"
 
+const formatUserName = (user) => {
+  if (!user) return '';
+  return user.username || 'User';
+};
+
 function DashboardPage() {
   const [currentPage, setCurrentPage] = useState(1)
+  const [userName, setUserName] = useState('')
   // State to check if user has a rented apartment
   const [hasRentedApartment, setHasRentedApartment] = useState(true) // Set to true for demo
+
+  useEffect(() => {
+    // Get user data from localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      setUserName(formatUserName(user));
+    }
+  }, []);
   
   // Rented apartment details
   const rentedApartment = {
@@ -84,8 +99,8 @@ function DashboardPage() {
         
         <main className="md:p-6">
           <div className="md:hidden mb-8">
-            <h1 className="text-xl font-semibold">Hi Alesia K.</h1>
-            <p className="text-md font-medium text-gray-500">Welcome back!</p>
+            <h1 className="text-lg font-medium">Hi {userName || 'user'}</h1>
+            <p className="text-base font-medium text-gray-500">Welcome back!</p>
           </div>
           {/* Rental Information Card */}
           <div className="bg-purple-50 rounded-lg overflow-hidden mb-8">
@@ -195,7 +210,7 @@ function DashboardPage() {
           <div className="mb-6 mt-6 p-1 md:p-4 rounded-lg bg-white md:border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold text-gray-800">Explore Listings</h2>
-              <Link href="/listings" className="text-sm text-gray-600 font-medium flex bg-gray-50 rounded-md px-2 py-1 items-center">
+              <Link href="/apartment" className="text-sm text-gray-600 font-medium flex bg-gray-50 rounded-md px-2 py-1 items-center">
                 View all <ChevronRight size={16} />
               </Link>
             </div>
@@ -244,9 +259,11 @@ function DashboardPage() {
                       <p className="text-sm font-medium text-green-800">{apt.price}</p>
                     </div>
                     <div className="flex items-center justify-between">
-                      <button className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-green-600 transition-colors">
-                        Explore
-                      </button>
+                      <Link href="/apartmentview" className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-green-600 transition-colors">
+                        <button>
+                          Explore
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import Tooltip from '../../components/Tooltip'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FiChevronRight } from 'react-icons/fi'
@@ -9,6 +10,8 @@ import { useRouter } from 'next/navigation'
 import SaveForRent from './Sections/SaveForRent'
 import TRCEarnings from './Sections/TRCEarnings'
 import RentPayment from './Sections/RentPayment'
+import EscrowPopup from './Sections/EscrowPopup'
+import TransactionDetailsPopup from './Sections/TransactionDetailsPopup'
 
 function WalletPage() {
   // Sample data to match the design
@@ -77,6 +80,24 @@ function WalletPage() {
   const [showSaveForRent, setShowSaveForRent] = useState(false)
   const [showTRCEarnings, setShowTRCEarnings] = useState(false)
   const [showRentPayment, setShowRentPayment] = useState(false)
+  const [showEscrowPopup, setShowEscrowPopup] = useState(false)
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false)
+  const [showTransactionDetails, setShowTransactionDetails] = useState(false)
+  const [selectedTransaction, setSelectedTransaction] = useState(null)
+
+  // Tooltip state
+  const [tooltipStep, setTooltipStep] = useState(1);
+  const [showTooltip, setShowTooltip] = useState(true);
+
+  const handleEscrowPayment = () => {
+    // Add your escrow payment logic here
+    console.log('Processing escrow payment...')
+  }
+
+  const handleViewTransactionDetails = (transaction) => {
+    setSelectedTransaction(transaction)
+    setShowTransactionDetails(true)
+  }
 
   if (showSaveForRent) {
     return <SaveForRent onBack={() => setShowSaveForRent(false)} />;
@@ -89,34 +110,92 @@ function WalletPage() {
   }
 
   return (
-    <div className="min-h-screen w-full md:p-6">
+    <div className="min-h-screen w-full md:p-6 relative">
+      {/* Gray overlay when tooltip is visible */}
+      {showTooltip && (
+        <div className="fixed inset-0 bg-[#0A0A2499] hidden md:block bg-opacity-90 z-40"></div>
+      )}
+      {/* Escrow Popup */}
+      <EscrowPopup 
+        isOpen={showEscrowPopup}
+        onClose={() => setShowEscrowPopup(false)}
+        onAllow={handleEscrowPayment}
+      />
+
+      {/* Transaction Details Popup */}
+      <TransactionDetailsPopup 
+        isOpen={showTransactionDetails}
+        onClose={() => setShowTransactionDetails(false)}
+        transaction={selectedTransaction}
+      />
+
       {/* Header with back button */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 relative z-50">
         <div>
           <h1 className="md:hidden text-2xl md:text-3xl font-bold text-gray-800">Wallet</h1>
         </div>
-        
-        <div className="flex gap-2 md:gap-3 w-full md:w-auto">
-          <button
-            className="bg-complementary text-white py-2.5 px-3 md:px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark text-sm md:text-base flex-1 md:flex-none md:w-[200px]"
-            onClick={() => setShowSaveForRent(true)}
-          >
-            Save for Rent
-          </button>
-          <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base flex-1 md:flex-none md:w-[200px]"
-            onClick={() => setShowRentPayment(true)}>
-            Pay Rent
-          </button>
+        <div className="flex gap-2 md:gap-3 w-full md:w-auto relative">
+          {/* Tooltip for Save for Rent button (Step 1) */}
+          <div className="relative flex-1 md:flex-none md:w-[200px]">
+            <div className="hidden md:block">
+              <Tooltip
+                visible={showTooltip && tooltipStep === 1}
+                title="Save for Rent"
+                description="Add funds to your rent savings goal manually or automatically."
+                step={1}
+                totalSteps={3}
+                onNext={() => setTooltipStep(2)}
+                onSkip={() => setShowTooltip(false)}
+              />
+            </div>
+            <button
+              className="bg-complementary text-white py-2.5 px-3 md:px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark text-sm md:text-base w-full"
+              onClick={() => setShowSaveForRent(true)}
+            >
+              Save for Rent
+            </button>
+          </div>
+          {/* Tooltip for Pay Rent button (Step 2) */}
+          <div className="relative flex-1 md:flex-none md:w-[200px]">
+            <div className="hidden md:block">
+              <Tooltip
+                visible={showTooltip && tooltipStep === 2}
+                title="Pay Rent"
+                description="Use your savings, TRC, or wallet balance to pay your rent securely."
+                step={2}
+                totalSteps={3}
+                onNext={() => setTooltipStep(3)}
+                onSkip={() => setShowTooltip(false)}
+              />
+            </div>
+            <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base w-full"
+              onClick={() => setShowRentPayment(true)}>
+              Pay Rent
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Cards Section */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {/* Wallet Balance Card */}
-        <div className="bg-white p-3 md:p-4 rounded-lg border border-gray-200">
+        <div className="bg-white p-3 md:p-4 rounded-lg border border-gray-200 relative">
+          {/* Tooltip for Wallet Balance (Step 3) */}
+          <div className="hidden md:block">
+            <div className="absolute top-1/2 right-[-340px] z-50 transform -translate-y-1/2">
+              <Tooltip
+                visible={showTooltip && tooltipStep === 3}
+                title="Wallet Balance"
+                description="This is your total balance across TRC, rent savings, and wallet funds."
+                step={3}
+                totalSteps={3}
+                onNext={() => setShowTooltip(false)}
+                onSkip={() => setShowTooltip(false)}
+              />
+            </div>
+          </div>
           <h3 className="text-black text-sm mb-2">Wallet Balance</h3>
           <h2 className="text-lg font-bold mb-2">{walletBalance}</h2>
-          
           <div className="mt-4">
             <p className="text-sm text-gray-400 font-semibold">Rent Progress</p>
             <div className="bg-emerald-100 h-3 rounded-full mt-1">
@@ -178,28 +257,28 @@ function WalletPage() {
             <div className="flex items-center gap-2 cursor-pointer flex-1">
               <div 
                 onClick={() => setAutoSave(!autoSave)} 
-                className="relative w-8 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
+                className="relative w-6 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
                 style={{ backgroundColor: autoSave ? '#6b21a8' : '#e5e7eb' }}
               >
                 <div 
                   className="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full shadow transition-transform duration-300 ease-in-out"
-                  style={{ transform: autoSave ? 'translateX(15px)' : 'translateX(0)' }}
+                  style={{ transform: autoSave ? 'translateX(8px)' : 'translateX(0)' }}
                 ></div>
               </div>
               <span className="text-xs">Auto-Save</span>
             </div>
-            <button className="flex justify-start  gap-2 rounded-md px-3 py-2 text-xs flex-1 text-primary font-semibold">
-              <div className="bg-primary text-white rounded-md w-4 h-4 flex items-center justify-center">+</div>
+            <button className="flex justify-start md:justify-center items-center  gap-2 rounded-md px-3 py-2 text-xs flex-1 text-primary font-semibold">
+              <div className="bg-primary text-white rounded-md w-3 h-3 flex text-sm items-center justify-center">+</div>
               Add Funds
             </button>
           </div>
         </div>
 
         {/* TRC Earnings Card */}
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
+        <div className="bg-white p-3 rounded-lg border border-gray-200">
           <div className="flex justify-between items-center mb-2">
-            <h3 className="text-black text-sm">TRC Earnings</h3>
-            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-3 py-2"
+            <h3 className="text-black text-xs md:text-sm">TRC Earnings</h3>
+            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-2 py-2"
               onClick={() => setShowTRCEarnings(true)}>
               Transfer to Rent
             </button>
@@ -254,7 +333,10 @@ function WalletPage() {
           <h2 className="text-xl font-bold mb-4 mt-4">{rentPayment}</h2>
           <p className="text-sm text-gray-400 font-medium italic mb-4">Due in 15 days</p>
           
-          <button className="bg-purple-900 text-xs md:text-sm text-white w-full py-3 px-2 rounded-md mt-auto flex items-center justify-center gap-2">
+          <button 
+            onClick={() => setShowEscrowPopup(true)}
+            className="bg-purple-900 text-xs md:text-sm text-white w-full py-3 px-2 rounded-md mt-auto flex items-center justify-center gap-2"
+          >
             Pay to Escrow
             <FiChevronRight />
           </button>
@@ -285,11 +367,38 @@ function WalletPage() {
                 </svg>
               </div>
             </div>
-            <div>
-              <button className="border border-gray-300 rounded-md px-4 py-2 flex items-center gap-2 text-gray-600">
+            <div className="relative">
+              <button 
+                onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+                className="border border-gray-300 rounded-md px-4 py-2 flex items-center gap-2 text-gray-600"
+              >
                 Filter by
-                <FiChevronRight className="text-gray-400" />
+                <FiChevronRight className={`text-gray-400 transition-transform ${showFilterDropdown ? 'rotate-90' : ''}`} />
               </button>
+              
+              {/* Filter Dropdown */}
+              {showFilterDropdown && (
+                <div className="absolute top-full left-0 mt-1 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                  <button 
+                    onClick={() => {
+                      setShowFilterDropdown(false)
+                      // Add date filter logic here
+                    }}
+                    className="w-full text-left px-4 py-3 hover:bg-purple-100 text-sm text-gray-700 first:rounded-t-md"
+                  >
+                    Date
+                  </button>
+                  <button 
+                    onClick={() => {
+                      setShowFilterDropdown(false)
+                      // Add amount filter logic here
+                    }}
+                    className="w-full text-left px-4 py-3 hover:bg-purple-100 text-sm text-gray-700 last:rounded-b-md"
+                  >
+                    Amount
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           
@@ -331,7 +440,10 @@ function WalletPage() {
                     </span>
                   </td>
                   <td className="px-4 py-4">
-                    <button className="border border-primary hover:bg-primary hover:text-white text-primary px-4 py-2 rounded-md text-sm">
+                    <button 
+                      onClick={() => handleViewTransactionDetails(transaction)}
+                      className="border border-primary hover:bg-primary hover:text-white text-primary px-4 py-2 rounded-md text-sm"
+                    >
                       View Details
                     </button>
                   </td>
@@ -344,7 +456,11 @@ function WalletPage() {
         {/* Mobile Transaction List */}
         <div className="md:hidden">
           {transactions.slice(0, 3).map(transaction => (
-            <div key={transaction.id} className="mb-3 border-b border-gray-100 pb-3">
+            <div 
+              key={transaction.id} 
+              className="mb-3 border-b border-gray-100 pb-3 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors"
+              onClick={() => handleViewTransactionDetails(transaction)}
+            >
               <div className="flex justify-between items-center mb-1">
                 <div className="font-medium text-sm text-gray-600">{transaction.title}</div>
                 <div className="text-sm font-bold">{transaction.amount}</div>

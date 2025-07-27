@@ -1,26 +1,41 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ChevronDown, Bell, User, LogOut, Menu } from "lucide-react"
+import { ChevronDown, LogOut, Menu } from "lucide-react"
 import Image from "next/image"
 import { NotificationIcon } from "@/assets/icons"
 import { Profile } from "@/assets/images"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+const formatUserName = (user) => {
+  if (!user) return '';
+  return user.username || 'User';
+};
+
 export default function Header({ user }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const dropdownRef = useRef(null)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userName, setUserName] = useState('');
+  const dropdownRef = useRef(null);
   const pathname = usePathname()
+
+  useEffect(() => {
+    // Get user data from localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      setUserName(formatUserName(user));
+    }
+  }, [])
 
   // Get the current page title based on the pathname
   const getPageTitle = () => {
-    if (pathname.includes('/user/dashboard')) return 'Dashboard'
-    if (pathname.includes('/user/wishlist')) return 'Wishlist'
-    if (pathname.includes('/user/wallet')) return 'Wallet'
-    if (pathname.includes('/user/maintenance')) return 'Maintenance'
-    if (pathname.includes('/user/profile')) return 'Profile Settings'
+    if (pathname.includes('/dashboard')) return 'Dashboard'
+    if (pathname.includes('/wishlist')) return 'Wishlist'
+    if (pathname.includes('/wallet')) return 'Wallet'
+    if (pathname.includes('/maintenance')) return 'Maintenance'
+    if (pathname.includes('/profile')) return 'Profile Settings'
     return 'Dashboard' // Default
   }
 
@@ -46,7 +61,7 @@ export default function Header({ user }) {
           <div className="ml-12 md:ml-0">
             {getPageTitle() === 'Dashboard' ? (
               <>
-                <h1 className="pt-2 px-6 text-xl font-medium">Hi Alesia K.</h1>
+                <h1 className="pt-2 px-6 text-xl font-medium">Hi {userName || 'user'}</h1>
                 <p className="px-6 text-xs text-gray-500">Welcome back!</p>
               </>
             ) : (
@@ -73,7 +88,7 @@ export default function Header({ user }) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className="text-md font-medium hidden md:inline">Alesia K.</span>
+                <span className="text-md font-medium hidden md:inline">{userName}</span>
                 <ChevronDown
                   size={17}
                   className={`text-gray-600 hidden md:inline transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''
@@ -83,7 +98,7 @@ export default function Header({ user }) {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 z-50 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
                   <Link
-                    href="/user/profile"
+                    href="/profile"
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     My Profile

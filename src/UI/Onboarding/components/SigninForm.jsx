@@ -7,6 +7,7 @@ import { useLogin } from "@/hooks";
 import { RealTimeValidateInput } from "./RealTimeValidatedInput";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import clsx from "clsx";
+import toast from 'react-hot-toast';
 
 export default function SigninForm({ serviceType }) {
     const router = useRouter();
@@ -65,16 +66,22 @@ export default function SigninForm({ serviceType }) {
                     localStorage.setItem('refreshToken', result.refreshToken);
                     localStorage.setItem('user', JSON.stringify(result.user));
                     
+                    // Show success toast
+                    toast.success('You have been successfully logged in. You can now access your dashboard!');
+                    
                     // Immediate redirect to home page using replace for faster navigation
                     router.replace('/');
                 },
                 onError: (error) => {
                     console.error('Login error:', error);
                     if (error.status === 401) {
+                        toast.error('Invalid email or password');
                         setErrors({ general: 'Invalid email or password' });
                     } else if (error.status === 422 && error.errors) {
+                        toast.error('Please check your input and try again');
                         setErrors(error.errors);
                     } else {
+                        toast.error(error.message || 'Login failed. Please try again.');
                         setErrors({ general: error.message || 'Login failed. Please try again.' });
                     }
                 }

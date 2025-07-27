@@ -1,7 +1,29 @@
+"use client";
 import Image from "next/image";
 import { tour } from "@/Constant";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function TourPairWithMe() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+    useEffect(() => {
+        // Check if user is logged in
+        const checkLoginStatus = () => {
+          const authToken = localStorage.getItem('authToken');
+          setIsLoggedIn(!!authToken);
+        };
+    
+        checkLoginStatus();
+        // Add event listener for storage changes
+        window.addEventListener('storage', checkLoginStatus);
+        
+        return () => {
+          window.removeEventListener('storage', checkLoginStatus);
+        };
+    }, []);
+
+
   return (
     <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-12">
       <article className="flex-[2]">
@@ -13,7 +35,21 @@ export default function TourPairWithMe() {
           {tour["Pair With Me"].desc}
         </p>
 
-        <button className="btn-primary"> Get Started</button>
+        {isLoggedIn ? (
+          <Link 
+            href="/dashboard" 
+            className="btn-primary"
+          >
+            Dashboard
+          </Link>
+        ) : (
+          <Link
+            href="/sign-up"
+            className="btn-primary"
+          >
+            Get Started
+          </Link>
+        )}
       </article>
 
       <figure className="flex-[3] w-full ">
