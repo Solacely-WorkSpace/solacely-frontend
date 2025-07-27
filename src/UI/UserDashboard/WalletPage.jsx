@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import Tooltip from '../../components/Tooltip'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FiChevronRight } from 'react-icons/fi'
@@ -84,6 +85,10 @@ function WalletPage() {
   const [showTransactionDetails, setShowTransactionDetails] = useState(false)
   const [selectedTransaction, setSelectedTransaction] = useState(null)
 
+  // Tooltip state
+  const [tooltipStep, setTooltipStep] = useState(1);
+  const [showTooltip, setShowTooltip] = useState(true);
+
   const handleEscrowPayment = () => {
     // Add your escrow payment logic here
     console.log('Processing escrow payment...')
@@ -105,7 +110,11 @@ function WalletPage() {
   }
 
   return (
-    <div className="min-h-screen w-full md:p-6">
+    <div className="min-h-screen w-full md:p-6 relative">
+      {/* Gray overlay when tooltip is visible */}
+      {showTooltip && (
+        <div className="fixed inset-0 bg-[#0A0A2499] hidden md:block bg-opacity-90 z-40"></div>
+      )}
       {/* Escrow Popup */}
       <EscrowPopup 
         isOpen={showEscrowPopup}
@@ -121,32 +130,72 @@ function WalletPage() {
       />
 
       {/* Header with back button */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 relative z-50">
         <div>
           <h1 className="md:hidden text-2xl md:text-3xl font-bold text-gray-800">Wallet</h1>
         </div>
-        
-        <div className="flex gap-2 md:gap-3 w-full md:w-auto">
-          <button
-            className="bg-complementary text-white py-2.5 px-3 md:px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark text-sm md:text-base flex-1 md:flex-none md:w-[200px]"
-            onClick={() => setShowSaveForRent(true)}
-          >
-            Save for Rent
-          </button>
-          <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base flex-1 md:flex-none md:w-[200px]"
-            onClick={() => setShowRentPayment(true)}>
-            Pay Rent
-          </button>
+        <div className="flex gap-2 md:gap-3 w-full md:w-auto relative">
+          {/* Tooltip for Save for Rent button (Step 1) */}
+          <div className="relative flex-1 md:flex-none md:w-[200px]">
+            <div className="hidden md:block">
+              <Tooltip
+                visible={showTooltip && tooltipStep === 1}
+                title="Save for Rent"
+                description="Add funds to your rent savings goal manually or automatically."
+                step={1}
+                totalSteps={3}
+                onNext={() => setTooltipStep(2)}
+                onSkip={() => setShowTooltip(false)}
+              />
+            </div>
+            <button
+              className="bg-complementary text-white py-2.5 px-3 md:px-4 rounded-lg border border-gray-200 hover:bg-complementary-dark text-sm md:text-base w-full"
+              onClick={() => setShowSaveForRent(true)}
+            >
+              Save for Rent
+            </button>
+          </div>
+          {/* Tooltip for Pay Rent button (Step 2) */}
+          <div className="relative flex-1 md:flex-none md:w-[200px]">
+            <div className="hidden md:block">
+              <Tooltip
+                visible={showTooltip && tooltipStep === 2}
+                title="Pay Rent"
+                description="Use your savings, TRC, or wallet balance to pay your rent securely."
+                step={2}
+                totalSteps={3}
+                onNext={() => setTooltipStep(3)}
+                onSkip={() => setShowTooltip(false)}
+              />
+            </div>
+            <button className="bg-purple-50 text-black font-semibold border border-gray-200 py-2.5 px-3 md:px-4 rounded-lg text-sm md:text-base w-full"
+              onClick={() => setShowRentPayment(true)}>
+              Pay Rent
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Cards Section */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {/* Wallet Balance Card */}
-        <div className="bg-white p-3 md:p-4 rounded-lg border border-gray-200">
+        <div className="bg-white p-3 md:p-4 rounded-lg border border-gray-200 relative">
+          {/* Tooltip for Wallet Balance (Step 3) */}
+          <div className="hidden md:block">
+            <div className="absolute top-1/2 right-[-340px] z-50 transform -translate-y-1/2">
+              <Tooltip
+                visible={showTooltip && tooltipStep === 3}
+                title="Wallet Balance"
+                description="This is your total balance across TRC, rent savings, and wallet funds."
+                step={3}
+                totalSteps={3}
+                onNext={() => setShowTooltip(false)}
+                onSkip={() => setShowTooltip(false)}
+              />
+            </div>
+          </div>
           <h3 className="text-black text-sm mb-2">Wallet Balance</h3>
           <h2 className="text-lg font-bold mb-2">{walletBalance}</h2>
-          
           <div className="mt-4">
             <p className="text-sm text-gray-400 font-semibold">Rent Progress</p>
             <div className="bg-emerald-100 h-3 rounded-full mt-1">
