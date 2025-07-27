@@ -1,46 +1,46 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-
+import { Global, Nigeria, Ghana, Kenya, SouthAfrica, Uganda, Rwanda } from "@/assets/images";
 const countries = [
 	{
 		name: "Global",
-		icon: "/icons/CountryFlags/Global.svg",
+		icon: Global,
 		active: true,
 		comingSoon: false,
 	},
 	{
 		name: "Nigeria",
-		icon: "/icons/CountryFlags/nigeria.svg",
+		icon: Nigeria,
 		active: true,
 		comingSoon: false,
 	},
 	{
 		name: "South Africa",
-		icon: "/icons/CountryFlags/south-africa.svg",
+		icon: SouthAfrica,
 		active: true,
 		comingSoon: true,
 	},
 	{
 		name: "Ghana",
-		icon: "/icons/CountryFlags/ghana.svg",
+		icon: Ghana,
 		active: true,
 		comingSoon: true,
 	},
 	{
 		name: "Kenya",
-		icon: "/icons/CountryFlags/kenya.svg",
+		icon: Kenya,
 		active: true,
 		comingSoon: true,
 	},
     {
         name: "Uganda",
-        icon: "/icons/CountryFlags/uganda.svg",
+        icon: Uganda,
         active: true,
         comingSoon: true,
     },
     {
         name: "Rwanda",
-        icon: "/icons/CountryFlags/rwanda.svg",
+        icon: Rwanda,
         active: true,
         comingSoon: true,
     },
