@@ -75,6 +75,15 @@ import Property2 from "@/../public/images/UserDashboard/property2.png"
 import Avatar from "@/../public/images/UserDashboard/Avatar.png"
 import Handshake from "@/../public/images/UserDashboard/handshake.png"
 
+// Country flags
+import Global from "@/../public/images/CountryFlags/Global.png"
+import Nigeria from "@/../public/images/CountryFlags/nigeria.png"
+import Ghana from "@/../public/images/CountryFlags/ghana.png"
+import Kenya from "@/../public/images/CountryFlags/kenya.png"
+import SouthAfrica from "@/../public/images/CountryFlags/south-africa.png"
+import Uganda from "@/../public/images/CountryFlags/uganda.png"
+import Rwanda from "@/../public/images/CountryFlags/rwanda.png"
+
 
 // Apartment Assets
 import ApartmentBg from "@/../public/images/Apartments/apartment.png"
@@ -151,5 +160,12 @@ export {
     MailConfirmation,
     Congratulations,
     Map,
-    Handshake
+    Handshake,
+    Global,
+    Nigeria,
+    Ghana,
+    Kenya,
+    SouthAfrica,
+    Uganda,
+    Rwanda
 }   
