@@ -60,7 +60,7 @@ const Footer = () => {
           <div className="flex-1 text-white  flex flex-col gap-2 md:gap-4 text-start  z-30">
             <h3 className=" font-semibold text-sm text-white z-30"> Company </h3>
 
-            <Link href="#" className=" opacity-70 text-sm">
+            <Link href="/about" className=" opacity-70 text-sm">
               About Us
             </Link>
 
@@ -76,8 +76,12 @@ const Footer = () => {
               FAQS
             </Link>
 
-            <Link href="#" className=" opacity-70 text-sm">
-              Terms and Privacy
+            <Link href="/terms_and_conditions" className=" opacity-70 text-sm">
+              Terms and Conditions
+            </Link>
+
+            <Link href="/privacy_policy" className=" opacity-70 text-sm">
+              Privacy Policy
             </Link>
           </div>
 
@@ -99,7 +103,7 @@ const Footer = () => {
               </Link>
 
               <Link
-                href="#"
+                href="https://www.instagram.com/trysolacely/"
                 className="w-8"
               >
                 <Image
@@ -112,7 +116,7 @@ const Footer = () => {
               </Link>
 
               <Link
-                href="#"
+                href="https://x.com/trysolacely"
                 className="w-8"
               >
                 <Image
@@ -125,7 +129,7 @@ const Footer = () => {
               </Link>
 
               <Link
-                href="#"
+                href="https://www.linkedin.com/company/solacely/"
                 className="w-8"
               >
                 <Image
