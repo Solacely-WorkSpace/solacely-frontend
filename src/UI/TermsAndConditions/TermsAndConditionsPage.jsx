@@ -4,7 +4,7 @@ import React from 'react'
 
 function TermsAndConditionsPage() {
   return (
-    <section className="aboutpage-container mt-16 w-full px-4">
+    <section className="aboutpage-container mt-16 w-full px-4 md:px-0">
       <div className="max-w-6xl justify-start">
       <h1 className="text-3xl font-bold text-complementary mt-20">Terms and Conditions</h1>
       <p><strong>Last updated:</strong> January, 2025</p>

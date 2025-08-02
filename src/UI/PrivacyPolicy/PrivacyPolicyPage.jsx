@@ -4,7 +4,7 @@ import React from 'react'
 
 function PrivacyPolicyPage() {
   return (
-    <section className="aboutpage-container mt-16 w-full"> 
+    <section className="aboutpage-container mt-16 w-full px-4 md:px-0"> 
     <div className="max-w-6xl justify-start">
       <h1 className="text-3xl font-bold text-complementary mt-20">Privacy Policy</h1>
       <p className="text-sm mt-4"><strong>Last updated:</strong> January, 2025</p>
