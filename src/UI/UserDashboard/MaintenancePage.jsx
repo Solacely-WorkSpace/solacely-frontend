@@ -62,13 +62,13 @@ function MaintenancePage() {
   ];
 
   return (
-    <main className="md:p-6 w-full max-w-full overflow-hidden">
+    <main className="md:p-6 w-full">
       {/* Page Title */}
       <div className="md:block mb-8">
         <h1 className="text-xl font-medium md:hidden block">Maintenance</h1>
       </div>
       
-      <div className="flex flex-col w-full max-w-full">
+      <div className="flex flex-col w-full">
         {!hasMaintenanceRequests && (
           <div className="flex mt-16 flex-col items-center justify-center p-5 rounded-md w-full mx-auto">
             <div className="relative w-40 h-40 mb-5">
@@ -198,49 +198,49 @@ function MaintenancePage() {
             )}
 
             {/* Maintenance Requests Table */}
-            <div className="w-full max-w-full bg-white rounded-lg border border-gray-200 overflow-hidden">
-              <div className="overflow-x-auto w-full">
-                <table className="w-full divide-y divide-gray-200" style={{minWidth: '1000px'}}>
+            <div className="w-full bg-white rounded-lg border border-gray-200 overflow-hidden">
+              <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" style={{maxWidth: '100vw'}}>
+                <table className="w-full divide-y divide-gray-200" style={{minWidth: '900px'}}>
                     <thead className="bg-purple-50">
                       <tr>
-                        <th scope="col" className="w-10 p-4 text-left">
+                        <th scope="col" className="w-12 p-4 text-left">
                           <input type="checkbox" className="rounded" />
                         </th>
-                        <th scope="col" className="p-4 text-left text-sm font-bold text-black tracking-wider">Request ID</th>
-                        <th scope="col" className="p-4 text-left text-sm font-bold text-black tracking-wider">Date Created</th>
-                        <th scope="col" className="p-4 text-left text-sm font-bold text-black tracking-wider">Maintenance request</th>
-                        <th scope="col" className="p-4 text-left text-sm font-bold text-black tracking-wider">Apartment</th>
-                        <th scope="col" className="p-4 text-left text-sm font-bold text-black tracking-wider">Status</th>
-                        <th scope="col" className="p-4 text-left text-sm font-bold text-black tracking-wider">Action</th>
+                        <th scope="col" className="w-24 p-4 text-left text-sm font-bold text-black tracking-wider">Request ID</th>
+                        <th scope="col" className="w-32 p-4 text-left text-sm font-bold text-black tracking-wider">Date Created</th>
+                        <th scope="col" className="w-48 p-4 text-left text-sm font-bold text-black tracking-wider">Maintenance request</th>
+                        <th scope="col" className="w-40 p-4 text-left text-sm font-bold text-black tracking-wider">Apartment</th>
+                        <th scope="col" className="w-24 p-4 text-left text-sm font-bold text-black tracking-wider">Status</th>
+                        <th scope="col" className="w-24 p-4 text-left text-sm font-bold text-black tracking-wider">Action</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white">
                     {maintenanceRequests.map((request, index) => (
                       <tr key={index} className="hover:bg-gray-50">
-                        <td className="p-4 whitespace-nowrap">
+                        <td className="w-12 p-4 whitespace-nowrap">
                           <input type="checkbox" className="rounded" />
                         </td>
-                        <td className="p-4 whitespace-nowrap">
+                        <td className="w-24 p-4 whitespace-nowrap">
                           <span className="text-sm text-gray-700">{request.id}</span>
                         </td>
-                        <td className="p-4 whitespace-nowrap">
+                        <td className="w-32 p-4 whitespace-nowrap">
                           <div className="text-sm text-gray-600 font-semibold">{request.dateCreated}</div>
                           <div className="text-xs text-gray-500">at {request.time}</div>
                         </td>
-                        <td className="p-4">
+                        <td className="w-48 p-4">
                           <div className="text-sm text-gray-600 font-semibold">{request.requestType}</div>
-                          <div className="text-xs text-gray-500 truncate max-w-xs">{request.description}</div>
+                          <div className="text-xs text-gray-500 truncate">{request.description}</div>
                         </td>
-                        <td className="p-4 whitespace-nowrap">
+                        <td className="w-40 p-4 whitespace-nowrap">
                           <div className="text-sm text-black font-semibold">{request.apartment}</div>
                           <div className="text-xs text-gray-500">{request.address}</div>
                         </td>
-                        <td className="p-4 whitespace-nowrap">
+                        <td className="w-24 p-4 whitespace-nowrap">
                           <span className={`inline-flex px-3 py-3 rounded-lg text-sm font-medium ${request.status === 'Pending' ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}`}>
                             {request.status}
                           </span>
                         </td>
-                        <td className="p-4">
+                        <td className="w-24 p-4">
                           <button 
                             onClick={() => handleViewClick(request)} 
                             className="inline-flex items-center px-3 py-2 border border-primary text-primary text-sm font-medium rounded-md hover:bg-primary hover:text-white transition-colors">

@@ -12,7 +12,7 @@ function PrivacyPolicyPage() {
         <li>
           <h2 className="text-xl font-semibold mt-4 text-primary my-4">1. Introduction</h2>
           <p className="mt-2">
-            Welcome to Solacely (we, us). We operate the website Solacely.app (Service). This Privacy Policy explains how we collect, use, disclose, and protect your information in compliance with Nigerian law. By using our Service, you accept the practices outlined herein and those in our Terms and Conditions ("Agreement").
+            Welcome to Solacely ('we', 'us'). We operate the website Solacely.app ('Service'). This Privacy Policy explains how we collect, use, disclose, and protect your information in compliance with Nigerian law. By using our Service, you accept the practices outlined herein and those in our Terms and Conditions ("Agreement").
           </p>
         </li>
         <li>

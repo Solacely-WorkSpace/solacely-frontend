@@ -130,7 +130,7 @@ function WalletPage() {
       />
 
       {/* Header with back button */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 relative z-50">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 relative">
         <div>
           <h1 className="md:hidden text-2xl md:text-3xl font-bold text-gray-800">Wallet</h1>
         </div>

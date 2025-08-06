@@ -23,7 +23,18 @@ apiClient.interceptors.request.use(
     // Get token from localStorage or your preferred storage
     const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
     
-    if (token) {
+    // Debug token issues
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔍 Token Debug:', {
+        tokenExists: !!token,
+        tokenType: typeof token,
+        tokenValue: token,
+        tokenLength: token ? token.length : 0,
+        isUndefinedString: token === 'undefined'
+      });
+    }
+    
+    if (token && token !== 'undefined' && token !== 'null') {
       config.headers.Authorization = `Bearer ${token}`;
     }
     
@@ -33,6 +44,9 @@ apiClient.interceptors.request.use(
         method: config.method?.toUpperCase(),
         url: config.url,
         data: config.data,
+        hasToken: !!token && token !== 'undefined',
+        tokenPreview: token && token !== 'undefined' ? `${token.substring(0, 20)}...` : 'No valid token',
+        headers: config.headers,
       });
     }
     
@@ -66,10 +80,31 @@ apiClient.interceptors.response.use(
       
       switch (status) {
         case 401:
-          // Unauthorized - redirect to login
+          // Unauthorized - only auto-logout for auth-critical endpoints
           if (typeof window !== 'undefined') {
-            localStorage.removeItem('authToken');
-            window.location.href = '/sign-in';
+            const url = error.config?.url || '';
+            
+            // Auto-logout only for user-specific or auth-critical endpoints
+            const authCriticalEndpoints = [
+              '/auth/profile',
+              '/auth/logout',
+              '/user/',
+              '/wallet/',
+              '/bookings/',
+              '/payments/'
+            ];
+            
+            const shouldAutoLogout = authCriticalEndpoints.some(endpoint => 
+              url.includes(endpoint)
+            );
+            
+            if (shouldAutoLogout) {
+              console.log('🚪 Auto-logout triggered for auth-critical endpoint:', url);
+              localStorage.removeItem('authToken');
+              window.location.href = '/sign-in';
+            } else {
+              console.log('🔒 401 received but not auto-logging out for:', url);
+            }
           }
           break;
         case 403:
@@ -93,8 +128,21 @@ apiClient.interceptors.response.use(
         console.error('❌ API Error:', {
           status,
           url: error.config?.url,
+          method: error.config?.method?.toUpperCase(),
           message: data?.message || error.message,
           data,
+          willAutoLogout: status === 401 && typeof window !== 'undefined' && (() => {
+            const url = error.config?.url || '';
+            const authCriticalEndpoints = [
+              '/auth/profile',
+              '/auth/logout', 
+              '/user/',
+              '/wallet/',
+              '/bookings/',
+              '/payments/'
+            ];
+            return authCriticalEndpoints.some(endpoint => url.includes(endpoint));
+          })()
         });
       }
     } else if (error.request) {
