@@ -7,12 +7,12 @@ function TermsAndConditionsPage() {
     <section className="aboutpage-container mt-16 w-full px-4 md:px-0">
       <div className="max-w-6xl justify-start">
       <h1 className="text-3xl font-bold text-complementary mt-20">Terms and Conditions</h1>
-      <p><strong>Last updated:</strong> January, 2025</p>
+      <p className="text-sm mt-4"><strong>Last updated:</strong> January, 2025</p>
       <ol style={{ paddingLeft: '1.2em' }}>
         <li>
           <h2 className="text-xl font-semibold mt-4 text-primary my-4">1. Introduction</h2>
           <p className="mt-2">
-            Welcome to Solacely (Company, we, us)! These Terms of Service (Terms) govern your access to our website Solacely.app (Service). By using the Service, you agree to these Terms and our Privacy Policy (together, Agreements). If you do not agree, please discontinue use and contact us at <a href="mailto:hello@solacely.app">hello@solacely.app</a>.
+            Welcome to Solacely ('Company', 'we', 'us')! These Terms of Service ('Terms') govern your access to our website Solacely.app ('Service'). By using the Service, you agree to these Terms and our Privacy Policy (together, 'Agreements'). If you do not agree, please discontinue use and contact us at <a href="mailto:hello@solacely.app">hello@solacely.app</a>.
           </p>
         </li>
         <li>
@@ -37,7 +37,7 @@ function TermsAndConditionsPage() {
         <li>
           <h2 className="text-xl font-semibold mt-4 text-primary my-4">4. Promotions</h2>
           <p className="mt-2">
-            Any contests or promotions (Promotions) are governed by their own rules. In case of conflict between Promotion rules and these Terms, Promotion rules will prevail.
+            Any contests or promotions ('Promotions') are governed by their own rules. In case of conflict between Promotion rules and these Terms, Promotion rules will prevail.
           </p>
         </li>
         <li>
@@ -86,7 +86,7 @@ function TermsAndConditionsPage() {
         <li>
           <h2 className="text-xl font-semibold mt-4 text-primary my-4">11. Copyright Infringement Complaints</h2>
           <p className="mt-2">
-            If you believe your copyright is infringed, email <a href="mailto:hello@solacely.app">hello@solacely.app</a> with Copyright Infringement in the subject line and include:
+            If you believe your copyright is infringed, email <a href="mailto:hello@solacely.app">hello@solacely.app</a> with 'Copyright Infringement' in the subject line and include:
           </p>
           <ul className="list-disc pl-6">
             <li>Signature of the rights owner</li>
@@ -100,7 +100,7 @@ function TermsAndConditionsPage() {
         <li>
           <h2 className="text-xl font-semibold mt-4 text-primary my-4">12. Feedback & Suggestions</h2>
           <p className="mt-2">
-            If you submit feedback or suggestions (Feedback), you grant Solacely a perpetual, worldwide, royalty-free, sublicensable right to use and commercialize it.
+            If you submit feedback or suggestions ('Feedback'), you grant Solacely a perpetual, worldwide, royalty-free, sublicensable right to use and commercialize it.
           </p>
         </li>
         <li>
@@ -112,7 +112,7 @@ function TermsAndConditionsPage() {
         <li>
           <h2 className="text-xl font-semibold mt-4 text-primary my-4">14. Disclaimers</h2>
           <p className="mt-2">
-            The Service is provided as is without warranties. We do not guarantee uninterrupted access, error-free operation, or absence of harmful components.
+            The Service is provided 'as is' without warranties. We do not guarantee uninterrupted access, error-free operation, or absence of harmful components.
           </p>
         </li>
         <li>

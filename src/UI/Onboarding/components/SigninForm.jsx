@@ -61,10 +61,9 @@ export default function SigninForm({ serviceType }) {
             loginMutation.mutate(loginData, {
                 onSuccess: (result) => {
                     console.log('Login successful:', result);
-                    // Store auth data in localStorage
-                    localStorage.setItem('authToken', result.token);
-                    localStorage.setItem('refreshToken', result.refreshToken);
-                    localStorage.setItem('user', JSON.stringify(result.user));
+                    
+                    // Token storage is now handled by authService.login()
+                    // Just show success message and redirect
                     
                     // Show success toast
                     toast.success('You have been successfully logged in. You can now access your dashboard!');
