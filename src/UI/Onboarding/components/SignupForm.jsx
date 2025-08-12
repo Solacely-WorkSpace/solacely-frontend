@@ -148,6 +148,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                 <input
                     type="text"
                     name="fullName"
+                    id="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
                     placeholder="Full Name"
@@ -169,6 +170,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                 <input
                     type="text"
                     name="username"
+                    id="username"
                     value={formData.username}
                     onChange={handleInputChange}
                     placeholder="Username"
@@ -189,6 +191,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                 <input
                     type="email"
                     name="email"
+                    id="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Email"
@@ -216,6 +219,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                     <input
                         type="text"
                         name="mobile"
+                        id="mobile"
                         value={formData.mobile}
                         onChange={handleInputChange}
                         placeholder="Mobile"
@@ -236,6 +240,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
 
                 <select
                     name="location"
+                    id="location"
                     value={formData.location}
                     onChange={handleInputChange}
                     className={`placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border ${errors.location ? 'border-red-400' : 'border-gray-400'}`}
@@ -261,6 +266,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                     <input
                         type={showPassword ? "text" : "password"}
                         name="password"
+                        id="password"
                         value={formData.password}
                         onChange={handleInputChange}
                         placeholder="Password"
@@ -290,6 +296,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                     <input
                         type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
+                        id="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                         placeholder="Confirm Password"
