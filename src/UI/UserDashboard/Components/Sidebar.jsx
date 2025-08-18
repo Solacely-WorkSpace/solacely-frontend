@@ -6,6 +6,7 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { X, Menu } from "lucide-react"
 import { LogoName } from '@/assets/images' 
+import { useLogout } from "@/hooks" 
 import { 
   Dashboard, DashboardSelected,
   Heart, HeartSelected,
@@ -18,16 +19,31 @@ import {
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobileHeaderVisible, setIsMobileHeaderVisible] = useState(true);
+  const [userName, setUserName] = useState('');
 
+  const formatUserName = (user) => {
+    if (!user) return '';
+    return user.username || 'User';
+  };
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
     setIsMobileHeaderVisible(!isMobileHeaderVisible);
   };
 
+  useEffect(() => {
+      // Get user data from localStorage
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        setUserName(formatUserName(user));
+      }
+    }, [])
+
   const handleLinkClick = () => {
     setIsSidebarOpen(false);
     setIsMobileHeaderVisible(true);
   };
+
 
   const pathname = usePathname()
 
@@ -94,7 +110,8 @@ export default function Sidebar() {
       {/* Mobile Overlay */}
       {isSidebarOpen && (
         <div 
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="md:hidden fixed inset-0 z-40"
+          style={{ background: 'rgba(14, 12, 12, 0.15)' }}
           onClick={toggleSidebar}
         ></div>
       )}
@@ -147,7 +164,7 @@ export default function Sidebar() {
       </div>
 
       {/* Mobile Sidebar */}
-      <div className={`md:hidden fixed top-0 left-0 h-full w-full bg-white z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`md:hidden fixed top-0 left-0 h-full w-full bg-white z-100 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex justify-between items-center p-6 ">
           <Link href="/" onClick={handleLinkClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <Image 
@@ -192,12 +209,12 @@ export default function Sidebar() {
               </li>
             ))}
             <li>
-              <Link
-                href="/sign-in"
-                onClick={handleLinkClick}
-                className={`flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors ${
-                  isActive() ? "bg-primary text-white" : "text-gray-500 hover:bg-gray-100"
-                }`}
+              <button
+                href="/"
+                onClick={() => {
+                  localStorage.clear(); // Clear all localStorage data tokens
+                }}
+                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors text-left text-gray-500 hover:bg-gray-100"
               >
                 <Image
                   src={Logout}
@@ -207,7 +224,7 @@ export default function Sidebar() {
                   className="w-5 h-5"
                 />
                 <span>Logout</span>
-              </Link>
+              </button>
             </li>
           </ul>
         </nav>

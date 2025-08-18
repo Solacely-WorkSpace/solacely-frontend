@@ -35,9 +35,9 @@ export default function SigninForm({ serviceType }) {
             newErrors.email = 'Email is required';
         }
         
-        if (serviceType === 'mobile' && !phoneNumber.trim()) {
-            newErrors.phoneNumber = 'Phone number is required';
-        }
+        // if (serviceType === 'mobile' && !phoneNumber.trim()) {
+        //     newErrors.phoneNumber = 'Phone number is required';
+        // }
         
         if (!password.trim()) {
             newErrors.password = 'Password is required';
@@ -61,10 +61,9 @@ export default function SigninForm({ serviceType }) {
             loginMutation.mutate(loginData, {
                 onSuccess: (result) => {
                     console.log('Login successful:', result);
-                    // Store auth data in localStorage
-                    localStorage.setItem('authToken', result.token);
-                    localStorage.setItem('refreshToken', result.refreshToken);
-                    localStorage.setItem('user', JSON.stringify(result.user));
+                    
+                    // Token storage is now handled by authService.login()
+                    // Just show success message and redirect
                     
                     // Show success toast
                     toast.success('You have been successfully logged in. You can now access your dashboard!');
@@ -96,7 +95,7 @@ export default function SigninForm({ serviceType }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="h-full w-full md:w-[360px] "
+            className="h-full w-full md:w-[360px] mt-6"
         >
             {errors.general && (
                 <div className="w-full mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -118,6 +117,7 @@ export default function SigninForm({ serviceType }) {
                         {...{
                             type: 'email',
                             name: 'email',
+                            id: 'email',
                             placeholder: "Email address",
                             value: email,
                             setValue: setEmail,
@@ -131,7 +131,7 @@ export default function SigninForm({ serviceType }) {
                 </div>
             }
 
-            {
+            {/* {
                 serviceType === 'mobile' &&
                 <div className="w-full">
                     <label
@@ -161,6 +161,7 @@ export default function SigninForm({ serviceType }) {
                             {...{
                                 type: 'number',
                                 name: 'phone number',
+                                id: 'phone number',
                                 placeholder: "",
                                 value: phoneNumber,
                                 setValue: setPhoneNumber,
@@ -173,7 +174,7 @@ export default function SigninForm({ serviceType }) {
                     </div>
                     {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
                 </div>
-            }
+            } */}
 
             <div className="mt-6">
                 <label
@@ -189,6 +190,7 @@ export default function SigninForm({ serviceType }) {
                             type: showPassword ? 'text' : 'password',
                             value: password,
                             name: 'password',
+                            id: 'password',
                             placeholder: "Password",
                             required: true,
                             setValue: setPassword,
@@ -235,11 +237,11 @@ function emailValidator(value) {
             : 'not taken'
 }
 
-function phoneNumberValidator(value) {
-    console.log(value)
-    return value.length === 0
-        ? undefined
-        : value.length < 3
-            ? 'taken'
-            : 'not taken'
-}
+// function phoneNumberValidator(value) {
+//     console.log(value)
+//     return value.length === 0
+//         ? undefined
+//         : value.length < 3
+//             ? 'taken'
+//             : 'not taken'
+// }

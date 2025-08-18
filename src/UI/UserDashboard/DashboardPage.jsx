@@ -6,6 +6,8 @@ import {Property, HouseIllustration, WishlistHeart, WalletIcon} from "@/assets/i
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import {VerifiedIcon, homeIcon, locationIcon, contractIcon} from "@/assets/icons"
+import { apartmentService } from "@/lib/api"
+import { useAuthStatus } from "@/hooks/useAuthGuard"
 
 const formatUserName = (user) => {
   if (!user) return '';
@@ -15,16 +17,94 @@ const formatUserName = (user) => {
 function DashboardPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const [userName, setUserName] = useState('')
+  const [apartments, setApartments] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const ITEMS_PER_PAGE = 6
   // State to check if user has a rented apartment
   const [hasRentedApartment, setHasRentedApartment] = useState(true) // Set to true for demo
 
+  // Check authentication status
+  const { isAuthenticated, user, hasValidToken } = useAuthStatus();
+
+  // Calculate pagination
+  const totalPages = Math.ceil(apartments.length / ITEMS_PER_PAGE)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
+  const currentApartments = apartments.slice(startIndex, endIndex)
+
   useEffect(() => {
-    // Get user data from localStorage
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const user = JSON.parse(userData);
+    // Get user data from auth hook or localStorage as fallback
+    if (user) {
       setUserName(formatUserName(user));
+    } else if (typeof window !== 'undefined') {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        setUserName(formatUserName(parsedUser));
+      }
     }
+  }, [user]);
+
+  // Fetch apartments from API
+  useEffect(() => {
+    const fetchApartments = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        console.log('🏠 Fetching apartment listings...');
+        
+        // Try to fetch apartments
+        const response = await apartmentService.getListings();
+        
+        // Handle the response data structure
+        if (response && response.data) {
+          console.log('✅ Successfully fetched apartments:', response.data.length);
+          setApartments(response.data);
+        } else if (Array.isArray(response)) {
+          console.log('✅ Successfully fetched apartments:', response.length);
+          setApartments(response);
+        } else {
+          console.log('⚠️ No apartments found in response');
+          setApartments([]);
+        }
+      } catch (err) {
+        console.error('❌ Error fetching apartments:', err);
+        
+        // More specific error handling
+        if (err.status === 401) {
+          // Check if user is logged in
+          if (typeof window !== 'undefined') {
+            const userData = localStorage.getItem('user');
+            const token = localStorage.getItem('authToken');
+            
+            if (!userData || !token || token === 'undefined' || token === 'null') {
+              setError('Please log in to view apartment listings.');
+            } else {
+              setError('Your session has expired. Please log in again to view apartments.');
+              // Clean up invalid auth data
+              localStorage.removeItem('authToken');
+            }
+          } else {
+            setError('Please log in to view apartment listings.');
+          }
+        } else if (err.status === 403) {
+          setError('Access forbidden. You do not have permission to view apartments.');
+        } else if (err.status === 404) {
+          setError('Apartment listings not found. The endpoint might not be available.');
+        } else if (err.message?.includes('Network error') || err.message?.includes('aborted')) {
+          setError('Network connection error. Please check your internet connection and try again.');
+        } else {
+          setError('Failed to load apartments. Please try again later.');
+        }
+        setApartments([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApartments();
   }, []);
   
   // Rented apartment details
@@ -37,63 +117,6 @@ function DashboardPage() {
     contractType: "Contract",
     contractLabel: "Rental Agreement"
   }
-  
-  const apartments = [
-    {
-      id: 1,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.72sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month"
-    },
-    {
-      id: 2,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.72sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month"
-    },
-    {
-      id: 3,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.79sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month"
-    },
-    {
-      id: 4,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month"
-    },
-    {
-      id: 5,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month"
-    },
-    {
-      id: 6,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Lasdo",
-      price: "₦24,000,000/month"
-    }
-  ]
 
   return (
         
@@ -216,77 +239,187 @@ function DashboardPage() {
             </div>
             
             {/* Grid of Apartments */}
-            <div className="grid grid-cols-1 md:px-4 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {apartments.map((apt) => (
-                <div key={apt.id} className="bg-white rounded-lg overflow-hidden">
-                  <div className="relative">
-                    <Image
-                      src={Property}
-                      alt={apt.title}
-                      className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <button className="absolute top-3 right-3  p-1">
-                      <Image src={WishlistHeart} alt="Wishlist" />
-                    </button>
-                  </div>
-                  
-                  <div className="py-2">
-                    <h3 className="text-sm font-bold text-gray-800 mb-2">{apt.title}</h3>
+            {loading ? (
+              <div className="flex justify-center items-center py-8">
+                <div className="text-gray-500">Loading apartment listings...</div>
+              </div>
+            ) : apartments.length === 0 ? (
+              <div className="flex justify-center items-center py-8">
+                <div className="text-gray-500">No apartments available</div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:px-4 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {currentApartments.map((apt) => (
+                  <div key={apt.id} className="bg-white rounded-lg overflow-hidden">
+                    <div className="relative">
+                      <Image
+                        src={apt.image || Property}
+                        alt={apt.title || 'Apartment'}
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                      {/* <Image
+                        src={
+                          apt.images && apt.images.length > 0
+                            ? apt.images[0].original_image_url || apt.images[0].image
+                            : (apt.image || Property)
+                        }
+                        alt={apt.title || 'Apartment'}
+                        width={400}
+                        height={192}
+                        className="w-full h-48 object-cover rounded-lg"
+                      /> */}
+                      <button className="absolute top-3 right-3 p-1">
+                        <Image src={WishlistHeart} alt="Wishlist" />
+                      </button>
+                    </div>
                     
-                    <div className="flex items-center gap-4 mb-2 text-xs text-gray-600">
-                      <div className="flex items-center gap-1">
-                        <Image src="/icons/UserDashboard/bedroom.svg" width={20} height={20} alt="bedroom" />
-                        <span>{apt.beds}bed</span>
+                    <div className="py-2">
+                      <h3 className="text-sm font-bold text-gray-800 mb-2">{apt.title || apt.name}</h3>
+                      
+                      <div className="flex items-center gap-4 mb-2 text-xs text-gray-600">
+                        <div className="flex items-center gap-1">
+                          <Image src="/icons/UserDashboard/bedroom.svg" width={20} height={20} alt="bedroom" />
+                          <span>{apt.beds || apt.number_of_bedrooms || '--'} bed</span>
+                        </div>
+                        
+                        <div className="flex items-center gap-1">
+                          <Image src="/icons/UserDashboard/bath.svg" width={20} height={20} alt="bath" />
+                          <span>{apt.baths || apt.number_of_bathrooms || '--'} bath</span>
+                        </div>
+                        
+                        <div className="flex items-center gap-1">
+                          <Image src="/icons/UserDashboard/ruler.svg" width={20} height={20} alt="ruler" />
+                          <span>{apt.area || apt.area_size_sqm || '--'} m²</span>
+                        </div>
                       </div>
                       
-                      <div className="flex items-center gap-1">
-                        <Image src="/icons/UserDashboard/bath.svg" width={20} height={20} alt="bath" />
-                        <span>{apt.baths}bath</span>
+                      <div className="flex items-center gap-1 mb-3 text-gray-600">
+                        <Image src="/icons/UserDashboard/location.svg" className="h-4 w-4" width={20} height={20} alt="location" />
+                        <span className="text-xs">{apt.location || apt.address}</span>
                       </div>
                       
-                      <div className="flex items-center gap-1">
-                        <Image src="/icons/UserDashboard/ruler.svg" width={20} height={20} alt="ruler" />
-                        <span>{apt.area}</span>
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-sm font-medium text-green-800">
+                          ₦ {apt.price || apt.rent || 'Price on request'}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Link href={`/apartment/${apt.id}`} className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-green-600 transition-colors">
+                          <button>
+                            Explore
+                          </button>
+                        </Link>
                       </div>
                     </div>
-                    
-                    <div className="flex items-center gap-1 mb-3 text-gray-600">
-                      <Image src="/icons/UserDashboard/location.svg" className="h-4 w-4" width={20} height={20} alt="location" />
-                      <span className="text-xs">{apt.location}</span>
-                    </div>
-                    
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-medium text-green-800">{apt.price}</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Link href="/apartmentview" className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-green-600 transition-colors">
-                        <button>
-                          Explore
-                        </button>
-                      </Link>
-                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
             
             {/* Pagination */}
-            <div className="flex items-center px-4 gap-2 mt-6 align-items-left">
-              <button 
-                className={`w-8 h-8 flex items-center justify-center rounded-md ${
-                  currentPage === 1 ? 'bg-complementary text-white' : 'bg-white text-gray-600 border border-gray-200'
-                }`}
-                onClick={() => setCurrentPage(1)}
-              >
-                1
-              </button>
-              <button 
-                className="flex items-center justify-center gap-1 rounded-md bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 px-3 py-1"
-                onClick={() => setCurrentPage(2)}
-              >
-                Next <ChevronRight size={16} />
-              </button>
-            </div>
+            {apartments.length > ITEMS_PER_PAGE && (
+              <div className="flex flex-col md:flex-row items-center justify-between px-4 mt-6 gap-4">
+                <div className="text-sm text-gray-600 order-2 md:order-1">
+                  Showing {startIndex + 1}-{Math.min(endIndex, apartments.length)} of {apartments.length} apartments
+                </div>
+                
+                <div className="flex items-center gap-2 order-1 md:order-2">
+                  <button 
+                    className={`px-2 md:px-3 py-1 rounded-md text-xs md:text-sm font-medium ${
+                      currentPage === 1 
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                        : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                    }`}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Prev
+                  </button>
+                  
+                  <div className="flex items-center gap-1">
+                    {[...Array(totalPages)].map((_, index) => {
+                      const pageNumber = index + 1;
+                      
+                      // On mobile, show max 5 pages with ellipsis logic
+                      if (totalPages > 5) {
+                        if (pageNumber === 1 || pageNumber === totalPages) {
+                          // Always show first and last page
+                          return (
+                            <button
+                              key={pageNumber}
+                              className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                                currentPage === pageNumber
+                                  ? 'bg-complementary text-white'
+                                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                              }`}
+                              onClick={() => setCurrentPage(pageNumber)}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        } else if (
+                          pageNumber >= currentPage - 1 && 
+                          pageNumber <= currentPage + 1
+                        ) {
+                          // Show current page and adjacent pages
+                          return (
+                            <button
+                              key={pageNumber}
+                              className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                                currentPage === pageNumber
+                                  ? 'bg-complementary text-white'
+                                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                              }`}
+                              onClick={() => setCurrentPage(pageNumber)}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        } else if (
+                          pageNumber === currentPage - 2 || 
+                          pageNumber === currentPage + 2
+                        ) {
+                          // Show ellipsis
+                          return (
+                            <span key={pageNumber} className="px-1 text-gray-400 text-xs md:text-sm">
+                              ...
+                            </span>
+                          );
+                        }
+                        return null;
+                      } else {
+                        // Show all pages if 5 or fewer
+                        return (
+                          <button
+                            key={pageNumber}
+                            className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                              currentPage === pageNumber
+                                ? 'bg-complementary text-white'
+                                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                            }`}
+                            onClick={() => setCurrentPage(pageNumber)}
+                          >
+                            {pageNumber}
+                          </button>
+                        );
+                      }
+                    })}
+                  </div>
+                  
+                  <button 
+                    className={`px-2 md:px-3 py-1 rounded-md text-xs md:text-sm font-medium flex items-center gap-1 ${
+                      currentPage === totalPages 
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                        : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                    }`}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next <ChevronRight size={12} className="md:w-4 md:h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </main>
   );

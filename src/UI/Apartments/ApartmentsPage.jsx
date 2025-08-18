@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { FiSearch, FiHeart, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IoFilterSharp } from 'react-icons/io5';
 import { ApartmentBg, WishlistHeart, Property, Bedroom, PurpleFilter } from '@/assets/images'
+import { apartmentService } from '@/lib/api';
 import Image from 'next/image'
 import MoreFilters from './Sections/MoreFilters';
 import SearchResults from './Components/SearchResults';
@@ -48,129 +49,61 @@ const ApartmentsPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Sample apartment data
-  const rentedApartment = {
-    title: "Northwest Studio Apartment",
-    type: "Apartment",
-    location: "1998 Wufma Minnessota, Festac",
-    rent: "₦85,000/month",
-    rentLabel: "Monthly Rent",
-    contractType: "Contract",
-    contractLabel: "Rental Agreement"
-  }
+  // State for apartments
+  const [apartments, setApartments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   
-  const apartments = [
-    {
-      id: 1,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8,725sqft",
-      location: "1998 Wufma Minnessota, Festac",
-      price: "₦24,000,000",
-      image: Property,
-      tag: "NEW"
-    },
-    {
-      id: 2,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8,725sqft",
-      location: "1998 Wufma Minnessota, Festac",
-      price: "₦24,000,000",
-      image: Property,
-      tag: "RECOMMENDED"
-    },
-    {
-      id: 3,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8,725sqft",
-      location: "1998 Wufma Minnessota, Festac",
-      price: "₦24,000,000",
-      image: Property,
-      tag: "NEW"
-    },
-    {
-      id: 4,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month",
-      image: Property,
-      tag: "RECOMMENDED"
-    },
-    {
-      id: 5,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month",
-      image: Property,
-      tag: "NEW"
-    },
-    {
-      id: 5,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month",
-      image: Property,
-      tag: "NEW"
-    },
-    {
-      id: 5,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month",
-      image: Property,
-      tag: "NEW"
-    },
-    {
-      id: 5,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month",
-      image: Property,
-      tag: "NEW"
-    },
-    {
-      id: 5,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Festac",
-      price: "₦24,000,000/month",
-      image: Property,
-      tag: "NEW"
-    },
-    {
-      id: 6,
-      title: "1 Bedroom Apartment",
-      beds: 4,
-      baths: 1,
-      area: "8.75sqft",
-      location: "1998 Wulfrta Minnesota, Lasdo",
-      price: "₦24,000,000/month",
-      image: Property,
-      tag: "NEW"
-    }
-  ]
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
+  
+  // Calculate pagination
+  const totalPages = Math.ceil(apartments.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentApartments = apartments.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    const fetchApartments = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        console.log('🏠 Fetching apartment listings for apartments page...');
+        
+        const response = await apartmentService.getListings();
+        if (response && response.data) {
+          console.log('Successfully fetched apartments:', response.data.length);
+          setApartments(response.data);
+        } else if (Array.isArray(response)) {
+          console.log('Successfully fetched apartments:', response.length);
+          setApartments(response);
+        } else {
+          console.log('No apartments found in response');
+          setApartments([]);
+        }
+      } catch (err) {
+        console.error('Error fetching apartments for apartments page:', err);
+        
+        // More specific error handling
+        if (err.status === 401) {
+          setError('Please log in to view apartment listings.');
+        } else if (err.status === 403) {
+          setError('Access forbidden. You do not have permission to view apartments.');
+        } else if (err.status === 404) {
+          setError('Apartment listings not found. The endpoint might not be available.');
+        } else if (err.message?.includes('Network error') || err.message?.includes('aborted')) {
+          setError('Network connection error. Please check your internet connection and try again.');
+        } else {
+          setError('Failed to load apartments from server. Please try again later.');
+        }
+        setApartments([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchApartments();
+  }, []);
 
   const handleExplore = (id) => {
     console.log(`Explore property ${id}`);
@@ -330,17 +263,48 @@ const ApartmentsPage = () => {
       </div>
 
       {/* Apartment Listings */}
-      <div className="grid grid-cols-1 md:px- md:grid-cols-2 lg:grid-cols-2 gap-5">
-        {apartments.map((apt) => (
-          <div key={apt.id} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
-            <div className="relative">
-              <Image
-                src={Property}
-                alt={apt.title}
-                width={500}
-                height={500}
-                className="w-full h-42 object-cover rounded-lg"
-              />
+      {loading ? (
+        <div className="flex justify-center items-center py-8">
+          <div className="text-gray-500">Loading apartment listings...</div>
+        </div>
+      ) : error ? (
+        <div className="flex flex-col justify-center items-center py-8">
+          <div className="text-red-500 text-center mb-4">{error}</div>
+          {(error.includes('log in') || error.includes('session has expired')) && (
+            <Link 
+              href="/sign-in" 
+              className="bg-primary text-white py-2 px-6 rounded-md text-sm font-medium hover:bg-primary/80 transition-colors"
+            >
+              Log In
+            </Link>
+          )}
+        </div>
+      ) : apartments.length === 0 ? (
+        <div className="flex justify-center items-center py-8">
+          <div className="text-gray-500">No apartments available at the moment.</div>
+        </div>
+      ) : (
+        <div>
+          <div className="grid grid-cols-1 md:px- md:grid-cols-2 lg:grid-cols-2 gap-5">
+            {currentApartments.map((apt) => (
+            <div key={apt.id} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
+              <div className="relative">
+                <Image
+                  src={apt.image || Property}
+                  alt={apt.title || 'Apartment'}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+                {/* <Image
+                  src={
+                    apt.images && apt.images.length > 0
+                      ? apt.images[0].original_image_url || apt.images[0].image
+                      : (apt.image || Property)
+                  }
+                  alt={apt.title || apt.name || 'Apartment'}
+                  width={500}
+                  height={500}
+                  className="w-full h-42 object-cover rounded-lg"
+                /> */}
               {apt.tag && (
                 <div className={`absolute top-3 left-3 px-3 py-1 rounded-md text-xs font-medium ${apt.tag === 'NEW' ? 'bg-white text-purple-700' : 'bg-white text-emerald-700'}`}>
                   {apt.tag}
@@ -352,34 +316,34 @@ const ApartmentsPage = () => {
             </div>
                         
             <div className="py-2 md:px-2">
-              <h3 className="text-sm font-bold text-gray-800 mb-2">{apt.title}</h3>
+              <h3 className="text-sm font-bold text-gray-800 mb-2">{apt.title || apt.name}</h3>
               
               <div className="flex items-center gap-4 mb-2 text-xs text-gray-600">
                 <div className="flex items-center gap-1">
                   <Image src="/icons/UserDashboard/bedroom.svg" width={20} height={20} alt="bedroom" />
-                  <span>{apt.beds}bed</span>
+                  <span>{apt.beds || apt.number_of_bedrooms || '--'}bed</span>
                 </div>
                             
                 <div className="flex items-center gap-1">
                   <Image src="/icons/UserDashboard/bath.svg" width={20} height={20} alt="bath" />
-                  <span>{apt.baths}bath</span>
+                  <span>{apt.baths || apt.number_of_bathrooms || '--'}bath</span>
                 </div>
                             
                 <div className="flex items-center gap-1">
                   <Image src="/icons/UserDashboard/ruler.svg" width={20} height={20} alt="ruler" />
-                  <span>{apt.area}</span>
+                  <span>{apt.area || apt.area_size_sqm || '--'} m²</span>
                 </div>
               </div>
                           
               <div className="flex items-center gap-1 mb-3 text-gray-600">
                 <Image src="/icons/UserDashboard/location.svg" className="h-4 w-4" width={20} height={20} alt="location" />
-                <span className="text-xs">{apt.location}</span>
+                <span className="text-xs">{apt.location || apt.address}</span>
               </div>
                           
               <div className="flex items-center justify-between mb-2">
-                <p className="text-base font-semibold text-green-800">{apt.price}</p>
+                <p className="text-base font-semibold text-green-800">₦ {apt.price || apt.rent || 'Price on request'}</p>
               </div>
-              <Link href="/apartmentview">
+              <Link href={`/apartment/${apt.id}`}>
                 <div className="flex items-center justify-between mt-5 w-full" >
                     <button className="bg-complementary text-white text-center py-2 rounded-md text-base w-full font-medium hover:bg-emerald-800 transition-colors">
                       <span>Explore</span>
@@ -389,7 +353,114 @@ const ApartmentsPage = () => {
             </div>
           </div>
         ))}
-      </div>
+          </div>
+          
+          {/* Pagination */}
+          {apartments.length > ITEMS_PER_PAGE && (
+            <div className="flex flex-col md:flex-row items-center justify-between px-4 mt-8 gap-4">
+              <div className="text-sm text-gray-600 order-2 md:order-1">
+                Showing {startIndex + 1}-{Math.min(endIndex, apartments.length)} of {apartments.length} apartments
+              </div>
+              
+              <div className="flex items-center gap-2 order-1 md:order-2">
+                <button 
+                  className={`px-2 md:px-3 py-1 rounded-md text-xs md:text-sm font-medium ${
+                    currentPage === 1 
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                  }`}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Prev
+                </button>
+                
+                <div className="flex items-center gap-1">
+                  {[...Array(totalPages)].map((_, index) => {
+                    const pageNumber = index + 1;
+                    
+                    // On mobile, show max 5 pages with ellipsis logic
+                    if (totalPages > 5) {
+                      if (pageNumber === 1 || pageNumber === totalPages) {
+                        // Always show first and last page
+                        return (
+                          <button
+                            key={pageNumber}
+                            className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                              currentPage === pageNumber
+                                ? 'bg-complementary text-white'
+                                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                            }`}
+                            onClick={() => setCurrentPage(pageNumber)}
+                          >
+                            {pageNumber}
+                          </button>
+                        );
+                      } else if (
+                        pageNumber >= currentPage - 1 && 
+                        pageNumber <= currentPage + 1
+                      ) {
+                        // Show current page and adjacent pages
+                        return (
+                          <button
+                            key={pageNumber}
+                            className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                              currentPage === pageNumber
+                                ? 'bg-complementary text-white'
+                                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                            }`}
+                            onClick={() => setCurrentPage(pageNumber)}
+                          >
+                            {pageNumber}
+                          </button>
+                        );
+                      } else if (
+                        pageNumber === currentPage - 2 || 
+                        pageNumber === currentPage + 2
+                      ) {
+                        // Show ellipsis
+                        return (
+                          <span key={pageNumber} className="px-1 text-gray-400 text-xs md:text-sm">
+                            ...
+                          </span>
+                        );
+                      }
+                      return null;
+                    } else {
+                      // Show all pages if 5 or fewer
+                      return (
+                        <button
+                          key={pageNumber}
+                          className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                            currentPage === pageNumber
+                              ? 'bg-complementary text-white'
+                              : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                          }`}
+                          onClick={() => setCurrentPage(pageNumber)}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    }
+                  })}
+                </div>
+                
+                <button 
+                  className={`px-2 md:px-3 py-1 rounded-md text-xs md:text-sm font-medium flex items-center gap-1 ${
+                    currentPage === totalPages 
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                  }`}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next <FiChevronRight size={12} className="md:w-4 md:h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Can't find section */}
       <div className="relative rounded-2xl shadow-lg overflow-hidden w-full mx-auto my-15">
