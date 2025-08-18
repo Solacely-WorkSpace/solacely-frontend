@@ -41,15 +41,15 @@ class AuthService extends BaseApiService {
       token = response.data.access_token;
     }
     
-    if (token) {
-      console.log(' Storing token:', token.substring(0, 20) + '...');
+    if (token && typeof window !== 'undefined') {
+      console.log('Storing token:', token.substring(0, 20) + '...');
       localStorage.setItem('authToken', token);
       if (refreshToken) {
         localStorage.setItem('refreshToken', refreshToken);
       }
       localStorage.setItem('user', JSON.stringify(response.user || response.data?.user || {}));
     } else {
-      console.error(' No token found in response!');
+      console.error('No token found in response!');
       console.log('Available keys in response.tokens:', response.tokens ? Object.keys(response.tokens) : 'No tokens object');
     }
     
@@ -62,10 +62,12 @@ class AuthService extends BaseApiService {
       await this.post('/logout/');
     } finally {
       // Clear local storage regardless of API response
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('user');
-      console.log(' Cleared all auth data from localStorage');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('user');
+        console.log('Cleared all auth data from localStorage');
+      }
     }
   }
 
@@ -118,17 +120,20 @@ class AuthService extends BaseApiService {
 
   // Check if user is authenticated
   isAuthenticated() {
+    if (typeof window === 'undefined') return false;
     return !!localStorage.getItem('authToken');
   }
 
   // Get stored user data
   getStoredUser() {
+    if (typeof window === 'undefined') return null;
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
 
   // Get stored token
   getStoredToken() {
+    if (typeof window === 'undefined') return null;
     return localStorage.getItem('authToken');
   }
 
@@ -137,12 +142,12 @@ class AuthService extends BaseApiService {
     console.log('🔒 Token expired, logging out user...');
     
     // Clear all auth data
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('user');
-    
-    // Show a user-friendly message
     if (typeof window !== 'undefined') {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('user');
+      console.log('Cleared all auth data from localStorage');
+      
       // You can customize this message or use a toast notification
       alert('Your session has expired. Please log in again.');
       
@@ -166,7 +171,7 @@ class AuthService extends BaseApiService {
     const token = this.getStoredToken();
     
     if (!this.isValidTokenFormat(token)) {
-      console.log('🚫 Invalid token format detected, cleaning up...');
+      console.log('Invalid token format detected, cleaning up...');
       this.handleTokenExpiration();
       return false;
     }
@@ -195,7 +200,7 @@ class AuthService extends BaseApiService {
       
       // Check if token has expired (exp claim)
       if (payload.exp && payload.exp < currentTime) {
-        console.log('🕐 Token has expired');
+        console.log('Token has expired');
         return true;
       }
       

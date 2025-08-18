@@ -37,7 +37,7 @@ function DashboardPage() {
     // Get user data from auth hook or localStorage as fallback
     if (user) {
       setUserName(formatUserName(user));
-    } else {
+    } else if (typeof window !== 'undefined') {
       const userData = localStorage.getItem('user');
       if (userData) {
         const parsedUser = JSON.parse(userData);
@@ -75,15 +75,19 @@ function DashboardPage() {
         // More specific error handling
         if (err.status === 401) {
           // Check if user is logged in
-          const userData = localStorage.getItem('user');
-          const token = localStorage.getItem('authToken');
-          
-          if (!userData || !token || token === 'undefined' || token === 'null') {
-            setError('Please log in to view apartment listings.');
+          if (typeof window !== 'undefined') {
+            const userData = localStorage.getItem('user');
+            const token = localStorage.getItem('authToken');
+            
+            if (!userData || !token || token === 'undefined' || token === 'null') {
+              setError('Please log in to view apartment listings.');
+            } else {
+              setError('Your session has expired. Please log in again to view apartments.');
+              // Clean up invalid auth data
+              localStorage.removeItem('authToken');
+            }
           } else {
-            setError('Your session has expired. Please log in again to view apartments.');
-            // Clean up invalid auth data
-            localStorage.removeItem('authToken');
+            setError('Please log in to view apartment listings.');
           }
         } else if (err.status === 403) {
           setError('Access forbidden. You do not have permission to view apartments.');
