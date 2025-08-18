@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import {VerifiedIcon, homeIcon, locationIcon, contractIcon} from "@/assets/icons"
 import { apartmentService } from "@/lib/api"
+import { useAuthStatus } from "@/hooks/useAuthGuard"
 
 const formatUserName = (user) => {
   if (!user) return '';
@@ -23,6 +24,9 @@ function DashboardPage() {
   // State to check if user has a rented apartment
   const [hasRentedApartment, setHasRentedApartment] = useState(true) // Set to true for demo
 
+  // Check authentication status
+  const { isAuthenticated, user, hasValidToken } = useAuthStatus();
+
   // Calculate pagination
   const totalPages = Math.ceil(apartments.length / ITEMS_PER_PAGE)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
@@ -30,13 +34,17 @@ function DashboardPage() {
   const currentApartments = apartments.slice(startIndex, endIndex)
 
   useEffect(() => {
-    // Get user data from localStorage
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const user = JSON.parse(userData);
+    // Get user data from auth hook or localStorage as fallback
+    if (user) {
       setUserName(formatUserName(user));
+    } else if (typeof window !== 'undefined') {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        setUserName(formatUserName(parsedUser));
+      }
     }
-  }, []);
+  }, [user]);
 
   // Fetch apartments from API
   useEffect(() => {
@@ -45,45 +53,42 @@ function DashboardPage() {
         setLoading(true);
         setError(null);
         
-        // Check if user is authenticated and log token info
-        const token = localStorage.getItem('authToken');
-        
-        // Debug token issues - check if "undefined" string was stored
-        if (token === 'undefined' || token === 'null') {
-          console.warn('⚠️ Invalid token detected in localStorage:', token);
-          localStorage.removeItem('authToken');
-          console.log('🧹 Cleaned up invalid token');
-        }
-        
-        const cleanToken = (token && token !== 'undefined' && token !== 'null') ? token : null;
-        
-        console.log('🔐 Auth Token Check:', {
-          hasToken: !!cleanToken,
-          rawToken: token,
-          cleanToken: cleanToken,
-          tokenLength: cleanToken ? cleanToken.length : 0,
-          tokenPreview: cleanToken ? `${cleanToken.substring(0, 20)}...` : 'No valid token'
-        });
+        console.log('🏠 Fetching apartment listings...');
         
         // Try to fetch apartments
         const response = await apartmentService.getListings();
         
         // Handle the response data structure
         if (response && response.data) {
+          console.log('✅ Successfully fetched apartments:', response.data.length);
           setApartments(response.data);
         } else if (Array.isArray(response)) {
+          console.log('✅ Successfully fetched apartments:', response.length);
           setApartments(response);
         } else {
+          console.log('⚠️ No apartments found in response');
           setApartments([]);
         }
       } catch (err) {
-        console.error('Error fetching apartments:', err);
+        console.error('❌ Error fetching apartments:', err);
         
         // More specific error handling
         if (err.status === 401) {
-          // For apartment listings, 401 might mean the endpoint requires auth
-          // This could be a backend configuration issue - apartment listings should typically be public
-          setError('Authentication required to view apartments. Please log in or contact support if this should be publicly accessible.');
+          // Check if user is logged in
+          if (typeof window !== 'undefined') {
+            const userData = localStorage.getItem('user');
+            const token = localStorage.getItem('authToken');
+            
+            if (!userData || !token || token === 'undefined' || token === 'null') {
+              setError('Please log in to view apartment listings.');
+            } else {
+              setError('Your session has expired. Please log in again to view apartments.');
+              // Clean up invalid auth data
+              localStorage.removeItem('authToken');
+            }
+          } else {
+            setError('Please log in to view apartment listings.');
+          }
         } else if (err.status === 403) {
           setError('Access forbidden. You do not have permission to view apartments.');
         } else if (err.status === 404) {
@@ -238,18 +243,6 @@ function DashboardPage() {
               <div className="flex justify-center items-center py-8">
                 <div className="text-gray-500">Loading apartment listings...</div>
               </div>
-            ) : error ? (
-              <div className="flex flex-col justify-center items-center py-8">
-                <div className="text-red-500 text-center mb-4">{error}</div>
-                {error.includes('log in') && (
-                  <Link 
-                    href="/sign-in" 
-                    className="bg-primary text-white py-2 px-6 rounded-md text-sm font-medium hover:bg-primary/80 transition-colors"
-                  >
-                    Log In
-                  </Link>
-                )}
-              </div>
             ) : apartments.length === 0 ? (
               <div className="flex justify-center items-center py-8">
                 <div className="text-gray-500">No apartments available</div>
@@ -264,6 +257,17 @@ function DashboardPage() {
                         alt={apt.title || 'Apartment'}
                         className="w-full h-48 object-cover rounded-lg"
                       />
+                      {/* <Image
+                        src={
+                          apt.images && apt.images.length > 0
+                            ? apt.images[0].original_image_url || apt.images[0].image
+                            : (apt.image || Property)
+                        }
+                        alt={apt.title || 'Apartment'}
+                        width={400}
+                        height={192}
+                        className="w-full h-48 object-cover rounded-lg"
+                      /> */}
                       <button className="absolute top-3 right-3 p-1">
                         <Image src={WishlistHeart} alt="Wishlist" />
                       </button>
@@ -300,7 +304,7 @@ function DashboardPage() {
                         </p>
                       </div>
                       <div className="flex items-center justify-between">
-                        <Link href={`/apartmentview/${apt.id}`} className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-green-600 transition-colors">
+                        <Link href={`/apartment/${apt.id}`} className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-green-600 transition-colors">
                           <button>
                             Explore
                           </button>
@@ -314,14 +318,14 @@ function DashboardPage() {
             
             {/* Pagination */}
             {apartments.length > ITEMS_PER_PAGE && (
-              <div className="flex items-center justify-between px-4 mt-6">
-                <div className="text-sm text-gray-600">
+              <div className="flex flex-col md:flex-row items-center justify-between px-4 mt-6 gap-4">
+                <div className="text-sm text-gray-600 order-2 md:order-1">
                   Showing {startIndex + 1}-{Math.min(endIndex, apartments.length)} of {apartments.length} apartments
                 </div>
                 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 order-1 md:order-2">
                   <button 
-                    className={`px-3 py-1 rounded-md text-sm font-medium ${
+                    className={`px-2 md:px-3 py-1 rounded-md text-xs md:text-sm font-medium ${
                       currentPage === 1 
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                         : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
@@ -329,30 +333,81 @@ function DashboardPage() {
                     onClick={() => setCurrentPage(currentPage - 1)}
                     disabled={currentPage === 1}
                   >
-                    Previous
+                    Prev
                   </button>
                   
                   <div className="flex items-center gap-1">
                     {[...Array(totalPages)].map((_, index) => {
                       const pageNumber = index + 1;
-                      return (
-                        <button
-                          key={pageNumber}
-                          className={`w-8 h-8 flex items-center justify-center rounded-md text-sm ${
-                            currentPage === pageNumber
-                              ? 'bg-complementary text-white'
-                              : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
-                          }`}
-                          onClick={() => setCurrentPage(pageNumber)}
-                        >
-                          {pageNumber}
-                        </button>
-                      );
+                      
+                      // On mobile, show max 5 pages with ellipsis logic
+                      if (totalPages > 5) {
+                        if (pageNumber === 1 || pageNumber === totalPages) {
+                          // Always show first and last page
+                          return (
+                            <button
+                              key={pageNumber}
+                              className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                                currentPage === pageNumber
+                                  ? 'bg-complementary text-white'
+                                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                              }`}
+                              onClick={() => setCurrentPage(pageNumber)}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        } else if (
+                          pageNumber >= currentPage - 1 && 
+                          pageNumber <= currentPage + 1
+                        ) {
+                          // Show current page and adjacent pages
+                          return (
+                            <button
+                              key={pageNumber}
+                              className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                                currentPage === pageNumber
+                                  ? 'bg-complementary text-white'
+                                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                              }`}
+                              onClick={() => setCurrentPage(pageNumber)}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        } else if (
+                          pageNumber === currentPage - 2 || 
+                          pageNumber === currentPage + 2
+                        ) {
+                          // Show ellipsis
+                          return (
+                            <span key={pageNumber} className="px-1 text-gray-400 text-xs md:text-sm">
+                              ...
+                            </span>
+                          );
+                        }
+                        return null;
+                      } else {
+                        // Show all pages if 5 or fewer
+                        return (
+                          <button
+                            key={pageNumber}
+                            className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-md text-xs md:text-sm ${
+                              currentPage === pageNumber
+                                ? 'bg-complementary text-white'
+                                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                            }`}
+                            onClick={() => setCurrentPage(pageNumber)}
+                          >
+                            {pageNumber}
+                          </button>
+                        );
+                      }
                     })}
                   </div>
                   
                   <button 
-                    className={`px-3 py-1 rounded-md text-sm font-medium flex items-center gap-1 ${
+                    className={`px-2 md:px-3 py-1 rounded-md text-xs md:text-sm font-medium flex items-center gap-1 ${
                       currentPage === totalPages 
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                         : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
@@ -360,7 +415,7 @@ function DashboardPage() {
                     onClick={() => setCurrentPage(currentPage + 1)}
                     disabled={currentPage === totalPages}
                   >
-                    Next <ChevronRight size={16} />
+                    Next <ChevronRight size={12} className="md:w-4 md:h-4" />
                   </button>
                 </div>
               </div>

@@ -1,7 +1,10 @@
 import MaintenancePage from "@/UI/UserDashboard/MaintenancePage"
 
-const Maintanace = () => {
+const Maintenance = () => {
   return <MaintenancePage />
 }
 
-export default Maintanace
+// Force dynamic rendering since this page requires authentication
+export const dynamic = 'force-dynamic'
+
+export default Maintenance
