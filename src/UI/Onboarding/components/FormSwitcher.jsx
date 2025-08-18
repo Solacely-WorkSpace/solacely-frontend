@@ -9,7 +9,7 @@ export default function FormSwitcher() {
 
     return (
         <div className="flex flex-col items-center w-full mt-6 md:w-fit">
-            <div className="mt-4 mb-8">
+            {/* <div className="mt-4 mb-8">
                 <button
                     onClick={() => setCurrentForm('email')}
                     className={clsx(
@@ -33,7 +33,7 @@ export default function FormSwitcher() {
                 >
                     Mobile
                 </button>
-            </div>
+            </div> */}
 
             <SigninForm {...{ serviceType: currentForm }} />
         </div >
