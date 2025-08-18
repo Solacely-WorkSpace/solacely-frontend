@@ -19,21 +19,31 @@ import {
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobileHeaderVisible, setIsMobileHeaderVisible] = useState(true);
-  const logoutMutation = useLogout();
+  const [userName, setUserName] = useState('');
 
+  const formatUserName = (user) => {
+    if (!user) return '';
+    return user.username || 'User';
+  };
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
     setIsMobileHeaderVisible(!isMobileHeaderVisible);
   };
+
+  useEffect(() => {
+      // Get user data from localStorage
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        setUserName(formatUserName(user));
+      }
+    }, [])
 
   const handleLinkClick = () => {
     setIsSidebarOpen(false);
     setIsMobileHeaderVisible(true);
   };
 
-  const handleLogout = () => {
-    logoutMutation.mutate();
-  };
 
   const pathname = usePathname()
 
@@ -200,13 +210,11 @@ export default function Sidebar() {
             ))}
             <li>
               <button
-                onClick={handleLogout}
-                disabled={logoutMutation.isPending}
-                className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors text-left ${
-                  logoutMutation.isPending 
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed" 
-                    : "text-gray-500 hover:bg-gray-100"
-                }`}
+                href="/"
+                onClick={() => {
+                  localStorage.clear(); // Clear all localStorage data tokens
+                }}
+                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-md transition-colors text-left text-gray-500 hover:bg-gray-100"
               >
                 <Image
                   src={Logout}
@@ -215,7 +223,7 @@ export default function Sidebar() {
                   height={20}
                   className="w-5 h-5"
                 />
-                <span>{logoutMutation.isPending ? 'Logging out...' : 'Logout'}</span>
+                <span>Logout</span>
               </button>
             </li>
           </ul>
