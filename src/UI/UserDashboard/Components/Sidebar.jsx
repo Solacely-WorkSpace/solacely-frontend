@@ -117,7 +117,7 @@ export default function Sidebar() {
       )}
 
       {/* Desktop Sidebar */}
-      <div className="hidden md:flex flex-col bg-white border-r border-gray-200 w-[220px]">
+      <div className="hidden md:flex flex-col bg-white border-r border-gray-200 w-[250px]">
           <div className="p-6 mt-5 flex justify-start items-center">
             <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <Image 
@@ -160,6 +160,24 @@ export default function Sidebar() {
               </li>
             ))}
           </ul>
+          
+          {/* Stay Updated Component */}
+          <div className="mx-3 mt-10 p-4 rounded-lg bg-purple-200">
+            <div className="flex items-start gap-2">
+              <div className="flex-1">
+                <div className="flex items-start gap-2">
+                  <div className="w-4 h-4 rounded-full  flex items-center justify-center">
+                    <Image src="/icons/Bell.svg" alt="Bell Icon" width={14} height={14} />
+                  </div>
+                  <h3 className="text-primary font-semibold text-sm mb-3">Stay Updated</h3>
+                </div>
+                <p className="text-gray-600 text-xs mb-4">Enable notifications for important update on your account and properties</p>
+                <button className="w-full bg-primary text-white py-2 px-4 rounded-xl text-sm font-medium hover:bg-purple-700 transition-colors">
+                  Enable Notifications
+                </button>
+              </div>
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -209,7 +227,7 @@ export default function Sidebar() {
               </li>
             ))}
             <li>
-              <button
+              <Link
                 href="/"
                 onClick={() => {
                   localStorage.clear(); // Clear all localStorage data tokens
@@ -224,9 +242,27 @@ export default function Sidebar() {
                   className="w-5 h-5"
                 />
                 <span>Logout</span>
-              </button>
+              </Link>
             </li>
           </ul>
+
+          {/* Stay Updated Component */}
+          <div className="mx-3 mt-10 p-4 rounded-lg bg-purple-200">
+            <div className="flex items-start gap-2">
+              <div className="flex-1">
+                <div className="flex items-start gap-2">
+                  <div className="w-4 h-4 rounded-full  flex items-center justify-center">
+                    <Image src="/icons/Bell.svg" alt="Bell Icon" width={14} height={14} />
+                  </div>
+                  <h3 className="text-primary font-semibold text-sm mb-3">Stay Updated</h3>
+                </div>
+                <p className="text-gray-600 text-xs mb-4">Enable notifications for important update on your account and properties</p>
+                <button className="w-full bg-primary text-white py-2 px-4 rounded-xl text-sm font-medium hover:bg-purple-700 transition-colors">
+                  Enable Notifications
+                </button>
+              </div>
+            </div>
+          </div>
         </nav>
       </div>
 
