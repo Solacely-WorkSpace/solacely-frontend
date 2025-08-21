@@ -5,7 +5,11 @@
 // Hero Section assets
 import LogoName from '@/../public/images/logo-name.png'
 import HeroIllustration from '@/../public/images/LandingPage/hero/hero illustration.png'
-import MetaImage from '@/../public/images/LandingPage/hero/meta.png'
+import DataMellon from '@/../public/images/LandingPage/hero/partners/Datamellon.png'
+import Fincore from '@/../public/images/LandingPage/hero/partners/fincore.png'
+import Flutterwave from '@/../public/images/LandingPage/hero/partners/Flutterwave.png'
+import Paystack from '@/../public/images/LandingPage/hero/partners/paystack.png'
+import GoogleCloudPartners from '@/../public/images/LandingPage/hero/partners/googlecloudpartner.png'
 import offerSectionImage from '@/../public/images/LandingPage/offer/home 1.png'
 
 // Hero Section assets
@@ -108,7 +112,11 @@ import Map from "@/../public/images/Map.png"
 export {
     LogoName,
     HeroIllustration,
-    MetaImage,
+    DataMellon,
+    Fincore,
+    Flutterwave,
+    GoogleCloudPartners,
+    Paystack,
     offerSectionImage,
     tourImageOne,
     tourImageTwo,
