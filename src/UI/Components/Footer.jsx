@@ -146,9 +146,13 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="landingpage-container text-center py-4 opacity-50  text-sm">
+      <div className="landingpage-container text-center py-1 opacity-50  text-sm">
         <p className=" border-t-[0.1rem] text-white py-4">
-          © 2025 Solacely. All rights reserved.
+          <span className="text-sm mb-16">© 2025 Solacely. All rights reserved.</span><br />
+
+          <div className="text-xs mt-3 max-w-6xl mx-auto text-center">Registered in Nigeria (Corporate Affairs Commission) and Delaware, United States.
+          By using Solacely, you agree to our <Link className="text-green-400 font-bold border-b-2 cursor-pointer" href="/terms_and_conditions">Terms of Service</Link> and <Link className="text-green-400 font-bold border-b-2 cursor-pointer" href="/privacy_policy">Privacy Policy</Link>. Transactions are secured and processed with trusted, globally compliant providers. Our rewards, savings, and ownership opportunities are designed to foster your financial growth and empowerment. However, as with any investment opportunity, outcomes are subject to market forces, and past performance may not predict future results. We encourage informed decision-making, diversification where suitable, and consulting independent professional advice tailored to your unique circumstances.
+          The Google Play logo are trademarks of Google LLC. The Apple logo are trademarks of Apple Inc.</div>
         </p>
       </div>
     </footer>
