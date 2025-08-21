@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import AiPopuop from "../Components/AiPopuop";
 import { HeroIllustration, MetaImage } from '@/assets/images'
+import PartnersCarousel from '../Components/PartnersCarousel';
 
 const Hero = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,7 +30,7 @@ const Hero = () => {
     <section className="landingpage-container px-4 md:px-0 mt-20">
       <AiPopuop />
 
-      <div className="flex flex-col-reverse md:flex-row justify-between items-start gap-10 mt-10 ">
+      <div className="flex flex-col-1 md:flex-col-2 justify-between items-start gap-10 mt-10 ">
         <div className="flex-1 w-full mt-16">
           <div className="  px-2 font-rob">
             <h1 className="text-3xl md:text-5xl font-bold md:leading-14">
@@ -63,22 +64,17 @@ const Hero = () => {
                 <h5 className="font-semibold font-rob text-[#9EA0AB] text-sub text-xs mb-1.5 whitespace-nowrap">
                   OUR ESTEEM PARTNERS
                 </h5>
-                <figure className=" flex items-center">
-                  <Image
-                    src={MetaImage}
-                    width={400}
-                    height={400}
-                    alt="meta"
-                    placeholder="blur"
-                    className="w-16"
-                  />
+                <figure>
+                  {/* Automatic scrolling carousel of partner images */}
+                  <PartnersCarousel />
                 </figure>
+
               </article>
             </div>
           </div>
         </div>
 
-        <div className="w-full flex-1">
+        <div className="w-full flex-1"> 
           <Image
             src={HeroIllustration}
             alt="hero illustration"
