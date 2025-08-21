@@ -85,20 +85,20 @@ function CountryDropdown() {
 	}, []);
 
 	return (
-		<div className="relative hidden md:block" ref={dropdownRef}>
+		<div className="relative" ref={dropdownRef}>
 			<button
-				className="flex items-center gap-2 px-4 py-3 rounded-lg  bg-white shadow-sm hover:bg-gray-50 min-w-[110px]"
+				className="flex items-center gap-2 px-4 py-2 rounded-lg  bg-white hover:bg-gray-50 md:min-w-[110px]"
 				onClick={() => setOpen((o) => !o)}
 			>
 				<Image
 					src={selected.icon}
 					width={20}
 					height={20}
-                    className="w-3 h-3"
+                    className="w-4 h-4"
 				/>
-				<span className="font-medium text-sm">{selected.name}</span>
+				<span className="font-medium text-sm hidden md:block">{selected.name}</span>
 				<svg
-					className="w-4 h-4 ml-1 text-gray-400"
+					className="w-4 h-4 ml-1 text-gray-400 hidden md:block"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"

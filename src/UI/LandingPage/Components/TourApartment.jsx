@@ -1,7 +1,24 @@
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { tour } from "@/Constant";
+import LoginPromptModal from "./LoginPromptModal";
+import authService from "@/lib/api/services/authService";
+
 
 export default function TourApartment() {
+  const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleFindApartment = () => {
+    if (authService.isAuthenticated()) {
+      router.push("/apartment");
+    } else {
+      setShowModal(true);
+    }
+  };
+
   return (
     <div className=" flex justify-between items-center flex-col-reverse md:flex-row mt-8 gap-12">
       <article className="flex-[2]">
@@ -13,7 +30,7 @@ export default function TourApartment() {
           {tour.apartment.desc}
         </p>
 
-        < div className=" flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
+        <div className=" flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
           <input
             placeholder="Enter a city or style"
             className=" outline-none w-full"
@@ -28,7 +45,7 @@ export default function TourApartment() {
           />
         </div>
 
-        <button className="btn-primary"> Find an Apartment </button>
+        <button className="btn-primary" onClick={handleFindApartment}> Find an Apartment </button>
       </article>
 
       <figure className="flex-[3] w-full ">
@@ -41,6 +58,8 @@ export default function TourApartment() {
           className=" aspect-[5/3] rounded-2xl"
         />
       </figure>
+
+      <LoginPromptModal open={showModal} onClose={() => setShowModal(false)} />
     </div>
-  )
+  );
 }
