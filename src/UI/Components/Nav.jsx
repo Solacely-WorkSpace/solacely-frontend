@@ -66,29 +66,31 @@ const Nav = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <MobileNav />
+          <div className="flex items-center gap-3">
+            <CountryDropdown />
+            <MobileNav />
 
-          {isLoggedIn ? (
-            <>
-              <CountryDropdown />
-              <Link
-                href="/dashboard"
-                className="btn-primary px-6 hidden md:block"
-              >
-                Dashboard
-              </Link>
-            </>
-          ) : (
-            <>
-              <CountryDropdown />
-              <Link
-                href="/sign-up"
-                className="btn-primary px-6 hidden md:block"
-              >
-                Get Started
-              </Link>
-            </>
-          )}
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="btn-primary px-6 hidden md:block"
+                >
+                  Dashboard
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/sign-up"
+                  className="btn-primary px-6 hidden md:block"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
+          </div>
+          
         </div>
       </div >
     </nav >
