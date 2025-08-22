@@ -58,7 +58,7 @@ const Nav = () => {
             <Dropdown />
 
             <li className=" font-medium text-base ">
-              <Link href="#" className="font-bold">
+              <Link href="/partner" className="font-bold">
                 Become a Partner
               </Link>
             </li>
