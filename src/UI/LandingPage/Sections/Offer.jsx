@@ -71,8 +71,8 @@ const Offer = () => {
 
   return (
     <section className=" bg-[url('/images/LandingPage/offer/Bg.png')] bg-left-top bg-fixed bg-cover w-screen p-2 md:px-8">
-      <div className="landingpage-container flex gap-8 flex-col md:flex-row items-center justify-between py-10">
-        <figure className="flex-1 flex flex-col justify-end md:pt-40">
+      <div className="landingpage-container flex flex-col md:flex-row items-center justify-between py-10 gap-4 md:gap-8">
+        <figure className="w-full md:w-1/3 flex flex-col justify-end md:pt-40 md:pr-4">
           <h2 className=" text-center md:text-left">
             Smarter Housing Solutions
             <br />
@@ -93,7 +93,7 @@ const Offer = () => {
           />
         </figure>
 
-        <div className="flex-1 max-md:relative max-md:overflow-hidden max-md:w-full group">
+        <div className="w-full md:w-2/3 max-md:relative max-md:overflow-hidden max-md:w-full group">
           <div className="md:grid md:grid-cols-2 md:gap-6 max-md:flex max-md:transition-all max-md:duration-500 max-md:pb-4 max-md:w-full" 
                style={{ 
                  transform: `translateX(-${currentSlide * 100}%)`,
