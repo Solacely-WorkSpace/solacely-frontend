@@ -3,13 +3,15 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { FiChevronLeft, FiChevronRight, FiX } from 'react-icons/fi';
 import { apartmentService } from '@/lib/api';
 import { memberOne, memberTwo, WoodHouse, Kitchen, Bathroom, PropertyOne, PropertyTwo, PropertyThree, PropertyFour, LivingRoom } from '@/assets/images';
+import InspectionBookingModal from './Components/InspectionBookingModal';
 
 function ApartmentView() {
   const pathname = usePathname();
+  const router = useRouter();
   const id = pathname?.split('/').pop();
 
   const [apartment, setApartment] = useState(null);
@@ -18,6 +20,7 @@ function ApartmentView() {
   const [showGallery, setShowGallery] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', image: '', review: '' });
+  const [showInspectionModal, setShowInspectionModal] = useState(false);
 
   useEffect(() => {
     const fetchApartmentDetails = async () => {
@@ -40,6 +43,21 @@ function ApartmentView() {
     };
     if (id) fetchApartmentDetails(); else { setError('No apartment ID provided'); setLoading(false); }
   }, [id]);
+
+  // Handle inspection booking
+  const handleCloseInspectionModal = () => {
+    setShowInspectionModal(false);
+  };
+
+  const handleProceedToPayment = () => {
+    // Payment is now handled in the InspectionBookingModal
+    // We'll just close the modal here since payment confirmation
+    // will happen in the PaymentModal component
+    setShowInspectionModal(false);
+    
+    // After payment, we could navigate to a success page or show a confirmation
+    // router.push('/payment/success?type=inspection');
+  };
 
   // Use only direct image URLs, no fallbacks
   const apiImages = (apartment?.images || []).map((img, index) => {
@@ -232,8 +250,19 @@ function ApartmentView() {
               <div className="hidden md:block"><p className="text-lg font-bold text-complementary">₦ {apartment.price}</p></div>
             </div>
             <div className="md:hidden mt-2"><p className="text-lg font-bold text-complementary">₦{apartment.price}</p></div>
-            
-            <div className="flex items-center gap-4 mt-6"><a href='/personalinformation'><button className="bg-complementary text-white py-3 px-10 rounded-lg hover:bg-emerald-800">I'm interested</button></a></div>
+
+            <div className='grid grid-cols-2 md:flex md:flex-row md:justify-start gap-2 mt-1 w-full'>
+              <div className="flex items-center gap-4 mt-6"><a href='/personalinformation'><button className="bg-complementary text-white py-3 px-10 rounded-lg hover:bg-emerald-800">I'm interested</button></a></div>
+              <div className="flex items-center gap-4 mt-6">
+                <button 
+                  onClick={() => setShowInspectionModal(true)} 
+                  className="bg-white text-primary py-3 px-8 border-2 border-primary rounded-lg hover:bg-primary hover:text-white"
+                >
+                  Book Inspection
+                </button>
+              </div>
+            </div>
+              
             <div className="mt-6 flex items-center gap-4">
               <button className='p-2 hover:bg-gray-100 rounded'>
                 <Image src="/icons/Line.svg" width={20} height={20} alt="share" />
@@ -434,6 +463,13 @@ function ApartmentView() {
           </div>
         </div>
       )}
+      
+      {/* Inspection Booking Modal */}
+      <InspectionBookingModal 
+        isOpen={showInspectionModal} 
+        onClose={handleCloseInspectionModal} 
+        onProceed={handleProceedToPayment}
+      />
     </main>
   );
 }

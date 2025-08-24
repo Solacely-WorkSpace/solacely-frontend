@@ -30,7 +30,7 @@ const Hero = () => {
     <section className="landingpage-container px-4 md:px-0 mt-20">
       <AiPopuop />
 
-      <div className="flex flex-col-1 md:flex-col-2 justify-between items-start gap-10 mt-10 ">
+      <div className="flex flex-col-1 md:flex-col-2 justify-between items-start gap-10 md:mt-4">
         <div className="flex-1 w-full mt-16">
           <div className="  px-2 font-rob">
             <h1 className="text-3xl md:text-5xl font-bold md:leading-14">
@@ -43,7 +43,7 @@ const Hero = () => {
               Find verified rentals, pay in smaller, flexible installments, and enjoy secure, transparent transactions. Earn while you rent — and use it to pay towards your next rent. Solacely makes renting smarter and safer.
             </p>
 
-            <div className=" flex justify-between md:flex-col gap-8 py-4 mt-6 items-center md:items-start">
+            <div className=" flex justify-between md:flex-col gap-6 py-4 mt-6 items-center md:items-start">
               {isLoggedIn ? (
                 <Link 
                   href="/dashboard" 
@@ -54,7 +54,7 @@ const Hero = () => {
               ) : (
                 <Link
                   href="/sign-up"
-                  className="btn-primary"
+                  className="btn-primary min-w-[140px] text-center"
                 >
                   Get Started
                 </Link>
