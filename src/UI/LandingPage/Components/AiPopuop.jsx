@@ -26,8 +26,8 @@ const AiPopuop = () => {
 
   return (
     <AnimateNav animation={slideInLeft}>
-      <div className=" flex justify-center mt-20">
-        <button className=" bg-transparent  border border-gray-300 text-black shadow-none mt-10 py-4 px-12 rounded-lg flex flex-col items-center w-[400px]">
+      <div className=" flex justify-center mt-20 ">
+        <button className="w-fit bg-transparent  border border-gray-300 text-black shadow-none mt-10 py-4 px-12 rounded-4xl flex flex-col items-center w-[400px]">
           <div className="">
             <span className=" border border-gray-300 px-2 py-1.5 rounded-2xl mr-4 text-sm font-medium mb-2">
               New
