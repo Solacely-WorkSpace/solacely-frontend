@@ -24,7 +24,7 @@ const PaymentModal = ({ isOpen, onClose, amount = "₦10,000.00", onPaymentCompl
       // Let parent component know payment is complete
       if (onPaymentComplete) onPaymentComplete();
       // Navigate to success page
-      router.push('/payment/success?type=inspection');
+      router.push('/apartmentview');
     }, 2000);
   };
 

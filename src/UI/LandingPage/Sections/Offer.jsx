@@ -221,6 +221,8 @@ const Offer = () => {
             height: 100%;
             min-height: 280px; /* Ensure sufficient height */
             display: block;
+            overflow: hidden;
+            position: relative;
           }
           
           .flip-card-inner {
@@ -241,7 +243,7 @@ const Offer = () => {
           
           /* Keep card flipped */
           .flipped {
-            transform: rotateY(180deg);
+            transform: rotateY(-180deg);
           }
           
           .flip-card-front, .flip-card-back {
@@ -252,9 +254,13 @@ const Offer = () => {
             backface-visibility: hidden;
             border-radius: 0.75rem;
             background-color: transparent;
-            transition: all 0.2s;
+            transition: opacity 0.2s, visibility 0.2s;
             /* Re-enable pointer events for the card faces */
-            pointer-events: auto;
+            z-index: 50;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
           }
           
           /* Hover effects properly moved to the articles themselves */
@@ -266,11 +272,29 @@ const Offer = () => {
           
           .flip-card-front {
             background-color: transparent;
+            z-index: 2;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+          }
+          .flipped .flip-card-front {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
           }
           
           .flip-card-back {
             background-color: transparent;
-            transform: rotateY(180deg);
+            transform: rotateY(-180deg);
+            z-index: 1;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+          }
+          .flipped .flip-card-back {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
           }
           
           /* Article backgrounds */
@@ -290,7 +314,7 @@ const Offer = () => {
               transform: rotateY(0deg);
             }
             to {
-              transform: rotateY(180deg);
+              transform: rotateY(-180deg);
             }
           }
         }
