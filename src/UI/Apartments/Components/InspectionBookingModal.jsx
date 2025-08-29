@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import PaymentModal from "./PaymentModal";
 
-const InspectionBookingModal = ({ isOpen, onClose, onProceed }) => {
+const InspectionBookingModal = ({ isOpen, onClose, onProceed, onShowSuccess }) => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   const handleProceedToPay = () => {
@@ -59,6 +59,7 @@ const InspectionBookingModal = ({ isOpen, onClose, onProceed }) => {
           isOpen={showPaymentModal} 
           onClose={() => setShowPaymentModal(false)}
           onPaymentComplete={handlePaymentComplete}
+          onShowSuccess={onShowSuccess}
           amount="N10,000.00"
         />
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,9 +8,24 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FiChevronLeft, FiChevronRight, FiX } from 'react-icons/fi';
 import { apartmentService } from '@/lib/api';
 import { memberOne, memberTwo, WoodHouse, Kitchen, Bathroom, PropertyOne, PropertyTwo, PropertyThree, PropertyFour, LivingRoom } from '@/assets/images';
+
 import InspectionBookingModal from './Components/InspectionBookingModal';
+import PaymentSuccess from './Components/PaymentSuccess';
+import { useRef } from 'react';
+import DatePicker from './Components/DatePicker';
 
 function ApartmentView() {
+  // Handle date selection from DatePicker
+  function handleDateSelect(date) {
+    setSelectedDate(date);
+    setShowDatePicker(false);
+    // You can add further logic here, e.g., send the selected date to backend or show a confirmation
+  }
+  // Show DatePicker when Proceed to Book is clicked in PaymentSuccess
+  function handleProceedToDatePicker() {
+    setShowSuccessModal(false);
+    setShowDatePicker(true);
+  }
   const pathname = usePathname();
   const router = useRouter();
   const id = pathname?.split('/').pop();
@@ -21,6 +37,9 @@ function ApartmentView() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', image: '', review: '' });
   const [showInspectionModal, setShowInspectionModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     const fetchApartmentDetails = async () => {
@@ -469,9 +488,31 @@ function ApartmentView() {
         isOpen={showInspectionModal} 
         onClose={handleCloseInspectionModal} 
         onProceed={handleProceedToPayment}
+        onShowSuccess={() => setShowSuccessModal(true)}
       />
+
+      {/* Payment Success Modal */}
+      {showSuccessModal && (
+        <PaymentSuccess onProceed={handleProceedToDatePicker} />
+      )}
+
+      {/* Date Picker Modal */}
+      {showDatePicker && (
+  <DatePicker onSelect={handleDateSelect} onClose={() => setShowDatePicker(false)} apartmentId={apartment?.id || id} />
+      )}
+
+      {/* Optionally show selected date */}
+      {selectedDate && (
+        <div className="fixed bottom-4 right-4 bg-green-100 text-green-800 px-4 py-2 rounded shadow-lg z-50">
+          Selected date: {selectedDate.toLocaleDateString()}
+        </div>
+      )}
+
     </main>
   );
 }
 
-export default ApartmentView;
+// End of file
+
+
+  export default ApartmentView;

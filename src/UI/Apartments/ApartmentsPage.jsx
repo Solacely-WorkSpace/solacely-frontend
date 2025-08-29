@@ -27,7 +27,7 @@ const ApartmentsPage = () => {
   const [selectedBeds, setSelectedBeds] = useState('');
 
   // Filter options
-  const locationOptions = ['Lagos', 'Abuja'];
+  const [locationOptions, setLocationOptions] = useState([]);
   const priceOptions = ['₦0 - 500k', '₦510k - 1mil'];
   const typeOptions = ['Studio', 'Duplex'];
   const bedOptions = ['1', '2'];
@@ -65,25 +65,31 @@ const ApartmentsPage = () => {
   const currentApartments = apartments.slice(startIndex, endIndex);
 
   useEffect(() => {
-    const fetchApartments = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
         console.log('🏠 Fetching apartment listings for apartments page...');
         
-        const response = await apartmentService.getListings();
-        if (response && response.data) {
-          console.log('Successfully fetched apartments:', response.data.length);
-          setApartments(response.data);
-        } else if (Array.isArray(response)) {
-          console.log('Successfully fetched apartments:', response.length);
-          setApartments(response);
+        const [apartmentsResponse, locationsResponse] = await Promise.all([
+          apartmentService.getListings(),
+          apartmentService.getLocations()
+        ]);
+        
+        if (apartmentsResponse && apartmentsResponse.data) {
+          console.log('Successfully fetched apartments:', apartmentsResponse.data.length);
+          setApartments(apartmentsResponse.data);
+        } else if (Array.isArray(apartmentsResponse)) {
+          console.log('Successfully fetched apartments:', apartmentsResponse.length);
+          setApartments(apartmentsResponse);
         } else {
           console.log('No apartments found in response');
           setApartments([]);
         }
+        
+        setLocationOptions(locationsResponse || []);
       } catch (err) {
-        console.error('Error fetching apartments for apartments page:', err);
+        console.error('Error fetching data for apartments page:', err);
         
         // More specific error handling
         if (err.status === 401) {
@@ -102,8 +108,70 @@ const ApartmentsPage = () => {
         setLoading(false);
       }
     };
-    fetchApartments();
+    fetchData();
   }, []);
+
+  // Handle location filter
+  useEffect(() => {
+    const filterByLocation = async () => {
+      if (!selectedLocation) return;
+      
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await apartmentService.searchByLocation(selectedLocation);
+        if (response && response.data) {
+          setApartments(response.data);
+        } else if (Array.isArray(response)) {
+          setApartments(response);
+        } else {
+          setApartments([]);
+        }
+        setCurrentPage(1);
+      } catch (err) {
+        console.error('Error filtering apartments by location:', err);
+        setError('Failed to filter apartments by location.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    filterByLocation();
+  }, [selectedLocation]);
+
+  // Handle price filter
+  useEffect(() => {
+    const filterByPrice = async () => {
+      if (!selectedPrice) return;
+      
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Parse price range from selected option
+        const priceRange = selectedPrice.replace('₦', '').split(' - ');
+        const minPrice = priceRange[0].replace('k', '000').replace('mil', '000000');
+        const maxPrice = priceRange[1]?.replace('k', '000').replace('mil', '000000');
+        
+        const response = await apartmentService.searchByPriceRange(minPrice, maxPrice);
+        if (response && response.data) {
+          setApartments(response.data);
+        } else if (Array.isArray(response)) {
+          setApartments(response);
+        } else {
+          setApartments([]);
+        }
+        setCurrentPage(1);
+      } catch (err) {
+        console.error('Error filtering apartments by price:', err);
+        setError('Failed to filter apartments by price.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    filterByPrice();
+  }, [selectedPrice]);
 
   const handleExplore = (id) => {
     console.log(`Explore property ${id}`);
@@ -170,8 +238,12 @@ const ApartmentsPage = () => {
                 <select
                   value={selectedLocation}
                   onChange={(e) => {
-                    setSelectedLocation(e.target.value);
-                    console.log(`Selected location: ${e.target.value}`);
+                    const value = e.target.value;
+                    setSelectedLocation(value);
+                    if (!value) {
+                      // Reset to all apartments when no location is selected
+                      window.location.reload();
+                    }
                   }}
                   className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
@@ -190,8 +262,12 @@ const ApartmentsPage = () => {
                 <select
                   value={selectedPrice}
                   onChange={(e) => {
-                    setSelectedPrice(e.target.value);
-                    console.log(`Selected price: ${e.target.value}`);
+                    const value = e.target.value;
+                    setSelectedPrice(value);
+                    if (!value) {
+                      // Reset to all apartments when no price is selected
+                      window.location.reload();
+                    }
                   }}
                   className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >

@@ -25,6 +25,18 @@ class ApartmentService extends BaseApiService {
       throw error;
     }
   }
+
+  async searchByLocation(location) {
+    try {
+      const response = await this.get('/apart/listings/', {
+        params: { search: location }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error searching apartments by location:', error);
+      throw error;
+    }
+  }
 }
 
 export const apartmentService = new ApartmentService();

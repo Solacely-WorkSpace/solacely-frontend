@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import PaymentSuccess from "./PaymentSuccess";
 
-const PaymentModal = ({ isOpen, onClose, amount = "₦10,000.00", onPaymentComplete }) => {
-  const router = useRouter();
+const PaymentModal = ({ isOpen, onClose, amount = "₦10,000.00", onPaymentComplete, onShowSuccess }) => {
   const [activeTab, setActiveTab] = useState("card");
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -16,16 +15,9 @@ const PaymentModal = ({ isOpen, onClose, amount = "₦10,000.00", onPaymentCompl
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsProcessing(true);
-    
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      // Let parent component know payment is complete
-      if (onPaymentComplete) onPaymentComplete();
-      // Navigate to success page
-      router.push('/apartmentview');
-    }, 2000);
+    onClose && onClose();
+    if (onShowSuccess) onShowSuccess();
+    if (onPaymentComplete) onPaymentComplete();
   };
 
   return (
@@ -124,7 +116,7 @@ const PaymentModal = ({ isOpen, onClose, amount = "₦10,000.00", onPaymentCompl
                         const val = e.target.value.replace(/\D/g, '');
                         setCardNumber(val);
                       }}
-                      required
+                      // required
                     />
                   </div>
                   <div className="flex gap-4 md:gap-5 mb-4 md:mb-0">
@@ -136,7 +128,7 @@ const PaymentModal = ({ isOpen, onClose, amount = "₦10,000.00", onPaymentCompl
                         className="w-full border border-gray-200 md:border-gray-300 rounded-lg p-3 md:p-3.5 focus:outline-primary text-sm md:text-base"
                         value={expiryDate}
                         onChange={(e) => setExpiryDate(e.target.value)}
-                        required
+                        // required
                       />
                     </div>
                     <div className="w-1/2">
@@ -147,19 +139,17 @@ const PaymentModal = ({ isOpen, onClose, amount = "₦10,000.00", onPaymentCompl
                         className="w-full border border-gray-200 md:border-gray-300 rounded-lg p-3 md:p-3.5 focus:outline-primary text-sm md:text-base"
                         value={cvv}
                         onChange={(e) => setCvv(e.target.value)}
-                        required
+                        // required
                       />
                     </div>
                   </div>
+                  <button 
+                    type="submit"
+                    className="w-full py-3 md:py-4 bg-primary text-white rounded-lg font-medium text-base hover:bg-purple-700 disabled:opacity-70 mt-2"
+                  >
+                    {`Pay ${amount}`}
+                  </button>
                 </form>
-                {/* Payment Button */}
-                <button 
-                  onClick={handleSubmit}
-                  className="w-full py-3 md:py-4 bg-primary text-white rounded-lg font-medium text-base hover:bg-purple-700 disabled:opacity-70 mt-2"
-                  disabled={isProcessing}
-                >
-                  {isProcessing ? "Processing..." : `Pay ${amount}`}
-                </button>
               </div>
             )}
             {/* Transfer Tab Content */}
