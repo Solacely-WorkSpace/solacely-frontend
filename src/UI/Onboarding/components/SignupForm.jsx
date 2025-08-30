@@ -8,13 +8,13 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 export default function SignupForm({ setCurrentStage, setUserData }) {
     const [formData, setFormData] = useState({
         fullName: '',
-        username: '',
         email: '',
         mobile: '',
         location: '',
         password: '',
         confirmPassword: ''
     });
+    const [countryCode, setCountryCode] = useState('+234');
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -22,57 +22,117 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
 
     const registerMutation = useRegister();
 
+    const validateField = (name, value, currentFormData = formData) => {
+        switch (name) {
+            case 'fullName':
+                if (!value.trim()) return 'Full name is required';
+                if (!/^[a-zA-Z\s]+$/.test(value.trim())) return 'Full name must contain only letters and spaces';
+                break;
+            case 'email':
+                if (!value.trim()) return 'Email is required';
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please enter a valid email address';
+                break;
+            case 'mobile':
+                if (!value.trim()) return 'Mobile number is required';
+                const mobilePatterns = {
+                    '+234': /^[789]\d{9}$/,
+                    '+27': /^[1-9]\d{8}$/,
+                    '+251': /^9\d{8}$/,
+                    '+254': /^[17]\d{8}$/
+                };
+                const pattern = mobilePatterns[countryCode];
+                if (pattern && !pattern.test(value)) return 'Invalid mobile number format for selected country';
+                break;
+            case 'location':
+                if (!value.trim()) return 'Please select a location';
+                break;
+            case 'password':
+                if (!value) return 'Password is required';
+                if (value.length < 8) return 'Password must be at least 8 characters';
+                if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(value)) return 'Password must include uppercase, lowercase, number, and special character';
+                break;
+            case 'confirmPassword':
+                if (!value) return 'Please confirm your password';
+                if (currentFormData.password !== value) return 'Passwords do not match';
+                break;
+        }
+        return '';
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
         
-        // Clear error when user starts typing
-        if (errors[name]) {
-            setErrors(prev => ({ ...prev, [name]: '' }));
+        if (name === 'countryCode') {
+            setCountryCode(value);
+            // Re-validate mobile with new country code
+            if (formData.mobile) {
+                const mobileError = validateField('mobile', formData.mobile);
+                setErrors(prev => ({ ...prev, mobile: mobileError }));
+            }
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+            
+            // Real-time validation
+            const error = validateField(name, value, { ...formData, [name]: value });
+            setErrors(prev => ({ ...prev, [name]: error }));
         }
     };
 
     const validateForm = () => {
         const newErrors = {};
 
+        // Full Name validation
         if (!formData.fullName.trim()) {
             newErrors.fullName = 'Full name is required';
+        } else if (!/^[a-zA-Z\s]+$/.test(formData.fullName.trim())) {
+            newErrors.fullName = 'Full name must contain only letters and spaces';
         }
 
-        if (!formData.username.trim()) {
-            newErrors.username = 'Username is required';
-        } else if (formData.username.length < 3) {
-            newErrors.username = 'Username must be at least 3 characters';
-        } else if (!/^[a-zA-Z0-9_]+$/.test(formData.username)) {
-            newErrors.username = 'Username can only contain letters, numbers, and underscores';
-        }
-
+        // Email validation
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Email is invalid';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = 'Please enter a valid email address';
         }
 
+        // Mobile validation based on country code
         if (!formData.mobile.trim()) {
             newErrors.mobile = 'Mobile number is required';
+        } else {
+            const mobilePatterns = {
+                '+234': /^[789]\d{9}$/, // Nigeria: starts with 7,8,9 + 9 more digits
+                '+27': /^[1-9]\d{8}$/, // South Africa: 9 digits, not starting with 0
+                '+251': /^9\d{8}$/, // Ethiopia: starts with 9 + 8 more digits
+                '+254': /^[17]\d{8}$/ // Kenya: starts with 1 or 7 + 8 more digits
+            };
+            const pattern = mobilePatterns[countryCode];
+            if (pattern && !pattern.test(formData.mobile)) {
+                newErrors.mobile = 'Invalid mobile number format for selected country';
+            }
         }
 
+        // Location validation
         if (!formData.location.trim()) {
-            newErrors.location = 'Location is required';
+            newErrors.location = 'Please select a location';
         }
 
+        // Password validation
         if (!formData.password) {
             newErrors.password = 'Password is required';
-        } else if (formData.password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
+        } else if (formData.password.length < 8) {
+            newErrors.password = 'Password must be at least 8 characters';
+        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(formData.password)) {
+            newErrors.password = 'Password must include uppercase, lowercase, number, and special character';
         }
 
+        // Confirm Password validation
         if (!formData.confirmPassword) {
             newErrors.confirmPassword = 'Please confirm your password';
         } else if (formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = 'Passwords do not match';
         }
 
+        // Terms validation
         if (!agreedToTerms) {
             newErrors.terms = 'Please agree to the terms and conditions';
         }
@@ -89,10 +149,9 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
         try {
             // Format data to match backend expectations
             const registrationData = {
-                username: formData.username, // Use the username from form instead of generating
                 email: formData.email,
                 full_name: formData.fullName,
-                phone_number: formData.mobile,
+                phone_number: countryCode + formData.mobile,
                 location: formData.location,
                 password: formData.password,
                 password_confirm: formData.confirmPassword
@@ -105,8 +164,7 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
             if (setUserData) {
                 setUserData({
                     email: formData.email,
-                    phone: formData.mobile,
-                    username: formData.username
+                    phone: countryCode + formData.mobile,
                 });
             }
             
@@ -158,28 +216,6 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                 {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
             </div>
 
-            {/* Username */}
-            <div className="w-full mb-6">
-                <label
-                    htmlFor="username"
-                    className="text-sm mb-1.5 block"
-                >
-                    Username
-                </label>
-
-                <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    value={formData.username}
-                    onChange={handleInputChange}
-                    placeholder="Username"
-                    required
-                    className={`placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border ${errors.username ? 'border-red-400' : 'border-gray-400'}`}
-                />
-                {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
-            </div>
-
             <div className="w-full mb-6">
                 <label
                     htmlFor="email"
@@ -211,9 +247,14 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                 <div className="w-full flex items-center gap-2">
                     <select
                         name="countryCode"
+                        value={countryCode}
+                        onChange={handleInputChange}
                         className="relative border border-gray-400 rounded-lg w-fit h-fit flex gap-4 items-center justify-between focus:outline-complementary p-3 px-2"
                     >
-                        <option value="+234">+234</option>
+                        <option value="+234">Nigeria (+234)</option>
+                        <option value="+27">South Africa (+27)</option>
+                        <option value="+251">Ethiopia (+251)</option>
+                        <option value="+254">Kenya (+254)</option>
                     </select>
 
                     <input
