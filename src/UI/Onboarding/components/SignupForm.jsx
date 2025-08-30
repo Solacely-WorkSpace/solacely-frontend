@@ -174,11 +174,24 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
             
         } catch (error) {
             console.error('Registration error:', error);
-            // Handle API validation errors
-            if (error.status === 422 && error.errors) {
-                setErrors(error.errors);
+            
+            // Handle server errors with actual error messages
+            if (error.data && typeof error.data === 'object') {
+                const serverErrors = {};
+                
+                // Extract field-specific errors from server response
+                Object.keys(error.data).forEach(field => {
+                    const fieldErrors = error.data[field];
+                    if (Array.isArray(fieldErrors) && fieldErrors.length > 0) {
+                        serverErrors[field] = fieldErrors[0]; // Show first error message
+                    } else if (typeof fieldErrors === 'string') {
+                        serverErrors[field] = fieldErrors;
+                    }
+                });
+                
+                setErrors(serverErrors);
             } else {
-                // Handle other errors
+                // Fallback for other error types
                 setErrors({ general: error.message || 'Registration failed. Please try again.' });
             }
         }
