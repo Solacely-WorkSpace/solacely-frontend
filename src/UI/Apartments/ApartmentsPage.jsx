@@ -30,7 +30,7 @@ const ApartmentsPage = () => {
   const [locationOptions, setLocationOptions] = useState([]);
   const priceOptions = ['₦0 - 500k', '₦510k - 1mil'];
   const typeOptions = ['Studio', 'Duplex'];
-  const bedOptions = ['1', '2'];
+  const bedOptions = ['1', '2', '3', '4', '5'];
   
   // Close the welcome modal
   const handleCloseWelcomeModal = () => {
@@ -173,6 +173,34 @@ const ApartmentsPage = () => {
     filterByPrice();
   }, [selectedPrice]);
 
+  // Handle bed filter
+  useEffect(() => {
+    const filterByBeds = async () => {
+      if (!selectedBeds) return;
+      
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await apartmentService.searchByBedrooms(selectedBeds);
+        if (response && response.data) {
+          setApartments(response.data);
+        } else if (Array.isArray(response)) {
+          setApartments(response);
+        } else {
+          setApartments([]);
+        }
+        setCurrentPage(1);
+      } catch (err) {
+        console.error('Error filtering apartments by bedrooms:', err);
+        setError('Failed to filter apartments by bedrooms.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    filterByBeds();
+  }, [selectedBeds]);
+
   const handleExplore = (id) => {
     console.log(`Explore property ${id}`);
   };
@@ -306,8 +334,12 @@ const ApartmentsPage = () => {
                 <select
                   value={selectedBeds}
                   onChange={(e) => {
-                    setSelectedBeds(e.target.value);
-                    console.log(`Selected beds: ${e.target.value}`);
+                    const value = e.target.value;
+                    setSelectedBeds(value);
+                    if (!value) {
+                      // Reset to all apartments when no bed count is selected
+                      window.location.reload();
+                    }
                   }}
                   className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >

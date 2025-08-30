@@ -148,6 +148,19 @@ class ApartmentService extends BaseApiService {
       throw error;
     }
   }
+
+  // Search apartments by number of bedrooms
+  async searchByBedrooms(bedrooms) {
+    try {
+      const response = await this.get('/listings/', {
+        bedrooms: bedrooms
+      });
+      return response;
+    } catch (error) {
+      console.error('Error searching apartments by bedrooms:', error);
+      throw error;
+    }
+  }
 }
 
 // Create and export instance
