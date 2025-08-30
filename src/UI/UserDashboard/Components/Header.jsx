@@ -10,13 +10,13 @@ import { usePathname } from "next/navigation"
 
 const formatUserName = (user) => {
   if (!user) return '';
-  return user.username || 'User';
+  return user.full_name || 'User';
 };
 
 export default function Header({ user }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [userName, setUserName] = useState('');
+  const [Name, setName] = useState('');
   const dropdownRef = useRef(null);
   const pathname = usePathname()
 
@@ -25,7 +25,7 @@ export default function Header({ user }) {
     const userData = localStorage.getItem('user');
     if (userData) {
       const user = JSON.parse(userData);
-      setUserName(formatUserName(user));
+      setName(formatUserName(user));
     }
   }, [])
 
@@ -61,7 +61,7 @@ export default function Header({ user }) {
           <div className="ml-12 md:ml-0">
             {getPageTitle() === 'Dashboard' ? (
               <>
-                <h1 className="pt-2 px-6 text-xl font-medium">Hi {userName || 'user'}</h1>
+                <h1 className="pt-2 px-6 text-xl font-medium">Hi { Name || 'user'}</h1>
                 <p className="px-6 text-xs text-gray-500">Welcome back!</p>
               </>
             ) : (
@@ -88,7 +88,7 @@ export default function Header({ user }) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className="text-md font-medium hidden md:inline">{userName}</span>
+                <span className="text-md font-medium hidden md:inline">{Name}</span>
                 <ChevronDown
                   size={17}
                   className={`text-gray-600 hidden md:inline transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''

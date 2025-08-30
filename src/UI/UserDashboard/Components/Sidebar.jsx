@@ -23,7 +23,7 @@ export default function Sidebar() {
 
   const formatUserName = (user) => {
     if (!user) return '';
-    return user.username || 'User';
+    return user.full_name || 'User';
   };
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
