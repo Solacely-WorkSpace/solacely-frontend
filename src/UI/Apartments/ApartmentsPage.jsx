@@ -29,7 +29,7 @@ const ApartmentsPage = () => {
   // Filter options
   const [locationOptions, setLocationOptions] = useState([]);
   const priceOptions = ['₦0 - 500k', '₦510k - 1mil'];
-  const typeOptions = ['Studio', 'Duplex'];
+  const typeOptions = ['Apartment', 'House', 'Condo'];
   const bedOptions = ['1', '2', '3', '4', '5'];
   
   // Close the welcome modal
@@ -201,6 +201,34 @@ const ApartmentsPage = () => {
     filterByBeds();
   }, [selectedBeds]);
 
+  // Handle type filter
+  useEffect(() => {
+    const filterByType = async () => {
+      if (!selectedType) return;
+      
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await apartmentService.searchByType(selectedType);
+        if (response && response.data) {
+          setApartments(response.data);
+        } else if (Array.isArray(response)) {
+          setApartments(response);
+        } else {
+          setApartments([]);
+        }
+        setCurrentPage(1);
+      } catch (err) {
+        console.error('Error filtering apartments by type:', err);
+        setError('Failed to filter apartments by type.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    filterByType();
+  }, [selectedType]);
+
   const handleExplore = (id) => {
     console.log(`Explore property ${id}`);
   };
@@ -314,8 +342,12 @@ const ApartmentsPage = () => {
                 <select
                   value={selectedType}
                   onChange={(e) => {
-                    setSelectedType(e.target.value);
-                    console.log(`Selected type: ${e.target.value}`);
+                    const value = e.target.value;
+                    setSelectedType(value);
+                    if (!value) {
+                      // Reset to all apartments when no type is selected
+                      window.location.reload();
+                    }
                   }}
                   className="w-full appearance-none text-sm px-4 md:px-1.5 py-3 md:py-2 rounded-xl md:rounded-lg bg-white shadow-sm hover:shadow-md text-gray-900 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
@@ -428,17 +460,17 @@ const ApartmentsPage = () => {
               
               <div className="flex items-center gap-4 mb-2 text-xs text-gray-600">
                 <div className="flex items-center gap-1">
-                  <Image src="/icons/UserDashboard/bedroom.svg" width={20} height={20} alt="bedroom" />
+                  <Image src="/icons/UserDashboard/bedroom.svg" className='w-5 h-5' width={20} height={20} alt="bedroom" />
                   <span>{apt.beds || apt.number_of_bedrooms || '--'}bed</span>
                 </div>
                             
                 <div className="flex items-center gap-1">
-                  <Image src="/icons/UserDashboard/bath.svg" width={20} height={20} alt="bath" />
+                  <Image src="/icons/UserDashboard/bath.svg" className='w-5 h-5' width={20} height={20} alt="bath" />
                   <span>{apt.baths || apt.number_of_bathrooms || '--'}bath</span>
                 </div>
                             
                 <div className="flex items-center gap-1">
-                  <Image src="/icons/UserDashboard/ruler.svg" width={20} height={20} alt="ruler" />
+                  <Image src="/icons/UserDashboard/ruler.svg" width={20} className='w-5 h-5' height={20} alt="ruler" />
                   <span>{apt.area || apt.area_size_sqm || '--'} m²</span>
                 </div>
               </div>

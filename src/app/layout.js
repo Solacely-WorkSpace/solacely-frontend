@@ -13,6 +13,8 @@ const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
   variable: "--font-rob",
   display: "swap",
+  preload: true,
+  fallback: ['system-ui', 'arial']
 });
 
 export default function RootLayout({ children }) {

@@ -73,15 +73,36 @@ export default function SigninForm({ serviceType }) {
                 },
                 onError: (error) => {
                     console.error('Login error:', error);
-                    if (error.status === 401) {
-                        toast.error('Invalid email or password');
-                        setErrors({ general: 'Invalid email or password' });
-                    } else if (error.status === 422 && error.errors) {
+                    
+                    // Handle 500 errors with user-friendly messages
+                    if (error.status === 500) {
+                        const errorMessage = 'Our servers are experiencing issues. Please try again in a few minutes or check your details and try again.';
+                        setErrors({ general: errorMessage });
+                        toast.error(errorMessage);
+                        return;
+                    }
+                    
+                    // Handle server errors with actual error messages
+                    if (error.data && typeof error.data === 'object') {
+                        const serverErrors = {};
+                        
+                        // Extract field-specific errors from server response
+                        Object.keys(error.data).forEach(field => {
+                            const fieldErrors = error.data[field];
+                            if (Array.isArray(fieldErrors) && fieldErrors.length > 0) {
+                                serverErrors[field] = fieldErrors[0]; // Show first error message
+                            } else if (typeof fieldErrors === 'string') {
+                                serverErrors[field] = fieldErrors;
+                            }
+                        });
+                        
+                        setErrors(serverErrors);
                         toast.error('Please check your input and try again');
-                        setErrors(error.errors);
                     } else {
-                        toast.error(error.message || 'Login failed. Please try again.');
-                        setErrors({ general: error.message || 'Login failed. Please try again.' });
+                        // Fallback for other error types
+                        const errorMessage = error.message || 'Login failed. Please try again.';
+                        setErrors({ general: errorMessage });
+                        toast.error(errorMessage);
                     }
                 }
             });
