@@ -1,9 +1,11 @@
 "use client"
 import Image from 'next/image'
-import { Avatar } from '@/assets/images'
+import { Profile } from '@/assets/images'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'  
+import { useState, useEffect } from 'react'  
+import { useAuth } from '@/providers/AuthProvider'
+import profileService from '@/lib/api/services/profileService'
 import AccountInformation from './Sections/AccountInfo'
 import PrivacySharing from './Sections/PrivacySharing'
 import LoginDetails from './Sections/LoginDetails'
@@ -12,6 +14,9 @@ import Notification from './Sections/Notification'
 import GlobalPreference from './Sections/GlobalPreference'
 
 function ProfilePage() {
+  const { user } = useAuth()
+  const [profile, setProfile] = useState(null)
+  const [uploading, setUploading] = useState(false)
   const [showAccountInfo, setShowAccountInfo] = useState(false)
   const [showPrivacy, setShowPrivacy] = useState(false)
   const [showLoginDetails, setShowLoginDetails] = useState(false)
@@ -19,42 +24,67 @@ function ProfilePage() {
   const [showNotification, setShowNotification] = useState(false)
   const [showGlobalPreference, setShowGlobalPreference] = useState(false)
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await profileService.getProfile()
+        setProfile(response)
+      } catch (error) {
+        console.error('Error fetching profile:', error)
+      }
+    }
+    fetchProfile()
+  }, [])
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    setUploading(true)
+    try {
+      await profileService.uploadProfileImage(file)
+      const response = await profileService.getProfile()
+      setProfile(response)
+    } catch (error) {
+      console.error('Error uploading image:', error)
+    } finally {
+      setUploading(false)
+    }
+  }
+
   const handleAccountInfo = () => {
     setShowAccountInfo(true)
-  }
-  if (showAccountInfo) {
-    return <AccountInformation onBack={() => setShowAccountInfo(false)} />
   }
   const handlePrivacySharing = () => {
     setShowPrivacy(true)
   }
-  if (showPrivacy) {
-    return <PrivacySharing onBack={() => setShowPrivacy(false)} />
-  }
-
   const handleLoginDetails = () => {
     setShowLoginDetails(true)
+  }
+  const handleSecurity = () => {
+    setShowSecurity(true)
+  }
+  const handleNotification = () => {
+    setShowNotification(true)
+  }
+  const handleGlobalPreference = () => {
+    setShowGlobalPreference(true)
+  }
+
+  if (showAccountInfo) {
+    return <AccountInformation onBack={() => setShowAccountInfo(false)} />
+  }
+  if (showPrivacy) {
+    return <PrivacySharing onBack={() => setShowPrivacy(false)} />
   }
   if (showLoginDetails) {
     return <LoginDetails onBack={() => setShowLoginDetails(false)} />
   }
-
-  const handleSecurity = () => {
-    setShowSecurity(true)
-  }
   if (showSecurity) {
     return <Security onBack={() => setShowSecurity(false)} />
   }
-
-  const handleNotification = () => {
-    setShowNotification(true)
-  }
   if (showNotification) {
     return <Notification onBack={() => setShowNotification(false)} />
-  }
-
-  const handleGlobalPreference = () => {
-    setShowGlobalPreference(true)
   }
   if (showGlobalPreference) {
     return <GlobalPreference onBack={() => setShowGlobalPreference(false)} />
@@ -71,18 +101,30 @@ function ProfilePage() {
         <div className="flex flex-col items-center text-center mb-10">
           <div className="relative w-24 h-24 mb-4">
             <Image
-              src={Avatar} // Replace with actual avatar path
+              src={profile?.profile_image || Profile}
               alt="Profile"
-              layout="fill"
-              className="rounded-full"
+              width={96}
+              height={96}
+              className="rounded-full object-cover"
             />
-            <div className="absolute bottom-3 right-0 bg-gray-200 p-1 rounded-full shadow cursor-pointer">
+            <button 
+              onClick={() => document.getElementById('profile-image-input').click()}
+              disabled={uploading}
+              className="absolute bottom-3 right-0 bg-gray-200 p-1 rounded-full shadow cursor-pointer hover:bg-gray-300 disabled:opacity-50"
+            >
               <Image src="/icons/UserDashboard/edit.svg" alt="edit" width={24} height={24} />
-            </div>
+            </button>
+            <input
+              id="profile-image-input"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
           </div>
-          <h2 className="text-2xl font-semibold">Stella jonah</h2>
+          <h2 className="text-2xl font-semibold">{profile?.full_name || 'User Name'}</h2>
           <p className="text-gray-500 text-sm">
-            j.stevens@gmail.com
+            {profile?.email || 'user@example.com'}
           </p>
         </div>
 

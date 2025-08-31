@@ -7,6 +7,7 @@ import { NotificationIcon } from "@/assets/icons"
 import { Profile } from "@/assets/images"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import profileService from "@/lib/api/services/profileService"
 
 const formatUserName = (user) => {
   if (!user) return '';
@@ -17,6 +18,7 @@ export default function Header({ user }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [Name, setName] = useState('');
+  const [profile, setProfile] = useState(null);
   const dropdownRef = useRef(null);
   const pathname = usePathname()
 
@@ -27,6 +29,19 @@ export default function Header({ user }) {
       const user = JSON.parse(userData);
       setName(formatUserName(user));
     }
+    
+    // Fetch profile data
+    const fetchProfile = async () => {
+      try {
+        const response = await profileService.getProfile();
+        console.log('Profile data:', response);
+        console.log('Profile image URL:', response?.profile_image);
+        setProfile(response);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+    fetchProfile();
   }, [])
 
   // Get the current page title based on the pathname
@@ -80,12 +95,25 @@ export default function Header({ user }) {
                 className="flex items-center gap-3 py-1 px-2 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-gray-100 overflow-hidden">
+                  {profile?.profile_image ? (
+                    <img
+                      src={`https://solacely-backend-4g.onrender.com${profile.profile_image}`}
+                      alt="User avatar"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.log('Image failed to load:', profile.profile_image);
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'block';
+                      }}
+                    />
+                  ) : null}
                   <Image
                     src={Profile}
                     alt="User avatar"
                     width={35}
                     height={35}
                     className="w-full h-full object-cover"
+                    style={{ display: profile?.profile_image ? 'none' : 'block' }}
                   />
                 </div>
                 <span className="text-md font-medium hidden md:inline">{Name}</span>
