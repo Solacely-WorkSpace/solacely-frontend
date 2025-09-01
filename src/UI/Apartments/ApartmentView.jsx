@@ -177,8 +177,8 @@ function ApartmentView() {
           {apiImages[0] && (
             <div className="md:col-span-6 relative md:h-[80vh] h-[60vh] rounded-xl overflow-hidden">
               <Image
-                src={apiImages[0]}
-                alt={`${apartment?.title || 'Apartment'} - Main View`}
+                src={apiImages[currentImageIndex] || apiImages[0]}
+                alt={`${apartment?.title || 'Apartment'} - View ${currentImageIndex + 1}`}
                 fill
                 className="object-cover"
                 priority
@@ -186,9 +186,26 @@ function ApartmentView() {
                 quality={90}
                 onError={(e) => {
                   // eslint-disable-next-line no-console
-                  console.error('Failed to load main image:', apiImages[0]);
+                  console.error('Failed to load image:', apiImages[currentImageIndex] || apiImages[0]);
                 }}
               />
+              {/* Mobile Navigation Buttons */}
+              {apiImages.length > 1 && (
+                <>
+                  <button 
+                    onClick={() => setCurrentImageIndex(p => p === 0 ? apiImages.length - 1 : p - 1)}
+                    className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                  >
+                    <FiChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button 
+                    onClick={() => setCurrentImageIndex(p => p === apiImages.length - 1 ? 0 : p + 1)}
+                    className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                  >
+                    <FiChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
             </div>
           )}
           <div className="md:col-span-6 flex flex-col gap-4">

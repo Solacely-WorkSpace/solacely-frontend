@@ -45,37 +45,37 @@ function TimePickerModal({ open, onClose, onConfirm, initialTime }) {
 
   return open ? (
     <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 relative">
+      <div className="bg-white rounded-2xl shadow-2xl p-6 relative">
         <button onClick={onClose} className="absolute right-4 top-4 text-2xl text-gray-400 hover:text-black">&times;</button>
-        <h2 className="text-xl font-bold text-center mb-6">Select Time</h2>
+        <h2 className="text-xl font-bold text-center mb-4">Select Time</h2>
         
         {/* SELECT TIME label */}
         <div className="text-xs text-gray-400 font-medium mb-3 text-center">SELECT TIME</div>
         
         {/* Time display */}
-        <div className="flex justify-center items-center gap-1 mb-6">
+        <div className="flex justify-center items-center gap-1 mb-3">
           <button 
-            className={`text-5xl font-bold px-4 py-2 rounded-lg ${selecting==='hour'?'bg-purple-100 text-primary':'text-gray-800'}`} 
+            className={`text-3xl font-bold px-4 py-2 rounded-lg ${selecting==='hour'?'bg-purple-100 text-primary':'text-gray-800'}`} 
             onClick={()=>setSelecting('hour')}
           >
             {hour}
           </button>
           <span className="text-5xl font-bold text-gray-800 mx-2">:</span>
           <button 
-            className={`text-5xl font-bold px-4 py-2 rounded-lg ${selecting==='minute'?'bg-purple-100 text-primary':'text-gray-800'}`} 
+            className={`text-3xl font-bold px-4 py-2 rounded-lg ${selecting==='minute'?'bg-purple-100 text-primary':'text-gray-800'}`} 
             onClick={()=>setSelecting('minute')}
           >
             {minute.toString().padStart(2,'0')}
           </button>
           <div className="flex flex-col ml-4 gap-1">
             <button 
-              className={`text-sm px-3 py-1 rounded ${ampm==='AM'?'bg-purple-100 text-primary font-bold':'bg-gray-100 text-gray-600'}`} 
+              className={`text-xs px-3 py-1 rounded ${ampm==='AM'?'bg-purple-100 text-primary font-bold':'bg-gray-100 text-gray-600'}`} 
               onClick={()=>setAMPM('AM')}
             >
               AM
             </button>
             <button 
-              className={`text-sm px-3 py-1 rounded ${ampm==='PM'?'bg-purple-100 text-primary font-bold':'bg-gray-100 text-gray-600'}`} 
+              className={`text-xs px-3 py-1 rounded ${ampm==='PM'?'bg-purple-100 text-primary font-bold':'bg-gray-100 text-gray-600'}`} 
               onClick={()=>setAMPM('PM')}
             >
               PM
@@ -84,7 +84,7 @@ function TimePickerModal({ open, onClose, onConfirm, initialTime }) {
         </div>
         
         {/* Clock */}
-        <div className="relative w-64 h-64 mx-auto mb-6">
+        <div className="relative w-64 h-64 mx-auto mb-3">
           {/* Clock background */}
           <div className="absolute inset-0 rounded-full bg-gray-100"></div>
           
@@ -99,7 +99,7 @@ function TimePickerModal({ open, onClose, onConfirm, initialTime }) {
                 key={num}
                 className={`absolute flex items-center justify-center rounded-full text-lg font-medium transition-all duration-150 ${
                   isSelected
-                    ? 'bg-purple-600 text-white w-10 h-10 font-bold'
+                    ? 'bg-primary text-white w-10 h-10 font-bold'
                     : 'text-gray-700 w-8 h-8 hover:bg-gray-200'
                 }`}
                 style={{ left: x - (isSelected ? 20 : 16), top: y - (isSelected ? 20 : 16) }}
@@ -135,9 +135,9 @@ function InspectionDetails({ open, onClose, onBack, onSend, bookingDate, booking
 
   return open ? (
     <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 relative">
+      <div className="bg-white rounded-2xl shadow-2xl p-4 relative">
         <button onClick={onClose} className="absolute right-4 top-4 text-2xl text-gray-400 hover:text-black">&times;</button>
-        <h2 className="text-xl font-bold text-center mb-8">Inspection Details</h2>
+        <h2 className="text-lg font-bold text-center mb-8">Inspection Details</h2>
         
         <div className="bg-gray-50 rounded-lg p-4 mb-8">
           <div className="text-green-600 font-medium mb-2">
@@ -149,8 +149,8 @@ function InspectionDetails({ open, onClose, onBack, onSend, bookingDate, booking
         </div>
         
         <div className="flex justify-between items-center">
-          <button className="text-purple-600 font-semibold" onClick={onBack}>Back</button>
-          <button className="bg-purple-600 text-white px-8 py-2 rounded font-semibold" onClick={onSend}>Send</button>
+          <button className="text-primary font-semibold" onClick={onBack}>Back</button>
+          <button className="bg-primary text-white px-8 py-2 rounded font-semibold" onClick={onSend}>Send</button>
         </div>
       </div>
     </div>
@@ -279,15 +279,15 @@ const DatePicker = ({ onSelect, onClose, apartmentId }) => {
     <>
       {!showTimePicker && !showInspectionDetails && !showSuccess && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 pt-8 relative animate-in fade-in zoom-in duration-300">
-            <button onClick={onClose} className="absolute left-4 top-4 text-2xl text-gray-400 hover:text-black">&times;</button>
+          <div className="bg-white rounded-2xl shadow-2xl p-4 pt-4 relative animate-in fade-in zoom-in duration-300">
+            <button onClick={onClose} className="absolute right-3 bg-gray-100 px-2 rounded-full top-4 text-2xl text-gray-800 hover:text-black">&times;</button>
             <h2 className="text-2xl font-bold text-center mb-4 mt-2" style={{textShadow:'0 2px 4px #0001'}}>Select Date</h2>
             <div className="flex items-center justify-between mb-2 px-2">
-              <button onClick={handlePrevMonth} className="text-gray-400 text-lg hover:text-black">&#60;</button>
+              <button onClick={handlePrevMonth} className="text-primary text-2xl bg-complementary rounded-lg px-1 hover:text-black">&#60;</button>
               <span className="font-semibold text-gray-700">{months[currentMonth]} {currentYear}</span>
-              <button onClick={handleNextMonth} className="text-gray-400 text-lg hover:text-black">&#62;</button>
+              <button onClick={handleNextMonth} className="text-primary text-2xl bg-complementary rounded-lg px-1 hover:text-black">&#62;</button>
             </div>
-            <div className="grid grid-cols-7 gap-1 text-center text-xs text-gray-400 mb-2">
+            <div className="grid grid-cols-7 gap-1 text-center text-xs text-primary font-medium bg-gray-200 mb-2 mt-4">
               {['SUN','MON','TUE','WED','THU','FRI','SAT'].map(d=>(<div key={d}>{d[0]}</div>))}
             </div>
             <div className="grid grid-cols-7 gap-1 text-center text-base">
@@ -301,7 +301,7 @@ const DatePicker = ({ onSelect, onClose, apartmentId }) => {
                 return (
                   <button
                     key={day}
-                    className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 transition-all ${isSelected ? 'bg-purple-600 text-white font-bold shadow-lg' : 'hover:bg-purple-100'}`}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 transition-all ${isSelected ? 'bg-primary text-white font-bold shadow-lg' : 'hover:bg-purple-100'}`}
                     onClick={()=>handleDayClick(day)}
                   >
                     {day}
