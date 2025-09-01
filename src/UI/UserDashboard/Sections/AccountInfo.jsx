@@ -1,15 +1,51 @@
 "use client"
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronLeft } from 'lucide-react'
+import profileService from '@/lib/api/services/profileService'
 
 export default function AccountInformation({ onBack }) {
-  const [legalName, setLegalName] = useState('Johanna Stevens')
-  const [gender, setGender] = useState('Female')    
-  const [dob, setDob] = useState('January 24, 1983')
-  const [email, setEmail] = useState('j.mcdowell@gmail.com')
-  const [phone, setPhone] = useState('+995 590 558 124')
-  const [address, setAddress] = useState('Not provided')
+  const [profile, setProfile] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [updating, setUpdating] = useState(false)
+  const [editData, setEditData] = useState({})
+  const [editMode, setEditMode] = useState({})
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await profileService.getProfile()
+        setProfile(response)
+        setEditData({
+          full_name: response?.full_name || '',
+          email: response?.email || '',
+          phone_number: response?.phone_number || '',
+          location: response?.location || ''
+        })
+      } catch (error) {
+        console.error('Error fetching profile:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchProfile()
+  }, [])
+
+  const handleUpdate = async () => {
+    setUpdating(true)
+    try {
+      const response = await profileService.updateProfile(editData)
+      setProfile(response)
+    } catch (error) {
+      console.error('Error updating profile:', error)
+    } finally {
+      setUpdating(false)
+    }
+  }
+
+  if (loading) {
+    return <div className="p-6">Loading...</div>
+  }
 
   return (
     <div className="w-full max-w-full overflow-x-hidden px-4 md:p-6">
@@ -34,11 +70,24 @@ export default function AccountInformation({ onBack }) {
           <div className="mb-4 w-full border-b border-gray-200 md:border md:border-gray-200 md:rounded-lg md:p-4 md:w-100">
             <label className="text-sm text-gray-500">Legal name</label>
             <div className="flex justify-between items-center mt-1">
-              <span className="font-medium text-sm">{legalName}</span>
-              <button className="text-red-600 px-3 py-2 text-xs">
-                <div className="flex gap-2">
-                  <Image src="/icons/UserDashboard/save.svg" className="w-3 h-3" alt="Save" width={24} height={24} />
-                  Save
+              {editMode.full_name ? (
+                <input
+                  type="text"
+                  value={editData.full_name}
+                  onChange={(e) => setEditData({...editData, full_name: e.target.value})}
+                  className="font-medium text-sm border-none outline-none bg-transparent flex-1"
+                  autoFocus
+                />
+              ) : (
+                <span className="font-medium text-sm">{profile?.full_name || 'Not provided'}</span>
+              )}
+              <button 
+                onClick={() => setEditMode({...editMode, full_name: !editMode.full_name})}
+                className="text-gray-500 text-sm"
+              >
+                <div className="flex gap-2 text-sm text-gray-500">
+                  <Image src="/icons/edit.svg" className="w-3 h-3" alt="Edit" width={24} height={24} />
+                  {editMode.full_name ? 'Done' : 'Edit'}
                 </div>
               </button>
             </div>
@@ -48,7 +97,7 @@ export default function AccountInformation({ onBack }) {
           <div className="mb-4 w-full border-b border-gray-200 md:w-100">
             <label className="text-sm text-gray-500">Gender</label>
             <div className="flex justify-between items-center mt-1">
-                <span className="font-medium text-sm">{gender}</span>
+                <span className="font-medium text-sm">Not provided</span>
                 <button className="text-gray-500 text-sm">
                   <div className="flex gap-2 text-sm text-gray-500">
                     <Image src="/icons/edit.svg" className="w-3 h-3" alt="Edit" width={24} height={24} />
@@ -62,7 +111,7 @@ export default function AccountInformation({ onBack }) {
           <div className="mb-4 w-full border-b border-gray-200 md:w-100">
             <label className="text-sm text-gray-500">Date of birth</label>
             <div className="flex justify-between items-center mt-1">
-              <span className="font-medium text-sm">{dob}</span>
+              <span className="font-medium text-sm">Not provided</span>
               <button className="text-gray-500 text-sm">
                 <div className="flex gap-2 text-sm text-gray-500">
                   <Image src="/icons/edit.svg" className="w-3 h-3" alt="Edit" width={24} height={24} />
@@ -76,11 +125,24 @@ export default function AccountInformation({ onBack }) {
           <div className="mb-4 w-full border-b border-gray-200 md:w-100">
             <label className="text-sm text-gray-500">Email address</label>
             <div className="flex justify-between items-center mt-1">
-              <span className="font-medium text-sm">{email}</span>
-              <button className="text-gray-500 text-sm">
+              {editMode.email ? (
+                <input
+                  type="email"
+                  value={editData.email}
+                  onChange={(e) => setEditData({...editData, email: e.target.value})}
+                  className="font-medium text-sm border-none outline-none bg-transparent flex-1"
+                  autoFocus
+                />
+              ) : (
+                <span className="font-medium text-sm">{profile?.email || 'Not provided'}</span>
+              )}
+              <button 
+                onClick={() => setEditMode({...editMode, email: !editMode.email})}
+                className="text-gray-500 text-sm"
+              >
                 <div className="flex gap-2 text-sm text-gray-500">
                   <Image src="/icons/edit.svg" className="w-3 h-3" alt="Edit" width={24} height={24} />
-                  Edit
+                  {editMode.email ? 'Done' : 'Edit'}
                 </div>
               </button>
             </div>
@@ -90,11 +152,24 @@ export default function AccountInformation({ onBack }) {
           <div className="mb-4 w-full border-b border-gray-200 md:w-100">
             <label className="text-sm text-gray-500">Phone number</label>
             <div className="flex justify-between items-center mt-1">
-              <span className="font-medium text-sm">{phone}</span>
-              <button className="text-gray-500 text-sm">
+              {editMode.phone_number ? (
+                <input
+                  type="tel"
+                  value={editData.phone_number}
+                  onChange={(e) => setEditData({...editData, phone_number: e.target.value})}
+                  className="font-medium text-sm border-none outline-none bg-transparent flex-1"
+                  autoFocus
+                />
+              ) : (
+                <span className="font-medium text-sm">{profile?.phone_number || 'Not provided'}</span>
+              )}
+              <button 
+                onClick={() => setEditMode({...editMode, phone_number: !editMode.phone_number})}
+                className="text-gray-500 text-sm"
+              >
                 <div className="flex gap-2 text-sm text-gray-500">
                   <Image src="/icons/edit.svg" className="w-3 h-3" alt="Edit" width={24} height={24} />
-                  Edit
+                  {editMode.phone_number ? 'Done' : 'Edit'}
                 </div>
               </button>
             </div>
@@ -104,7 +179,7 @@ export default function AccountInformation({ onBack }) {
           <div className="mb-4 w-full border-b border-gray-200 md:w-100">
             <label className="text-sm text-gray-500">Whatsapp number</label>
             <div className="flex justify-between items-center mt-1">
-              <span className="font-medium text-sm">{phone}</span>
+              <span className="font-medium text-sm">{profile?.phone_number || 'Not provided'}</span>
               <button className="text-gray-500 text-sm">
                 <div className="flex gap-2 text-sm text-gray-500">
                   <Image src="/icons/edit.svg" className="w-3 h-3" alt="Edit" width={24} height={24} />
@@ -118,11 +193,24 @@ export default function AccountInformation({ onBack }) {
           <div className="mb-4 w-full border-b border-gray-200 md:w-100">
             <label className="text-sm text-gray-500">Address</label>
             <div className="flex justify-between items-center mt-1">
-              <span className="font-medium text-sm">{address}</span>
-              <button className="text-gray-500 text-sm">
+              {editMode.location ? (
+                <input
+                  type="text"
+                  value={editData.location}
+                  onChange={(e) => setEditData({...editData, location: e.target.value})}
+                  className="font-medium text-sm border-none outline-none bg-transparent flex-1"
+                  autoFocus
+                />
+              ) : (
+                <span className="font-medium text-sm">{profile?.location || 'Not provided'}</span>
+              )}
+              <button 
+                onClick={() => setEditMode({...editMode, location: !editMode.location})}
+                className="text-gray-500 text-sm"
+              >
                 <div className="flex gap-2 text-sm text-gray-500">
-                  <p className="text-black bg-gray-200 px-2 py-1 rounded-full w-4 h-4 flex items-center justify-center">+</p>
-                  Add
+                  <Image src="/icons/edit.svg" className="w-3 h-3" alt="Edit" width={24} height={24} />
+                  {editMode.location ? 'Done' : 'Edit'}
                 </div>
               </button>
             </div>
@@ -130,8 +218,12 @@ export default function AccountInformation({ onBack }) {
 
           {/* Update and Cancel Buttons */}
           <div className="flex space-x-4 mt-8">
-            <button className="bg-complementary text-white px-6 py-2 rounded-md flex-1 md:flex-initial">
-              Update Settings
+            <button 
+              onClick={handleUpdate}
+              disabled={updating}
+              className="bg-complementary text-white px-6 py-2 rounded-md flex-1 md:flex-initial disabled:opacity-50"
+            >
+              {updating ? 'Updating...' : 'Update Settings'}
             </button>
             <button className="bg-gray-100 text-gray-700 px-6 py-2 rounded-md flex-1 md:flex-initial">
               Cancel

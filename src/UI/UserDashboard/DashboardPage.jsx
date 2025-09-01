@@ -11,7 +11,7 @@ import { useAuthStatus } from "@/hooks/useAuthGuard"
 
 const formatUserName = (user) => {
   if (!user) return '';
-  return user.username || 'User';
+  return user.full_name || 'User';
 };
 
 function DashboardPage() {
