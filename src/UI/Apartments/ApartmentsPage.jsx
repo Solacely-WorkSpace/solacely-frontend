@@ -29,7 +29,18 @@ const ApartmentsPage = () => {
   // Filter options
   const [locationOptions, setLocationOptions] = useState([]);
   const priceOptions = ['₦0 - 500k', '₦510k - 1mil'];
-  const typeOptions = ['Apartment', 'House', 'Condo'];
+  const typeOptions = [
+    'Duplex',
+    'Bungalow',
+    'Terrace',
+    'Penthouse',
+    'Detached House',
+    'Semi-detached House',
+    'Maisonette',
+    'Shared Apartment / Co-living',
+    'Self-contained (Mini flat)',
+  ];
+  
   const bedOptions = ['1', '2', '3', '4', '5'];
   
   // Close the welcome modal
