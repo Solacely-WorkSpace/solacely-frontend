@@ -1,4 +1,5 @@
 import BaseApiService from '../baseService';
+import loginAttemptService from './loginAttemptService';
 
 class AuthService extends BaseApiService {
   constructor() {
@@ -12,48 +13,117 @@ class AuthService extends BaseApiService {
 
   // User login
   async login(credentials) {
-    const response = await this.post('/login/', credentials);
+    const email = credentials.email;
     
-    // Debug the actual response structure
-    console.log(' Login response structure:', {
-      response,
-      hasSuccess: 'success' in response,
-      hasData: 'data' in response,
-      hasToken: 'token' in response,
-      responseKeys: Object.keys(response),
-      dataKeys: response.data ? Object.keys(response.data) : 'No data object'
-    });
-    
-    // Store token if login successful - try multiple possible structures
-    let token = null;
-    let refreshToken = null;
-    
-    if (response.tokens?.access) {
-      token = response.tokens.access;
-      refreshToken = response.tokens.refresh;
-    } else if (response.tokens?.token) {
-      token = response.tokens.token;
-    } else if (response.success && response.data?.token) {
-      token = response.data.token;
-    } else if (response.token) {
-      token = response.token;
-    } else if (response.data?.access_token) {
-      token = response.data.access_token;
+    // Check if account is locked before attempting login
+    if (loginAttemptService.isAccountLocked(email)) {
+      const remainingTime = loginAttemptService.getRemainingLockoutTime(email);
+      throw {
+        status: 423, // Locked status
+        message: `Too many failed attempts. Please try again after ${remainingTime} minutes.`,
+        data: { 
+          locked: true, 
+          remainingTime,
+          type: 'account_locked'
+        }
+      };
     }
-    
-    if (token && typeof window !== 'undefined') {
-      console.log('Storing token:', token.substring(0, 20) + '...');
-      localStorage.setItem('authToken', token);
-      if (refreshToken) {
-        localStorage.setItem('refreshToken', refreshToken);
+
+    try {
+      const response = await this.post('/login/', credentials);
+      
+      // Debug the actual response structure
+      console.log('Login response structure:', {
+        response,
+        hasSuccess: 'success' in response,
+        hasData: 'data' in response,
+        hasToken: 'token' in response,
+        responseKeys: Object.keys(response),
+        dataKeys: response.data ? Object.keys(response.data) : 'No data object'
+      });
+      
+      // Store token if login successful - try multiple possible structures
+      let token = null;
+      let refreshToken = null;
+      
+      if (response.tokens?.access) {
+        token = response.tokens.access;
+        refreshToken = response.tokens.refresh;
+      } else if (response.tokens?.token) {
+        token = response.tokens.token;
+      } else if (response.success && response.data?.token) {
+        token = response.data.token;
+      } else if (response.token) {
+        token = response.token;
+      } else if (response.data?.access_token) {
+        token = response.data.access_token;
       }
-      localStorage.setItem('user', JSON.stringify(response.user || response.data?.user || {}));
-    } else {
-      console.error('No token found in response!');
-      console.log('Available keys in response.tokens:', response.tokens ? Object.keys(response.tokens) : 'No tokens object');
+      
+      if (token && typeof window !== 'undefined') {
+        console.log('Storing token:', token.substring(0, 20) + '...');
+        localStorage.setItem('authToken', token);
+        if (refreshToken) {
+          localStorage.setItem('refreshToken', refreshToken);
+        }
+        localStorage.setItem('user', JSON.stringify(response.user || response.data?.user || {}));
+        
+        // Clear failed attempts on successful login
+        loginAttemptService.recordSuccessfulLogin(email);
+      } else {
+        console.error('No token found in response!');
+        console.log('Available keys in response.tokens:', response.tokens ? Object.keys(response.tokens) : 'No tokens object');
+      }
+      
+      return response;
+    } catch (error) {
+      // Determine error type based on server response
+      let errorMessage = 'Login failed. Please try again.';
+      let errorType = 'general';
+      let logReason = 'invalid_credentials';
+      
+      if (error.status === 401 || error.status === 400) {
+        // Check if it's email not found or wrong password
+        const serverMessage = error.data?.message || error.message || '';
+        
+        if (serverMessage.toLowerCase().includes('email') || 
+            serverMessage.toLowerCase().includes('user') ||
+            serverMessage.toLowerCase().includes('not found')) {
+          errorMessage = 'This email address is not registered.';
+          errorType = 'email_not_found';
+          logReason = 'email_not_found';
+        } else if (serverMessage.toLowerCase().includes('password') ||
+                   serverMessage.toLowerCase().includes('credential') ||
+                   serverMessage.toLowerCase().includes('invalid')) {
+          errorMessage = 'Incorrect password.';
+          errorType = 'wrong_password';
+          logReason = 'wrong_password';
+        }
+      }
+      
+      // Record failed attempt with specific reason
+      const attemptResult = loginAttemptService.recordFailedAttempt(email, logReason);
+      
+      // If this attempt caused a lockout, override the message
+      if (attemptResult.isLocked) {
+        errorMessage = 'Too many failed attempts. Please try again after 10 minutes.';
+        errorType = 'account_locked';
+      }
+      
+      // Enhance error with attempt information
+      const enhancedError = {
+        ...error,
+        message: errorMessage,
+        data: {
+          ...error.data,
+          type: errorType,
+          attemptCount: attemptResult.count,
+          remainingAttempts: attemptResult.remainingAttempts,
+          isLocked: attemptResult.isLocked
+        }
+      };
+      
+      throw enhancedError;
     }
-    
-    return response;
   }
 
   // User logout
@@ -106,6 +176,11 @@ class AuthService extends BaseApiService {
     return this.get('/profile/');
   }
 
+  // Get login attempt status for an email
+  getLoginAttemptStatus(email) {
+    return loginAttemptService.getAttemptStatus(email);
+  }
+
   // Update profile
   async updateProfile(profileData) {
     return this.put('/profile/', profileData);
@@ -139,7 +214,7 @@ class AuthService extends BaseApiService {
 
   // Handle token expiration and auto-logout
   handleTokenExpiration() {
-    console.log('🔒 Token expired, logging out user...');
+    console.log('Token expired, logging out user...');
     
     // Clear all auth data
     if (typeof window !== 'undefined') {

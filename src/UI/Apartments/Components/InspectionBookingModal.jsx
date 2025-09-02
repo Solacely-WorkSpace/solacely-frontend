@@ -22,17 +22,17 @@ const InspectionBookingModal = ({ isOpen, onClose, onProceed, onShowSuccess }) =
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-3xl shadow-xl w-full max-w-xl p-6 animate-in fade-in zoom-in duration-300">
         <div className="flex items-start mb-6">
-          <div className="bg-blue-100 rounded-full p-3 mr-4">
-            <div className="text-blue-700 font-bold text-xl border-2 border-blue-800 rounded-full w-8 h-8 flex items-center justify-center">!</div>
+          <div className="bg-purple-100 rounded-full p-3 mr-4">
+            <div className="text-primary font-bold text-xl border-2 border-purple-800 rounded-full w-8 h-8 flex items-center justify-center">!</div>
           </div>
           
           <div className="flex-1">
-            <div className="text-purple-900 font-semibold text-lg mb-4">
+            <div className="text-purple-900 font-semibold text-sm mb-4">
               You are allowed to inspect a maximum of three apartments
               for N10,000 and one apartment for N5,000.
             </div>
             
-            <div className="text-purple-900 font-medium">
+            <div className="text-purple-900 text-xs font-medium">
               This payment is non-refundable.
             </div>
           </div>
@@ -41,14 +41,14 @@ const InspectionBookingModal = ({ isOpen, onClose, onProceed, onShowSuccess }) =
         <div className="flex justify-between mt-10">
           <button 
             onClick={onClose}
-            className="px-8 py-4 border border-primary rounded-lg text-primary font-medium hover:bg-gray-50"
+            className="px-4 py-1 border border-primary rounded-lg text-primary font-medium hover:bg-gray-50"
           >
             Back
           </button>
           
           <button 
             onClick={handleProceedToPay}
-            className="px-8 py-4 bg-primary text-white rounded-lg font-medium hover:bg-purple-700"
+            className="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-purple-700"
           >
             Proceed to pay
           </button>
