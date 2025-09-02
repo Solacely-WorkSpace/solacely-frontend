@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useLogin } from "@/hooks";
+import authService from "@/lib/api/services/authService";
 import { RealTimeValidateInput } from "./RealTimeValidatedInput";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import clsx from "clsx";
@@ -19,14 +20,25 @@ export default function SigninForm({ serviceType }) {
     const [passwordStatus, setPasswordStatus] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [errors, setErrors] = useState({})
+    const [attemptInfo, setAttemptInfo] = useState(null)
 
     const loginMutation = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        // Clear previous errors
+        // Clear previous errors and attempt info
         setErrors({});
+        setAttemptInfo(null);
+        
+        // Check if account is locked before proceeding
+        if (serviceType === 'email' && email) {
+            const status = authService.getLoginAttemptStatus(email);
+            if (status.isLocked) {
+                setErrors({ general: `Too many failed attempts. Please try again after ${status.remainingLockoutTime} minutes.` });
+                return;
+            }
+        }
 
         // Validate required fields
         const newErrors = {};
@@ -73,6 +85,37 @@ export default function SigninForm({ serviceType }) {
                 },
                 onError: (error) => {
                     console.error('Login error:', error);
+                    
+                    // Update attempt info if available
+                    if (error.data) {
+                        setAttemptInfo({
+                            count: error.data.attemptCount || 0,
+                            remainingAttempts: error.data.remainingAttempts || 5,
+                            isLocked: error.data.isLocked || false,
+                            type: error.data.type || 'general'
+                        });
+                    }
+                    
+                    // Handle account lockout
+                    if (error.status === 423 || error.data?.type === 'account_locked') {
+                        const errorMessage = error.message || 'Too many failed attempts. Please try again after 10 minutes.';
+                        setErrors({ general: errorMessage });
+                        toast.error(errorMessage);
+                        return;
+                    }
+                    
+                    // Handle specific login errors
+                    if (error.data?.type === 'email_not_found') {
+                        setErrors({ email: 'This email address is not registered.' });
+                        toast.error('This email address is not registered.');
+                        return;
+                    }
+                    
+                    if (error.data?.type === 'wrong_password') {
+                        setErrors({ password: 'Incorrect password.' });
+                        toast.error('Incorrect password.');
+                        return;
+                    }
                     
                     // Handle 500 errors with user-friendly messages
                     if (error.status === 500) {
@@ -124,6 +167,18 @@ export default function SigninForm({ serviceType }) {
                 </div>
             )}
 
+            {/* Login attempt warning */}
+            {attemptInfo && !attemptInfo.isLocked && attemptInfo.count > 0 && (
+                <div className="w-full mb-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded">
+                    <p className="text-sm">
+                        {attemptInfo.remainingAttempts > 0 
+                            ? `${attemptInfo.remainingAttempts} attempt${attemptInfo.remainingAttempts !== 1 ? 's' : ''} remaining before account lockout.`
+                            : 'Account will be locked after next failed attempt.'
+                        }
+                    </p>
+                </div>
+            )}
+
             {
                 serviceType === 'email' &&
                 <div className="w-full">
@@ -148,7 +203,7 @@ export default function SigninForm({ serviceType }) {
                             validator: emailValidator,
                         }}
                     />
-                    {/* {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>} */}
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
             }
 
