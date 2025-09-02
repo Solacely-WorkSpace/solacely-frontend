@@ -255,7 +255,7 @@ class AuthService extends BaseApiService {
   }
 
   // Set up periodic token validation (call this in your app initialization)
-  setupTokenValidation(intervalMs = 60000) { // Check every minute by default
+  setupTokenValidation(intervalMs = 60000) {
     if (typeof window === 'undefined') return;
 
     return setInterval(() => {
@@ -265,7 +265,7 @@ class AuthService extends BaseApiService {
     }, intervalMs);
   }
 
-  // JWT token expiration check (basic)
+  // JWT token expiration check 
   isTokenExpired(token) {
     if (!this.isValidTokenFormat(token)) return true;
     
