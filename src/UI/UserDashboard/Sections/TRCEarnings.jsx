@@ -8,12 +8,13 @@ export default function TRCEarnings({ onBack }) {
   const [destination, setDestination] = useState('Rent Savings');
   const [loading, setLoading] = useState(false);
   const [trcBalance, setTrcBalance] = useState(0);
+  const [message, setMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
     const fetchTrcBalance = async () => {
       try {
         const response = await walletService.getDashboardStats();
-        setTrcBalance(response.total_trc_circulating || 0);
+        setTrcBalance(response.trc_balance || 0);
       } catch (error) {
         console.error('Failed to fetch TRC balance:', error);
       }
@@ -26,14 +27,17 @@ export default function TRCEarnings({ onBack }) {
     if (!amount || parseFloat(amount) <= 0) return;
     
     setLoading(true);
+    setMessage({ type: '', text: '' });
     try {
       await walletService.trcTransfer(parseFloat(amount));
       setAmount('');
+      setMessage({ type: 'success', text: 'Transfer completed successfully!' });
       // Refresh balance after successful transfer
       const response = await walletService.getDashboardStats();
-      setTrcBalance(response.total_trc_circulating || 0);
+      setTrcBalance(response.trc_balance || 0);
     } catch (error) {
-      console.error('Transfer failed:', error);
+      const errorMessage = error.data?.error || 'Transfer failed. Please try again.';
+      setMessage({ type: 'error', text: errorMessage });
     } finally {
       setLoading(false);
     }
@@ -98,6 +102,15 @@ export default function TRCEarnings({ onBack }) {
       <div className="bg-white md:rounded-2xl md:border border-gray-200 md:p-6 mb-8 w-full max-w-full">
         <div className="font-semibold text-lg mb-1">Transfer Earnings</div>
         <div className="text-gray-400 text-sm mb-6">Use your TRC earnings to top up your wallet or rent savings balance</div>
+        {message.text && (
+          <div className={`p-3 rounded-lg mb-4 text-sm ${
+            message.type === 'success' 
+              ? 'bg-green-50 text-green-700 border border-green-200' 
+              : 'bg-red-50 text-red-700 border border-red-200'
+          }`}>
+            {message.text}
+          </div>
+        )}
         <form onSubmit={handleTransfer} className="grid md:grid-cols-1 gap-6 items-end w-full max-w-full">
           <div className="flex flex-col gap-2 w-full">
             <label className="text-xs font-semibold text-gray-900">ENTER AMOUNT TO TRANSFER</label>
