@@ -103,9 +103,9 @@ function WalletPage() {
 
   // Sample earnings data
   const earningsData = {
-    surveys: '₦5,000',
-    microtasks: '₦4,000',
-    referrals: '₦3,500'
+    surveys: '₦ 0',
+    microtasks: '₦ 0',
+    referrals: '₦ 0'
   }
 
   const router = useRouter()

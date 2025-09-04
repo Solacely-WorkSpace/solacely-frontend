@@ -1,11 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiChevronLeft } from 'react-icons/fi';
 import Image from 'next/image';
+import walletService from '../../../lib/api/services/walletService';
 
 export default function TRCEarnings({ onBack }) {
   const [amount, setAmount] = useState('');
   const [destination, setDestination] = useState('Rent Savings');
-  const trcBalance = 12500;
+  const [loading, setLoading] = useState(false);
+  const [trcBalance, setTrcBalance] = useState(0);
+
+  useEffect(() => {
+    const fetchTrcBalance = async () => {
+      try {
+        const response = await walletService.getDashboardStats();
+        setTrcBalance(response.total_trc_circulating || 0);
+      } catch (error) {
+        console.error('Failed to fetch TRC balance:', error);
+      }
+    };
+    fetchTrcBalance();
+  }, []);
+
+  const handleTransfer = async (e) => {
+    e.preventDefault();
+    if (!amount || parseFloat(amount) <= 0) return;
+    
+    setLoading(true);
+    try {
+      await walletService.trcTransfer(parseFloat(amount));
+      setAmount('');
+      // Refresh balance after successful transfer
+      const response = await walletService.getDashboardStats();
+      setTrcBalance(response.total_trc_circulating || 0);
+    } catch (error) {
+      console.error('Transfer failed:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="md:p-6 min-h-screen w-full max-w-full overflow-x-hidden">
@@ -31,31 +63,31 @@ export default function TRCEarnings({ onBack }) {
               <div className="flex items-center gap-1">
                 <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/chart.svg" width={20} height={20} alt="surveys icon" className='w-4 h-4' /></span> <span>Surveys</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦5,000</span>
+              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
             </div>
             <div className="flex flex-col items-start min-w-[90px]">
               <div className="flex items-center gap-1">
                 <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/calendar-circle.svg" width={20} height={20} alt="microtasks icon" className='w-4 h-4' /></span> <span>Microtasks</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦4,000</span>
+              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
             </div>
             <div className="flex flex-col items-start min-w-[90px]">
               <div className="flex items-center gap-1">
                 <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/user-tick.svg" width={20} height={20} alt="referrals icon" className='w-4 h-4' /></span> <span>Referrals</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦3,500</span>
+              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
             </div>
             <div className="flex flex-col items-start min-w-[120px]">
               <div className="flex items-center gap-1">
                 <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/UserDashboard/money.svg" width={20} height={20} alt="lifetime earnings icon" className='w-4 h-4' /></span> <span>Lifetime earnings</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦120,500</span>
+              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
             </div>
             <div className="flex flex-col items-start min-w-[110px]">
               <div className="flex items-center gap-1">
                 <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/UserDashboard/walletMoney.svg" width={20} height={20} alt="withdrawable icon" className='w-4 h-4' /></span> <span>Withdrawable</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦10,500</span>
+              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
             </div>
           </div>
         </div>
@@ -66,7 +98,7 @@ export default function TRCEarnings({ onBack }) {
       <div className="bg-white md:rounded-2xl md:border border-gray-200 md:p-6 mb-8 w-full max-w-full">
         <div className="font-semibold text-lg mb-1">Transfer Earnings</div>
         <div className="text-gray-400 text-sm mb-6">Use your TRC earnings to top up your wallet or rent savings balance</div>
-        <form className="grid md:grid-cols-1 gap-6 items-end w-full max-w-full">
+        <form onSubmit={handleTransfer} className="grid md:grid-cols-1 gap-6 items-end w-full max-w-full">
           <div className="flex flex-col gap-2 w-full">
             <label className="text-xs font-semibold text-gray-900">ENTER AMOUNT TO TRANSFER</label>
             <input
@@ -95,16 +127,16 @@ export default function TRCEarnings({ onBack }) {
                 onChange={e => setDestination(e.target.value)}
               >
                 <option value="Rent Savings">Rent Savings</option>
-                <option value="Wallet">Wallet</option>
               </select>
             </div>
           </div>
           <div className="flex mt-4 md:mt-6 w-full">
             <button
               type="submit"
-              className="bg-primary px-8 hover:bg-purple-800 text-white font-semibold rounded-lg py-3 transition w-full md:w-fit"
+              disabled={loading || !amount || parseFloat(amount) <= 0}
+              className="bg-primary px-8 hover:bg-purple-800 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold rounded-lg py-3 transition w-full md:w-fit"
             >
-              Transfer Now
+              {loading ? 'Transferring...' : 'Transfer Now'}
             </button>
           </div>
         </form>

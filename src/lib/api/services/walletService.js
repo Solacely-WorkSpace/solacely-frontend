@@ -14,6 +14,11 @@ class WalletService extends BaseApiService {
   async getTransactions(params = {}) {
     return this.get('/transactions/', params);
   }
+
+  // transfer TRC earnings to rent savings
+  async trcTransfer(amount) {
+    return this.post('/wallets/1/trc-transfer/', { amount });
+  }
 }
 
 export default new WalletService();
