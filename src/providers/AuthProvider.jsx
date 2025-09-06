@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import authService from '@/lib/api/services/authService';
+import tokenManager from '@/lib/auth/tokenManager';
 
 const AuthContext = createContext();
 
@@ -23,10 +24,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check initial authentication status
     const checkAuth = () => {
-      const storedUser = authService.getStoredUser();
-      const hasValidToken = authService.validateStoredToken();
+      const storedUser = tokenManager.getStoredUser();
+      const isAuth = tokenManager.isAuthenticated();
       
-      if (storedUser && hasValidToken) {
+      if (storedUser && isAuth) {
         setUser(storedUser);
         setIsAuthenticated(true);
       } else {
@@ -39,9 +40,6 @@ export const AuthProvider = ({ children }) => {
 
     checkAuth();
 
-    // Set up periodic token validation
-    const validationInterval = authService.setupTokenValidation(30000); // Check every 30 seconds
-
     // Listen for storage changes (logout from another tab)
     const handleStorageChange = (e) => {
       if (e.key === 'authToken' && !e.newValue) {
@@ -52,22 +50,28 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
+    // Listen for session expiration events
+    const handleSessionExpired = () => {
+      setUser(null);
+      setIsAuthenticated(false);
+      router.push('/sign-in');
+    };
+
     window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('sessionExpired', handleSessionExpired);
 
     return () => {
-      if (validationInterval) {
-        clearInterval(validationInterval);
-      }
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('sessionExpired', handleSessionExpired);
     };
   }, [router]);
 
   const login = async (credentials) => {
     try {
       const response = await authService.login(credentials);
-      const storedUser = authService.getStoredUser();
+      const storedUser = tokenManager.getStoredUser();
       
-      if (storedUser) {
+      if (storedUser && tokenManager.isAuthenticated()) {
         setUser(storedUser);
         setIsAuthenticated(true);
       }
@@ -92,12 +96,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Method to check and refresh authentication status
+  const refreshAuthStatus = () => {
+    const storedUser = tokenManager.getStoredUser();
+    const isAuth = tokenManager.isAuthenticated();
+    
+    setUser(storedUser);
+    setIsAuthenticated(isAuth);
+    
+    return isAuth;
+  };
+
   const value = {
     user,
     isAuthenticated,
     isLoading,
     login,
     logout,
+    refreshAuthStatus,
+    getTokenInfo: () => tokenManager.getTokenInfo(),
   };
 
   return (

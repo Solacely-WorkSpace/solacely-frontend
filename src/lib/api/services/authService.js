@@ -1,5 +1,7 @@
 import BaseApiService from '../baseService';
 import loginAttemptService from './loginAttemptService';
+import tokenManager from '../../auth/tokenManager';
+import securityLogger from '../../auth/securityLogger';
 
 class AuthService extends BaseApiService {
   constructor() {
@@ -42,7 +44,7 @@ class AuthService extends BaseApiService {
         dataKeys: response.data ? Object.keys(response.data) : 'No data object'
       });
       
-      // Store token if login successful - try multiple possible structures
+      // Store tokens using TokenManager
       let token = null;
       let refreshToken = null;
       
@@ -59,13 +61,18 @@ class AuthService extends BaseApiService {
         token = response.data.access_token;
       }
       
-      if (token && typeof window !== 'undefined') {
-        console.log('Storing token:', token.substring(0, 20) + '...');
-        localStorage.setItem('authToken', token);
-        if (refreshToken) {
-          localStorage.setItem('refreshToken', refreshToken);
-        }
-        localStorage.setItem('user', JSON.stringify(response.user || response.data?.user || {}));
+      if (token) {
+        console.log('Storing tokens securely:', token.substring(0, 20) + '...');
+        
+        // Use TokenManager for secure storage with expiration
+        tokenManager.storeTokens(
+          token,
+          refreshToken,
+          response.user || response.data?.user || {}
+        );
+        
+        // Log successful authentication
+        securityLogger.logSuccessfulAuth('login');
         
         // Clear failed attempts on successful login
         loginAttemptService.recordSuccessfulLogin(email);
@@ -100,6 +107,9 @@ class AuthService extends BaseApiService {
         }
       }
       
+      // Log failed authentication for security audit
+      securityLogger.logFailedAuth(logReason, loginAttemptService.getAttemptStatus(email).count + 1);
+      
       // Record failed attempt with specific reason
       const attemptResult = loginAttemptService.recordFailedAttempt(email, logReason);
       
@@ -107,6 +117,10 @@ class AuthService extends BaseApiService {
       if (attemptResult.isLocked) {
         errorMessage = 'Too many failed attempts. Please try again after 10 minutes.';
         errorType = 'account_locked';
+        securityLogger.logSuspiciousActivity('account_locked', {
+          email,
+          attemptCount: attemptResult.count
+        });
       }
       
       // Enhance error with attempt information
@@ -131,13 +145,9 @@ class AuthService extends BaseApiService {
     try {
       await this.post('/logout/');
     } finally {
-      // Clear local storage regardless of API response
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('user');
-        console.log('Cleared all auth data from localStorage');
-      }
+      // Clear all tokens and session data
+      tokenManager.clearTokens();
+      console.log('Cleared all auth data and session');
     }
   }
 
@@ -168,7 +178,29 @@ class AuthService extends BaseApiService {
 
   // Refresh token
   async refreshToken() {
-    return this.post('/refresh-token/');
+    const refreshToken = tokenManager.getRefreshToken();
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+    
+    try {
+      const response = await this.post('/refresh-token/', { refresh: refreshToken });
+      
+      // Store new tokens
+      if (response.access) {
+        tokenManager.storeTokens(
+          response.access,
+          response.refresh || refreshToken,
+          tokenManager.getStoredUser()
+        );
+      }
+      
+      return response;
+    } catch (error) {
+      // If refresh fails, clear all tokens
+      tokenManager.clearTokens();
+      throw error;
+    }
   }
 
   // Get current user profile
@@ -195,40 +227,22 @@ class AuthService extends BaseApiService {
 
   // Check if user is authenticated
   isAuthenticated() {
-    if (typeof window === 'undefined') return false;
-    return !!localStorage.getItem('authToken');
+    return tokenManager.isAuthenticated();
   }
 
   // Get stored user data
   getStoredUser() {
-    if (typeof window === 'undefined') return null;
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    return tokenManager.getStoredUser();
   }
 
   // Get stored token
   getStoredToken() {
-    if (typeof window === 'undefined') return null;
-    return localStorage.getItem('authToken');
+    return tokenManager.getAccessToken();
   }
 
   // Handle token expiration and auto-logout
   handleTokenExpiration() {
-    console.log('Token expired, logging out user...');
-    
-    // Clear all auth data
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('user');
-      console.log('Cleared all auth data from localStorage');
-      
-      // You can customize this message or use a toast notification
-      alert('Your session has expired. Please log in again.');
-      
-      // Redirect to login page
-      window.location.href = '/sign-in';
-    }
+    tokenManager.handleTokenExpiration();
   }
 
   // Validate token format (basic check)
@@ -243,46 +257,26 @@ class AuthService extends BaseApiService {
 
   // Check if current token is valid
   validateStoredToken() {
-    const token = this.getStoredToken();
-    
-    if (!this.isValidTokenFormat(token)) {
-      console.log('Invalid token format detected, cleaning up...');
+    return tokenManager.isAuthenticated();
+  }
+
+  // Get token information for debugging
+  getTokenInfo() {
+    return tokenManager.getTokenInfo();
+  }
+
+  // Attempt to refresh token if expired
+  async attemptTokenRefresh() {
+    try {
+      await this.refreshToken();
+      return true;
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      securityLogger.logTokenValidationFailure('token_refresh_failed', {
+        error: error.message
+      });
       this.handleTokenExpiration();
       return false;
-    }
-    
-    return true;
-  }
-
-  // Set up periodic token validation (call this in your app initialization)
-  setupTokenValidation(intervalMs = 60000) {
-    if (typeof window === 'undefined') return;
-
-    return setInterval(() => {
-      if (this.isAuthenticated()) {
-        this.validateStoredToken();
-      }
-    }, intervalMs);
-  }
-
-  // JWT token expiration check 
-  isTokenExpired(token) {
-    if (!this.isValidTokenFormat(token)) return true;
-    
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const currentTime = Date.now() / 1000;
-      
-      // Check if token has expired (exp claim)
-      if (payload.exp && payload.exp < currentTime) {
-        console.log('Token has expired');
-        return true;
-      }
-      
-      return false;
-    } catch (error) {
-      console.error('Error parsing token:', error);
-      return true;
     }
   }
 }
