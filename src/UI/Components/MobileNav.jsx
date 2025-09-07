@@ -90,29 +90,29 @@ const MobileNav = () => {
                     {isDropdownOpen && (
                       <div className="mt-2 w-full bg-white rounded-lg shadow-sm py-1 border border-gray-100">
                         <Link
-                          href="#"
+                          href="/apartment"
                           className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         >
                           Apartment
                         </Link>
-                        <Link
-                          href="#"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                        >
-                          Co-living
-                        </Link>
-                        <Link
-                          href="#"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                        >
-                          Pair with Me
-                        </Link>
-                        <Link
-                          href="#"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                        >
-                          Real Estate
-                        </Link>
+                        <div className="relative">
+                          <Link
+                            href="#"
+                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          >
+                            Pair with Me
+                          </Link>
+                          <span className="text-[7px] bg-complementary absolute top-1 right-1 text-white px-1 py-0.5 rounded-full">Coming Soon</span>
+                        </div>
+                        <div className="relative">
+                          <Link
+                            href="#"
+                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          >
+                            Real Estate
+                          </Link>
+                          <span className="text-[7px] bg-complementary absolute top-1 right-1 text-white px-1 py-0.5 rounded-full">Coming Soon</span>
+                        </div>
                       </div>
                     )}
                   </div>

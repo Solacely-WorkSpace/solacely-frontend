@@ -15,17 +15,6 @@ export default function TourSectionLinks({ isActive, setIsActive }) {
             </button>
 
             <button
-                onClick={() => setIsActive(1)}
-                className={clsx("py-3 px-6 rounded-xl font-semibold text-sm  cursor-pointer relative text-black/40 ",
-                    {
-                        "btn-primary text-white": isActive === 1
-                    }
-                )}
-            >
-                Co-living Space
-            </button>
-
-            <button
                 onClick={() => setIsActive(2)}
                 className={clsx("py-3 px-6 rounded-xl font-semibold text-sm  cursor-pointer relative text-black/40 ",
                     {

@@ -37,30 +37,25 @@ const Dropdown = () => {
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
           <Link
-            href="#"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+            href="/apartment"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
           >
             Apartment
           </Link>
 
           <Link
             href="#"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-          >
-            Co-living
-          </Link>
-
-          <Link
-            href="#"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+            className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
             Pair with Me
+            <span className="text-[8px] bg-complementary text-white px-1 py-0.5 rounded-full">Coming Soon</span>
           </Link>
           <Link
             href="#"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+            className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
             Real Estate
+            <span className="text-[8px] bg-complementary text-white px-1 py-0.5 rounded-full">Coming Soon</span>
           </Link>
         </div>
       )}
