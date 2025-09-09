@@ -11,7 +11,7 @@ import { useAuthStatus } from "@/hooks/useAuthGuard"
 
 const formatUserName = (user) => {
   if (!user) return '';
-  return user.username || 'User';
+  return user.full_name || 'User';
 };
 
 function DashboardPage() {
@@ -257,17 +257,6 @@ function DashboardPage() {
                         alt={apt.title || 'Apartment'}
                         className="w-full h-48 object-cover rounded-lg"
                       />
-                      {/* <Image
-                        src={
-                          apt.images && apt.images.length > 0
-                            ? apt.images[0].original_image_url || apt.images[0].image
-                            : (apt.image || Property)
-                        }
-                        alt={apt.title || 'Apartment'}
-                        width={400}
-                        height={192}
-                        className="w-full h-48 object-cover rounded-lg"
-                      /> */}
                       <button className="absolute top-3 right-3 p-1">
                         <Image src={WishlistHeart} alt="Wishlist" />
                       </button>
@@ -275,21 +264,21 @@ function DashboardPage() {
                     
                     <div className="py-2">
                       <h3 className="text-sm font-bold text-gray-800 mb-2">{apt.title || apt.name}</h3>
-                      
+                        
                       <div className="flex items-center gap-4 mb-2 text-xs text-gray-600">
                         <div className="flex items-center gap-1">
                           <Image src="/icons/UserDashboard/bedroom.svg" width={20} height={20} alt="bedroom" />
-                          <span>{apt.beds || apt.number_of_bedrooms || '--'} bed</span>
+                          <span>{apt.beds || apt.number_of_bedrooms || '--'}bed</span>
                         </div>
                         
                         <div className="flex items-center gap-1">
                           <Image src="/icons/UserDashboard/bath.svg" width={20} height={20} alt="bath" />
-                          <span>{apt.baths || apt.number_of_bathrooms || '--'} bath</span>
+                          <span>{apt.baths || apt.number_of_bathrooms || '--'}bath</span>
                         </div>
                         
                         <div className="flex items-center gap-1">
                           <Image src="/icons/UserDashboard/ruler.svg" width={20} height={20} alt="ruler" />
-                          <span>{apt.area || apt.area_size_sqm || '--'} m²</span>
+                          <span>{apt.area || apt.area_size_sqm || '--'}m²</span>
                         </div>
                       </div>
                       

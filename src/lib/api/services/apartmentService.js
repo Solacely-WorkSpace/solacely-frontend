@@ -107,6 +107,73 @@ class ApartmentService extends BaseApiService {
       throw error;
     }
   }
+
+  // Search apartments by location
+  async searchByLocation(location) {
+    try {
+      const response = await this.get('/listings/', {
+        search: location
+      });
+      return response;
+    } catch (error) {
+      console.error('Error searching apartments by location:', error);
+      throw error;
+    }
+  }
+
+  // Get unique locations from apartments
+  async getLocations() {
+    try {
+      const response = await this.get('/listings/');
+      const apartments = response?.data || response || [];
+      const locations = [...new Set(apartments.map(apt => apt.location).filter(Boolean))];
+      return locations;
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      throw error;
+    }
+  }
+
+  // Search apartments by price range
+  async searchByPriceRange(minPrice, maxPrice) {
+    try {
+      const params = {};
+      if (minPrice) params.price_min = minPrice;
+      if (maxPrice) params.price_max = maxPrice;
+      
+      const response = await this.get('/listings/', params);
+      return response;
+    } catch (error) {
+      console.error('Error searching apartments by price range:', error);
+      throw error;
+    }
+  }
+
+  // Search apartments by number of bedrooms
+  async searchByBedrooms(bedrooms) {
+    try {
+      const response = await this.get('/listings/', {
+        bedrooms: bedrooms
+      });
+      return response;
+    } catch (error) {
+      console.error('Error searching apartments by bedrooms:', error);
+      throw error;
+    }
+  }
+
+  // Search apartments by building type
+  async searchByType(buildingType) {
+    try {
+      const response = await this.get('/listings/', {
+        building_type: buildingType
+      });
+      return response;
+    } catch (error) {
+      console.error('Error searching apartments by type:', error);
+      throw error;
+    }
+  }
 }
 
 // Create and export instance

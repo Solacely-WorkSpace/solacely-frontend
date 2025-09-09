@@ -5,7 +5,6 @@ import Image from "next/image";
 import clsx from "clsx";
 import TourApartment from "../Components/TourApartment";
 import TourSectionLinks from "../Components/TourSectionLinks";
-import TourCoLivingSpace from "../Components/TourCoLivingSpace";
 import TourPairWithMe from "../Components/TourPairWithMe";
 import TourRealEstate from "../Components/TourRealEstate";
 
@@ -30,11 +29,6 @@ const Tour = () => {
         {
           isActive === 0 &&
           <TourApartment />
-        }
-
-        {
-          isActive === 1 &&
-          <TourCoLivingSpace />
         }
 
         {

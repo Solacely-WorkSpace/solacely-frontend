@@ -1,15 +1,33 @@
 "use client";
 
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { FiChevronLeft, FiChevronRight, FiX } from 'react-icons/fi';
 import { apartmentService } from '@/lib/api';
-import { memberOne, memberTwo, WoodHouse, Kitchen, Bathroom, PropertyOne, PropertyTwo, PropertyThree, PropertyFour, LivingRoom } from '@/assets/images';
+import { Profile, memberTwo, WoodHouse, Kitchen, Bathroom, PropertyOne, PropertyTwo, PropertyThree, PropertyFour, LivingRoom } from '@/assets/images';
+
+import InspectionBookingModal from './Components/InspectionBookingModal';
+import PaymentSuccess from './Components/PaymentSuccess';
+import { useRef } from 'react';
+import DatePicker from './Components/DatePicker';
 
 function ApartmentView() {
+  // Handle date selection from DatePicker
+  function handleDateSelect(date) {
+    setSelectedDate(date);
+    setShowDatePicker(false);
+    // You can add further logic here, e.g., send the selected date to backend or show a confirmation
+  }
+  // Show DatePicker when Proceed to Book is clicked in PaymentSuccess
+  function handleProceedToDatePicker() {
+    setShowSuccessModal(false);
+    setShowDatePicker(true);
+  }
   const pathname = usePathname();
+  const router = useRouter();
   const id = pathname?.split('/').pop();
 
   const [apartment, setApartment] = useState(null);
@@ -18,6 +36,10 @@ function ApartmentView() {
   const [showGallery, setShowGallery] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', image: '', review: '' });
+  const [showInspectionModal, setShowInspectionModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     const fetchApartmentDetails = async () => {
@@ -40,6 +62,21 @@ function ApartmentView() {
     };
     if (id) fetchApartmentDetails(); else { setError('No apartment ID provided'); setLoading(false); }
   }, [id]);
+
+  // Handle inspection booking
+  const handleCloseInspectionModal = () => {
+    setShowInspectionModal(false);
+  };
+
+  const handleProceedToPayment = () => {
+    // Payment is now handled in the InspectionBookingModal
+    // We'll just close the modal here since payment confirmation
+    // will happen in the PaymentModal component
+    setShowInspectionModal(false);
+    
+    // After payment, we could navigate to a success page or show a confirmation
+    // router.push('/payment/success?type=inspection');
+  };
 
   // Use only direct image URLs, no fallbacks
   const apiImages = (apartment?.images || []).map((img, index) => {
@@ -140,8 +177,8 @@ function ApartmentView() {
           {apiImages[0] && (
             <div className="md:col-span-6 relative md:h-[80vh] h-[60vh] rounded-xl overflow-hidden">
               <Image
-                src={apiImages[0]}
-                alt={`${apartment?.title || 'Apartment'} - Main View`}
+                src={apiImages[currentImageIndex] || apiImages[0]}
+                alt={`${apartment?.title || 'Apartment'} - View ${currentImageIndex + 1}`}
                 fill
                 className="object-cover"
                 priority
@@ -149,9 +186,26 @@ function ApartmentView() {
                 quality={90}
                 onError={(e) => {
                   // eslint-disable-next-line no-console
-                  console.error('Failed to load main image:', apiImages[0]);
+                  console.error('Failed to load image:', apiImages[currentImageIndex] || apiImages[0]);
                 }}
               />
+              {/* Mobile Navigation Buttons */}
+              {apiImages.length > 1 && (
+                <>
+                  <button 
+                    onClick={() => setCurrentImageIndex(p => p === 0 ? apiImages.length - 1 : p - 1)}
+                    className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                  >
+                    <FiChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button 
+                    onClick={() => setCurrentImageIndex(p => p === apiImages.length - 1 ? 0 : p + 1)}
+                    className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                  >
+                    <FiChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
             </div>
           )}
           <div className="md:col-span-6 flex flex-col gap-4">
@@ -226,14 +280,26 @@ function ApartmentView() {
             </div>
             <h1 className="text-2xl font-semibold mb-2">{apartment.title}</h1>
             <div className="flex items-center gap-6 mt-6">
-              <div className="flex items-center gap-1"><Image src="/icons/UserDashboard/bedroom.svg" width={10} height={10} alt="bedroom" /><span>{apartment.number_of_bedrooms} bed</span></div>
-              <div className="flex items-center gap-1"><Image src="/icons/UserDashboard/bath.svg" width={10} height={10} alt="bath" /><span>{apartment.number_of_bathrooms} bath</span></div>
-              <div className="flex items-center gap-1"><Image src="/icons/UserDashboard/ruler.svg" width={10} height={10} alt="ruler" /><span>{apartment.area_size_sqm} m²</span></div>
+              <div className="flex items-center gap-1"><Image src="/icons/UserDashboard/bedroom.svg" width={20} height={20} alt="bedroom" /><span>{apartment.number_of_bedrooms}bed</span></div>
+              <div className="flex items-center gap-1"><Image src="/icons/UserDashboard/bath.svg" width={10} height={10} alt="bath" /><span>{apartment.number_of_bathrooms}bath</span></div>
+              <div className="flex items-center gap-1"><Image src="/icons/UserDashboard/ruler.svg" width={10} height={10} alt="ruler" /><span>{apartment.area_size_sqm}m²</span></div>
               <div className="hidden md:block"><p className="text-lg font-bold text-complementary">₦ {apartment.price}</p></div>
             </div>
             <div className="md:hidden mt-2"><p className="text-lg font-bold text-complementary">₦{apartment.price}</p></div>
+
+            <div className='grid grid-cols-2 md:flex md:flex-row md:justify-start gap-4 mt-4'>
+              <div className="relative w-full md:w-fit"><a href='/personalinformation'><button className="bg-complementary text-white py-3 px-6 rounded-lg hover:bg-emerald-800">I'm interested</button></a></div>
+              <div className="relative w-full md:w-fit">
+                <button 
+                  onClick={() => setShowInspectionModal(true)} 
+                  className="bg-white text-primary py-2.5 px-4 border-2 border-primary rounded-lg hover:bg-primary hover:text-white"
+                >
+                  Book Inspection
+                </button>
+              </div>
+            </div>
             
-            <div className="flex items-center gap-4 mt-6"><a href='/personalinformation'><button className="bg-complementary text-white py-3 px-10 rounded-lg hover:bg-emerald-800">I'm interested</button></a></div>
+            {/* Share and Like */}
             <div className="mt-6 flex items-center gap-4">
               <button className='p-2 hover:bg-gray-100 rounded'>
                 <Image src="/icons/Line.svg" width={20} height={20} alt="share" />
@@ -242,21 +308,122 @@ function ApartmentView() {
                 <Image src="/icons/Heart.svg" width={20} height={20} alt="heart" />
               </button>
             </div>
+
+            {/* Description */}
             <p className="text-gray-600 mt-6">{apartment.description || 'No description available.'}</p>
             <div className="mt-4 text-sm text-gray-600">
               <p><span className="font-medium">Type:</span> {apartment.building_type.split('_').map(w=>w[0].toUpperCase()+w.slice(1)).join(' ')}</p>
-              <p className="mt-2"><span className="font-medium">Amenities:</span> {apartment.amenities.replace(/['"]+/g,'')}</p>
             </div>
           </div>
           <div>
             <h2 className="text-lg font-semibold mb-4">Payment Breakdown</h2>
-            <div className="bg-white rounded-lg p-6 shadow-sm md:block hidden">
+            <p className="text-sm text-gray-600 mb-8">
+              The annual fees below start at zero(0) except the house rent
+            </p>
+            <div className="bg-white rounded-lg p-6 shadow-sm">
               {paymentBreakdown.map((p,i)=>(
-                <div key={p.label} className={`grid grid-cols-12 gap-4 items-center py-2 ${i===paymentBreakdown.length-1?'pb-6':''}`}>
-                  <p className="col-span-5 font-medium text-gray-500">{p.label}</p>
-                  <div className="col-span-3 flex items-center gap-2 justify-center border border-gray-300 rounded-md"><p className="text-sm text-gray-600 py-1">{p.period}</p><Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={12} height={16} alt="chevron" /></div>
-                  <p className="col-span-4 text-right font-medium">₦{p.amount}</p>
-                </div>))}
+                <>
+                <div className='hidden md:block'>
+                  <div key={p.label} className={`grid grid-cols-12 gap-4 items-center py-2 ${i===paymentBreakdown.length-1?'pb-6':''}`}>
+                    <p className="col-span-5 font-medium text-gray-500">{p.label}</p>
+                    <div className="col-span-3 flex items-center gap-2 justify-center border border-gray-300 rounded-md"><p className="text-sm text-gray-600 py-1">{p.period}</p><Image src="/icons/chevron-arow.svg" className="w-3 h-4" width={12} height={16} alt="chevron" /></div>
+                    <p className="col-span-4 text-right font-medium">₦{p.amount}</p>
+                  </div>
+                </div>
+                {/* mobile view */}
+                <div className="md:hidden space-y-4">
+                    <div key={p.label} className="mb-4 last:mb-6">
+                      <p className="font-medium text-gray-500 mb-1">{p.label}</p>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex items-center gap-2 justify-center border border-gray-300 rounded-md">
+                          <p className="text-sm text-gray-600 py-1">{p.period}</p>
+                        </div>
+                        <p className="text-right font-medium">₦{p.amount}</p>
+                      </div>
+                    </div>
+                </div>
+                </>
+              ))}
+              <div className="pt-4 border-t border-b pb-6 flex justify-between items-center border-gray-300">
+                <p className="font-bold text-xl">Total Amount:</p>
+                <p className="font-bold text-complementary text-xl">₦{apartment.price}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Home Details */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pt-8">
+          <div className="md:col-span-8">
+            <h2 className="text-xl font-semibold mb-6">Home Details for {apartment.title}</h2>
+            
+            <div className="grid md:grid-cols-3 gap-y-4 mb-8 gap-5">
+              {apartment.amenities && apartment.amenities.split(',').map((amenity, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Image src="/icons/check.svg" className="w-4 h-4" width={16} height={16} alt="check" />
+                  <span className="text-gray-600">{amenity.trim()}</span>
+                </div>
+              ))}
+            </div>
+
+            <h3 className="text-lg font-semibold mb-4">Home Defects</h3>
+            <div className="space-y-4 mb-8 flex md:gap-20 flex-col md:flex-row">
+              <div>
+                <div className="flex items-center justify-between gap-20">
+                  <div className="flex items-center gap-2">
+                    <Image src="/icons/Apartments/kitchensink.svg" className="w-6 h-6" width={24} height={24} alt="kitchen" />
+                    <span>Kitchen Sink:</span>
+                  </div>
+                  <span className="text-complementary">₦25,000</span>
+                </div>
+                <div className="flex items-center justify-between gap-20 mt-4">
+                  <div className="flex items-center gap-2">
+                    <Image src="/icons/Apartments/toiletsink.svg" className="w-6 h-6" width={24} height={24} alt="toilet" />
+                    <span>Toilet Sink:</span>
+                  </div>
+                  <span className="text-complementary">₦25,000</span>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between gap-20">
+                  <div className="flex items-center gap-2">
+                    <Image src="/icons/Apartments/AC.svg" className="w-6 h-6" width={24} height={24} alt="ac" />
+                    <span>AC Repairs:</span>
+                  </div>
+                  <span className="text-complementary">₦25,000</span>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold mb-4">Housing Agent</h3>
+            <div className="flex items-center gap-4">
+              <Image src={Profile} className="w-12 h-12 rounded-full" width={48} height={48} alt="agent" />
+              <div>
+                <p className="font-medium">Agent ID: {apartment.agent}</p>
+                <p className="text-sm text-gray-600">Andromeda Homes Agent</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:col-span-4 md:sticky md:top-6">
+            <h2 className="text-xl font-semibold mb-6">Map Location</h2>
+            <div className="relative h-[400px] md:h-full rounded-lg overflow-hidden bg-gray-100">
+              {apartment.latitude && apartment.longitude ? (
+                <iframe
+                  src={`https://maps.google.com/maps?q=${apartment.latitude},${apartment.longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Apartment Location"
+                />
+              ) : (
+                <div className="flex items-center justify-center h-full text-center text-gray-500">
+                  <p>Location coordinates for <span className='text-complementary font-bold'>{apartment.title}</span> not available</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -272,7 +439,7 @@ function ApartmentView() {
               {[1, 2, 3].map((item) => (
                 <div key={item} className="border-b border-gray-100 pb-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <Image src={memberTwo} className="w-10 h-10 rounded-full" width={40} height={40} alt="reviewer" />
+                    <Image src={Profile} className="w-10 h-10 rounded-full" width={40} height={40} alt="reviewer" />
                     <div>
                       <p className="font-medium">Daisy Murphy</p>
                       <p className="text-sm text-gray-500">July 23 2020</p>
@@ -434,8 +601,37 @@ function ApartmentView() {
           </div>
         </div>
       )}
+      
+      {/* Inspection Booking Modal */}
+      <InspectionBookingModal 
+        isOpen={showInspectionModal} 
+        onClose={handleCloseInspectionModal} 
+        onProceed={handleProceedToPayment}
+        onShowSuccess={() => setShowSuccessModal(true)}
+      />
+
+      {/* Payment Success Modal */}
+      {showSuccessModal && (
+        <PaymentSuccess onProceed={handleProceedToDatePicker} />
+      )}
+
+      {/* Date Picker Modal */}
+      {showDatePicker && (
+  <DatePicker onSelect={handleDateSelect} onClose={() => setShowDatePicker(false)} apartmentId={apartment?.id || id} />
+      )}
+
+      {/* Optionally show selected date */}
+      {selectedDate && (
+        <div className="fixed bottom-4 right-4 bg-green-100 text-green-800 px-4 py-2 rounded shadow-lg z-50">
+          Selected date: {selectedDate.toLocaleDateString()}
+        </div>
+      )}
+
     </main>
   );
 }
 
-export default ApartmentView;
+// End of file
+
+
+  export default ApartmentView;

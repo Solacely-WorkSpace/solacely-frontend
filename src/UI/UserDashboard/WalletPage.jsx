@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Tooltip from '../../components/Tooltip'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,66 +12,100 @@ import TRCEarnings from './Sections/TRCEarnings'
 import RentPayment from './Sections/RentPayment'
 import EscrowPopup from './Sections/EscrowPopup'
 import TransactionDetailsPopup from './Sections/TransactionDetailsPopup'
+import walletService from '../../lib/api/services/walletService'
 
 function WalletPage() {
-  // Sample data to match the design
-  const walletBalance = '₦700,000'
-  const rentSavingsGoal = '₦500,000'
-  const currentSavings = '₦150,000'
-  const savingsPercentage = 30
-  const trcEarnings = '₦12,500'
-  const rentPayment = '₦500,000'
+  // API data state
+  const [dashboardStats, setDashboardStats] = useState({
+    total_wallet_balance: 0,
+    total_rent_savings: 0,
+    total_trc_circulating: 0,
+    total_escrow_balance: 0,
+    total_trc_redeemed: 0,
+    auto_save_enabled_count: 0
+  })
+  const [loading, setLoading] = useState(true)
+  const [transactions, setTransactions] = useState([])
+  const [transactionsLoading, setTransactionsLoading] = useState(true)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [statusFilter, setStatusFilter] = useState('')
+  const [typeFilter, setTypeFilter] = useState('')
+  const filterDropdownRef = useRef(null)
+
+  // Fetch dashboard stats
+  useEffect(() => {
+    const fetchDashboardStats = async () => {
+      try {
+        const statsData = await walletService.getDashboardStats()
+        console.log('Wallet Dashboard Stats Response:', statsData)
+        setDashboardStats(statsData)
+      } catch (error) {
+        console.error('Error fetching dashboard stats:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchDashboardStats()
+  }, [])
+
+  // Fetch transactions with filters
+  const fetchTransactions = async () => {
+    setTransactionsLoading(true)
+    try {
+      const params = {}
+      if (searchQuery) params.search = searchQuery
+      if (statusFilter) params.status = statusFilter
+      if (typeFilter) params.type = typeFilter
+      
+      const transactionsData = await walletService.getTransactions(params)
+      console.log('Wallet Transactions Response:', transactionsData)
+      setTransactions(transactionsData)
+    } catch (error) {
+      console.error('Error fetching transactions:', error)
+    } finally {
+      setTransactionsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchTransactions()
+  }, [searchQuery, statusFilter, typeFilter])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target)) {
+        setShowFilterDropdown(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Format currency
+  const formatCurrency = (amount) => `₦${amount?.toLocaleString() || '0'}`
   
-  // Transaction data
-  const transactions = [
-    {
-      id: 1,
-      title: 'Rent payment',
-      amount: '₦ 100,000',
-      date: 'May 10, 2025',
-      status: 'pending'
-    },
-    {
-      id: 2,
-      title: 'Rent payment',
-      amount: '₦ 100,000',
-      date: 'May 10, 2025',
-      status: 'failed'
-    },
-    {
-      id: 3,
-      title: 'Savings deposit',
-      amount: '₦ 100,000',
-      date: 'May 10, 2025',
-      status: 'pending'
-    },
-    {
-      id: 4,
-      title: 'TRC earnings',
-      amount: '₦ 100,000',
-      date: 'May 10, 2025',
-      status: 'success'
-    },
-    {
-      id: 5,
-      title: 'Rent payment',
-      amount: '₦ 100,000',
-      date: 'May 10, 2025',
-      status: 'success'
-    },
-  ]
+  // Calculate savings percentage (assuming a rent goal of 500,000)
+  const rentSavingsGoal = 500000
+  const savingsPercentage = dashboardStats.total_rent_savings > 0 
+    ? Math.min((dashboardStats.total_rent_savings / rentSavingsGoal) * 100, 100) 
+    : 0
+  
+
 
   // State for the savings view mode
   const [savingsView, setSavingsView] = useState('weekly')
   
-  // State for auto-save toggle
-  const [autoSave, setAutoSave] = useState(true)
+  // State for auto-save toggle (based on API data)
+  const [autoSave, setAutoSave] = useState(dashboardStats.auto_save_enabled_count > 0)
 
   // Sample earnings data
   const earningsData = {
-    surveys: '₦5,000',
-    microtasks: '₦4,000',
-    referrals: '₦3,500'
+    surveys: '₦ 0',
+    microtasks: '₦ 0',
+    referrals: '₦ 0'
   }
 
   const router = useRouter()
@@ -195,7 +229,9 @@ function WalletPage() {
             </div>
           </div>
           <h3 className="text-black text-sm mb-2">Wallet Balance</h3>
-          <h2 className="text-lg font-bold mb-2">{walletBalance}</h2>
+          <h2 className="text-lg font-bold mb-2">
+            {loading ? '₦0' : formatCurrency(dashboardStats.total_wallet_balance)}
+          </h2>
           <div className="mt-4">
             <p className="text-sm text-gray-400 font-semibold">Rent Progress</p>
             <div className="bg-emerald-100 h-3 rounded-full mt-1">
@@ -204,7 +240,9 @@ function WalletPage() {
                 style={{ width: `${savingsPercentage}%` }}
               ></div>
             </div>
-            <p className="mt-4 text-xs text-gray-500">{currentSavings} of {rentSavingsGoal} saved</p>
+            <p className="mt-4 text-xs text-gray-500">
+              {loading ? '₦0' : formatCurrency(dashboardStats.total_rent_savings)} of {formatCurrency(rentSavingsGoal)} saved
+            </p>
           </div>
         </div>
 
@@ -258,11 +296,11 @@ function WalletPage() {
               <div 
                 onClick={() => setAutoSave(!autoSave)} 
                 className="relative w-6 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
-                style={{ backgroundColor: autoSave ? '#6b21a8' : '#e5e7eb' }}
+                style={{ backgroundColor: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? '#6b21a8' : '#e5e7eb' }}
               >
                 <div 
                   className="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full shadow transition-transform duration-300 ease-in-out"
-                  style={{ transform: autoSave ? 'translateX(8px)' : 'translateX(0)' }}
+                  style={{ transform: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? 'translateX(8px)' : 'translateX(0)' }}
                 ></div>
               </div>
               <span className="text-xs">Auto-Save</span>
@@ -284,7 +322,9 @@ function WalletPage() {
             </button>
           </div>
           
-          <h2 className="text-lg font-bold mb-4">{trcEarnings}</h2>
+          <h2 className="text-lg font-bold mb-4">
+            {loading ? '₦0' : formatCurrency(dashboardStats.total_trc_circulating)}
+          </h2>
           <p className="text-sm text-gray-400 font-semibold mt-4">Total Earnings</p>
           
           <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -330,7 +370,9 @@ function WalletPage() {
             <h3 className="text-black text-sm">Rent Payment</h3>
           </div>
           
-          <h2 className="text-xl font-bold mb-4 mt-4">{rentPayment}</h2>
+          <h2 className="text-xl font-bold mb-4 mt-4">
+            {loading ? '₦0' : formatCurrency(dashboardStats.total_escrow_balance)}
+          </h2>
           <p className="text-sm text-gray-400 font-medium italic mb-4">Due in 15 days</p>
           
           <button 
@@ -358,7 +400,9 @@ function WalletPage() {
             <div className='relative'>
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Search transactions..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-60"
               />
               <div className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -367,7 +411,7 @@ function WalletPage() {
                 </svg>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative" ref={filterDropdownRef}>
               <button 
                 onClick={() => setShowFilterDropdown(!showFilterDropdown)}
                 className="border border-gray-300 rounded-md px-4 py-2 flex items-center gap-2 text-gray-600"
@@ -378,25 +422,30 @@ function WalletPage() {
               
               {/* Filter Dropdown */}
               {showFilterDropdown && (
-                <div className="absolute top-full left-0 mt-1 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                  <button 
-                    onClick={() => {
-                      setShowFilterDropdown(false)
-                      // Add date filter logic here
-                    }}
-                    className="w-full text-left px-4 py-3 hover:bg-purple-100 text-sm text-gray-700 first:rounded-t-md"
-                  >
-                    Date
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setShowFilterDropdown(false)
-                      // Add amount filter logic here
-                    }}
-                    className="w-full text-left px-4 py-3 hover:bg-purple-100 text-sm text-gray-700 last:rounded-b-md"
-                  >
-                    Amount
-                  </button>
+                <div className="absolute top-full left-0 mt-1 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                  <div className="p-2">
+                    <select 
+                      value={statusFilter}
+                      onChange={(e) => setStatusFilter(e.target.value)}
+                      className="w-full mb-2 p-2 border border-gray-300 rounded text-sm text-black bg-purple-100"
+                    >
+                      <option value="">All Status</option>
+                      <option value="pending">Pending</option>
+                      <option value="successful">Successful</option>
+                      <option value="failed">Failed</option>
+                    </select>
+                    <select 
+                      value={typeFilter}
+                      onChange={(e) => setTypeFilter(e.target.value)}
+                      className="w-full mb-2 p-2 border border-gray-300 rounded text-sm text-black bg-purple-100"
+                    >
+                      <option value="">All Types</option>
+                      <option value="credit">Credit</option>
+                      <option value="debit">Debit</option>
+                      <option value="trc_transfer">TRC Transfer</option>
+                      <option value="rent_payment">Rent Payment</option>
+                    </select>
+                  </div>
                 </div>
               )}
             </div>
@@ -422,66 +471,78 @@ function WalletPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {transactions.map(transaction => (
-                <tr key={transaction.id} className="bg-white border-b border-gray-200">
-                  <td className="px-4 py-4 text-sm text-gray-00">{transaction.title}</td>
-                  <td className="px-4 py-4 text-sm text-gray-700">{transaction.amount}</td>
-                  <td className="px-4 py-4 text-sm text-gray-700">{transaction.date}</td>
-                  <td className="px-4 py-4">
-                    <span 
-                      className={`text-sm px-4 py-2 rounded-lg ${
-                        transaction.status === 'pending' ? 'bg-yellow-100 text-yellow-600' :
-                        transaction.status === 'success' ? 'bg-green-100 text-green-600' :
-                        'bg-red-100 text-red-600'
-                      }`}
-                    >
-                      {transaction.status === 'pending' ? 'Pending' :
-                       transaction.status === 'success' ? 'Success' : 'Failed'}
-                    </span>
-                  </td>
-                  <td className="px-4 py-4">
-                    <button 
-                      onClick={() => handleViewTransactionDetails(transaction)}
-                      className="border border-primary hover:bg-primary hover:text-white text-primary px-4 py-2 rounded-md text-sm"
-                    >
-                      View Details
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {transactionsLoading ? (
+                <tr><td colSpan="5" className="px-4 py-4 text-center">Loading...</td></tr>
+              ) : transactions.length === 0 ? (
+                <tr><td colSpan="5" className="px-4 py-4 text-center">No transactions found</td></tr>
+              ) : (
+                transactions.map(transaction => (
+                  <tr key={transaction.id} className="bg-white border-b border-gray-200">
+                    <td className="px-4 py-4 text-sm text-gray-700">{transaction.title || transaction.description}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{formatCurrency(transaction.amount)}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{new Date(transaction.date || transaction.created_at).toLocaleDateString()}</td>
+                    <td className="px-4 py-4">
+                      <span 
+                        className={`text-sm px-4 py-2 rounded-lg ${
+                          transaction.status === 'pending' ? 'bg-yellow-100 text-yellow-600' :
+                          transaction.status === 'successful' ? 'bg-green-100 text-green-600' :
+                          'bg-red-100 text-red-600'
+                        }`}
+                      >
+                        {transaction.status === 'pending' ? 'Pending' :
+                         transaction.status === 'successful' ? 'Success' : 'Failed'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4">
+                      <button 
+                        onClick={() => handleViewTransactionDetails(transaction)}
+                        className="border border-primary hover:bg-primary hover:text-white text-primary px-4 py-2 rounded-md text-sm"
+                      >
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
         
         {/* Mobile Transaction List */}
         <div className="md:hidden">
-          {transactions.slice(0, 3).map(transaction => (
-            <div 
-              key={transaction.id} 
-              className="mb-3 border-b border-gray-100 pb-3 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors"
-              onClick={() => handleViewTransactionDetails(transaction)}
-            >
-              <div className="flex justify-between items-center mb-1">
-                <div className="font-medium text-sm text-gray-600">{transaction.title}</div>
-                <div className="text-sm font-bold">{transaction.amount}</div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="text-xs text-gray-500">{transaction.date}</div>
-                <div>
-                  <span 
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      transaction.status === 'pending' ? 'bg-yellow-100 text-yellow-600' :
-                      transaction.status === 'success' ? 'bg-green-100 text-green-600' :
-                      'bg-red-100 text-red-600'
-                    }`}
-                  >
-                    {transaction.status === 'pending' ? 'Pending' :
-                     transaction.status === 'success' ? 'Success' : 'Failed'}
-                  </span>
+          {transactionsLoading ? (
+            <div className="text-center py-4">Loading...</div>
+          ) : transactions.length === 0 ? (
+            <div className="text-center py-4">No transactions found</div>
+          ) : (
+            transactions.slice(0, 3).map(transaction => (
+              <div 
+                key={transaction.id} 
+                className="mb-3 border-b border-gray-100 pb-3 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors"
+                onClick={() => handleViewTransactionDetails(transaction)}
+              >
+                <div className="flex justify-between items-center mb-1">
+                  <div className="font-medium text-sm text-gray-600">{transaction.title || transaction.description}</div>
+                  <div className="text-sm font-bold">{formatCurrency(transaction.amount)}</div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="text-xs text-gray-500">{new Date(transaction.date || transaction.created_at).toLocaleDateString()}</div>
+                  <div>
+                    <span 
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        transaction.status === 'pending' ? 'bg-yellow-100 text-yellow-600' :
+                        transaction.status === 'successful' ? 'bg-green-100 text-green-600' :
+                        'bg-red-100 text-red-600'
+                      }`}
+                    >
+                      {transaction.status === 'pending' ? 'Pending' :
+                       transaction.status === 'successful' ? 'Success' : 'Failed'}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

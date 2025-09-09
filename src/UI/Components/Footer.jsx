@@ -76,6 +76,10 @@ const Footer = () => {
               FAQS
             </Link>
 
+            <Link href="#" className=" opacity-70 text-sm">
+              Blogs
+            </Link>
+
             <Link href="/terms_and_conditions" className=" opacity-70 text-sm">
               Terms and Conditions
             </Link>

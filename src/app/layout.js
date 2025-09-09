@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
   title: "Solacely",
-  description: "Home Away From Home",
+  description: "Find verified rentals, pay in smaller, flexible installments, and enjoy secure, transparent transactions. Earn while you rent and use it to pay towards your next rent. Solacely makes renting smarter and safer.",
 };
 
 const roboto = Roboto({
@@ -13,6 +13,8 @@ const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
   variable: "--font-rob",
   display: "swap",
+  preload: true,
+  fallback: ['system-ui', 'arial']
 });
 
 export default function RootLayout({ children }) {

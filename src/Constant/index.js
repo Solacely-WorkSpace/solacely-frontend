@@ -61,29 +61,50 @@ const Testimonial = [{
 
 const whatWeOffer = [
   {
-    offer: 'Our AI-driven system understands your needs and delivers property recommendations tailored to your preferences, budget, and lifestyle.',
+    offer: 'Get personalized apartment recommendations tailored to your budget, location, and lifestyle. Our system learns your preferences to save you time and effort.',
     icon: '/icons/star.svg',
-    header: 'Personalized Property Matching'
+    header: 'AI-Powered Property Matching'
 
   },
   {
-    offer: 'We eliminate the guesswork by ensuring every property on our platform is verified with secure digital records and transparent ownership history.',
+    offer: 'Pay rent in smaller, manageable installments with escrow protection. Every transaction is safe, transparent, and digitally recorded.',
     icon: '/icons/leaf.svg',
-    header: 'Verified & Secure Transactions'
+    header: 'Flexible Rent & Secure Escrow Payments'
 
   },
   {
-    offer: 'Enjoy post-transaction services, including maintenance tracking, legal documentation, and ongoing property insights.',
+    offer: 'Earn credits for timely rent payments and digital microtasks. TRC can be used to pay future rent, making housing more rewarding.',
     icon: '/icons/cirle.svg',
-    header: 'Property Management Tools'
+    header: 'Tenant Reward Credit (TRC)'
 
   },
   {
-    offer: 'Make informed decisions with real-time property value estimations and AI-powered investment analytics',
-    icon: '/icons/icon.svg',
-    header: 'Data-Driven Market Insights'
+    offer: 'Avoid scams and wasted time. Every listing is verified with accurate details and virtual tour options.',
+    icon: '/icons/Offer.svg',
+    header: 'Verified Listings & Virtual Inspections'
 
   },
+  {
+    offer: 'Start building wealth by co-owning properties with others. Invest as little as $10, earn returns, and grow your real estate portfolio.',
+    icon: '/icons/star.svg',
+    header: 'Fractional Ownership from $10'
+  },
+  {
+    offer: 'Automated rent collection, repairs, tenant management, and legal documentation tools for property managers and landlords.',
+    icon: '/icons/leaf.svg',
+    header: 'Property & Landlord Tools'
+
+  },
+  {
+    offer: 'We are building Africa’s first tenant verification ecosystem — a database of verified tenant identities, rental histories, and payment credibility. This reduces fraud, increases landlord trust, and helps tenants build digital rental reputations.',
+    icon: '/icons/cirle.svg',
+    header: 'Tenant Verification Database'
+  },
+  {
+    offer: 'Make smarter decisions with real-time property value estimations, rental demand analytics, and AI-powered investment insights.',
+    icon: '/icons/Offer.svg',
+    header: 'Market Insights & Analytics'
+  }
 
 ]
 
