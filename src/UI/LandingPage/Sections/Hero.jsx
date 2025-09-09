@@ -30,8 +30,8 @@ const Hero = () => {
     <section className="landingpage-container px-4 md:px-0 mt-20">
       <AiPopuop />
 
-      <div className="flex flex-col-1 md:flex-col-2 justify-between items-start gap-10 md:mt-4">
-        <div className="flex-1 w-full mt-16">
+      <div className="flex flex-col md:flex-row justify-between items-start md:gap-10 md:mt-4">
+        <div className="flex-1 w-full mt-16 order-2 md:order-1">
           <div className="  px-2 font-rob">
             <h1 className="text-3xl md:text-5xl font-bold md:leading-14">
               Homes aren't found, they're revealed.
@@ -74,14 +74,14 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="w-full flex-1"> 
+        <div className="w-full flex-1 block order-1 md:order-2 mt-5"> 
           <Image
             src={HeroIllustration}
             alt="hero illustration"
             width={2000}
             height={2000}
             placeholder="blur"
-            className="w-full"
+            className="w-full h-auto"
           />
 
         </div>
