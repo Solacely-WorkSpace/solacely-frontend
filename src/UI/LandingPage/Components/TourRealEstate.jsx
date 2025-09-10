@@ -34,19 +34,19 @@ export default function TourRealEstate() {
         <p className=" mb-6">
           {tour["Real Estate"].desc}
         </p>
-        {isLoggedIn ? (
+        {/* {isLoggedIn ? (
           <Link 
             href="/dashboard" 
           >
             <button className="btn-primary">Dashboard</button>
           </Link>
-        ) : (
+        ) : ( */}
           <Link
-            href="/sign-up"
+            href="/#"
           >
             <button className="btn-primary">Get Started</button>
           </Link>
-        )}
+        {/* )} */}
       </article>
 
       <figure className="flex-[3] w-full ">

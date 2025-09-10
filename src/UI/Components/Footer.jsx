@@ -76,7 +76,7 @@ const Footer = () => {
               FAQS
             </Link>
 
-            <Link href="#" className=" opacity-70 text-sm">
+            <Link href="https://medium.com/@solacely" className=" opacity-70 text-sm">
               Blogs
             </Link>
 

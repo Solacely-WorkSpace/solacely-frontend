@@ -35,21 +35,21 @@ export default function TourPairWithMe() {
           {tour["Pair With Me"].desc}
         </p>
 
-        {isLoggedIn ? (
+        {/* {isLoggedIn ? (
           <Link 
             href="/dashboard" 
             className="btn-primary"
           >
             Dashboard
           </Link>
-        ) : (
+        ) : ( */}
           <Link
-            href="/sign-up"
+            href="/#"
             className="btn-primary"
           >
             Get Started
           </Link>
-        )}
+        {/* )} */}
       </article>
 
       <figure className="flex-[3] w-full ">
