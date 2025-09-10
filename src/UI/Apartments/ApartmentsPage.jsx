@@ -633,29 +633,27 @@ const ApartmentsPage = () => {
                 Can't find what you are looking for?
               </h2>
               <p className="text-sm text-gray-600 mb-8">
-                Solacely owns hundreds of homes for sale near you. See homes on the market, or get a sneak peek at those that have yet to hit the market.
+                Looking for something specific? Our support team is ready to help you find the right home faster. Reach out to us using the contact details below, 
+                and we’ll guide you through personalized options, early access to new listings, and exclusive property deals tailored to your needs.
               </p>
               <div className="space-y-6">
                 <div className="relative">
                   <label className="block text-sm mb-1 text-gray-600">Phone Number</label>
                   <div className="flex items-center gap-0">
-                    <input
-                      type="text"
-                      placeholder="+2347855455555444"
-                      className="flex-1 px-4 py-2 rounded-l-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-500 text-sm"
-                    />
-                    <button className="px-4 py-2 bg-emerald-700 text-white text-sm rounded-r-lg hover:bg-emerald-800 transition-colors">
+                    <span className="flex-1 px-4 py-2 rounded-l-lg bg-gray-50 border border-complementary text-sm">.</span>
+                    <button 
+                      onClick={() => navigator.clipboard.writeText('Phone Number')}
+                      className="px-4 py-2 bg-emerald-700 text-white text-sm rounded-r-lg hover:bg-emerald-800 transition-colors"
+                    >
                       Copy
                     </button>
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm mb-1 text-gray-600">Email Address</label>
-                  <input
-                    type="email"
-                    placeholder="contact@healingrays.com"
-                    className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-500 text-sm"
-                  />
+                  <span className="w-full block px-4 py-2 rounded-lg bg-gray-50 border border-complementary text-sm">
+                    hello@solacely.app
+                  </span>
                 </div>
               </div>
             </div>
@@ -667,29 +665,27 @@ const ApartmentsPage = () => {
               Can't find what you are looking for?
             </h2>
             <p className="text-sm text-gray-600 mb-8">
-              Solacely owns hundreds of homes for sale near you. See homes on the market, or get a sneak peek at those that have yet to hit the market.
+              Looking for something specific? Our support team is ready to help you find the right home faster. Reach out to us using the contact details below, 
+              and we’ll guide you through personalized options, early access to new listings, and exclusive property deals tailored to your needs.
             </p>
             <div className="space-y-6">
               <div className="relative">
                 <label className="block text-sm mb-1 text-gray-600">Phone Number</label>
                 <div className="flex items-center gap-0">
-                  <input
-                    type="text"
-                    placeholder="+2347855455555444"
-                    className="flex-1 px-4 py-2 rounded-l-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-500 text-sm"
-                  />
-                  <button className="px-4 py-2 bg-emerald-700 text-white text-sm rounded-r-lg hover:bg-emerald-800 transition-colors">
+                  <span className="flex-1 px-4 py-2 rounded-l-lg bg-gray-50 border border-complementary text-sm">.</span>
+                  <button 
+                    onClick={() => navigator.clipboard.writeText('Phone Number')}
+                    className="px-4 py-2 bg-emerald-700 text-white text-sm rounded-r-lg hover:bg-emerald-800 transition-colors"
+                  >
                     Copy
                   </button>
                 </div>
               </div>
-              <div>
+              <div className='w-full'>
                 <label className="block text-sm mb-1 text-gray-600">Email Address</label>
-                <input
-                  type="email"
-                  placeholder="contact@healingrays.com"
-                  className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-emerald-500 text-sm"
-                />
+                <span className="w-full block px-4 py-2 rounded-lg bg-gray-50 border border-complementary text-sm">
+                  hello@solacely.app
+                </span>
               </div>
             </div>
           </div>
