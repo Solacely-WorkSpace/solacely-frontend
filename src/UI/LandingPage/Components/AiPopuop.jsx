@@ -82,7 +82,7 @@ const AiPopuop = () => {
               New
             </span>
             <span className="text-sm font-semibold">
-              {isLoggedIn && userName ? `Hi, ${userName}. I'm Solacely AI` : "Hi, I'm Solacely AI"}
+              {isLoggedIn && userName ? `Hi, ${userName}` : "Hi, I'm Solacely AI"}
             </span>
           </div>
           {isLoggedIn && (
