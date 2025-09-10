@@ -10,6 +10,7 @@ import linkedinLogo from '@/../public/icons/LandingPage/footer/linkedin.png'
 
 import goal from '@/../public/icons/AboutPage/goal.png'
 import film from '@/../public/icons/AboutPage/360.png'
+import icon360 from '@/../public/icons/360.svg'
 
 // Social Icons
 import instagramIcon from "@/../public/icons/SocialIcons/instagram.png"
@@ -50,6 +51,7 @@ export {
     linkedinLogo,
     goal,
     film,
+    icon360,
     instagramIcon,
     facebookIcon,
     twitterIcon,

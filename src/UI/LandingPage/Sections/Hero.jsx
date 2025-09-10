@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import AiPopuop from "../Components/AiPopuop";
 import { HeroIllustration, MetaImage } from '@/assets/images'
+import { icon360 } from '@/assets/icons'
 import PartnersCarousel from '../Components/PartnersCarousel';
 
 const Hero = () => {
@@ -74,7 +75,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="w-full flex-1 block order-1 md:order-2 mt-5"> 
+        <div className="w-full flex-1 block order-1 md:order-2 mt-5 relative"> 
           <Image
             src={HeroIllustration}
             alt="hero illustration"
@@ -83,6 +84,17 @@ const Hero = () => {
             placeholder="blur"
             className="w-full h-auto"
           />
+          
+          {/* Animated 360 Icon */}
+          <div className="absolute top-8 right-8 md:top-12 md:right-12 animate-pulse">
+            <div className="animate-spin-slow">
+              <img
+                src="/icons/360.svg"
+                alt="360 view"
+                className="w-20 h-20 md:w-28 md:h-28 drop-shadow-lg"
+              />
+            </div>
+          </div>
 
         </div>
       </div>
