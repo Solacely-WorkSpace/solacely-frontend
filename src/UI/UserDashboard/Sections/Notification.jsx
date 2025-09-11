@@ -71,7 +71,7 @@ function Notification({onBack}) {
           <div className="mb-2">
             <p className="text-sm text-gray-500">Email</p>
             <NotificationOption 
-              label="Recevice notifications via email" 
+              label="Receive notifications via email" 
               category={category} 
               channel="email" 
               value={notificationSettings[category].email} 
@@ -81,7 +81,7 @@ function Notification({onBack}) {
           <div className="mb-2">
             <p className="text-sm text-gray-500">Mobile phone</p>
             <NotificationOption 
-              label="Recevice notifications via mobile phone" 
+              label="Receive notifications via mobile phone" 
               category={category} 
               channel="mobile" 
               value={notificationSettings[category].mobile} 
@@ -91,7 +91,7 @@ function Notification({onBack}) {
           <div>
             <p className="text-sm text-gray-500">Browser notifications</p>
             <NotificationOption 
-              label="Recevice notifications from your browser" 
+              label="Receive notifications from your browser" 
               category={category} 
               channel="browser" 
               value={notificationSettings[category].browser} 
