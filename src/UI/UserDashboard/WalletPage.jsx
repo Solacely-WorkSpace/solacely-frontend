@@ -121,7 +121,8 @@ function WalletPage() {
 
   // Tooltip state
   const [tooltipStep, setTooltipStep] = useState(1);
-  const [showTooltip, setShowTooltip] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(false);
+  // Reminder: change state of tooltip to true after full implementation
 
   const handleEscrowPayment = () => {
     // Add your escrow payment logic here
