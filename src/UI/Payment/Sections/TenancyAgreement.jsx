@@ -56,22 +56,77 @@ function TenancyAgreementPage() {
                 <span className="font-semibold text-lg">Tenancy Agreement</span>  
                 </div>
                 <p className="text-gray-400 text-sm mb-8">Go through the agreements carefully before signing it.</p>
-                <p className="text-gray-500 mb-4 text-base"> 
-                    I confirm the health history is accurate and complete. I understand that withholding any medical information may be detrimental 
-                    to my health and safety during the procedure which the practitioner agrees to undertake. If there is any change in my medical 
-                    history, it is my responsibility to advise the Doctor/Practitioner.
-                </p>
-                <p className="text-gray-500 mb-4 text-base">
-                  I am aware that the co-ordinator is medically trained and that his/her role is to inform me of the process, in accordance 
-                  with the requirement of data protection act I consent to the disclosure of sensitive personal data by Laserderm to relevant 
-                  doctors, surgeons, nurses etc. for the purpose of discussing surgical or medical procedures concerning myself.
-                </p>
-                <p className="text-gray-500 mb-4 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-                  ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+                <div className="bg-gray-200 p-6 rounded-lg mb-6 max-h-96 overflow-y-auto">
+                    <h2 className="text-xl font-bold text-black mb-4">Solacely Tenancy Agreement</h2>
+                    <p className="text-sm text-gray-600 mb-4 italic">Please read carefully before signing.</p>
+                    <p className="text-gray-700 mb-4 text-sm">This agreement outlines the basic terms and responsibilities for tenants residing in Solacely-managed properties.</p>
+                    
+                    <div className="space-y-4 text-sm">
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">1. Property Use</h3>
+                            <p className="text-gray-700 text-sm">The tenant agrees to use the property strictly for residential purposes. Subletting is not allowed without written consent from Solacely.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">2. Rent and Payments</h3>
+                            <p className="text-gray-700 text-sm">Tenants must pay rent on or before the agreed date each month. Late payments attract a penalty as stated in the payment policy.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">3. Utilities and Bills</h3>
+                            <p className="text-gray-700 text-sm">Tenants are responsible for electricity, water, and internet unless otherwise stated. All bills must be paid promptly to avoid service disruption.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">4. Repairs and Maintenance</h3>
+                            <p className="text-gray-700 text-sm mb-2">Minor issues (e.g., light bulbs, blocked drains) should be fixed by the tenant.</p>
+                            <p className="text-gray-700 text-sm mb-2">Major issues (e.g., plumbing, structural damage, electrical faults) must be reported immediately to Solacely.</p>
+                            <p className="text-gray-700 text-sm">Unauthorized repairs are not allowed.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">5. Cleanliness and Conduct</h3>
+                            <p className="text-gray-700 text-sm">Tenant must keep the space clean and avoid damage to property. No illegal activities, noise disturbances, or aggressive behavior will be tolerated.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">6. Visitors and Access</h3>
+                            <p className="text-gray-700 text-sm">Visitors are allowed but may not stay longer than 7 days without approval. Solacely reserves the right to access the property for inspections with prior notice.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">7. Termination and Notice</h3>
+                            <p className="text-gray-700 text-sm">Tenants must give at least 30 days' notice before ending the tenancy. Solacely may also end the agreement with valid reasons and appropriate notice.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">8. Deposit</h3>
+                            <p className="text-gray-700 text-sm">A security deposit is required and refundable at the end of the tenancy, subject to property condition.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">9. Damage Liability</h3>
+                            <p className="text-gray-700 text-sm">Tenants are liable for damages caused by negligence or misuse.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">10. Emergency Contact</h3>
+                            <p className="text-gray-700 text-sm">Tenants should report emergencies to Solacely via the provided contact methods.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">11. Property Alterations</h3>
+                            <p className="text-gray-700 text-sm">Tenants must get written approval for any alterations.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">12. Dispute Resolution</h3>
+                            <p className="text-gray-700 text-sm">Disputes will be resolved through mediation.</p>
+                        </div>
+                    </div>
+                    
+                    <p className="text-gray-700 mt-6 text-sm font-medium">By signing this agreement, the tenant agrees to abide by all terms stated above.</p>
+                </div>
 
                 <h3 className="text-lg font-semibold text-black mb-1 text-base">Signature</h3>
                 <p className="text-gray-400 mb-4 text-sm">

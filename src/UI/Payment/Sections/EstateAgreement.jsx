@@ -60,26 +60,72 @@ import Navbar from "@/UI/Components/Nav";
                 <span className="font-semibold text-lg">Estate Agreement</span>  
                 </div>
                 <p className="text-gray-400 text-sm mb-8">Go through the agreements carefully before signing it.</p>
-                <p className="text-gray-500 mb-4 text-base"> 
-                    I confirm the health history is accurate and complete. I understand that withholding any medical information may be detrimental 
-                    to my health and safety during the procedure which the practitioner agrees to undertake. If there is any change in my medical 
-                    history, it is my responsibility to advise the Doctor/Practitioner.
-                </p>
-                <p className="text-gray-500 mb-4 text-base">
-                  I am aware that the co-ordinator is medically trained and that his/her role is to inform me of the process, in accordance 
-                  with the requirement of data protection act I consent to the disclosure of sensitive personal data by Laserderm to relevant 
-                  doctors, surgeons, nurses etc. for the purpose of discussing surgical or medical procedures concerning myself.
-                </p>
-                <p className="text-gray-500 mb-4 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-                  ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+                <div className="bg-gray-200 p-6 rounded-lg mb-6 max-h-96 overflow-y-auto">
+                    <h2 className="text-xl font-bold text-black mb-4">Solacely Estate Agreement</h2>
+                    <p className="text-sm text-gray-600 mb-4 italic">Please read carefully before signing.</p>
+                    <p className="text-gray-700 mb-4 text-sm">This agreement defines the responsibilities and expectations for residents living within a Solacely-managed estate.</p>
+                    
+                    <div className="space-y-4 text-sm">
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">1. Residency and Use</h3>
+                            <p className="text-gray-700 text-sm">The property must be used strictly for residential purposes. Commercial use or subletting within the estate is not allowed without written approval.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">2. Estate Dues and Payments</h3>
+                            <p className="text-gray-700 text-sm">Residents must pay all estate dues (security, waste, maintenance) as scheduled. Failure to comply may lead to restricted access to estate services.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">3. Security and Access Control</h3>
+                            <p className="text-gray-700 text-sm">All visitors must be properly logged at the gate.</p>
+                            <p className="text-gray-700 text-sm">Residents must not bypass security protocols.</p>
+                            <p className="text-gray-700 text-sm">Use of unauthorized access routes is strictly prohibited.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">4. Infrastructure and Utilities</h3>
+                            <p className="text-gray-700 text-sm mb-2">Solacely maintains estate roads, drainage, lighting, and common areas.</p>
+                            <p className="text-gray-700 text-sm mb-2">Residents must report damages or faults promptly.</p>
+                            <p className="text-gray-700 text-sm">Tampering with shared infrastructure is not allowed.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">5. Conduct and Community Rules</h3>
+                            <p className="text-gray-700 text-sm mb-2">No excessive noise, loitering, or nuisance behavior.</p>
+                            <p className="text-gray-700 text-sm mb-2">Respect shared spaces and other residents.</p>
+                            <p className="text-gray-700 text-sm">Pets must be registered and kept under control.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">6. Building Guidelines</h3>
+                            <p className="text-gray-700 text-sm mb-2">Any construction or structural modification requires estate approval.</p>
+                            <p className="text-gray-700 text-sm">Dumping of construction materials in common areas is prohibited.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">7. Waste and Sanitation</h3>
+                            <p className="text-gray-700 text-sm mb-2">Waste must be disposed of in designated areas.</p>
+                            <p className="text-gray-700 text-sm">Burning of refuse is not allowed.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">8. Enforcement and Penalties</h3>
+                            <p className="text-gray-700 text-sm">Violations of estate rules may lead to fines, restricted access, or eviction, depending on the severity.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 className="font-semibold text-black text-base mb-2">9. Termination of Residency</h3>
+                            <p className="text-gray-700 text-sm">Solacely reserves the right to terminate the residency of any individual who repeatedly violates estate policies.</p>
+                        </div>
+                    </div>
+                    
+                    <p className="text-gray-700 mt-6 text-sm font-medium">By signing this agreement, the resident agrees to comply with all estate rules and Solacely's management terms.</p>
+                </div>
 
                 <h3 className="text-lg font-semibold text-black mb-1 text-base">Signature</h3>
                 <p className="text-gray-400 mb-4 text-sm">
-                    Your <span className="text-black italic font-medium">full name</span> will be used to sign this Tenancy agreement.
+                    Your <span className="text-black italic font-medium">full name</span> will be used to sign this Estate agreement.
                 </p>
                 <div className="flex items-center gap-2 align-center mb-6">           
                     <label className="text-gray-700 mb-4 text-sm font-medium"></label>
