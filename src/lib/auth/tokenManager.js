@@ -285,14 +285,18 @@ class TokenManager {
 
     // Check session every 5 minutes (less aggressive)
     this.sessionCheckInterval = setInterval(() => {
-      if (this.getAccessToken() && !this.isSessionValid()) {
+      // Only check if user has tokens (is in an authenticated state)
+      const hasToken = !!localStorage.getItem(this.ACCESS_TOKEN_KEY);
+      if (hasToken && this.getAccessToken() && !this.isSessionValid()) {
         this.handleTokenExpiration('Session expired due to inactivity');
       }
     }, 5 * 60 * 1000);
 
     // Keep-alive ping every 30 minutes
     this.keepAliveInterval = setInterval(() => {
-      if (this.isAuthenticated()) {
+      // Only send keep-alive if user has tokens
+      const hasToken = !!localStorage.getItem(this.ACCESS_TOKEN_KEY);
+      if (hasToken && this.isAuthenticated()) {
         this.sendKeepAlive();
       }
     }, 30 * 60 * 1000);
@@ -301,7 +305,9 @@ class TokenManager {
     const events = ['mousedown', 'keypress', 'touchstart', 'click'];
     
     const activityHandler = () => {
-      if (this.isAuthenticated()) {
+      // Only update activity if user has tokens
+      const hasToken = !!localStorage.getItem(this.ACCESS_TOKEN_KEY);
+      if (hasToken && this.isAuthenticated()) {
         this.updateLastActivity();
       }
     };
