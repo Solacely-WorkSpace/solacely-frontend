@@ -19,6 +19,10 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
+    const [locationSuggestions, setLocationSuggestions] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [isLoadingLocations, setIsLoadingLocations] = useState(false);
+    const [searchTimeout, setSearchTimeout] = useState(null);
 
     const registerMutation = useRegister();
 
@@ -72,10 +76,104 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
             
+            // Handle location autocomplete with API and debouncing
+            if (name === 'location') {
+                // Clear existing timeout
+                if (searchTimeout) {
+                    clearTimeout(searchTimeout);
+                }
+                
+                if (value.length > 2) {
+                    // Debounce API calls by 300ms
+                    const timeout = setTimeout(() => {
+                        fetchLocationSuggestions(value);
+                    }, 300);
+                    setSearchTimeout(timeout);
+                } else {
+                    setShowSuggestions(false);
+                    setLocationSuggestions([]);
+                }
+            }
+            
             // Real-time validation
             const error = validateField(name, value, { ...formData, [name]: value });
             setErrors(prev => ({ ...prev, [name]: error }));
         }
+    };
+
+    const fetchLocationSuggestions = async (query) => {
+        if (query.length < 3) return;
+        
+        setIsLoadingLocations(true);
+        try {
+            // Filter for cities, towns, and administrative areas only
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=8&addressdetails=1&featuretype=city,town,village&countrycodes=ng,za,ke,et,us,gb,ca,au,de,fr,in,br,mx,jp,cn`
+            );
+            const data = await response.json();
+            
+            // Filter and format results for better accuracy
+            const filteredData = data.filter(item => {
+                const type = item.type;
+                const placeClass = item.class;
+                // Only include cities, towns, villages, and administrative areas
+                return (type === 'city' || type === 'town' || type === 'village' || 
+                       type === 'administrative' || placeClass === 'place' || 
+                       placeClass === 'boundary');
+            });
+            
+            const suggestions = filteredData.map(item => {
+                const parts = [];
+                
+                // Prioritize city/town/village names
+                if (item.address?.city) {
+                    parts.push(item.address.city);
+                } else if (item.address?.town) {
+                    parts.push(item.address.town);
+                } else if (item.address?.village) {
+                    parts.push(item.address.village);
+                } else if (item.address?.municipality) {
+                    parts.push(item.address.municipality);
+                }
+                
+                // Add state/region if available
+                if (item.address?.state) {
+                    parts.push(item.address.state);
+                } else if (item.address?.region) {
+                    parts.push(item.address.region);
+                }
+                
+                // Always add country
+                if (item.address?.country) {
+                    parts.push(item.address.country);
+                }
+                
+                // Fallback to display name if no structured address
+                if (parts.length === 0) {
+                    const displayParts = item.display_name.split(',').slice(0, 3);
+                    return displayParts.join(', ').trim();
+                }
+                
+                return parts.join(', ');
+            }).filter(suggestion => suggestion && suggestion.length > 0);
+            
+            // Remove duplicates
+            const uniqueSuggestions = [...new Set(suggestions)].slice(0, 5);
+            
+            setLocationSuggestions(uniqueSuggestions);
+            setShowSuggestions(uniqueSuggestions.length > 0);
+        } catch (error) {
+            console.error('Error fetching locations:', error);
+            setShowSuggestions(false);
+        } finally {
+            setIsLoadingLocations(false);
+        }
+    };
+
+    const handleLocationSelect = (location) => {
+        setFormData(prev => ({ ...prev, location }));
+        setShowSuggestions(false);
+        setErrors(prev => ({ ...prev, location: '' }));
     };
 
     const validateForm = () => {
@@ -292,19 +390,49 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                     Location
                 </label>
 
-                <select
-                    name="location"
-                    id="location"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    className={`placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border ${errors.location ? 'border-red-400' : 'border-gray-400'}`}
-                >
-                    <option value="" disabled>Select Location</option>
-                    <option value="abuja">Abuja</option>
-                    <option value="lagos">Lagos</option>
-                    <option value="port-harcourt">Port Harcourt</option>
-                    <option value="kano">Kano</option>
-                </select>
+                <div className="relative">
+                    <input
+                        type="text"
+                        name="location"
+                        id="location"
+                        value={formData.location}
+                        onChange={handleInputChange}
+                        onFocus={() => {
+                            if (formData.location.length > 2 && locationSuggestions.length > 0) {
+                                setShowSuggestions(true);
+                            }
+                        }}
+                        onBlur={() => {
+                            // Delay hiding suggestions to allow for clicks
+                            setTimeout(() => setShowSuggestions(false), 200);
+                        }}
+                        placeholder="Enter your city, state, or country"
+                        required
+                        className={`placeholder:text-[#5e5e5e] bg-transparent w-full px-4 py-3 rounded-lg border ${errors.location ? 'border-red-400' : 'border-gray-400'}`}
+                    />
+                    {(showSuggestions || isLoadingLocations) && (
+                        <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-40 overflow-y-auto shadow-lg">
+                            {isLoadingLocations ? (
+                                <div className="px-4 py-2 text-gray-500 text-center">
+                                    Searching locations...
+                                </div>
+                            ) : (
+                                locationSuggestions.map((suggestion, index) => (
+                                    <div
+                                        key={index}
+                                        onMouseDown={(e) => {
+                                            e.preventDefault(); // Prevent input blur
+                                            handleLocationSelect(suggestion);
+                                        }}
+                                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-800 border-b border-gray-100 last:border-b-0 text-sm"
+                                    >
+                                        {suggestion}
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    )}
+                </div>
                 {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
             </div>
 

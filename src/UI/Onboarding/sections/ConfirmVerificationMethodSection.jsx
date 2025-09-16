@@ -66,7 +66,7 @@ export default function ConfirmVerificationMethodSection({ setCurrentStage, user
                     <small className="text-[#9EA0AB] mt-8 block">Help us secure your account. <br /> Please complete the verifications below</small>
 
                     <div className="mt-10">
-                        <div className="text-start">
+                        {/* <div className="text-start">
                             <div className="flex gap-2 items-start">
                                 <input
                                     type="radio"
@@ -83,7 +83,7 @@ export default function ConfirmVerificationMethodSection({ setCurrentStage, user
                                     <span className="text-complementary text-start">{maskPhone(userPhone)}</span>
                                 </label>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="w-full h-[1px] bg-gray-400 opacity-30 mt-4 mb-5"></div>
 
