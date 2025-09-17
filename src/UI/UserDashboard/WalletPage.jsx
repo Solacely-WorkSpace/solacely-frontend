@@ -90,7 +90,7 @@ function WalletPage() {
   // Calculate savings percentage (assuming a rent goal of 500,000)
   const rentSavingsGoal = 500000
   const savingsPercentage = dashboardStats.total_rent_savings > 0 
-    ? Math.min((dashboardStats.total_rent_savings / rentSavingsGoal) * 100, 100) 
+    ? parseFloat(Math.min((dashboardStats.total_rent_savings / rentSavingsGoal) * 100, 100).toFixed(2))
     : 0
   
 
@@ -230,21 +230,34 @@ function WalletPage() {
             </div>
           </div>
           <h3 className="text-black text-sm mb-2">Wallet Balance</h3>
-          <h2 className="text-lg font-bold mb-2">
-            {loading ? '₦0' : formatCurrency(dashboardStats.total_wallet_balance)}
-          </h2>
-          <div className="mt-4">
-            <p className="text-sm text-gray-400 font-semibold">Rent Progress</p>
-            <div className="bg-emerald-100 h-3 rounded-full mt-1">
-              <div 
-                className="mt-4 bg-complementary h-full rounded-full"
-                style={{ width: `${savingsPercentage}%` }}
-              ></div>
+          {loading ? (
+            <div className="animate-pulse">
+              <div className="h-6 bg-gray-200 rounded w-24 mb-2"></div>
+              <div className="mt-4">
+                <div className="h-4 bg-gray-200 rounded w-20 mb-1"></div>
+                <div className="bg-gray-200 h-3 rounded-full mt-1"></div>
+                <div className="mt-4 h-3 bg-gray-200 rounded w-32"></div>
+              </div>
             </div>
-            <p className="mt-4 text-xs text-gray-500">
-              {loading ? '₦0' : formatCurrency(dashboardStats.total_rent_savings)} of {formatCurrency(rentSavingsGoal)} saved
-            </p>
-          </div>
+          ) : (
+            <>
+              <h2 className="text-lg font-bold mb-2">
+                {formatCurrency(dashboardStats.total_wallet_balance)}
+              </h2>
+              <div className="mt-4">
+                <p className="text-sm text-gray-400 font-semibold">Rent Progress</p>
+                <div className="bg-emerald-100 h-3 rounded-full mt-1">
+                  <div 
+                    className="mt-4 bg-complementary h-full rounded-full"
+                    style={{ width: `${savingsPercentage}%` }}
+                  ></div>
+                </div>
+                <p className="mt-4 text-xs text-gray-500">
+                  {formatCurrency(dashboardStats.total_rent_savings)} of {formatCurrency(rentSavingsGoal)} saved
+                </p>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Rent Savings Card */}
@@ -254,115 +267,158 @@ function WalletPage() {
             <FiChevronRight className="text-gray-400" />
           </div>
           
-          {/* Toggle buttons */}
-          <div className="flex mb-4">
-            <button 
-              className={`md:px-3 px-1 md:py-1 py-0.5 rounded-l-xl md:text-sm text-xs ${
-                savingsView === 'weekly' 
-                  ? 'bg-purple-900 text-white' 
-                  : 'bg-white text-gray-600 border'
-              }`}
-              onClick={() => setSavingsView('weekly')}
-            >
-              Weekly
-            </button>
-            <button 
-              className={`md:px-3 px-1 md:py-1 py-0.5 rounded-r-xl md:text-sm text-xs ${
-                savingsView === 'monthly' 
-                  ? 'bg-purple-900 text-white' 
-                  : 'bg-white text-primary border'
-              }`}
-              onClick={() => setSavingsView('monthly')}
-            >
-              Monthly
-            </button>
-          </div>
-          
-          <p className="text-sm text-gray-400 mb-1 mt-4 font-semibold">Rent Goal</p>
-          <div className=" mt-4 mb-3 flex">
-            <div className="flex w-[20%] justify-between text-xs md:text-sm mb-1">
-              <span>{savingsPercentage}%</span>
-            </div>
-            <div className="w-[85%] bg-emerald-100 h-3 rounded-full">
-              <div 
-                className="bg-complementary h-full rounded-full"
-                style={{ width: `${savingsPercentage}%` }}
-              ></div>
-            </div>
-          </div>
-          
-          {/* Action buttons */}
-          <div className="flex gap-2 mt-4 md:flex-row flex-col">
-            <div className="flex items-center gap-2 cursor-pointer flex-1">
-              <div 
-                onClick={() => setAutoSave(!autoSave)} 
-                className="relative w-6 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
-                style={{ backgroundColor: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? '#6b21a8' : '#e5e7eb' }}
-              >
-                <div 
-                  className="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full shadow transition-transform duration-300 ease-in-out"
-                  style={{ transform: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? 'translateX(8px)' : 'translateX(0)' }}
-                ></div>
+          {loading ? (
+            <div className="animate-pulse">
+              <div className="flex mb-4">
+                <div className="h-6 bg-gray-200 rounded-l-xl w-16 mr-1"></div>
+                <div className="h-6 bg-gray-200 rounded-r-xl w-16"></div>
               </div>
-              <span className="text-xs">Auto-Save</span>
+              <div className="h-4 bg-gray-200 rounded w-16 mb-1 mt-4"></div>
+              <div className="mt-4 mb-3 flex">
+                <div className="w-[20%] h-4 bg-gray-200 rounded mr-2"></div>
+                <div className="w-[85%] bg-gray-200 h-3 rounded-full"></div>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <div className="h-8 bg-gray-200 rounded flex-1"></div>
+                <div className="h-8 bg-gray-200 rounded flex-1"></div>
+              </div>
             </div>
-            <button className="flex justify-start md:justify-center items-center  gap-2 rounded-md px-3 py-2 text-xs flex-1 text-primary font-semibold">
-              <div className="bg-primary text-white rounded-md w-3 h-3 flex text-sm items-center justify-center">+</div>
-              Add Funds
-            </button>
-          </div>
+          ) : (
+            <>
+              {/* Toggle buttons */}
+              <div className="flex mb-4">
+                <button 
+                  className={`md:px-3 px-1 md:py-1 py-0.5 rounded-l-xl md:text-sm text-xs ${
+                    savingsView === 'weekly' 
+                      ? 'bg-purple-900 text-white' 
+                      : 'bg-white text-gray-600 border'
+                  }`}
+                  onClick={() => setSavingsView('weekly')}
+                >
+                  Weekly
+                </button>
+                <button 
+                  className={`md:px-3 px-1 md:py-1 py-0.5 rounded-r-xl md:text-sm text-xs ${
+                    savingsView === 'monthly' 
+                      ? 'bg-purple-900 text-white' 
+                      : 'bg-white text-primary border'
+                  }`}
+                  onClick={() => setSavingsView('monthly')}
+                >
+                  Monthly
+                </button>
+              </div>
+              
+              <p className="text-sm text-gray-400 mb-1 mt-4 font-semibold">Rent Goal</p>
+              <div className=" mt-4 mb-3 flex">
+                <div className="flex w-[20%] justify-between text-xs md:text-sm mb-1">
+                  <span>{savingsPercentage}%</span>
+                </div>
+                <div className="w-[85%] bg-emerald-100 h-3 rounded-full">
+                  <div 
+                    className="bg-complementary h-full rounded-full"
+                    style={{ width: `${savingsPercentage}%` }}
+                  ></div>
+                </div>
+              </div>
+              
+              {/* Action buttons */}
+              <div className="flex gap-2 mt-4 md:flex-row flex-col">
+                <div className="flex items-center gap-2 cursor-pointer flex-1">
+                  <div 
+                    onClick={() => setAutoSave(!autoSave)} 
+                    className="relative w-6 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
+                    style={{ backgroundColor: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? '#6b21a8' : '#e5e7eb' }}
+                  >
+                    <div 
+                      className="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full shadow transition-transform duration-300 ease-in-out"
+                      style={{ transform: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? 'translateX(8px)' : 'translateX(0)' }}
+                    ></div>
+                  </div>
+                  <span className="text-xs">Auto-Save</span>
+                </div>
+                <button className="flex justify-start md:justify-center items-center  gap-2 rounded-md px-3 py-2 text-xs flex-1 text-primary font-semibold">
+                  <div className="bg-primary text-white rounded-md w-3 h-3 flex text-sm items-center justify-center">+</div>
+                  Add Funds
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         {/* TRC Earnings Card */}
         <div className="bg-white p-3 rounded-lg border border-gray-200">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-black text-xs md:text-sm">TRC Earnings</h3>
-            <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-2 py-2"
-              onClick={() => setShowTRCEarnings(true)}>
-              Transfer to Rent
-            </button>
+            {!loading && (
+              <button className="hidden md:block bg-purple-900 text-white rounded-md text-xs px-2 py-2"
+                onClick={() => setShowTRCEarnings(true)}>
+                Transfer to Rent
+              </button>
+            )}
           </div>
           
-          <h2 className="text-lg font-bold mb-4">
-            {loading ? '₦0' : formatCurrency(dashboardStats.total_trc_circulating)}
-          </h2>
-          <p className="text-sm text-gray-400 font-semibold mt-4">Total Earnings</p>
-          
-          <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="flex flex-col items-center justify-center">
-              <div className="flex items-center justify-center gap-2 w-full">
-                <div className="w-3 h-3 rounded-full bg-green-100">
-                  <Image src="/icons/chart.svg" width={20} height={20} alt="surveys icon" className='w-3 h-3' />
-                </div>
-                <span className="text-xs text-gray-600  font-medium">Surveys</span>
+          {loading ? (
+            <div className="animate-pulse">
+              <div className="h-6 bg-gray-200 rounded w-20 mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-24 mt-4 mb-4"></div>
+              <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="flex flex-col items-center justify-center">
+                    <div className="flex items-center justify-center gap-2 w-full mb-2">
+                      <div className="w-3 h-3 bg-gray-200 rounded-full"></div>
+                      <div className="h-3 bg-gray-200 rounded w-12"></div>
+                    </div>
+                    <div className="h-3 bg-gray-200 rounded w-8"></div>
+                  </div>
+                ))}
               </div>
-              <span className="text-xs font-medium text-center mt-2">{earningsData.surveys}</span>
+              <div className="md:hidden w-full h-8 bg-gray-200 rounded mt-2"></div>
             </div>
-            <div className="flex flex-col items-center justify-center">
-              <div className="flex items-center justify-center gap-2 w-full">
-                <div className="w-3 h-3 rounded-full">
-                  <Image src="/icons/calendar-circle.svg" width={20} height={20} alt="microtasks icon" className='w-3 h-3' />
+          ) : (
+            <>
+              <h2 className="text-lg font-bold mb-4">
+                {formatCurrency(dashboardStats.total_trc_circulating)}
+              </h2>
+              <p className="text-sm text-gray-400 font-semibold mt-4">Total Earnings</p>
+              
+              <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-center justify-center gap-2 w-full">
+                    <div className="w-3 h-3 rounded-full bg-green-100">
+                      <Image src="/icons/chart.svg" width={20} height={20} alt="surveys icon" className='w-3 h-3' />
+                    </div>
+                    <span className="text-xs text-gray-600  font-medium">Surveys</span>
+                  </div>
+                  <span className="text-xs font-medium text-center mt-2">{earningsData.surveys}</span>
                 </div>
-                <span className="text-xs text-gray-600 font-medium">Microtasks</span>
-              </div>
-              <span className="text-xs font-medium text-center mt-2">{earningsData.microtasks}</span>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <div className="flex items-center justify-center gap-2 w-full">
-                <div className="w-3 h-3 rounded-full">
-                  <Image src="/icons/user-tick.svg" width={20} height={20} alt="referrals icon" className='w-3 h-3' />
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-center justify-center gap-2 w-full">
+                    <div className="w-3 h-3 rounded-full">
+                      <Image src="/icons/calendar-circle.svg" width={20} height={20} alt="microtasks icon" className='w-3 h-3' />
+                    </div>
+                    <span className="text-xs text-gray-600 font-medium">Microtasks</span>
+                  </div>
+                  <span className="text-xs font-medium text-center mt-2">{earningsData.microtasks}</span>
                 </div>
-                <span className="text-xs text-gray-600  font-medium">Referrals</span>
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-center justify-center gap-2 w-full">
+                    <div className="w-3 h-3 rounded-full">
+                      <Image src="/icons/user-tick.svg" width={20} height={20} alt="referrals icon" className='w-3 h-3' />
+                    </div>
+                    <span className="text-xs text-gray-600  font-medium">Referrals</span>
+                  </div>
+                  <span className="text-xs font-medium text-center mt-2">{earningsData.referrals}</span>
+                </div>
               </div>
-              <span className="text-xs font-medium text-center mt-2">{earningsData.referrals}</span>
-            </div>
-          </div>
 
-          {/* For mobile, add a visible button as well */}
-          <button className="md:hidden w-full bg-purple-900 text-white rounded-md text-xs px-3 py-2 mt-2"
-            onClick={() => setShowTRCEarnings(true)}>
-            Transfer to Rent
-          </button>
+              {/* For mobile, add a visible button as well */}
+              <button className="md:hidden w-full bg-purple-900 text-white rounded-md text-xs px-3 py-2 mt-2"
+                onClick={() => setShowTRCEarnings(true)}>
+                Transfer to Rent
+              </button>
+            </>
+          )}
         </div>
 
         {/* Rent Payment Card */}
@@ -371,18 +427,28 @@ function WalletPage() {
             <h3 className="text-black text-sm">Rent Payment</h3>
           </div>
           
-          <h2 className="text-xl font-bold mb-4 mt-4">
-            {loading ? '₦0' : formatCurrency(dashboardStats.total_escrow_balance)}
-          </h2>
-          <p className="text-sm text-gray-400 font-medium italic mb-4">Due in 15 days</p>
-          
-          <button 
-            onClick={() => setShowEscrowPopup(true)}
-            className="bg-purple-900 text-xs md:text-sm text-white w-full py-3 px-2 rounded-md mt-auto flex items-center justify-center gap-2"
-          >
-            Pay to Escrow
-            <FiChevronRight />
-          </button>
+          {loading ? (
+            <div className="animate-pulse flex flex-col items-center w-full">
+              <div className="h-7 bg-gray-200 rounded w-24 mb-4 mt-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-20 mb-4"></div>
+              <div className="bg-gray-200 h-10 rounded w-full mt-auto"></div>
+            </div>
+          ) : (
+            <>
+              <h2 className="text-xl font-bold mb-4 mt-4">
+                {formatCurrency(dashboardStats.total_escrow_balance)}
+              </h2>
+              <p className="text-sm text-gray-400 font-medium italic mb-4">Due in 15 days</p>
+              
+              <button 
+                onClick={() => setShowEscrowPopup(true)}
+                className="bg-purple-900 text-xs md:text-sm text-white w-full py-3 px-2 rounded-md mt-auto flex items-center justify-center gap-2"
+              >
+                Pay to Escrow
+                <FiChevronRight />
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -473,7 +539,15 @@ function WalletPage() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {transactionsLoading ? (
-                <tr><td colSpan="5" className="px-4 py-4 text-center">Loading...</td></tr>
+                Array.from({ length: 3 }).map((_, i) => (
+                  <tr key={i} className="animate-pulse">
+                    <td className="px-4 py-4"><div className="h-4 bg-gray-200 rounded w-32"></div></td>
+                    <td className="px-4 py-4"><div className="h-4 bg-gray-200 rounded w-20"></div></td>
+                    <td className="px-4 py-4"><div className="h-4 bg-gray-200 rounded w-24"></div></td>
+                    <td className="px-4 py-4"><div className="h-6 bg-gray-200 rounded w-16"></div></td>
+                    <td className="px-4 py-4"><div className="h-8 bg-gray-200 rounded w-24"></div></td>
+                  </tr>
+                ))
               ) : transactions.length === 0 ? (
                 <tr><td colSpan="5" className="px-4 py-4 text-center">No transactions found</td></tr>
               ) : (
@@ -512,7 +586,18 @@ function WalletPage() {
         {/* Mobile Transaction List */}
         <div className="md:hidden">
           {transactionsLoading ? (
-            <div className="text-center py-4">Loading...</div>
+            Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="mb-3 border-b border-gray-100 pb-3 p-2 animate-pulse">
+                <div className="flex justify-between items-center mb-1">
+                  <div className="h-4 bg-gray-200 rounded w-32"></div>
+                  <div className="h-4 bg-gray-200 rounded w-16"></div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="h-3 bg-gray-200 rounded w-20"></div>
+                  <div className="h-5 bg-gray-200 rounded w-12"></div>
+                </div>
+              </div>
+            ))
           ) : transactions.length === 0 ? (
             <div className="text-center py-4">No transactions found</div>
           ) : (

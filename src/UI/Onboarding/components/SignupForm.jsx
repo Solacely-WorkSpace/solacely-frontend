@@ -510,11 +510,9 @@ export default function SignupForm({ setCurrentStage, setUserData }) {
                     htmlFor="agreedToTerms"
                     className="text-sm text-[#9EA0AB]"
                 >
-                    By signing up I agree that I'm 18 years of age or older, to the User{' '}
-                    <Link href="#" className="text-black">Agreements,</Link>{' '}
-                    <Link href="#" className="text-black">Privacy Policy,</Link>{' '}
-                    <Link href="#" className="text-black">Cookie Policy,</Link>{' '}
-                    <Link href="#" className="text-black">E-Sign Consent</Link>.
+                    By signing up I agree that I'm 18 years of age or older, to the {' '}
+                    <Link href="privacy_policy" className="text-black font-semibold">Privacy Policy,</Link>{' '}
+                    <Link href="terms_and_conditions" className="text-black font-semibold">Terms & Conditions,</Link>{' '}
                 </label>
             </div>
             {errors.terms && <p className="text-red-500 text-sm mt-1">{errors.terms}</p>}

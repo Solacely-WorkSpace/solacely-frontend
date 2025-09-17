@@ -20,9 +20,10 @@ function DashboardPage() {
   const [apartments, setApartments] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [rentalLoading, setRentalLoading] = useState(true)
   const ITEMS_PER_PAGE = 6
   // State to check if user has a rented apartment
-  const [hasRentedApartment, setHasRentedApartment] = useState(true) // Set to true for demo
+  const [hasRentedApartment, setHasRentedApartment] = useState(false) // Set to true for demo
 
   // Check authentication status
   const { isAuthenticated, user, hasValidToken } = useAuthStatus();
@@ -44,6 +45,11 @@ function DashboardPage() {
         setUserName(formatUserName(parsedUser));
       }
     }
+    
+    // Simulate rental info loading
+    setTimeout(() => {
+      setRentalLoading(false);
+    }, 1000);
   }, [user]);
 
   // Fetch apartments from API
@@ -136,14 +142,18 @@ function DashboardPage() {
                   </span>
                 </div>
 
-                {!hasRentedApartment && (
+                {rentalLoading ? (
+                  <div className="animate-pulse py-6">
+                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                  </div>
+                ) : !hasRentedApartment ? (
                   <p className="text-base text-gray-500 py-6">
                     You have not rented any apartment yet. Explore to find our listings<br />
                     to find an Apartment you may like
                   </p>
-                )}
-                {/* Rental Details */}
-                {hasRentedApartment && (
+                ) : (
+                  /* Rental Details */
                   <div className="mt-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Apartment Name */}
@@ -240,8 +250,50 @@ function DashboardPage() {
             
             {/* Grid of Apartments */}
             {loading ? (
+              <div className="grid grid-cols-1 md:px-4 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="bg-white rounded-lg overflow-hidden animate-pulse">
+                    <div className="relative">
+                      <div className="w-full h-48 bg-gray-200 rounded-lg"></div>
+                      <div className="absolute top-3 right-3 w-6 h-6 bg-gray-300 rounded"></div>
+                    </div>
+                    
+                    <div className="py-2">
+                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                        
+                      <div className="flex items-center gap-4 mb-2">
+                        <div className="flex items-center gap-1">
+                          <div className="w-5 h-5 bg-gray-200 rounded"></div>
+                          <div className="h-3 bg-gray-200 rounded w-8"></div>
+                        </div>
+                        
+                        <div className="flex items-center gap-1">
+                          <div className="w-5 h-5 bg-gray-200 rounded"></div>
+                          <div className="h-3 bg-gray-200 rounded w-8"></div>
+                        </div>
+                        
+                        <div className="flex items-center gap-1">
+                          <div className="w-5 h-5 bg-gray-200 rounded"></div>
+                          <div className="h-3 bg-gray-200 rounded w-8"></div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-1 mb-3">
+                        <div className="w-4 h-4 bg-gray-200 rounded"></div>
+                        <div className="h-3 bg-gray-200 rounded w-24"></div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="h-4 bg-gray-200 rounded w-20"></div>
+                      </div>
+                      <div className="h-8 bg-gray-200 rounded w-full"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : error ? (
               <div className="flex justify-center items-center py-8">
-                <div className="text-gray-500">Loading apartment listings...</div>
+                <div className="text-red-500">{error}</div>
               </div>
             ) : apartments.length === 0 ? (
               <div className="flex justify-center items-center py-8">

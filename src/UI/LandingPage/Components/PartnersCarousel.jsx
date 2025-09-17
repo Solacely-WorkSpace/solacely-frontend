@@ -21,7 +21,7 @@ export default function PartnersCarousel() {
       >
         {images.map((img, idx) => (
           <span key={idx} className="inline-block">
-            <Image src={img.src} alt={img.alt} width={80} height={40} className="h-10 w-auto object-contain" />
+            <Image src={img.src} alt={img.alt} width={80} height={40} className="h-10 w-auto object-contain" style={{ height: 'auto' }} />
           </span>
         ))}
       </div>

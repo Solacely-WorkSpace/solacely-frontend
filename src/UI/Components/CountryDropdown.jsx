@@ -92,6 +92,7 @@ function CountryDropdown() {
 			>
 				<Image
 					src={selected.icon}
+					alt={selected.name}
 					width={20}
 					height={20}
                     className="w-4 h-4"
@@ -129,6 +130,7 @@ function CountryDropdown() {
 							>
 								<Image
 									src={country.icon}
+									alt={country.name}
 									width={24}
 									height={24}
                                     className="w-3 h-3"
