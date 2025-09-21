@@ -56,6 +56,34 @@ const Footer = () => {
           </div>
         </div>
 
+          <div className="flex-1 text-white  flex flex-col gap-2 md:gap-4 text-start  z-30">
+            <h3 className=" font-semibold text-sm text-white z-30">Why Solacely </h3>
+
+            <Link href="#" className=" opacity-70 text-sm">
+              Find Your Verified Home
+            </Link>
+
+            <Link href="#" className=" opacity-70 text-sm">
+              List Your Property Securely
+            </Link>
+
+            <Link href="#" className=" opacity-70 text-sm">
+              Tenant Verification Database
+            </Link>
+
+            <Link href="#" className=" opacity-70 text-sm">
+              Flexible Rent Payments
+            </Link>
+
+            <Link href="#" className=" opacity-70 text-sm">
+              Earn While You Rent (TRC)
+            </Link>
+
+            <Link href="#" className=" opacity-70 text-sm">
+              Fractional Property Ownership (from $10)
+            </Link>
+          </div>
+
         <div className="flex gap-8 justify-between flex-[3]">
           <div className="flex-1 text-white  flex flex-col gap-2 md:gap-4 text-start  z-30">
             <h3 className=" font-semibold text-sm text-white z-30"> Company </h3>

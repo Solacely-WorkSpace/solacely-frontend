@@ -59,24 +59,19 @@ function DashboardPage() {
         setLoading(true);
         setError(null);
         
-        console.log('🏠 Fetching apartment listings...');
         
         // Try to fetch apartments
         const response = await apartmentService.getListings();
         
         // Handle the response data structure
         if (response && response.data) {
-          console.log('✅ Successfully fetched apartments:', response.data.length);
           setApartments(response.data);
         } else if (Array.isArray(response)) {
-          console.log('✅ Successfully fetched apartments:', response.length);
           setApartments(response);
         } else {
-          console.log('⚠️ No apartments found in response');
           setApartments([]);
         }
       } catch (err) {
-        console.error('❌ Error fetching apartments:', err);
         
         // More specific error handling
         if (err.status === 401) {

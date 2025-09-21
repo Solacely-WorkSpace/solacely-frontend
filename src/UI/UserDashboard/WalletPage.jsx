@@ -37,12 +37,9 @@ function WalletPage() {
     const fetchDashboardStats = async () => {
       try {
         const statsData = await walletService.getDashboardStats()
-        console.log('Wallet Dashboard Stats Response:', statsData)
         setDashboardStats(statsData)
       } catch (error) {
         console.error('Error fetching dashboard stats:', error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -59,7 +56,6 @@ function WalletPage() {
       if (typeFilter) params.type = typeFilter
       
       const transactionsData = await walletService.getTransactions(params)
-      console.log('Wallet Transactions Response:', transactionsData)
       setTransactions(transactionsData)
     } catch (error) {
       console.error('Error fetching transactions:', error)
@@ -126,7 +122,6 @@ function WalletPage() {
 
   const handleEscrowPayment = () => {
     // Add your escrow payment logic here
-    console.log('Processing escrow payment...')
   }
 
   const handleViewTransactionDetails = (transaction) => {
