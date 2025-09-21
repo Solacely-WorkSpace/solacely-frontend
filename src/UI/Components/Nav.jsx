@@ -28,69 +28,70 @@ const Nav = () => {
   return (
     <nav className=" fixed w-full z-50 bg-white top-0 px-4 py-2">
       <div className="landingpage-container flex justify-between items-center">
-        <Link
-          href={'/'}
-          className=" flex gap-0 md:gap-1.5 items-end"
-        >
-          <div className="w-8">
-            <Image
-              src={LogoIcon}
-              alt="LogoName"
-              width={200}
-              height={200}
-              className="w-6 md:w-8"
-            />
-          </div>
+        <div className="flex items-center gap-10">
+          <Link
+            href={'/'}
+            className=" flex gap-0 md:gap-1.5 items-end"
+          >
+            <div className="w-8">
+              <Image
+                src={LogoIcon}
+                alt="LogoName"
+                width={200}
+                height={200}
+                className="w-6 md:w-8"
+              />
+            </div>
 
-          <div className="">
-            <Image
-              src={LogoName}
-              alt="LogoName"
-              width={200}
-              height={200}
-              className="h-4 md:h-6"
-            />
-          </div>
-        </Link>
+            <div className="">
+              <Image
+                src={LogoName}
+                alt="LogoName"
+                width={200}
+                height={200}
+                className="h-4 md:h-6"
+              />
+            </div>
+          </Link>
 
-        <div className=" hidden md:block">
-          <ul className=" flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-8">
             <Dropdown />
-
-            <li className=" font-medium text-base ">
-              <Link href="#" className="font-bold">
-                Become a Partner
-              </Link>
-            </li>
-          </ul>
+            <Link href="#" className="text-black hover:text-primary font-medium">
+              Become a partner
+            </Link>
+            <Link href="/about" className="text-black hover:text-primary font-medium">
+              About Us
+            </Link>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-3">
-            <CountryDropdown />
-            <MobileNav />
-
-            {isLoggedIn ? (
-              <>
-                <Link
-                  href="/dashboard"
-                  className="btn-primary px-6 hidden md:block"
-                >
-                  Dashboard
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/sign-up"
-                  className="btn-primary px-6 hidden md:block"
-                >
-                  Get Started
-                </Link>
-              </>
-            )}
-          </div>
+        <div className="flex items-center gap-4">
+          <MobileNav />
           
+          {isLoggedIn ? (
+            <div className="hidden md:flex items-center gap-4">
+              <CountryDropdown />
+              <Link
+                href="/dashboard"
+                className="btn-primary px-6"
+              >
+                Dashboard
+              </Link>
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center gap-4">
+              <Link href="/sign-in" className="text-gray-700 hover:text-white hover:bg-primary px-6 py-2 rounded-lg font-medium">
+                Log in
+              </Link>
+              <Link
+                href="/sign-up"
+                className="bg-primary hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+              >
+                Sign up
+              </Link>
+              <CountryDropdown />
+            </div>
+          )}
         </div>
       </div >
     </nav >

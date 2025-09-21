@@ -121,22 +121,37 @@ const MobileNav = () => {
                   <Link href="#" className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors">Become a Partner</Link>
                 </li>
                 <li className="py-1">
-                  {isLoggedIn ? (
+                  <Link href="/about" className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors">About Us</Link>
+                </li>
+                {isLoggedIn ? (
+                  <li className="py-1">
                     <Link 
                       href="/dashboard" 
                       className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
                     >
                       Dashboard
                     </Link>
-                  ) : (
-                    <Link 
-                      href="/sign-up" 
-                      className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
-                    >
-                      Get Started
-                    </Link>
-                  )}
-                </li>
+                  </li>
+                ) : (
+                  <>
+                    <li className="py-1">
+                      <Link 
+                        href="/sign-in" 
+                        className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
+                      >
+                        Log in
+                      </Link>
+                    </li>
+                    <li className="py-1">
+                      <Link 
+                        href="/sign-up" 
+                        className="block text-sm font-medium rounded-md p-2 hover:bg-primary hover:text-white transition-colors"
+                      >
+                        Sign up
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

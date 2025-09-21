@@ -25,7 +25,7 @@ const Dropdown = () => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-gray-50 transition-colors"
       >
-        <span className="text-md font-medium hidden md:inline">Space</span>
+        <span className="text-md font-medium hidden md:inline text-black">Space</span>
 
         <ChevronDown
           size={17}
