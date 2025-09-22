@@ -1,13 +1,16 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { authService } from "@/lib/api";
+import LoginPromptModal from "../Components/LoginPromptModal";
+
 import { useEffect, useState } from "react";
-import AiPopuop from "../Components/AiPopuop";
 import { HeroIllustration, MetaImage } from '@/assets/images'
-import { icon360 } from '@/assets/icons'
-import PartnersCarousel from '../Components/PartnersCarousel';
 
 const Hero = () => {
+  const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -26,51 +29,48 @@ const Hero = () => {
       };
     }, []);
 
+    const handleFindApartment = () => {
+        if (authService.isAuthenticated()) {
+          router.push("/apartment");
+        } else {
+          setShowModal(true);
+        }
+      };
+
 
   return (
-    <section className="landingpage-container px-4 md:px-0 mt-20">
-      <AiPopuop />
+    <section className="landingpage-container px-4 md:px-0 mt-30">
 
-      <div className="flex flex-col md:flex-row justify-between items-start md:gap-10 md:mt-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:gap-6 md:mt-4">
         <div className="flex-1 w-full mt-16 order-2 md:order-1">
           <div className="  px-2 font-rob">
             <h1 className="text-3xl md:text-5xl font-bold md:leading-14">
-              Homes aren't found, they're revealed.
+              Homes Made Simple.
               <br />
-              AI-Powered Recommendations.
+              Renting Made Smarter.
             </h1>
 
             <p className=" text-sm md:text-lg leading-6 mt-6 max-w-96 ">
-              Find verified rentals, pay in smaller, flexible installments, and enjoy secure, transparent transactions. Earn while you rent — and use it to pay towards your next rent. Solacely makes renting smarter and safer.
+              Discover verified rentals with AI-powered recommendations.<br /> Pay Rent in flexible installemnets, enjoy secure trasactions and even earn rewards towards your next rent.
             </p>
 
-            <div className=" flex justify-between md:flex-col gap-6 py-4 mt-6 items-center md:items-start">
-              {isLoggedIn ? (
-                <Link 
-                  href="/dashboard" 
-                  className="btn-primary"
-                >
-                  Dashboard
-                </Link>
-              ) : (
-                <Link
-                  href="/sign-up"
-                  className="btn-primary min-w-[140px] text-center"
-                >
-                  Get Started
-                </Link>
-              )}
-
-              <article>
-                <h5 className="font-semibold font-rob text-[#9EA0AB] text-sub text-xs mb-1.5 whitespace-nowrap">
-                  OUR ESTEEM PARTNERS
-                </h5>
-                <figure>
-                  {/* Automatic scrolling carousel of partner images */}
-                  <PartnersCarousel />
-                </figure>
-
-              </article>
+            <div className="flex flex-col gap-4 py-4 mt-6">
+              <div className="w-full flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
+                <input
+                  placeholder="Enter a city or style"
+                  className=" outline-none w-full"
+                />
+              
+                <Image
+                  src="/icons/search.svg"
+                  width={20}
+                  height={20}
+                  alt="search"
+                  className="w-8 h-8"
+                />
+              </div>
+              
+              <button className="btn-primary w-1/2" onClick={handleFindApartment}> Find an Apartment </button>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ const Hero = () => {
             height={2000}
             placeholder="blur"
             className="w-full h-auto"
-          />
+            />
           
           {/* Animated 360 Icon */}
           <div className="absolute top-8 right-8 md:top-12 md:right-12 animate-pulse">
@@ -96,8 +96,24 @@ const Hero = () => {
             </div>
           </div>
 
+          {/* Chat Bubble */}
+          <div className="absolute top-36 right-8 md:top-78 md:right-12">
+            <div className="bg-green-400 w-14 h-14 rounded-xl flex items-center justify-center shadow-lg cursor-pointer hover:bg-green-500 transition-colors duration-200">
+              <div className="relative">
+                <div className="bg-green-400 text-white px-2 py-1 rounded text-sm font-bold border border-white border-3">
+                  Hi
+                </div>
+                {/* Chat bubble tail */}
+                <div className="absolute -bottom-1 left-1">
+                  <div className="w-2 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-white"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
+      <LoginPromptModal open={showModal} onClose={() => setShowModal(false)} /> 
     </section>
   );
 };
