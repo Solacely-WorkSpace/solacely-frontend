@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { HamburgerSVG } from "@/assets/SVGAssets";
 import { ChevronDown } from "lucide-react";
-import CountryDropdown from "./CountryDropdown";
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +43,6 @@ const MobileNav = () => {
 
   return (
     <div className="relative flex items-center gap-4">
-      <CountryDropdown />
       {/* Hamburger button */}
       <button 
         onClick={toggleMenu} 

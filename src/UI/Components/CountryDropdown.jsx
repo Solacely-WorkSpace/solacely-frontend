@@ -4,42 +4,49 @@ import { Global, Nigeria, Ghana, Kenya, SouthAfrica, Uganda, Rwanda } from "@/as
 const countries = [
 	{
 		name: "Global",
+		short: "GLB",
 		icon: Global,
 		active: true,
 		comingSoon: false,
 	},
 	{
 		name: "Nigeria",
+		short: "NG",
 		icon: Nigeria,
 		active: true,
 		comingSoon: false,
 	},
 	{
 		name: "South Africa",
+		short: "ZA",
 		icon: SouthAfrica,
 		active: true,
 		comingSoon: true,
 	},
 	{
 		name: "Ghana",
+		short: "GH",
 		icon: Ghana,
 		active: true,
 		comingSoon: true,
 	},
 	{
 		name: "Kenya",
+		short: "KE",
 		icon: Kenya,
 		active: true,
 		comingSoon: true,
 	},
     {
         name: "Uganda",
+        short: "UG",
         icon: Uganda,
         active: true,
         comingSoon: true,
     },
     {
         name: "Rwanda",
+        short: "RW",
         icon: Rwanda,
         active: true,
         comingSoon: true,
@@ -97,7 +104,7 @@ function CountryDropdown() {
 					height={20}
                     className="w-4 h-4"
 				/>
-				<span className="font-medium text-sm hidden md:block">{selected.name}</span>
+				<span className="font-medium text-sm hidden md:block">{selected.short}</span>
 				<svg
 					className="w-4 h-4 ml-1 text-gray-400 hidden md:block"
 					fill="none"
