@@ -42,7 +42,7 @@ const MobileNav = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative flex items-center gap-4">
       {/* Hamburger button */}
       <button 
         onClick={toggleMenu} 

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { LogoName } from '@/assets/images'
 import { LogoIcon } from '@/assets/icons'
 import CountryDropdown from "./CountryDropdown";
+import Announcement from "./Announcement";
 
 const Nav = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,8 +27,9 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className=" fixed w-full z-50 bg-white top-0 px-4 py-2">
-      <div className="landingpage-container flex justify-between items-center">
+    <nav className=" fixed w-full z-50 bg-white top-0">
+      <Announcement />
+      <div className="landingpage-container pt-2 flex justify-between items-center px-4 py-2">
         <div className="flex items-center gap-10">
           <Link
             href={'/'}
@@ -65,12 +67,12 @@ const Nav = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 md:gap-0">
+          <CountryDropdown />
           <MobileNav />
           
           {isLoggedIn ? (
             <div className="hidden md:flex items-center gap-4">
-              <CountryDropdown />
               <Link
                 href="/dashboard"
                 className="btn-primary px-6"
@@ -89,7 +91,6 @@ const Nav = () => {
               >
                 Sign up
               </Link>
-              <CountryDropdown />
             </div>
           )}
         </div>

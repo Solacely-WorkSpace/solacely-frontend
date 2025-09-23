@@ -55,7 +55,7 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col gap-4 py-4 mt-6">
-              <div className="w-full flex justify-between py-3 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
+              <div className="w-full flex justify-between py-1 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
                 <input
                   placeholder="Enter a city or style"
                   className=" outline-none w-full"
@@ -70,7 +70,7 @@ const Hero = () => {
                 />
               </div>
               
-              <button className="btn-primary w-1/2" onClick={handleFindApartment}> Find an Apartment </button>
+              <button className="btn-primary w-fit" onClick={handleFindApartment}> Find an Apartment </button>
             </div>
           </div>
         </div>
