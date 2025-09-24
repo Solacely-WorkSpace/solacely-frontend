@@ -62,7 +62,7 @@ const Cta = () => {
 
   return (
     <section
-      className="relative  overflow-hidden  "
+      className="relative  overflow-hidden"
       style={{ height: containerWidth / 2 }}
     >
       <div

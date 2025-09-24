@@ -5,6 +5,7 @@ import Tour from '@/UI/LandingPage/Sections/Tour'
 import Waiting from '@/UI/LandingPage/Sections/Waiting'
 import Cta from '@/UI/LandingPage/Sections/Cta'
 import WhyChooseSolacely from './Sections/WhyChooseSolacely'
+import PartnersCarousel from './Sections/PartnersCarousel'
 
 export default function LandingPage() {
     return (
@@ -16,8 +17,9 @@ export default function LandingPage() {
                 <Tour />
                 <Waiting />
                 <Offer />
-                <Ad />
                 <Cta />
+                <Ad />
+                <PartnersCarousel />
             </main>
         </>
     )
