@@ -12,16 +12,14 @@ const Tour = () => {
   const [isActive, setIsActive] = useState(0);
 
   return (
-    <section className="landingpage-container px-4 mt-16 w-full">
-      <div className=" text-center mb-10 leading-12">
-        <small className="text-sm text-[#9EA0AB] ">Our Unique Spaces</small>
-
-        <h2>
-          From Screen to Keys
+    <section className="bg-purple-50 px-4 w-full">
+      <section className="landingpage-container rounded-2xl p-4 overflow-y-visible ">
+        <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2 pt-8">
+          At a Glance
         </h2>
-      </div>
-
-      <section className=" bg-[#F8F7FE] rounded-2xl p-4 md:p-16 overflow-y-visible ">
+        <p className="text-gray-600 mb-8">
+          Solacely puts the essentials at your fingertips. See the bigger picture in seconds.
+        </p>
         <div className="w-full h-fit overflow-x-auto pt-4 pb-0">
           <TourSectionLinks {...{ isActive, setIsActive }} />
         </div>
