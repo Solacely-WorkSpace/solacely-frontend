@@ -1,4 +1,4 @@
-
+"use client";
 import React from "react";
 import Image from "next/image";
 import { DataMellon, Flutterwave, Fincore, GoogleCloudPartners, Paystack } from '@/assets/images';
@@ -14,14 +14,15 @@ export default function PartnersCarousel() {
   // Duplicate the images for seamless infinite scroll
   const images = [...partnerImages, ...partnerImages];
   return (
-    <div className="mx-auto max-w-xs md:max-w-[400px] h-16 overflow-x-hidden">
+    <div className="mx-auto w-full h-auto pb-8 flex flex-col items-center">
+      <h2 className="text-2xl text-center md:text-4xl font-bold mb-4 font-bold">Our Esteemed Partners</h2>
       <div
-        className="flex gap-8 items-center animate-partners-marquee"
+        className="mt-4 flex gap-12 items-center animate-partners-marquee"
         style={{ width: "max-content" }}
       >
         {images.map((img, idx) => (
           <span key={idx} className="inline-block">
-            <Image src={img.src} alt={img.alt} width={80} height={40} className="h-10 w-auto object-contain" style={{ height: 'auto' }} />
+            <Image src={img.src} alt={img.alt} width={90} height={60} className="h-10 w-auto object-contain" style={{ height: 'auto' }} />
           </span>
         ))}
       </div>

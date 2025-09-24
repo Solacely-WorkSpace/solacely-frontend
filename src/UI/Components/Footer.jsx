@@ -7,7 +7,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className=" bg-[#521282] px-4 pt-16 md:pt-20 relative">
+    <footer className=" bg-[#521282] px-4 pt-16 md:pt-20 relative mt-20 overflow-hidden">
       <div className="bg-[url('/images/LandingPage/footer/footerbg.png')] bg-contain bg-left-top absolute inset-0 w-full h-full "></div>
 
       <div className="landingpage-container flex flex-col text-center md:text-left items-center md:items-start lg:flex-row gap-20 justify-between mb-8 z-30">
