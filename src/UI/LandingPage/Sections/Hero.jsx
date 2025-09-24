@@ -38,11 +38,11 @@ const Hero = () => {
       };
 
 
-  return (
-    <section className="landingpage-container px-4 md:px-0 mt-30">
-
-      <div className="flex flex-col md:flex-row justify-between items-start md:gap-6 md:mt-4">
-        <div className="flex-1 w-full mt-16 order-2 md:order-1">
+  return (  
+    <section className="md:mt-30 mt-15 px-4 md:px-0 bg-purple-50">
+      <div className="landingpage-container py-10 md:py-15">
+      <div className="flex flex-col md:flex-row justify-between md:gap-6 md:mt-4">
+        <div className="flex-1 w-full mt-16">
           <div className="  px-2 font-rob">
             <h1 className="text-3xl md:text-5xl font-bold md:leading-14">
               Homes Made Simple.
@@ -75,7 +75,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="w-full flex-1 block order-1 md:order-2 mt-5 relative"> 
+        <div className="w-full flex-1 block mt-5 relative"> 
           <Image
             src={HeroIllustration}
             alt="hero illustration"
@@ -97,23 +97,23 @@ const Hero = () => {
           </div>
 
           {/* Chat Bubble */}
-          <div className="absolute top-36 right-8 md:top-78 md:right-12">
+          {/* <div className="absolute top-36 right-8 md:top-78 md:right-12">
             <div className="bg-green-400 w-14 h-14 rounded-xl flex items-center justify-center shadow-lg cursor-pointer hover:bg-green-500 transition-colors duration-200">
               <div className="relative">
                 <div className="bg-green-400 text-white px-2 py-1 rounded text-sm font-bold border border-white border-3">
                   Hi
                 </div>
-                {/* Chat bubble tail */}
                 <div className="absolute -bottom-1 left-1">
                   <div className="w-2 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-white"></div>
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
         </div>
       </div>
       <LoginPromptModal open={showModal} onClose={() => setShowModal(false)} /> 
+      </div>
     </section>
   );
 };

@@ -29,7 +29,7 @@ const Nav = () => {
   return (
     <nav className=" fixed w-full z-50 bg-white top-0">
       <Announcement />
-      <div className="landingpage-container pt-2 flex justify-between items-center px-4 py-2">
+      <div className="landingpage-container pt-4 flex justify-between items-center px-4 py-2">
         <div className="flex items-center gap-10">
           <Link
             href={'/'}
