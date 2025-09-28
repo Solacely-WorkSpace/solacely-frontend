@@ -14,7 +14,7 @@ export default function PartnersCarousel() {
   // Duplicate the images for seamless infinite scroll
   const images = [...partnerImages, ...partnerImages];
   return (
-    <div className="mx-auto w-full h-auto pb-8 flex flex-col items-center">
+    <div className="bg-white pt-6 mx-auto w-full h-auto pb-8 flex flex-col items-center">
       <h2 className="text-2xl text-center md:text-4xl font-bold mb-4 font-bold">Our Esteemed Partners</h2>
       <div
         className="mt-4 flex gap-12 items-center animate-partners-marquee"

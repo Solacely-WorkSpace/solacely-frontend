@@ -2,10 +2,11 @@ import Image from "next/image";
 
 const Ad = () => {
   return (
-    <section className="w-screen h-fit px-4 md:px-8 relative">
+    <section className="bg-white">
+    <section className="w-screen h-fit md:px-0 relative">
       <div className="w-16 h-16 rounded-full bg-white/10 absolute top-2 right-0 md:right-[40%] z-40"></div>
-
-      <div className="landingpage-container bg-[#521282] flex gap-8 md:gap-16 flex-col min-[940px]:flex-row items-center md:items-end justify-between px-8 py-20 md:py-24 md:px-24 text-white font-sans rounded-4xl my-10 relative">
+      <div className="bg-[#521282]">
+      <div className="landingpage-container flex gap-8 md:gap-16 flex-col min-[940px]:flex-row items-center md:items-end justify-between px-8 py-20 md:py-24 md:px-24 text-white font-sans rounded-4xl my-10 relative">
         <Image
           src="/images/LandingPage/offer/virtal 1.png"
           width={120}
@@ -31,7 +32,7 @@ const Ad = () => {
           </p>
         </article>
 
-        <div className="flex-1 flex gap-4 md:gap-8 flex-col md:flex-row md:items-center">
+        <div className="flex-1 flex gap-4 md:gap-8  md:flex-row md:items-center">
           <button className="px-6 py-3 rounded-2xl bg-complementary flex items-center gap-2">
             <Image
               src="/images/LandingPage/ad/appstore.png"
@@ -64,7 +65,9 @@ const Ad = () => {
             </p>
           </button>
         </div>
+        </div>
       </div>
+    </section>
     </section>
   );
 };
