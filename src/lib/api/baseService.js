@@ -59,13 +59,13 @@ class BaseApiService {
 
   // Handle errors consistently
   handleError(error) {
-    console.log('🔍 Full error object:', error);
+    console.log('Full error object:', error);
     
     if (error.response) {
       // Server responded with error
       const { status, data } = error.response;
       
-      console.log('📄 Server error response:', {
+      console.log('Server error response:', {
         status,
         data,
         headers: error.response.headers
