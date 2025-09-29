@@ -84,7 +84,7 @@ export default function TourApartment() {
   return (
     <div className="mt-8">
       {/* Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
+      <div className="flex md:w-1/2 flex-col md:flex-row md:items-center gap-4 mb-8">
         <div className="w-full md:flex-1 flex items-center px-6 py-2 rounded-xl border border-gray-300 shadow-sm">
           <Image
             src="/icons/search.svg"
@@ -116,6 +116,7 @@ export default function TourApartment() {
                 alt={apartment.title}
                 width={600}
                 height={400}
+                loading="lazy"
                 className="w-full h-48 object-cover"
               />
               {apartment.badge && (
