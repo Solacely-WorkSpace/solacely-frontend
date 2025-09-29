@@ -35,12 +35,23 @@ export default function FAQ() {
                     {faqs.map((faq, index) => (
                         <div key={index} className="border-2 border-gray-600 rounded-lg overflow-hidden">
                             <button
-                                className="w-full px-4 md:px-6 py-3 md:py-4 text-left hover:bg-gray-50 cursor-pointer"
+                                className="w-full px-3 md:px-6 py-3 md:py-4 text-left hover:bg-gray-50 cursor-pointer"
                                 onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
                             >
-                                <div className="flex justify-between items-start gap-3">
-                                    <span className="font-medium text-gray-800 text-sm md:text-base leading-relaxed break-words hyphens-auto" style={{wordBreak: 'break-word', overflowWrap: 'break-word'}}>{faq.question}</span>
-                                    <span className="text-xl md:text-2xl text-gray-500 flex-shrink-0">
+                                <div className="flex items-start justify-between">
+                                    <span 
+                                        className="font-medium text-gray-800 text-sm md:text-base leading-relaxed pr-4" 
+                                        style={{
+                                            wordBreak: 'break-word', 
+                                            overflowWrap: 'break-word', 
+                                            hyphens: 'auto',
+                                            lineHeight: '1.4',
+                                            width: 'calc(100% - 40px)'
+                                        }}
+                                    >
+                                        {faq.question}
+                                    </span>
+                                    <span className="text-lg md:text-2xl text-gray-500 flex-shrink-0 w-[32px] text-center ml-2">
                                         {openIndex === index ? '−' : '+'}
                                     </span>
                                 </div>

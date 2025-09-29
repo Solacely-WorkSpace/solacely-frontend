@@ -41,36 +41,23 @@ const Hero = () => {
   return (  
     <section className="md:mt-30 mt-15 px-4 md:px-0 bg-purple-50">
       <div className="landingpage-container py-10 md:py-15">
-      <div className="flex flex-col md:flex-row justify-between md:gap-6 md:mt-4">
+      <div className="flex flex-col md:flex-row justify-between md:mt-4">
         <div className="flex-1 w-full mt-16">
           <div className="  px-2 font-rob">
-            <h1 className="text-3xl md:text-5xl font-bold md:leading-14">
-              Homes Made Simple.
+            <h1 className="text-3xl md:text-4xl font-bold md:leading-14">
+              Homes Made Simple, Renting
               <br />
-              Renting Made Smarter.
+               Made Smarter.
             </h1>
 
-            <p className=" text-sm md:text-lg leading-6 mt-6 max-w-96 ">
-              Discover verified rentals with AI-powered recommendations.<br /> Pay Rent in flexible installemnets, enjoy secure trasactions and even earn rewards towards your next rent.
+            <p className=" text-sm md:text-lg leading-6 mt-6">
+              Discover verified rentals with AI-powered recommendations. Pay Rent in flexible installemnets, enjoy secure trasactions and even earn rewards towards your next rent.
             </p>
 
             <div className="flex flex-col gap-4 py-4 mt-6">
-              <div className="w-full flex justify-between py-1 px-4 rounded-sm ring-1 ring-slate-300 mb-6">
-                <input
-                  placeholder="Enter a city or style"
-                  className=" outline-none w-full"
-                />
-              
-                <Image
-                  src="/icons/search.svg"
-                  width={20}
-                  height={20}
-                  alt="search"
-                  className="w-8 h-8"
-                />
-              </div>
-              
-              <button className="btn-primary w-fit" onClick={handleFindApartment}> Find an Apartment </button>
+
+              <Link className="btn-primary w-fit" href="/sign-up">Get Started</Link>
+            
             </div>
           </div>
         </div>
