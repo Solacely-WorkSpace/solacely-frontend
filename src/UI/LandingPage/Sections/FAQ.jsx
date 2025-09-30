@@ -6,20 +6,24 @@ export default function FAQ() {
 
     const faqs = [
         {
-            question: "How does the pairing process work?",
-            answer: "Our pairing process matches you with compatible roommates based on your preferences, lifestyle, and location requirements."
+            question: "What is Solacely?",
+            answer: "Solacely is a real estate platform powered by AI and built on blockchain technology, designed to provide a secure and efficient way to find and manage rentals."
         },
         {
-            question: "Can I edit my profile information?",
-            answer: "Yes, you can edit your profile information at any time through your account settings to ensure accurate matching."
+            question: "How does Solacely work?",
+            answer: "Solacely uses AI-powered recommendations to help tenants find verified rentals, while landlords can list their properties and collect rents securely through the platform."
         },
         {
-            question: "What happens if there's a disagreement between roommates?",
-            answer: "We have a dispute resolution process in place to help users resolve any issues. If you encounter any issues, you can reach out to our support team, and we'll work with both parties to find a fair resolution."
+            question: "How do I find a rental on Solacely?",
+            answer: "Simply browse through our verified listings and use our AI-powered recommendations to find your perfect match."
         },
         {
-            question: "Are there any fees for using Pair with Me?",
-            answer: "We offer both free and premium features. Basic matching is free, while premium features require a subscription."
+            question: "Can I pay rent in installments?",
+            answer: "Yes, Solacely offers flexible rent payment options, allowing you to pay instalments."
+        },
+        {
+            question: "How do I list my property on Solacely?",
+            answer: "Simply create an account, and follow our easy listing process to showcase your property to potential tenants."
         }
     ]
 
@@ -28,7 +32,7 @@ export default function FAQ() {
             <div className="landingpage-container mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12">
                 <div className="lg:w-1/3">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
-                    <p className="text-gray-600 text-sm md:text-base">We know you have questions, so we have taken it upon ourselves to provide answers.</p>
+                    <p className="text-gray-600 text-smHow do I list my property on Solacely?:  md:text-base">We know you have questions, so we have taken it upon ourselves to provide answers.</p>
                 </div>
                 
                 <div className="lg:w-2/3 space-y-3 md:space-y-4">

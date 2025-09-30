@@ -100,7 +100,7 @@ const Footer = () => {
               Contact Us
             </Link>
 
-            <Link href="#" className=" opacity-70 text-sm">
+            <Link href="/faq" className=" opacity-70 text-sm">
               FAQS
             </Link>
 
