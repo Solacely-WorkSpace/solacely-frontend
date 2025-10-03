@@ -13,38 +13,32 @@ function Workflow() {
             <div className="space-y-4">
               <p className="text-primary text-base font-semibold">Our workflow</p>
               <h2 className="text-xl md:text-2xl lg:text-5xl font-bold text-txt leading-tight">
-                People first. Design later.
+                What Sets Us Apart
               </h2>
             </div>
             
             <div className="space-y-6 text-[#515151] text-base leading-relaxed">
               <p>
-                Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio 
-                nisl vitae. In aliquet pellentesque aenean hac vestibulum turpis mi 
-                bibendum diam. Tempor integer aliquam in vitae malesuada fringilla.
+                At Solacely, we're not just another real estate platform. We're a community-driven ecosystem 
+                that rewards tenants for being responsible renters. Our TRC (Tenant Reward Credit) program 
+                allows tenants to earn money by completing tasks and activities on our platform, which 
+                can be used towards rent payments. 
               </p>
               
               <p>
-                Elit nisl in eleifend sed nisl. Pulvinar at orci, proin imperdiet commodo 
-                consectetur convallis risus. Sed condimentum enim dignissim 
-                adipiscing faucibus consequat, urna. Viverra purus et erat auctor 
-                aliquam. Risus, volutpat vulputate posuere purus sit congue convallis 
-                aliquet.
-              </p>
-              
-              <p>
-                Ipsum sit mattis nulla quam nulla. Gravida id gravida ac enim mauris id. 
-                Non pellentesque congue eget consectetur turpis. Sapien, dictum 
-                molestie sem tempor. Diam elit, orci, tincidunt aenean.
+                This unique approach not only incentivizes responsible 
+                behavior but also provides a sense of community and belonging. For landlords, our secure payment 
+                system ensures prompt rent payments, with funds held in escrow until tenants confirm 
+                satisfaction with the property.
               </p>
             </div>
             
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <button className="bg-white border border-gray-300 text-txt px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+              <button className="bg-white border border-gray-300 text-txt px-6 py-3 rounded-lg font-medium hover:bg-complementary hover:text-white transition-colors">
                 Get in touch
               </button>
-              <button className="bg-complementary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+              <button className="bg-complementary text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-800 transition-colors">
                 Our process
               </button>
             </div>
@@ -52,7 +46,7 @@ function Workflow() {
           
           {/* Right Image */}
           <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100">
               <img 
                 src="/images/Apartments/Livingroom.png" 
                 alt="Modern living space" 
