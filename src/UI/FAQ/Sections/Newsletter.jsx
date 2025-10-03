@@ -20,11 +20,30 @@ export default function Newsletter() {
             to get <span className="text-complementary font-semibold">Updated</span>
           </h2><br />
           
-          <p className="text-gray-500 text-sm mb-6 max-w-md mx-auto">
-            Get our latest update on your inbox. With lots of unique 
-            blocks, you can easily build a page without coding. Build your 
-            next consultancy website within few minutes.
-          </p>
+          <div className="text-gray-600 mb-8 max-w-lg mx-auto">
+            <p className="text-base mb-6 leading-relaxed">
+              Get the latest updates, tips, and features delivered straight to your inbox. Discover how Solacely's 
+              AI-powered real estate platform can help you find your dream rental or manage your properties with ease.
+            </p>
+            
+            <div className="text-center">
+              <h3 className="font-semibold text-gray-800 mb-3 text-lg">Unlock Exclusive Benefits:</h3>
+              <ul className="space-y-2 text-sm inline-block text-left">
+                <li className="flex items-start">
+                  <span className="text-complementary mr-2 text-xl font-bold">•</span>
+                  Get insider knowledge on how to maximize your TRC rewards
+                </li>
+                <li className="flex items-start">
+                  <span className="text-complementary mr-2 text-xl font-bold">•</span>
+                  Stay updated on new features and platform enhancements
+                </li>
+                <li className="flex items-start">
+                  <span className="text-complementary mr-2 text-xl font-bold">•</span>
+                  Learn expert tips on navigating the rental market
+                </li>
+              </ul>
+            </div>
+          </div>
           
           <div className="flex flex-col sm:flex-row max-w-md mx-auto">
             <div className="flex flex-grow sm:border-r-0 rounded-l mb-3 sm:mb-0 text-sm">

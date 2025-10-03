@@ -123,7 +123,7 @@ const aboutOffers = [
   },
   {
     offer: 'From low-income earners to gig workers, we’re creating a housing ecosystem where no one is left out. Our AI-powered recommendation engine ensures personalized property matches, no matter your income or background.',
-    icon: '/icons/Icon.svg',
+    icon: '/icons/leaf.svg',
     header: 'Access for All'
 
   },
