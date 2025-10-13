@@ -10,28 +10,66 @@ import toast from 'react-hot-toast';
 export default function SiugnupSection({ setCurrentStage, setUserData }) {
 
     useEffect(() => {
-        // Load Google Identity Services script
-        const script = document.createElement('script');
-        script.src = 'https://accounts.google.com/gsi/client';
-        script.async = true;
-        script.defer = true;
-        document.head.appendChild(script);
-
-        script.onload = () => {
-            if (window.google) {
-                window.google.accounts.id.initialize({
-                    client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-                    callback: handleGoogleResponse,
-                });
+        const initializeGoogle = () => {
+            if (window.google && process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
+                try {
+                    window.google.accounts.id.initialize({
+                        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+                        callback: handleGoogleResponse,
+                        auto_select: false,
+                        cancel_on_tap_outside: true,
+                        use_fedcm_for_prompt: false,
+                    });
+                    
+                    // Render button after initialization
+                    setTimeout(() => {
+                        const buttonContainer = document.getElementById('google-signin-button');
+                        if (buttonContainer) {
+                            window.google.accounts.id.renderButton(buttonContainer, {
+                                theme: 'outline',
+                                size: 'large',
+                                width: 300
+                            });
+                        }
+                    }, 100);
+                } catch (error) {
+                    console.error('Google initialization error:', error);
+                    toast.error('Failed to initialize Google Sign-In');
+                }
+            } else if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
+                console.error('Google Client ID not found');
+                toast.error('Google Sign-In not configured');
             }
         };
 
-        return () => {
-            document.head.removeChild(script);
-        };
+        // Check if Google script is already loaded
+        if (window.google) {
+            initializeGoogle();
+        } else {
+            // Wait for script to load
+            const checkGoogle = setInterval(() => {
+                if (window.google) {
+                    clearInterval(checkGoogle);
+                    initializeGoogle();
+                }
+            }, 100);
+
+            // Cleanup after 10 seconds
+            setTimeout(() => {
+                clearInterval(checkGoogle);
+                if (!window.google) {
+                    toast.error('Google services failed to load');
+                }
+            }, 10000);
+        }
     }, []);
 
     const handleGoogleResponse = async (response) => {
+        if (!response.credential) {
+            toast.error('No credential received from Google');
+            return;
+        }
+
         try {
             const result = await googleAuth(response.credential);
             
@@ -40,7 +78,7 @@ export default function SiugnupSection({ setCurrentStage, setUserData }) {
             
             setUserData({
                 email: payload.email,
-                phone: result.data.phone || '',
+                phone: result.data?.phone || '',
             });
             
             toast.success('Google signup successful!');
@@ -48,7 +86,15 @@ export default function SiugnupSection({ setCurrentStage, setUserData }) {
             
         } catch (error) {
             console.error('Google signup error:', error);
-            toast.error('Google signup failed. Please try again.');
+            
+            // Handle specific error cases
+            if (error.response?.status === 400) {
+                toast.error('Invalid Google credentials');
+            } else if (error.response?.status === 409) {
+                toast.error('Account already exists. Please sign in instead.');
+            } else {
+                toast.error('Google signup failed. Please try again.');
+            }
         }
     };
 
@@ -56,7 +102,7 @@ export default function SiugnupSection({ setCurrentStage, setUserData }) {
         if (window.google) {
             window.google.accounts.id.prompt();
         } else {
-            toast.error('Google services not loaded. Please refresh and try again.');
+            toast.error('Google services not loaded');
         }
     };
 
@@ -78,14 +124,8 @@ export default function SiugnupSection({ setCurrentStage, setUserData }) {
 
                 <p className="mt-10 text-xs text-center opacity-60">use your OpenId to Sign up</p>
 
-                <div className="mt-4 flex gap-4 items-center">
-                    <button 
-                        onClick={handleGoogleClick}
-                        type="button"
-                        className="px-16 rounded-full w-fit btn-primary shadow-none"
-                    >
-                        Google
-                    </button>
+                <div className="mt-4 flex gap-4 items-center justify-center">
+                    <div id="google-signin-button"></div>
                 </div>
 
                 <div className="w-[400px] h-[1px] bg-gray-400 opacity-20 mt-8 "></div>
