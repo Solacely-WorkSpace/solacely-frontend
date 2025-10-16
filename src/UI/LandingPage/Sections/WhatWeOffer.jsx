@@ -1,8 +1,8 @@
 export default function Offer() {
     return (
         <section className="bg-green-50">
-            <div className="landingpage-container px-6 py-16">
-                <div className="text-center mb-16">
+            <div className="landingpage-container px-6 pt-16">
+                <div className="text-center">
                     <h2 className="md:text-5xl text-3xl font-bold text-gray-900 mb-4">What We Offer</h2>
                     <p className="text-gray-600 max-w-2xl mx-auto">
                         We bridge the gap between renters and landlords by providing tools that 
@@ -10,7 +10,7 @@ export default function Offer() {
                     </p>
                 </div>
 
-                <div className="space-y-16 relative">
+                <div className="space-y-16 relative md:mb-6"> 
                     {/* For Renters Section */}
                     <div className="grid lg:grid-cols-2 items-center">
                         <div className="md:p-16">
@@ -20,7 +20,7 @@ export default function Offer() {
                                 className="w-full"
                             />
                         </div>
-                        <div className="md:justify-self-center md:mt-0 mt-8">
+                        <div className="md:mt-0 mt-8">
                             <h3 className="md:text-5xl text-3xl font-bold text-emerald-700 mb-6">For Renters</h3>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export default function Offer() {
 
                     {/* For Landlords Section */}
                     <div className="grid lg:grid-cols-2 items-center">
-                        <div className="md:justify-self-center order-last md:order-first md:mb-0 mt-8">
+                        <div className="md:justify-self-left order-last md:order-first md:mb-0 mt-2">
                             <h3 className="md:text-5xl text-3xl font-bold text-emerald-700 mb-6">For Landlords</h3>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
@@ -76,7 +76,7 @@ export default function Offer() {
                                 Get Started
                             </button>
                         </div>
-                        <div className="rounded-2xl md:p-16 md:order-last order-first">
+                        <div className="rounded-2xl md:order-last order-first">
                             <img 
                                 src="/images/ForLandlords.png" 
                                 alt="Landlords Dashboard" 
