@@ -11,6 +11,7 @@
 !.yarn/versions
 Solacely-Backend-Full-System.postman_collection.json
 /solacely-backend
+/src/app/api-test
 # testing
 /coverage
 
