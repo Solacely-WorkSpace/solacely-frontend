@@ -30,9 +30,7 @@ const NotificationItem = ({ notification, onMarkAsRead, onNavigate }) => {
   };
 
   const handleClick = () => {
-    if (!notification.is_read) {
-      onMarkAsRead(notification.id);
-    }
+    onMarkAsRead(notification.id);
     if (notification.action_url && onNavigate) {
       onNavigate(notification.action_url);
     }

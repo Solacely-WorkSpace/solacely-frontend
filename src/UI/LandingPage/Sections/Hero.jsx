@@ -57,7 +57,7 @@ const Hero = () => {
             <div className="flex flex-col gap-4 py-4 mt-6">
 
               {isLoggedIn ? (
-                <Link className="btn-primary w-fit" href="/user/dashboard">Dashboard</Link>
+                <Link className="btn-primary w-fit" href="/dashboard">Dashboard</Link>
               ) : (
                 <Link className="btn-primary w-fit" href="/sign-up">Get Started</Link>
               )}

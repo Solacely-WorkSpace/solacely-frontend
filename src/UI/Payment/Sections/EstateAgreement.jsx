@@ -1,27 +1,74 @@
+"use client"
+import { useState, useEffect } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 import { FaCheckCircle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 import Navbar from "@/UI/Components/Nav";
 
+export default function EstateAgreementPage() {
+  const router = useRouter();
+  const [userName, setUserName] = useState('User');
+  const [agreed, setAgreed] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [usePersonalInfo, setUsePersonalInfo] = useState(false);
+  const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      setUserName(user.full_name || user.firstName || 'User');
+    }
+    
+    const savedInfo = localStorage.getItem('personalInfo');
+    if (savedInfo) {
+      const info = JSON.parse(savedInfo);
+      setFirstName(info.firstName || '');
+      setLastName(info.lastName || '');
+      setUsePersonalInfo(true);
+    }
+  }, []);
 
- export default function EstateAgreementPage() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+    if (!agreed) newErrors.agreed = 'You must agree to the estate agreement';
+    if (!firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!lastName.trim()) newErrors.lastName = 'Last name is required';
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    localStorage.setItem('estateAgreement', JSON.stringify({
+      agreed: true,
+      firstName,
+      lastName,
+      signedAt: new Date().toISOString()
+    }));
+    router.push('/mailconfirmation');
+  };
+
   return (
     <>
         <Navbar />
         <div className="min-h-screen md:bg-[#F8F7FC] flex flex-col">
         <div className="aboutpage-container px-4 mt-20 w-full">
-            <a href="/tenancyagreement">
-                <button className="flex items-center text-gray-500 text-sm md:mt-10 mt-3 mb-8 pl-2">
-                    <FiChevronLeft className="mr-1 w-4 h-4" /> Go Back
-                </button>
-            </a>
+            <button 
+              onClick={() => router.back()}
+              className="flex items-center text-gray-500 text-sm md:mt-10 mt-3 mb-8 pl-2 hover:text-gray-700"
+            >
+                <FiChevronLeft className="mr-1 w-4 h-4" /> Go Back
+            </button>
             <div className="hidden md:block">
                 <h1 className="text-3xl font-bold text-black mb-4">
                     Rent Apartment
                 </h1>
             </div>
                 <p className="hidden md:block text-gray-500 mb-8">
-                    Welcome Ben, complete your registration by filling<br /> in the following details.
+                    Welcome {userName}, complete your registration by filling<br /> in the following details.
                 </p>
             <div className="flex flex-col md:flex-row gap-8">
             {/* Sidebar */}
@@ -123,30 +170,96 @@ import Navbar from "@/UI/Components/Nav";
                     <p className="text-gray-700 mt-6 text-sm font-medium">By signing this agreement, the resident agrees to comply with all estate rules and Solacely's management terms.</p>
                 </div>
 
-                <h3 className="text-lg font-semibold text-black mb-1 text-base">Signature</h3>
-                <p className="text-gray-400 mb-4 text-sm">
-                    Your <span className="text-black italic font-medium">full name</span> will be used to sign this Estate agreement.
-                </p>
-                <div className="flex items-center gap-2 align-center mb-6">           
-                    <label className="text-gray-700 mb-4 text-sm font-medium"></label>
-                    Same as Personal Information
-                    <input type="checkbox" className="w-4 h-4 bg-primary" />
-                </div>
+                <form onSubmit={handleSubmit}>
+                  <h3 className="text-lg font-semibold text-black mb-1 text-base">Signature</h3>
+                  <p className="text-gray-400 mb-4 text-sm">
+                      Your <span className="text-black italic font-medium">full name</span> will be used to sign this Estate agreement.
+                  </p>
+                  
+                  <div className="flex items-center gap-2 mb-6">
+                    <input 
+                      type="checkbox" 
+                      id="usePersonalInfo"
+                      checked={usePersonalInfo}
+                      onChange={(e) => {
+                        setUsePersonalInfo(e.target.checked);
+                        if (e.target.checked) {
+                          const savedInfo = localStorage.getItem('personalInfo');
+                          if (savedInfo) {
+                            const info = JSON.parse(savedInfo);
+                            setFirstName(info.firstName || '');
+                            setLastName(info.lastName || '');
+                          }
+                        }
+                      }}
+                      className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary" 
+                    />
+                    <label htmlFor="usePersonalInfo" className="text-gray-700 text-sm font-medium cursor-pointer">
+                      Same as Personal Information
+                    </label>
+                  </div>
 
-                {/* First name and last name */}
-                <div className="flex flex-col md:flex-row gap-6">
-                    <div className="flex flex-col w-full md:w-1/2">
-                        <label className="block text-xs font-semibold mb-2">FIRST NAME<span className="text-complementary font-bold text-lg">*</span></label>
-                        <input type="text" placeholder="Enter your first name" className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-primary text-sm mb-6" />
-                    </div>
-                    <div className="flex flex-col w-full md:w-1/2">
-                    <label className="block text-xs font-semibold mb-2">LAST NAME<span className="text-complementary font-bold text-lg">*</span></label>
-                    <input type="text" placeholder="Enter your last name" className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-primary text-sm mb-6" />
-                    </div>
-                </div>
-                <a href="/mailconfirmation">
-                    <button type="submit" className="md:w-1/2 w-full my-10 py-3 rounded-lg bg-primary text-white font-semibold text-lg shadow-md hover:bg-primary/90 transition">Continue</button>
-                </a>
+                  <div className="flex flex-col md:flex-row gap-6">
+                      <div className="flex flex-col w-full md:w-1/2">
+                          <label className="block text-xs font-semibold mb-2">FIRST NAME<span className="text-complementary font-bold text-lg">*</span></label>
+                          <input 
+                            type="text" 
+                            value={firstName}
+                            onChange={(e) => {
+                              setFirstName(e.target.value);
+                              if (errors.firstName) setErrors(prev => ({ ...prev, firstName: '' }));
+                            }}
+                            placeholder="Enter your first name" 
+                            className={`w-full border rounded-lg px-4 py-3 focus:outline-primary text-sm mb-2 ${
+                              errors.firstName ? 'border-red-500' : 'border-gray-200'
+                            }`} 
+                          />
+                          {errors.firstName && <p className="text-red-500 text-xs mb-4">{errors.firstName}</p>}
+                      </div>
+                      <div className="flex flex-col w-full md:w-1/2">
+                        <label className="block text-xs font-semibold mb-2">LAST NAME<span className="text-complementary font-bold text-lg">*</span></label>
+                        <input 
+                          type="text" 
+                          value={lastName}
+                          onChange={(e) => {
+                            setLastName(e.target.value);
+                            if (errors.lastName) setErrors(prev => ({ ...prev, lastName: '' }));
+                          }}
+                          placeholder="Enter your last name" 
+                          className={`w-full border rounded-lg px-4 py-3 focus:outline-primary text-sm mb-2 ${
+                            errors.lastName ? 'border-red-500' : 'border-gray-200'
+                          }`} 
+                        />
+                        {errors.lastName && <p className="text-red-500 text-xs mb-4">{errors.lastName}</p>}
+                      </div>
+                  </div>
+
+                  <div className="mb-6">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={agreed}
+                        onChange={(e) => {
+                          setAgreed(e.target.checked);
+                          if (errors.agreed) setErrors(prev => ({ ...prev, agreed: '' }));
+                        }}
+                        className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                      />
+                      <span className="text-sm text-gray-700">
+                        I have read and agree to the terms and conditions of this Estate Agreement
+                        <span className="text-complementary font-bold text-lg">*</span>
+                      </span>
+                    </label>
+                    {errors.agreed && <p className="text-red-500 text-xs mt-1">{errors.agreed}</p>}
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    className="md:w-1/2 w-full my-6 py-3 rounded-lg bg-primary text-white font-semibold text-lg shadow-md hover:bg-primary/90 transition"
+                  >
+                    Continue
+                  </button>
+                </form>
             </div>
             </div>
         </div>

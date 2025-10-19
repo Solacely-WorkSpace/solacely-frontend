@@ -18,7 +18,7 @@ export default function NotificationsPage() {
   });
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="mx-auto py-3">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Notifications</h1>
         <div className="flex items-center gap-3">
@@ -47,7 +47,7 @@ export default function NotificationsPage() {
             key={f}
             onClick={() => setFilter(f)}
             className={`px-4 py-2 text-sm rounded ${
-              filter === f ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-purple-900'
+              filter === f ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-purple-900 hover:text-white'
             }`}
           >
             {f.charAt(0).toUpperCase() + f.slice(1)}

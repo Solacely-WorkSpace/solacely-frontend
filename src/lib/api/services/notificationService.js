@@ -10,14 +10,16 @@ class NotificationService extends BaseApiService {
     return this.get('/');
   }
 
-  // Mark notification as read
-  async markAsRead(notificationId) {
-    return this.patch(`/${notificationId}/read/`);
+  // Mark notification as read (local state only)
+  markAsRead(notificationId) {
+    // Since API doesn't support mark as read, handle locally
+    return Promise.resolve();
   }
 
-  // Mark all notifications as read
-  async markAllAsRead() {
-    return this.patch('/mark-all-read/');
+  // Mark all notifications as read (local state only)
+  markAllAsRead() {
+    // Since API doesn't support mark all as read, handle locally
+    return Promise.resolve();
   }
 
   // Get unread count

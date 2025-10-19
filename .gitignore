@@ -10,7 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 Solacely-Backend-Full-System.postman_collection.json
-
+/solacely-backend
 # testing
 /coverage
 
