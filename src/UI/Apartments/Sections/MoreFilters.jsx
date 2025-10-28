@@ -4,14 +4,24 @@ import { IoClose } from 'react-icons/io5';
 import { IoMdAdd } from 'react-icons/io';
 import { IoMdRemove } from 'react-icons/io';
 
-const MoreFilters = ({ isOpen, onClose }) => {
-  const [selectedType, setSelectedType] = useState('Studio');
-  const [priceRange, setPriceRange] = useState([500000, 1234567]);
-  const [bedrooms, setBedrooms] = useState(4);
-  const [bathrooms, setBathrooms] = useState(2);
-  const [rentalPeriod, setRentalPeriod] = useState('Any');
+const MoreFilters = ({ isOpen, onClose, onApplyFilters, initialFilters = {} }) => {
+  const [selectedType, setSelectedType] = useState(initialFilters.type || 'Duplex');
+  const [priceRange, setPriceRange] = useState(initialFilters.priceRange || [500000, 1234567]);
+  const [bedrooms, setBedrooms] = useState(initialFilters.bedrooms || 4);
+  const [bathrooms, setBathrooms] = useState(initialFilters.bathrooms || 2);
+  const [rentalPeriod, setRentalPeriod] = useState(initialFilters.rentalPeriod || 'Any');
 
-  const types = ['Studio', 'Duplex', 'Mini flat', 'Bungalow', 'Shared'];
+  const types = [
+    'Duplex',
+    'Bungalow',
+    'Terrace',
+    'Penthouse',
+    'Detached House',
+    'Semi-detached House',
+    'Maisonette',
+    'Shared Apartment / Co-living',
+    'Self-contained (Mini flat)',
+  ];
   const rentalPeriods = ['Any', '1 - 12 months', '13 - 24 months', '24+ months'];
 
   if (!isOpen) return null;
@@ -21,32 +31,87 @@ const MoreFilters = ({ isOpen, onClose }) => {
   };
 
   const handleReset = () => {
-    setSelectedType('Studio');
+    setSelectedType('Duplex');
     setPriceRange([500000, 1234567]);
     setBedrooms(4);
     setBathrooms(2);
     setRentalPeriod('Any');
+    if (onApplyFilters) {
+      onApplyFilters({
+        type: 'Duplex',
+        priceRange: [500000, 1234567],
+        bedrooms: 4,
+        bathrooms: 2,
+        rentalPeriod: 'Any'
+      });
+    }
   };
 
+  const handleApply = () => {
+    if (onApplyFilters) {
+      onApplyFilters({
+        type: selectedType,
+        priceRange,
+        bedrooms,
+        bathrooms,
+        rentalPeriod
+      });
+    }
+    onClose();
+  };
+
+  // Handle mobile responsiveness
+    const [isMobile, setIsMobile] = useState(false)
+  
+    useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768)
+      }
+  
+      checkMobile()
+      window.addEventListener("resize", checkMobile)
+      return () => window.removeEventListener("resize", checkMobile)
+    }, [])
+  
+    if (!isOpen) return null
+
   return (
-    <div className="fixed inset-0 bg-opacity-50 flex justify-end z-50000" onClick={onClose}>
-      <div className="bg-white w-screen max-w-md h-full overflow-x-auto p-6" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-6">
+    <>
+         {/* Overlay for mobile */}
+      {isMobile && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={onClose}
+        ></div>
+      )}
+      
+      <div 
+        className="absolute inset-0 bg-opacity-50 transition-opacity"
+        onClick={onClose}
+      ></div>
+      
+      {/* Sidebar */}
+      <div className="fixed top-0 right-0 h-full bg-white w-screen max-w-md z-50 overflow-y-auto shadow-lg" onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className="sticky top-0 bg-white z-10 p-6 border-b border-gray-200 flex items-center justify-between">
           <h2 className="text-xl font-semibold">More Filters</h2>
           <button onClick={onClose} className="p-2">
             <IoClose size={24} />
           </button>
         </div>
+        
+        {/* Content */}
+        <div className="p-6">
 
         {/* Type */}
         <div className="mb-8">
           <h3 className="text-lg font-medium mb-4">Type</h3>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex gap-3 overflow-x-auto pb-2">
             {types.map((type) => (
               <button
                 key={type}
                 onClick={() => setSelectedType(type)}
-                className={`px-4 py-2 rounded-full ${selectedType === type ? 'bg-primary text-white' : 'bg-gray-100'}`}
+                className={`flex-none px-4 py-2 rounded-full whitespace-nowrap ${selectedType === type ? 'bg-primary text-white' : 'bg-gray-100'}`}
               >
                 {type}
               </button>
@@ -136,23 +201,24 @@ const MoreFilters = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-4 mt-auto">
-          <button
-            onClick={handleReset}
-            className="flex-1 py-3 text-primary font-medium"
-          >
-            Reset
-          </button>
-          <button
-            onClick={onClose}
-            className="flex-1 py-3 bg-primary text-white rounded-lg font-medium"
-          >
-            Apply
-          </button>
+          {/* Action Buttons */}
+          <div className="flex gap-4 mt-auto">
+            <button
+              onClick={handleReset}
+              className="flex-1 py-3 text-primary font-medium"
+            >
+              Reset
+            </button>
+            <button
+              onClick={handleApply}
+              className="flex-1 py-3 bg-primary text-white rounded-lg font-medium"
+            >
+              Apply
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
