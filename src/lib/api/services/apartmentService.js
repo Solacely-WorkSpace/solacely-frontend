@@ -195,6 +195,17 @@ class ApartmentService extends BaseApiService {
       throw error;
     }
   }
+
+  // Get related properties for a specific apartment
+  async getRelatedProperties(apartmentId) {
+    try {
+      const response = await this.get(`/listings/${apartmentId}/related/`);
+      return response;
+    } catch (error) {
+      console.error('Error fetching related properties:', error);
+      throw error;
+    }
+  }
 }
 
 // Create and export instance
