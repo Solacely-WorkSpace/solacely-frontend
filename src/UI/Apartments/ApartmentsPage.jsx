@@ -89,7 +89,7 @@ const ApartmentsPage = () => {
       try {
         setLoading(true);
         setError(null);
-        console.log('🏠 Fetching apartment listings for apartments page...');
+
         
         const [apartmentsResponse, locationsResponse] = await Promise.all([
           apartmentService.getListings(),
@@ -97,19 +97,19 @@ const ApartmentsPage = () => {
         ]);
         
         if (apartmentsResponse && apartmentsResponse.data) {
-          console.log('Successfully fetched apartments:', apartmentsResponse.data.length);
+
           setApartments(apartmentsResponse.data);
         } else if (Array.isArray(apartmentsResponse)) {
-          console.log('Successfully fetched apartments:', apartmentsResponse.length);
+
           setApartments(apartmentsResponse);
         } else {
-          console.log('No apartments found in response');
+
           setApartments([]);
         }
         
         setLocationOptions(locationsResponse || []);
       } catch (err) {
-        console.error('Error fetching data for apartments page:', err);
+
         
         // More specific error handling
         if (err.status === 401) {
@@ -149,7 +149,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by location:', err);
+  
         setError('Failed to filter apartments by location.');
       } finally {
         setLoading(false);
@@ -183,7 +183,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by price:', err);
+  
         setError('Failed to filter apartments by price.');
       } finally {
         setLoading(false);
@@ -211,7 +211,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by bedrooms:', err);
+  
         setError('Failed to filter apartments by bedrooms.');
       } finally {
         setLoading(false);
@@ -239,7 +239,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by type:', err);
+  
         setError('Failed to filter apartments by type.');
       } finally {
         setLoading(false);
@@ -277,16 +277,14 @@ const ApartmentsPage = () => {
       }
       setCurrentPage(1);
     } catch (err) {
-      console.error('Error applying more filters:', err);
+
       setError('Failed to apply filters.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleExplore = (id) => {
-    console.log(`Explore property ${id}`);
-  };
+
 
 
 
@@ -520,25 +518,33 @@ const ApartmentsPage = () => {
       ) : (
         <div>
           <div className="grid grid-cols-1 md:px- md:grid-cols-2 lg:grid-cols-2 gap-5">
-            {currentApartments.map((apt) => (
-            <div key={apt.id} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
-              <div className="relative">
-                <Image
-                  src={apt.image || Property}
-                  alt={apt.title || 'Apartment'}
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-                {/* <Image
-                  src={
-                    apt.images && apt.images.length > 0
-                      ? apt.images[0].original_image_url || apt.images[0].image
-                      : (apt.image || Property)
+            {currentApartments.map((apt) => {
+              // Process apartment image using same logic as ApartmentView
+              const getApartmentImage = (apartment) => {
+                if (apartment.images && apartment.images.length > 0) {
+                  const img = apartment.images[0];
+                  const url = img?.original_image_url || img?.image || '';
+                  const cleanUrl = url.replace(/^"|"$/g,'').replace(/^'|'$/g,'').trim();
+                  if (/^https?:\/\//i.test(cleanUrl)) return cleanUrl;
+                  if (cleanUrl && !cleanUrl.startsWith('http')) {
+                    return cleanUrl.startsWith('image/upload/') 
+                      ? `https://res.cloudinary.com/dsar6jtux/${cleanUrl}`
+                      : `https://res.cloudinary.com/dsar6jtux/image/upload/${cleanUrl}`;
                   }
-                  alt={apt.title || apt.name || 'Apartment'}
+                }
+                return Property; // Fallback to default image
+              };
+              
+              return (
+            <div key={apt.id} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2 hover:shadow-lg transition-shadow duration-300">
+              <div className="relative group">
+                <Image
+                  src={getApartmentImage(apt)}
+                  alt={apt.title || 'Apartment'}
                   width={500}
-                  height={500}
-                  className="w-full h-42 object-cover rounded-lg"
-                /> */}
+                  height={300}
+                  className="w-full h-48 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                />
               {apt.tag && (
                 <div className={`absolute top-3 left-3 px-3 py-1 rounded-md text-xs font-medium ${apt.tag === 'NEW' ? 'bg-white text-purple-700' : 'bg-white text-emerald-700'}`}>
                   {apt.tag}
@@ -586,7 +592,8 @@ const ApartmentsPage = () => {
               </Link>
             </div>
           </div>
-        ))}
+              );
+            })}
           </div>
           
           {/* Pagination */}
