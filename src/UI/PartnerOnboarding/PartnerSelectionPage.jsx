@@ -13,21 +13,21 @@ const partnerTypes = [
     title: 'Apply as an Agency',
     description: "Connect with us. Every step of the journey, we'll be here for you.",
     route: '/partner/agency',
-    illustration: '/images/PartnersOnboarding/bro1.png' 
+    illustration: '/images/PartnersOnboarding/agency.png' 
   },
   {
     id: 'agent',
     title: 'Apply as an Agent',
     description: "Connect with us. Every step of the journey, we'll be here for you.",
     route: '/partner/agent',
-    illustration: '/images/PartnersOnboarding/bro.png' 
+    illustration: '/images/PartnersOnboarding/agent.png' 
   },
   {
     id: 'landlord',
     title: 'Apply as a Landlord',
     description: "Connect with us. Every step of the journey, we'll be here for you.",
     route: '/partner/landlord',
-    illustration: '/images/PartnersOnboarding/illustration.png' 
+    illustration: '/images/PartnersOnboarding/landlord.png' 
   }
 ];
 
