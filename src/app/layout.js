@@ -39,6 +39,10 @@ export default function RootLayout({ children }) {
           }}
         />
         <Script
+          src="https://accounts.google.com/gsi/client"
+          strategy="beforeInteractive"
+        />
+        <Script
           id="clarity-script"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{

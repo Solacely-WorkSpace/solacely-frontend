@@ -25,6 +25,15 @@ const ApartmentsPage = () => {
   const [selectedPrice, setSelectedPrice] = useState('');
   const [selectedType, setSelectedType] = useState('');
   const [selectedBeds, setSelectedBeds] = useState('');
+  
+  // More filters state
+  const [moreFilters, setMoreFilters] = useState({
+    type: 'Studio',
+    priceRange: [500000, 1234567],
+    bedrooms: 4,
+    bathrooms: 2,
+    rentalPeriod: 'Any'
+  });
 
   // Filter options
   const [locationOptions, setLocationOptions] = useState([]);
@@ -80,7 +89,7 @@ const ApartmentsPage = () => {
       try {
         setLoading(true);
         setError(null);
-        console.log('🏠 Fetching apartment listings for apartments page...');
+
         
         const [apartmentsResponse, locationsResponse] = await Promise.all([
           apartmentService.getListings(),
@@ -88,19 +97,19 @@ const ApartmentsPage = () => {
         ]);
         
         if (apartmentsResponse && apartmentsResponse.data) {
-          console.log('Successfully fetched apartments:', apartmentsResponse.data.length);
+
           setApartments(apartmentsResponse.data);
         } else if (Array.isArray(apartmentsResponse)) {
-          console.log('Successfully fetched apartments:', apartmentsResponse.length);
+
           setApartments(apartmentsResponse);
         } else {
-          console.log('No apartments found in response');
+
           setApartments([]);
         }
         
         setLocationOptions(locationsResponse || []);
       } catch (err) {
-        console.error('Error fetching data for apartments page:', err);
+
         
         // More specific error handling
         if (err.status === 401) {
@@ -140,7 +149,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by location:', err);
+  
         setError('Failed to filter apartments by location.');
       } finally {
         setLoading(false);
@@ -174,7 +183,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by price:', err);
+  
         setError('Failed to filter apartments by price.');
       } finally {
         setLoading(false);
@@ -202,7 +211,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by bedrooms:', err);
+  
         setError('Failed to filter apartments by bedrooms.');
       } finally {
         setLoading(false);
@@ -230,7 +239,7 @@ const ApartmentsPage = () => {
         }
         setCurrentPage(1);
       } catch (err) {
-        console.error('Error filtering apartments by type:', err);
+  
         setError('Failed to filter apartments by type.');
       } finally {
         setLoading(false);
@@ -240,9 +249,42 @@ const ApartmentsPage = () => {
     filterByType();
   }, [selectedType]);
 
-  const handleExplore = (id) => {
-    console.log(`Explore property ${id}`);
+  // Handle more filters application
+  const handleApplyMoreFilters = async (filters) => {
+    setMoreFilters(filters);
+    
+    try {
+      setLoading(true);
+      setError(null);
+      
+      // Apply combined filters
+      const response = await apartmentService.searchWithFilters({
+        type: filters.type !== 'Studio' ? filters.type : undefined,
+        minPrice: filters.priceRange[0],
+        maxPrice: filters.priceRange[1],
+        bedrooms: filters.bedrooms,
+        bathrooms: filters.bathrooms,
+        rentalPeriod: filters.rentalPeriod !== 'Any' ? filters.rentalPeriod : undefined,
+        location: selectedLocation || undefined
+      });
+      
+      if (response && response.data) {
+        setApartments(response.data);
+      } else if (Array.isArray(response)) {
+        setApartments(response);
+      } else {
+        setApartments([]);
+      }
+      setCurrentPage(1);
+    } catch (err) {
+
+      setError('Failed to apply filters.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+
 
 
 
@@ -262,6 +304,15 @@ const ApartmentsPage = () => {
   // Otherwise, render the main apartments page
   return (
     <div className="landingpage-container px-4 md:px-0 mt-20">
+      <style jsx global>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
       {/* Welcome PopUp Modal */}
       {showWelcomeModal && <PopUpModal onClose={handleCloseWelcomeModal} />}
       {/* Hero Section */}
@@ -275,10 +326,16 @@ const ApartmentsPage = () => {
               <div className="bg-white rounded-2xl md:rounded-lg p-6 md:p-0 shadow-sm md:shadow-none">
                 <input
                   type="text"
-                  placeholder="Enter address, zip, city"
+                  placeholder="Enter address, zip, city, or apartment name"
                   className="w-full px-4 md:px-5 py-3 md:py-3 text-lg md:text-base text-gray-600 bg-transparent md:bg-white focus:outline-none md:rounded-lg md:border md:border-gray-200 md:focus:border-emerald-500"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && searchTerm.trim()) {
+                      setSearchLocation(searchTerm);
+                      setShowSearchResults(true);
+                    }
+                  }}
                 />
                 <button 
                   onClick={() => {
@@ -287,7 +344,8 @@ const ApartmentsPage = () => {
                       setShowSearchResults(true);
                     }
                   }}
-                  className="w-full md:w-auto md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 mt-3 md:mt-0 bg-[#40D1B3] text-white py-2 md:py-2 px-6 md:px-5 rounded-3xl md:rounded-3xl text-lg md:text-base font-medium hover:bg-[#35B095] transition-colors"
+                  disabled={!searchTerm.trim()}
+                  className="w-full md:w-auto md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 mt-3 md:mt-0 bg-[#40D1B3] text-white py-2 md:py-2 px-6 md:px-5 rounded-3xl md:rounded-3xl text-lg md:text-base font-medium hover:bg-[#35B095] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Search
                 </button>
@@ -415,8 +473,31 @@ const ApartmentsPage = () => {
 
       {/* Apartment Listings */}
       {loading ? (
-        <div className="flex justify-center items-center py-8">
-          <div className="text-gray-500">Loading apartment listings...</div>
+        <div className="space-y-6">
+          <div className="flex items-center justify-center py-4">
+            <div className="flex items-center gap-2 text-gray-500">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-400"></div>
+              <span>Loading apartment listings...</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2 animate-pulse">
+                <div className="bg-gray-200 h-48 w-full rounded-lg"></div>
+                <div className="py-2 md:px-2">
+                  <div className="h-5 bg-gray-200 rounded mb-2"></div>
+                  <div className="flex gap-4 mb-2">
+                    <div className="h-4 bg-gray-200 rounded w-12"></div>
+                    <div className="h-4 bg-gray-200 rounded w-12"></div>
+                    <div className="h-4 bg-gray-200 rounded w-12"></div>
+                  </div>
+                  <div className="h-4 bg-gray-200 rounded w-24 mb-3"></div>
+                  <div className="h-5 bg-gray-200 rounded w-20 mb-2"></div>
+                  <div className="h-10 bg-gray-200 rounded w-full mt-5"></div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : error ? (
         <div className="flex flex-col justify-center items-center py-8">
@@ -437,25 +518,33 @@ const ApartmentsPage = () => {
       ) : (
         <div>
           <div className="grid grid-cols-1 md:px- md:grid-cols-2 lg:grid-cols-2 gap-5">
-            {currentApartments.map((apt) => (
-            <div key={apt.id} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
-              <div className="relative">
-                <Image
-                  src={apt.image || Property}
-                  alt={apt.title || 'Apartment'}
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-                {/* <Image
-                  src={
-                    apt.images && apt.images.length > 0
-                      ? apt.images[0].original_image_url || apt.images[0].image
-                      : (apt.image || Property)
+            {currentApartments.map((apt) => {
+              // Process apartment image using same logic as ApartmentView
+              const getApartmentImage = (apartment) => {
+                if (apartment.images && apartment.images.length > 0) {
+                  const img = apartment.images[0];
+                  const url = img?.original_image_url || img?.image || '';
+                  const cleanUrl = url.replace(/^"|"$/g,'').replace(/^'|'$/g,'').trim();
+                  if (/^https?:\/\//i.test(cleanUrl)) return cleanUrl;
+                  if (cleanUrl && !cleanUrl.startsWith('http')) {
+                    return cleanUrl.startsWith('image/upload/') 
+                      ? `https://res.cloudinary.com/dsar6jtux/${cleanUrl}`
+                      : `https://res.cloudinary.com/dsar6jtux/image/upload/${cleanUrl}`;
                   }
-                  alt={apt.title || apt.name || 'Apartment'}
+                }
+                return Property; // Fallback to default image
+              };
+              
+              return (
+            <div key={apt.id} className="bg-white rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2 hover:shadow-lg transition-shadow duration-300">
+              <div className="relative group">
+                <Image
+                  src={getApartmentImage(apt)}
+                  alt={apt.title || 'Apartment'}
                   width={500}
-                  height={500}
-                  className="w-full h-42 object-cover rounded-lg"
-                /> */}
+                  height={300}
+                  className="w-full h-48 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                />
               {apt.tag && (
                 <div className={`absolute top-3 left-3 px-3 py-1 rounded-md text-xs font-medium ${apt.tag === 'NEW' ? 'bg-white text-purple-700' : 'bg-white text-emerald-700'}`}>
                   {apt.tag}
@@ -503,7 +592,8 @@ const ApartmentsPage = () => {
               </Link>
             </div>
           </div>
-        ))}
+              );
+            })}
           </div>
           
           {/* Pagination */}
@@ -694,6 +784,8 @@ const ApartmentsPage = () => {
     <MoreFilters 
       isOpen={isMoreFiltersOpen}
       onClose={() => setIsMoreFiltersOpen(false)}
+      onApplyFilters={handleApplyMoreFilters}
+      initialFilters={moreFilters}
     />
     {/* Sticky Filter bar */}
     <StickyFilterBar

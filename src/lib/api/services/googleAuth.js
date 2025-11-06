@@ -1,13 +1,21 @@
-// Google OAuth configuration
+// Google OAuth configuration 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 export const initializeGoogleAuth = () => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
+    if (!GOOGLE_CLIENT_ID) {
+      console.error('Google Client ID not configured');
+      reject(new Error('Google Client ID not configured'));
+      return;
+    }
+    
     if (typeof window !== 'undefined' && window.google) {
       window.google.accounts.id.initialize({
         client_id: GOOGLE_CLIENT_ID,
         callback: resolve,
       });
+    } else {
+      reject(new Error('Google SDK not loaded'));
     }
   });
 };

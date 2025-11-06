@@ -1,13 +1,15 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ChevronDown, LogOut, Menu, Building2, CreditCard, UserCheck, Wrench } from "lucide-react"
+import { ChevronDown, LogOut, Menu, RefreshCw } from "lucide-react"
 import Image from "next/image"
 import { NotificationIcon } from "@/assets/icons"
 import { Profile } from "@/assets/images"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import profileService from "@/lib/api/services/profileService"
+import { useNotifications } from "@/hooks/useNotifications"
+import NotificationItem from "@/components/NotificationItem"
 
 function Header(props) {
   const formatUserName = (user) => {
@@ -20,6 +22,8 @@ function Header(props) {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [Name, setName] = useState('');
   const [profile, setProfile] = useState(null);
+  const { notifications, unreadCount, loading, error, fetchNotifications, markAsRead, markAllAsRead } = useNotifications();
+  const router = useRouter();
   const dropdownRef = useRef(null);
   const notificationRef = useRef(null);
   const pathname = usePathname()
@@ -87,54 +91,71 @@ function Header(props) {
           <div className="flex items-center gap-6">
             <div className="relative" ref={notificationRef}>
               <button
-                className="text-gray-500 hover:text-gray-700 transition-colors bg-gray-100 p-2 rounded-full hover:bg-gray-200"
+                className="text-gray-500 hover:text-gray-700 transition-colors bg-gray-100 p-2 rounded-full hover:bg-gray-200 relative"
                 onClick={() => setIsNotificationOpen(!isNotificationOpen)}
               >
                 <Image src={NotificationIcon} alt="Notification" width={20} height={20} />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
               </button>
               {isNotificationOpen && (
-                <div className="absolute right-0 mt-2 w-80 z-50 bg-white rounded-lg shadow-lg py-2 border border-gray-100">
+                <div className="absolute right-0 mt-2 w-80 z-50 bg-white rounded-lg shadow-lg py-2 border border-gray-100 max-h-96 overflow-y-auto">
                   <div className="px-4 py-2 border-b border-gray-300 flex justify-between items-center">
                     <span className="font-semibold">Notifications</span>
-                    <span className="text-xs text-gray-500">2 unread</span>
-                  </div>
-                  <div className="px-4 py-2 bg-blue-50 rounded mb-2">
                     <div className="flex items-center gap-2">
-                      <Building2 className="text-blue-600 w-4 h-4" />
-                      <span className="font-medium">New Property Listed</span>
-                      <span className="ml-auto w-2 h-2 bg-blue-500 rounded-full"></span>
+                      <span className="text-xs text-gray-500">{unreadCount} unread</span>
+                      {unreadCount > 0 && (
+                        <button 
+                          onClick={markAllAsRead}
+                          className="text-xs text-blue-600 hover:underline"
+                        >
+                          Mark all read
+                        </button>
+                      )}
                     </div>
-                    <div className="text-xs text-gray-600">A new apartment has been added in Victoria Island</div>
-                    <div className="text-xs text-gray-400 mt-1">2 minutes ago</div>
                   </div>
-                  <div className="px-4 py-2 bg-blue-50 rounded mb-2">
-                    <div className="flex items-center gap-2">
-                      <CreditCard className="text-green-600 w-4 h-4" />
-                      <span className="font-medium">Payment Received</span>
-                      <span className="ml-auto w-2 h-2 bg-blue-500 rounded-full"></span>
+                  {error ? (
+                    <div className="px-4 py-6 text-center">
+                      <div className="text-red-500 text-sm mb-2">{error}</div>
+                      <button 
+                        onClick={fetchNotifications}
+                        className="flex items-center gap-1 mx-auto text-blue-600 text-sm hover:underline"
+                      >
+                        <RefreshCw className="w-3 h-3" />
+                        Retry
+                      </button>
                     </div>
-                    <div className="text-xs text-gray-600">Rent payment of ₦2,500,000 received from John Doe</div>
-                    <div className="text-xs text-gray-400 mt-1">1 hour ago</div>
-                  </div>
-                  <div className="px-4 py-2">
-                    <div className="flex items-center gap-2">
-                      <UserCheck className="text-purple-600 w-4 h-4" />
-                      <span className="font-medium">User Verification</span>
+                  ) : loading ? (
+                    <div className="px-4 py-8 text-center text-gray-500">Loading...</div>
+                  ) : notifications.length === 0 ? (
+                    <div className="px-4 py-8 text-center text-gray-500">No notifications</div>
+                  ) : (
+                    notifications.slice(0, 5).map((notification) => (
+                      <NotificationItem
+                        key={notification.id}
+                        notification={notification}
+                        onMarkAsRead={markAsRead}
+                        onNavigate={(url) => {
+                          setIsNotificationOpen(false);
+                          router.push(url);
+                        }}
+                      />
+                    ))
+                  )}
+                  {notifications.length > 0 && (
+                    <div className="px-4 py-2 text-center border-t border-gray-300">
+                      <Link 
+                        href="/notifications"
+                        className="text-primary text-sm font-medium hover:underline"
+                        onClick={() => setIsNotificationOpen(false)}
+                      >
+                        View all notifications
+                      </Link>
                     </div>
-                    <div className="text-xs text-gray-600">Sarah Johnson has completed profile verification</div>
-                    <div className="text-xs text-gray-400 mt-1">3 hours ago</div>
-                  </div>
-                  <div className="px-4 py-2">
-                    <div className="flex items-center gap-2">
-                      <Wrench className="text-orange-600 w-4 h-4" />
-                      <span className="font-medium">System Update</span>
-                    </div>
-                    <div className="text-xs text-gray-600">Platform maintenance scheduled for tonight</div>
-                    <div className="text-xs text-gray-400 mt-1">1 day ago</div>
-                  </div>
-                  <div className="px-4 py-2 text-center border-t border-gray-300">
-                    <button className="text-primary text-sm font-medium hover:underline">View all notifications</button>
-                  </div>
+                  )}
                 </div>
               )}
             </div>

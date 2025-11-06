@@ -40,6 +40,8 @@ function ApartmentView() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [relatedProperties, setRelatedProperties] = useState([]);
+  const [loadingRelated, setLoadingRelated] = useState(false);
 
   useEffect(() => {
     const fetchApartmentDetails = async () => {
@@ -63,6 +65,50 @@ function ApartmentView() {
     if (id) fetchApartmentDetails(); else { setError('No apartment ID provided'); setLoading(false); }
   }, [id]);
 
+  // Fetch related properties when apartment is loaded
+  useEffect(() => {
+    const fetchRelatedProperties = async () => {
+      if (!apartment?.id) return;
+      
+      try {
+        setLoadingRelated(true);
+        
+        try {
+          const response = await apartmentService.getRelatedProperties(apartment.id);
+          if (response && response.length > 0) {
+            setRelatedProperties(response);
+            return;
+          }
+        } catch (relatedError) {
+          // Fallback to other properties if related API fails
+        }
+        
+        // Fallback: Get other available properties
+        const allProperties = await apartmentService.getListings();
+        const propertiesArray = allProperties?.results || allProperties || [];
+        const otherProperties = propertiesArray
+          .filter(p => p.id !== apartment.id)
+          .slice(0, 4)
+          .map(p => ({
+            id: p.id,
+            title: p.title,
+            location: p.location,
+            price: p.price,
+            property_image: p.images?.[0]?.original_image_url || p.images?.[0]?.image || null
+          }));
+        
+        setRelatedProperties(otherProperties);
+        
+      } catch (err) {
+        setRelatedProperties([]);
+      } finally {
+        setLoadingRelated(false);
+      }
+    };
+    
+    fetchRelatedProperties();
+  }, [apartment?.id]);
+
   // Handle inspection booking
   const handleCloseInspectionModal = () => {
     setShowInspectionModal(false);
@@ -78,44 +124,20 @@ function ApartmentView() {
     // router.push('/payment/success?type=inspection');
   };
 
-  // Use only direct image URLs, no fallbacks
-  const apiImages = (apartment?.images || []).map((img, index) => {
-    console.log(`Processing image ${index}:`, img);
+  // Process apartment images
+  const apiImages = (apartment?.images || []).map((img) => {
     const url = img?.original_image_url || img?.image || '';
-    console.log(`Extracted URL:`, url);
-    // Clean up the URL
     const cleanUrl = url.replace(/^"|"$/g,'').replace(/^'|'$/g,'').trim();
-    console.log(`Clean URL:`, cleanUrl);
-    // If we have a full URL, use it directly
     if (/^https?:\/\//i.test(cleanUrl)) return cleanUrl;
-    // If it's a cloudinary path, construct the full URL
     if (cleanUrl && !cleanUrl.startsWith('http')) {
-      const cloudinaryUrl = cleanUrl.startsWith('image/upload/') 
+      return cleanUrl.startsWith('image/upload/') 
         ? `https://res.cloudinary.com/dsar6jtux/${cleanUrl}`
         : `https://res.cloudinary.com/dsar6jtux/image/upload/${cleanUrl}`;
-      console.log(`Constructed Cloudinary URL:`, cloudinaryUrl);
-      return cloudinaryUrl;
     }
-    console.log(`No valid URL found for image ${index}`);
     return '';
   }).filter(Boolean);
 
-  // Debug logging
-  if (apartment && process.env.NODE_ENV === 'development') {
-    // eslint-disable-next-line no-console
-    console.log('Apartment data:', apartment);
-    // eslint-disable-next-line no-console
-    console.log('Raw images array:', apartment.images);
-    // eslint-disable-next-line no-console
-    console.log('Final apiImages:', apiImages);
-  }
 
-  const apartments = [
-    { id: 3, title: '1 Bedroom Apartment', beds: 4, baths: 1, area: '8.79sqft', location: '1998 Wulfrta Minnesota, Festac', price: '₦24,000,000', image: PropertyOne },
-    { id: 4, title: '1 Bedroom Apartment', beds: 4, baths: 1, area: '8.75sqft', location: '1998 Wulfrta Minnesota, Festac', price: '₦24,000,000', image: PropertyTwo },
-    { id: 5, title: '1 Bedroom Apartment', beds: 4, baths: 1, area: '8.75sqft', location: '1998 Wulfrta Minnesota, Festac', price: '₦24,000,000', image: PropertyThree },
-    { id: 6, title: '1 Bedroom Apartment', beds: 4, baths: 1, area: '8.75sqft', location: '1998 Wulfrta Minnesota, Lasdo', price: '₦24,000,000', image: PropertyFour }
-  ];
 
   const handleInputChange = (e) => setReviewForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handleReviewSubmit = (e) => { e.preventDefault(); };
@@ -131,8 +153,59 @@ function ApartmentView() {
   if (loading) {
     return (
       <main className="landingpage-container px-4 md:px-0 mt-20">
-        <div className="flex justify-center items-center min-h-[60vh]">
-          <p className="text-gray-600">Loading apartment details...</p>
+        {/* Breadcrumb Skeleton */}
+        <div className="flex items-center gap-2 mb-6 animate-pulse">
+          <div className="h-4 bg-gray-200 rounded w-12"></div>
+          <div className="w-3 h-3 bg-gray-200 rounded"></div>
+          <div className="h-4 bg-gray-200 rounded w-20"></div>
+          <div className="w-3 h-3 bg-gray-200 rounded"></div>
+          <div className="h-4 bg-gray-200 rounded w-32"></div>
+        </div>
+
+        <div className="space-y-6">
+          {/* Image Gallery Skeleton */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 pt-3 mb-8 animate-pulse">
+            <div className="md:col-span-6 h-[60vh] md:h-[80vh] bg-gray-200 rounded-xl"></div>
+            <div className="md:col-span-6 flex flex-col gap-4">
+              <div className="h-[39vh] bg-gray-200 rounded-xl hidden md:block"></div>
+              <div className="h-[39vh] bg-gray-200 rounded-lg hidden md:block"></div>
+            </div>
+          </div>
+
+          {/* Details Skeleton */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-8 animate-pulse">
+            <div className="space-y-4">
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-8 bg-gray-200 rounded w-full"></div>
+              <div className="flex gap-6">
+                <div className="h-6 bg-gray-200 rounded w-16"></div>
+                <div className="h-6 bg-gray-200 rounded w-16"></div>
+                <div className="h-6 bg-gray-200 rounded w-16"></div>
+              </div>
+              <div className="h-6 bg-gray-200 rounded w-32"></div>
+              <div className="flex gap-4">
+                <div className="h-12 bg-gray-200 rounded w-32"></div>
+                <div className="h-12 bg-gray-200 rounded w-32"></div>
+              </div>
+              <div className="space-y-2">
+                <div className="h-4 bg-gray-200 rounded w-full"></div>
+                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="h-6 bg-gray-200 rounded w-48"></div>
+              <div className="bg-gray-100 rounded-lg p-6 space-y-4">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="flex justify-between items-center">
+                    <div className="h-4 bg-gray-200 rounded w-24"></div>
+                    <div className="h-4 bg-gray-200 rounded w-16"></div>
+                    <div className="h-4 bg-gray-200 rounded w-20"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     );
@@ -163,7 +236,7 @@ function ApartmentView() {
   return (
     <main className="landingpage-container px-4 md:px-0 mt-20">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm mb-6">
+      <nav className="flex items-center gap-2 text-sm mb-6 animate-fade-in">
         <Link href="/" className="text-gray-600 hover:text-complementary">Home</Link>
         <FiChevronRight className="w-3 h-3 text-gray-900" />
         <Link href="/apartment" className="text-gray-900 hover:text-complementary">Apartments</Link>
@@ -171,9 +244,9 @@ function ApartmentView() {
         <span className="text-complementary">{apartment.title || apartment.name || 'Apartment Details'}</span>
       </nav>
 
-      <div className="space-y-6">
+      <div className="space-y-6 animate-fade-in">
         {/* Image Gallery */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 pt-3 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 pt-3 mb-8 animate-slide-up">
           {apiImages[0] && (
             <div className="md:col-span-6 relative md:h-[80vh] h-[60vh] rounded-xl overflow-hidden">
               <Image
@@ -184,10 +257,7 @@ function ApartmentView() {
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
                 quality={90}
-                onError={(e) => {
-                  // eslint-disable-next-line no-console
-                  console.error('Failed to load image:', apiImages[currentImageIndex] || apiImages[0]);
-                }}
+
               />
               {/* Mobile Navigation Buttons */}
               {apiImages.length > 1 && (
@@ -218,7 +288,7 @@ function ApartmentView() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={85}
-                  onError={() => console.error('Failed to load second image:', apiImages[1])}
+
                 />
               </div>
             )}
@@ -231,7 +301,7 @@ function ApartmentView() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={85}
-                  onError={() => console.error('Failed to load third image:', apiImages[2])}
+
                 />
                 <div className="absolute bottom-5 right-5">
                   <button onClick={() => setShowGallery(true)} className="bg-[#00000199] text-white px-4 py-3 rounded-lg flex items-center gap-2 shadow-md cursor-pointer">
@@ -525,62 +595,81 @@ function ApartmentView() {
         </div>
 
         {/* Related Properties */}
-        <div className="pt-16 pb-10">
+        <div className="pt-16 pb-10 animate-slide-up" style={{ animationDelay: '600ms' }}>
           <h2 className="text-2xl font-semibold mb-8">Related Properties</h2>
-          <div className="-mx-5 px-5 md:mx-0 md:px-0">
-            <div className="flex md:grid md:grid-cols-4 gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
-              {apartments.map((apt) => (
-                <div key={apt.id} className="bg-white rounded-lg overflow-hidden flex-none w-[85%] md:w-auto snap-center">
-                  <div className="relative">
-                    <div className="absolute top-4 left-4 bg-white text-primary text-xs font-medium px-2 py-1 rounded">
-                      NEW
-                    </div>
-                    <Image
-                      src={apt.image}
-                      width={400}
-                      height={300}
-                      alt="property"
-                      className="w-full h-[200px] object-cover"
-                    />
-                  </div>
-                  <div className="py-2">
-                    <h3 className="text-sm font-bold text-gray-800 mb-2">{apt.title}</h3>
-                                    
-                    <div className="flex items-center gap-4 mb-2 text-xs text-gray-600">
-                      <div className="flex items-center gap-1">
-                        <Image src="/icons/UserDashboard/bedroom.svg" width={20} height={20} alt="bedroom" />
-                        <span>{apt.beds}bed</span>
-                      </div>
-                                      
-                      <div className="flex items-center gap-1">
-                        <Image src="/icons/UserDashboard/bath.svg" width={20} height={20} alt="bath" />
-                        <span>{apt.baths}bath</span>
-                      </div>
-                                      
-                      <div className="flex items-center gap-1">
-                        <Image src="/icons/UserDashboard/ruler.svg" width={20} height={20} alt="ruler" />
-                        <span>{apt.area}</span>
-                      </div>
+          {relatedProperties.length > 0 && !loadingRelated && (
+            <p className="text-sm text-gray-600 mb-4">Showing other available properties</p>
+          )}
+
+          {loadingRelated ? (
+            <div className="-mx-5 px-5 md:mx-0 md:px-0">
+              <div className="flex md:grid md:grid-cols-4 gap-6 overflow-x-auto">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="bg-white rounded-lg overflow-hidden flex-none w-[85%] md:w-auto animate-pulse">
+                    <div className="w-full h-[200px] bg-gray-200"></div>
+                    <div className="p-4 space-y-3">
+                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                      <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-1/3"></div>
+                      <div className="h-8 bg-gray-200 rounded"></div>
                     </div>
                   </div>
-                                    
-                  <div className="flex items-center gap-1 mb-3 text-gray-600">
-                    <Image src="/icons/UserDashboard/location.svg" className="h-4 w-4" width={20} height={20} alt="location" />
-                    <span className="text-xs">{apt.location}</span>
-                  </div>
-                                    
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-sm font-medium text-green-800">{apt.price}</p>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <button className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-emerald-800 transition-colors">
-                      Explore
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          ) : relatedProperties.length > 0 ? (
+            <div className="-mx-5 px-5 md:mx-0 md:px-0">
+              <div className="flex md:grid md:grid-cols-4 gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+                {relatedProperties.map((property, index) => (
+                  <Link 
+                    key={property.id} 
+                    href={`/apartment/${property.id}`} 
+                    className="bg-white rounded-lg overflow-hidden flex-none w-[85%] md:w-auto snap-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <div className="relative group">
+                      <div className="absolute top-4 left-4 bg-white text-primary text-xs font-medium px-2 py-1 rounded shadow-sm z-10">
+                        AVAILABLE
+                      </div>
+                      {property.property_image ? (
+                        <Image
+                          src={property.property_image}
+                          width={400}
+                          height={300}
+                          alt={property.title}
+                          className="w-full h-[200px] object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-[200px] bg-gray-200 flex items-center justify-center">
+                          <span className="text-gray-500 text-sm">No Image</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-sm font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-complementary transition-colors">{property.title}</h3>
+                      
+                      <div className="flex items-center gap-1 mb-3 text-gray-600">
+                        <Image src="/icons/UserDashboard/location.svg" className="h-4 w-4" width={20} height={20} alt="location" />
+                        <span className="text-xs line-clamp-1">{property.location}</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-sm font-medium text-complementary">₦{property.price?.toLocaleString()}</p>
+                      </div>
+                      
+                      <button className="bg-complementary text-white px-5 py-2 rounded-md text-sm font-medium w-full hover:bg-emerald-800 transition-all duration-200 hover:shadow-md">
+                        View Details
+                      </button>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-600">No related properties found.</p>
+            </div>
+          )}
         </div>
       </div>
 

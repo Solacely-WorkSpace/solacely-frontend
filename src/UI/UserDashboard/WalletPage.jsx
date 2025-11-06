@@ -16,14 +16,7 @@ import walletService from '../../lib/api/services/walletService'
 
 function WalletPage() {
   // API data state
-  const [dashboardStats, setDashboardStats] = useState({
-    total_wallet_balance: 0,
-    total_rent_savings: 0,
-    total_trc_circulating: 0,
-    total_escrow_balance: 0,
-    total_trc_redeemed: 0,
-    auto_save_enabled_count: 0
-  })
+  const [statsData, setStatsData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [transactions, setTransactions] = useState([])
   const [transactionsLoading, setTransactionsLoading] = useState(true)
@@ -32,18 +25,19 @@ function WalletPage() {
   const [typeFilter, setTypeFilter] = useState('')
   const filterDropdownRef = useRef(null)
 
-  // Fetch dashboard stats
+  // Fetch stats
   useEffect(() => {
-    const fetchDashboardStats = async () => {
+    const fetchData = async () => {
       try {
-        const statsData = await walletService.getDashboardStats()
-        setDashboardStats(statsData)
+        const stats = await walletService.getStats()
+        setStatsData(stats)
+        setLoading(false)
       } catch (error) {
-        console.error('Error fetching dashboard stats:', error)
+        setLoading(false)
       }
     }
 
-    fetchDashboardStats()
+    fetchData()
   }, [])
 
   // Fetch transactions with filters
@@ -58,7 +52,6 @@ function WalletPage() {
       const transactionsData = await walletService.getTransactions(params)
       setTransactions(transactionsData)
     } catch (error) {
-      console.error('Error fetching transactions:', error)
     } finally {
       setTransactionsLoading(false)
     }
@@ -83,26 +76,18 @@ function WalletPage() {
   // Format currency
   const formatCurrency = (amount) => `₦${amount?.toLocaleString() || '0'}`
   
-  // Calculate savings percentage (assuming a rent goal of 500,000)
-  const rentSavingsGoal = 500000
-  const savingsPercentage = dashboardStats.total_rent_savings > 0 
-    ? parseFloat(Math.min((dashboardStats.total_rent_savings / rentSavingsGoal) * 100, 100).toFixed(2))
-    : 0
+
+  
+  // Calculate savings percentage
+  const savingsPercentage = statsData ? Math.round((statsData.total_rent_savings / 500000 * 100) * 100) / 100 : 0
   
 
 
   // State for the savings view mode
   const [savingsView, setSavingsView] = useState('weekly')
   
-  // State for auto-save toggle (based on API data)
-  const [autoSave, setAutoSave] = useState(dashboardStats.auto_save_enabled_count > 0)
-
-  // Sample earnings data
-  const earningsData = {
-    surveys: '₦ 0',
-    microtasks: '₦ 0',
-    referrals: '₦ 0'
-  }
+  // State for auto-save toggle
+  const [autoSave, setAutoSave] = useState(false)
 
   const router = useRouter()
 
@@ -237,7 +222,7 @@ function WalletPage() {
           ) : (
             <>
               <h2 className="text-lg font-bold mb-2">
-                {formatCurrency(dashboardStats.total_wallet_balance)}
+                {formatCurrency(statsData?.total_wallet_balance || 0)}
               </h2>
               <div className="mt-4">
                 <p className="text-sm text-gray-400 font-semibold">Rent Progress</p>
@@ -248,7 +233,7 @@ function WalletPage() {
                   ></div>
                 </div>
                 <p className="mt-4 text-xs text-gray-500">
-                  {formatCurrency(dashboardStats.total_rent_savings)} of {formatCurrency(rentSavingsGoal)} saved
+                  {formatCurrency(statsData?.total_rent_savings || 0)} of ₦500,000 saved
                 </p>
               </div>
             </>
@@ -323,11 +308,11 @@ function WalletPage() {
                   <div 
                     onClick={() => setAutoSave(!autoSave)} 
                     className="relative w-6 h-4 bg-gray-200 rounded-full transition-colors duration-300 ease-in-out"
-                    style={{ backgroundColor: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? '#6b21a8' : '#e5e7eb' }}
+                    style={{ backgroundColor: (autoSave || (statsData?.auto_save_enabled_count > 0)) ? '#6b21a8' : '#e5e7eb' }}
                   >
                     <div 
                       className="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full shadow transition-transform duration-300 ease-in-out"
-                      style={{ transform: (autoSave || dashboardStats.auto_save_enabled_count > 0) ? 'translateX(8px)' : 'translateX(0)' }}
+                      style={{ transform: (autoSave || (statsData?.auto_save_enabled_count > 0)) ? 'translateX(8px)' : 'translateX(0)' }}
                     ></div>
                   </div>
                   <span className="text-xs">Auto-Save</span>
@@ -373,7 +358,7 @@ function WalletPage() {
           ) : (
             <>
               <h2 className="text-lg font-bold mb-4">
-                {formatCurrency(dashboardStats.total_trc_circulating)}
+                {formatCurrency(statsData?.total_trc_circulating || 0)}
               </h2>
               <p className="text-sm text-gray-400 font-semibold mt-4">Total Earnings</p>
               
@@ -385,7 +370,7 @@ function WalletPage() {
                     </div>
                     <span className="text-xs text-gray-600  font-medium">Surveys</span>
                   </div>
-                  <span className="text-xs font-medium text-center mt-2">{earningsData.surveys}</span>
+                  <span className="text-xs font-medium text-center mt-2">{formatCurrency(statsData?.trc_distribution?.surveys?.amount || 0)}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex items-center justify-center gap-2 w-full">
@@ -394,7 +379,7 @@ function WalletPage() {
                     </div>
                     <span className="text-xs text-gray-600 font-medium">Microtasks</span>
                   </div>
-                  <span className="text-xs font-medium text-center mt-2">{earningsData.microtasks}</span>
+                  <span className="text-xs font-medium text-center mt-2">{formatCurrency(statsData?.trc_distribution?.microTasks?.amount || 0)}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex items-center justify-center gap-2 w-full">
@@ -403,7 +388,7 @@ function WalletPage() {
                     </div>
                     <span className="text-xs text-gray-600  font-medium">Referrals</span>
                   </div>
-                  <span className="text-xs font-medium text-center mt-2">{earningsData.referrals}</span>
+                  <span className="text-xs font-medium text-center mt-2">{formatCurrency(statsData?.trc_distribution?.referrals?.amount || 0)}</span>
                 </div>
               </div>
 
@@ -431,7 +416,7 @@ function WalletPage() {
           ) : (
             <>
               <h2 className="text-xl font-bold mb-4 mt-4">
-                {formatCurrency(dashboardStats.total_escrow_balance)}
+                {formatCurrency(statsData?.escrow_transactions || 0)}
               </h2>
               <p className="text-sm text-gray-400 font-medium italic mb-4">Due in 15 days</p>
               

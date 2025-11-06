@@ -7,19 +7,26 @@ export default function TRCEarnings({ onBack }) {
   const [amount, setAmount] = useState('');
   const [destination, setDestination] = useState('Rent Savings');
   const [loading, setLoading] = useState(false);
-  const [trcBalance, setTrcBalance] = useState(0);
+  const [trcData, setTrcData] = useState(null);
+  const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchTrcBalance = async () => {
+    const fetchTrcData = async () => {
       try {
-        const response = await walletService.getDashboardStats();
-        setTrcBalance(response.trc_balance || 0);
+        const [trcSummary, trcTransactions] = await Promise.all([
+          walletService.getTrcSummary(),
+          walletService.getTransactions({ type: 'trc' })
+        ]);
+        setTrcData(trcSummary);
+        setTransactions(trcTransactions.slice(0, 10)); // Recent 10 transactions
+        setError('');
       } catch (error) {
-        console.error('Failed to fetch TRC balance:', error);
+        setError('Unable to load TRC balance at the moment. Please refresh.');
       }
     };
-    fetchTrcBalance();
+    fetchTrcData();
   }, []);
 
   const handleTransfer = async (e) => {
@@ -33,8 +40,8 @@ export default function TRCEarnings({ onBack }) {
       setAmount('');
       setMessage({ type: 'success', text: 'Transfer completed successfully!' });
       // Refresh balance after successful transfer
-      const response = await walletService.getDashboardStats();
-      setTrcBalance(response.trc_balance || 0);
+      const response = await walletService.getTrcSummary();
+      setTrcData(response);
     } catch (error) {
       const errorMessage = error.data?.error || 'Transfer failed. Please try again.';
       setMessage({ type: 'error', text: errorMessage });
@@ -57,44 +64,56 @@ export default function TRCEarnings({ onBack }) {
 
       {/* TRC Balance Card */}
       <div className="bg-purple-50 rounded-2xl p-6 flex flex-col md:flex-row md:items-center md:justify-between mb-8 relative overflow-hidden w-[310px] md:w-full">
-        <div className=" overflow-x-auto">
-          <div className="text-gray-800 font-medium text-sm mb-1">TRC Balance</div>
-          <div className="text-2xl font-bold mb-4 flex items-center gap-2">
-            ₦{trcBalance.toLocaleString()}
+        {error ? (
+          <div className="text-center py-8">
+            <div className="text-red-600 text-sm">{error}</div>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="mt-2 text-blue-600 text-sm underline"
+            >
+              Refresh
+            </button>
           </div>
-          <div className="flex gap-6 text-xs text-gray-500 overflow-x-auto md:overflow-x-visible md:scrollbar-none scrollbar-thin scrollbar-thumb-gray-300 px-1" style={{ WebkitOverflowScrolling: 'touch', overflowY: 'hidden', maxWidth: '100vw' }}>
-            <div className="flex flex-col items-start min-w-[90px]">
-              <div className="flex items-center gap-1">
-                <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/chart.svg" width={20} height={20} alt="surveys icon" className='w-4 h-4' /></span> <span>Surveys</span>
-              </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
+        ) : (
+          <div className=" overflow-x-auto">
+            <div className="text-gray-800 font-medium text-sm mb-1">TRC Balance</div>
+            <div className="text-2xl font-bold mb-4 flex items-center gap-2">
+              ₦{(trcData?.trc_balance || 0).toLocaleString()}
             </div>
-            <div className="flex flex-col items-start min-w-[90px]">
-              <div className="flex items-center gap-1">
-                <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/calendar-circle.svg" width={20} height={20} alt="microtasks icon" className='w-4 h-4' /></span> <span>Microtasks</span>
+            <div className="flex gap-6 text-xs text-gray-500 overflow-x-auto md:overflow-x-visible md:scrollbar-none scrollbar-thin scrollbar-thumb-gray-300 px-1" style={{ WebkitOverflowScrolling: 'touch', overflowY: 'hidden', maxWidth: '100vw' }}>
+              <div className="flex flex-col items-start min-w-[90px]">
+                <div className="flex items-center gap-1">
+                  <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/chart.svg" width={20} height={20} alt="surveys icon" className='w-4 h-4' /></span> <span>Surveys</span>
+                </div>
+                <span className="font-semibold text-gray-900 ml-6 mt-1">₦{(trcData?.breakdown?.survey || 0).toLocaleString()}</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
-            </div>
-            <div className="flex flex-col items-start min-w-[90px]">
-              <div className="flex items-center gap-1">
-                <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/user-tick.svg" width={20} height={20} alt="referrals icon" className='w-4 h-4' /></span> <span>Referrals</span>
+              <div className="flex flex-col items-start min-w-[90px]">
+                <div className="flex items-center gap-1">
+                  <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/calendar-circle.svg" width={20} height={20} alt="microtasks icon" className='w-4 h-4' /></span> <span>Microtasks</span>
+                </div>
+                <span className="font-semibold text-gray-900 ml-6 mt-1">₦{(trcData?.breakdown?.microtask || 0).toLocaleString()}</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
-            </div>
-            <div className="flex flex-col items-start min-w-[120px]">
-              <div className="flex items-center gap-1">
-                <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/UserDashboard/money.svg" width={20} height={20} alt="lifetime earnings icon" className='w-4 h-4' /></span> <span>Lifetime earnings</span>
+              <div className="flex flex-col items-start min-w-[90px]">
+                <div className="flex items-center gap-1">
+                  <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/user-tick.svg" width={20} height={20} alt="referrals icon" className='w-4 h-4' /></span> <span>Referrals</span>
+                </div>
+                <span className="font-semibold text-gray-900 ml-6 mt-1">₦{(trcData?.breakdown?.referral || 0).toLocaleString()}</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
-            </div>
-            <div className="flex flex-col items-start min-w-[110px]">
-              <div className="flex items-center gap-1">
-                <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/UserDashboard/walletMoney.svg" width={20} height={20} alt="withdrawable icon" className='w-4 h-4' /></span> <span>Withdrawable</span>
+              <div className="flex flex-col items-start min-w-[120px]">
+                <div className="flex items-center gap-1">
+                  <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/UserDashboard/money.svg" width={20} height={20} alt="lifetime earnings icon" className='w-4 h-4' /></span> <span>Lifetime earnings</span>
+                </div>
+                <span className="font-semibold text-gray-900 ml-6 mt-1">₦{(trcData?.total_trc_earned || 0).toLocaleString()}</span>
               </div>
-              <span className="font-semibold text-gray-900 ml-6 mt-1">₦ 0</span>
+              <div className="flex flex-col items-start min-w-[110px]">
+                <div className="flex items-center gap-1">
+                  <span className="text-emerald-500 bg-emerald-100 p-1 rounded"><Image src="/icons/UserDashboard/walletMoney.svg" width={20} height={20} alt="withdrawable icon" className='w-4 h-4' /></span> <span>Withdrawable</span>
+                </div>
+                <span className="font-semibold text-gray-900 ml-6 mt-1">₦{(trcData?.trc_balance || 0).toLocaleString()}</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <img src="/icons/UserDashboard/Coins.svg" alt="coins" className="w-34 h-32 absolute right-6 bottom-0 hidden md:block" style={{zIndex:0}} />
       </div> 
 
@@ -128,7 +147,7 @@ export default function TRCEarnings({ onBack }) {
               <input
                 type="text"
                 className="border border-gray-200 rounded-lg px-4 py-4 bg-gray-50 text-sm w-full"
-                value={`₦${trcBalance.toLocaleString()}`}
+                value={`₦${(trcData?.trc_balance || 0).toLocaleString()}`}
                 readOnly
               />
             </div>
@@ -157,6 +176,33 @@ export default function TRCEarnings({ onBack }) {
           <span className="text-lg text-primary rotate-180">ⓘ</span>
           Once transferred, this amount will be reflected in your Rent Savings balance.
         </div>
+      </div>
+
+      {/* Recent TRC Transactions */}
+      <div className="bg-white md:rounded-2xl md:border border-gray-200 md:p-6 mb-8 w-full max-w-full">
+        <h3 className="font-semibold text-lg mb-4">Recent TRC Transactions</h3>
+        {transactions.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">No TRC transactions found</div>
+        ) : (
+          <div className="space-y-3">
+            {transactions.map((transaction, index) => (
+              <div key={index} className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0">
+                <div>
+                  <div className="font-medium text-sm">{transaction.description}</div>
+                  <div className="text-xs text-gray-500">{new Date(transaction.created_at).toLocaleDateString()}</div>
+                </div>
+                <div className="text-right">
+                  <div className={`font-semibold text-sm ${
+                    transaction.type === 'trc' ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    {transaction.type === 'trc' ? '+' : '-'}₦{transaction.amount.toLocaleString()}
+                  </div>
+                  <div className="text-xs text-gray-500">Balance: ₦{transaction.resulting_balance?.toLocaleString() || '0'}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Insights */}

@@ -174,6 +174,38 @@ class ApartmentService extends BaseApiService {
       throw error;
     }
   }
+
+  // Search apartments with combined filters
+  async searchWithFilters(filters) {
+    try {
+      const params = {};
+      
+      if (filters.type) params.building_type = filters.type;
+      if (filters.minPrice) params.price_min = filters.minPrice;
+      if (filters.maxPrice) params.price_max = filters.maxPrice;
+      if (filters.bedrooms) params.bedrooms = filters.bedrooms;
+      if (filters.bathrooms) params.bathrooms = filters.bathrooms;
+      if (filters.location) params.search = filters.location;
+      if (filters.rentalPeriod) params.rental_period = filters.rentalPeriod;
+      
+      const response = await this.get('/listings/', params);
+      return response;
+    } catch (error) {
+      console.error('Error searching apartments with filters:', error);
+      throw error;
+    }
+  }
+
+  // Get related properties for a specific apartment
+  async getRelatedProperties(apartmentId) {
+    try {
+      const response = await this.get(`/listings/${apartmentId}/related/`);
+      return response;
+    } catch (error) {
+      console.error('Error fetching related properties:', error);
+      throw error;
+    }
+  }
 }
 
 // Create and export instance

@@ -5,7 +5,7 @@ import {PopUp} from '@/assets/images'
 
 
 const PopUpModal = ({ onClose }) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Handle closing the modal
   const handleClose = () => {

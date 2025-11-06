@@ -25,7 +25,7 @@ const WhyChooseSolacely = () => {
   ];
 
   return (
-    <section className="pt-12 px-4">
+    <section className="pt-12 px-4 bg-white py-16">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-2">
           Why Choose <br />Solacely?

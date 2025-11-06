@@ -5,9 +5,9 @@ class WalletService extends BaseApiService {
     super('/wallet');
   }
 
-  // wallet dashboard stats
-  async getDashboardStats() {
-    return this.get('/dashboard-stats/');
+  // wallet stats
+  async getStats() {
+    return this.get('/stats/');
   }
 
   // list of all wallet transactions
@@ -17,7 +17,12 @@ class WalletService extends BaseApiService {
 
   // transfer TRC earnings to rent savings
   async trcTransfer(amount) {
-    return this.post('/wallets/1/trc-transfer/', { amount });
+    return this.post('/wallets/<int:wallet_id>/trc-transfer/', { amount });
+  }
+
+  // get TRC summary for current user
+  async getTrcSummary() {
+    return this.get('/trc-summary/');
   }
 }
 
